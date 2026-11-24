@@ -1,0 +1,13 @@
+package mt
+
+// slot renders c inside a named slot wrapper; nil renders nothing.
+templ slot(name string, c templ.Component) {
+	if c != nil {
+		<span slot={ name } style="display:contents">
+			@c
+		</span>
+	}
+}
+
+// Raw renders an HTML string verbatim (e.g. inline SVG icons for sections).
+func Raw(html string) templ.Component { return templ.Raw(html) }

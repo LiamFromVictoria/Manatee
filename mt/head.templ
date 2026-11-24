@@ -1,0 +1,25 @@
+package mt
+
+import "github.com/you/manatee"
+
+// HeadProps configures the asset tags.
+type HeadProps struct {
+	// DefaultColorScheme applies when the user has no stored preference: "light", "dark" or "auto" (default).
+	DefaultColorScheme string
+}
+
+// Head renders the stylesheet, the pre-paint color scheme script and the
+// component module. Place it inside <head>.
+templ Head(p HeadProps) {
+	<link rel="stylesheet" href={ manatee.StylesheetURL() }/>
+	@colorSchemeScript(p.DefaultColorScheme)
+	<script type="module" src={ manatee.ScriptURL() }></script>
+}
+
+script colorSchemeScript(fallback string) {
+	try {
+		var s = localStorage.getItem('mt-color-scheme') || fallback;
+		if (s !== 'light' && s !== 'dark') s = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		document.documentElement.setAttribute('data-mt-color-scheme', s);
+	} catch (e) {}
+}

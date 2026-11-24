@@ -1,0 +1,43 @@
+package mt
+
+// TextInputProps mirrors Mantine's TextInput.
+type TextInputProps struct {
+	Base
+	Name         string
+	Value        string
+	Label        string
+	Description  string
+	Error        string
+	Placeholder  string
+	Type         string // text (default) | email | url | tel | search | ...
+	Variant      string // default | filled | unstyled
+	Size         string
+	Radius       string
+	Required     bool
+	Disabled     bool
+	ReadOnly     bool
+	AutoFocus    bool
+	AutoComplete string
+	InputMode    string
+	Pattern      string
+	MinLength    int
+	MaxLength    int
+	LeftSection  templ.Component
+	RightSection templ.Component
+}
+
+templ TextInput(p TextInputProps) {
+	<mt-text-input
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "label", p.Label, "description", p.Description, "error", p.Error,
+			"placeholder", p.Placeholder, "type", p.Type, "variant", p.Variant, "size", p.Size, "radius", p.Radius,
+			"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
+			"autocomplete", p.AutoComplete, "inputmode", p.InputMode, "pattern", p.Pattern,
+			"minlength", p.MinLength, "maxlength", p.MaxLength,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		@slot("right-section", p.RightSection)
+		{ children... }
+	</mt-text-input>
+}

@@ -1,0 +1,93 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+templ Shell(all []Page, current *Page) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>
+				if current != nil {
+					{ current.Title } · Manatee
+				} else {
+					Manatee
+				}
+			</title>
+			@mt.Head(mt.HeadProps{})
+			<style>
+				.docs { display: grid; grid-template-columns: 15rem 1fr; grid-template-rows: 3.75rem 1fr; min-height: 100vh; }
+				.docs-header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--mt-spacing-md); border-bottom: 1px solid var(--mt-color-border); position: sticky; top: 0; background: var(--mt-color-body); z-index: 10; }
+				.docs-brand { font-weight: 700; font-size: var(--mt-font-size-lg); color: var(--mt-color-text); text-decoration: none; }
+				.docs-nav { border-right: 1px solid var(--mt-color-border); padding: var(--mt-spacing-md); overflow-y: auto; position: sticky; top: 3.75rem; height: calc(100vh - 3.75rem); }
+				.docs-nav h4 { margin: var(--mt-spacing-md) 0 var(--mt-spacing-xs); font-size: var(--mt-font-size-xs); text-transform: uppercase; letter-spacing: 0.04em; color: var(--mt-color-dimmed); }
+				.docs-nav a { display: block; padding: 0.3rem 0.6rem; border-radius: var(--mt-radius-sm); color: var(--mt-color-text); text-decoration: none; font-size: var(--mt-font-size-sm); }
+				.docs-nav a:hover { background: var(--mt-color-hover); }
+				.docs-nav a[aria-current] { background: var(--mt-color-primary-light); color: var(--mt-color-primary-light-color); font-weight: 600; }
+				.docs-main { padding: var(--mt-spacing-xl); max-width: 64rem; min-width: 0; }
+				.docs-main > h1 { margin: 0 0 var(--mt-spacing-xs); font-size: var(--mt-h1-font-size); }
+				.docs-lead { color: var(--mt-color-dimmed); margin: 0 0 var(--mt-spacing-xl); }
+				.demo { margin-bottom: var(--mt-spacing-xl); }
+				.demo h2 { font-size: var(--mt-h3-font-size); margin: 0 0 var(--mt-spacing-sm); }
+				.demo-preview { padding: var(--mt-spacing-lg); border: 1px solid var(--mt-color-border); border-radius: var(--mt-radius-md) var(--mt-radius-md) 0 0; }
+				.demo-code { margin: 0; padding: var(--mt-spacing-md); background: var(--mt-color-code-bg); border: 1px solid var(--mt-color-border); border-top: 0; border-radius: 0 0 var(--mt-radius-md) var(--mt-radius-md); overflow-x: auto; font-family: var(--mt-font-family-monospace); font-size: var(--mt-font-size-xs); line-height: 1.6; }
+				.demo-row { display: flex; flex-wrap: wrap; gap: var(--mt-spacing-md); align-items: center; }
+				.home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: var(--mt-spacing-sm); }
+				.home-grid a { padding: var(--mt-spacing-sm) var(--mt-spacing-md); border: 1px solid var(--mt-color-border); border-radius: var(--mt-radius-md); color: var(--mt-color-text); text-decoration: none; }
+				.home-grid a:hover { background: var(--mt-color-hover); }
+			</style>
+		</head>
+		<body>
+			<div class="docs">
+				<header class="docs-header">
+					<a class="docs-brand" href="/">Manatee</a>
+					@mt.Button(mt.ButtonProps{Variant: mt.Default, Size: "compact-sm", Base: mt.Base{Attrs: templ.Attributes{"onclick": "manatee.toggleColorScheme()"}}}) {
+						Toggle color scheme
+					}
+				</header>
+				<nav class="docs-nav">
+					for i, p := range all {
+						if i == 0 || all[i-1].Group != p.Group {
+							<h4>{ p.Group }</h4>
+						}
+						<a href={ templ.SafeURL("/components/" + p.Slug) } aria-current?={ current != nil && current.Slug == p.Slug }>{ p.Title }</a>
+					}
+				</nav>
+				<main class="docs-main">
+					if current != nil {
+						<h1>{ current.Title }</h1>
+						<p class="docs-lead">{ current.Description }</p>
+						@current.Body
+					} else {
+						<h1>Manatee</h1>
+						<p class="docs-lead">Mantine-style web components for Go. { len(all) } components.</p>
+						<div class="home-grid">
+							for _, p := range all {
+								<a href={ templ.SafeURL("/components/" + p.Slug) }>{ p.Title }</a>
+							}
+						</div>
+					}
+				</main>
+			</div>
+		</body>
+	</html>
+}
+
+// Demo renders a titled live preview followed by its source snippet.
+templ Demo(title string, code string) {
+	<section class="demo">
+		<h2>{ title }</h2>
+		<div class="demo-preview">
+			{ children... }
+		</div>
+		<pre class="demo-code"><code>{ code }</code></pre>
+	</section>
+}
+
+// Row lays demo items out horizontally with wrapping.
+templ Row() {
+	<div class="demo-row">
+		{ children... }
+	</div>
+}

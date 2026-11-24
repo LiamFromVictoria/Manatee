@@ -1,0 +1,26 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+const iconAt = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>`
+
+templ TextInputPage() {
+	@Demo("Usage", `@mt.TextInput(mt.TextInputProps{Label: "Input label", Description: "Input description", Placeholder: "Input placeholder"})`) {
+		@mt.TextInput(mt.TextInputProps{Label: "Input label", Description: "Input description", Placeholder: "Input placeholder", Base: mt.Base{Maw: "320"}})
+	}
+	@Demo("Variants", `@mt.TextInput(mt.TextInputProps{Variant: mt.Filled})`) {
+		for _, v := range []string{mt.Default, mt.Filled, mt.Unstyled} {
+			@mt.TextInput(mt.TextInputProps{Label: v, Variant: v, Placeholder: v + " variant", Base: mt.Base{Maw: "320", Mb: mt.SM}})
+		}
+	}
+	@Demo("Sizes", `@mt.TextInput(mt.TextInputProps{Size: mt.LG})`) {
+		for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+			@mt.TextInput(mt.TextInputProps{Label: "Size " + s, Size: s, Placeholder: s, Base: mt.Base{Maw: "320", Mb: mt.SM}})
+		}
+	}
+	@Demo("Error, required, disabled, sections", `@mt.TextInput(mt.TextInputProps{Label: "Email", Error: "Invalid email", LeftSection: mt.Raw(icon)})`) {
+		@mt.TextInput(mt.TextInputProps{Label: "Email", Required: true, Error: "Invalid email", Value: "not-an-email", LeftSection: mt.Raw(iconAt), Base: mt.Base{Maw: "320", Mb: mt.SM}})
+		@mt.TextInput(mt.TextInputProps{Label: "Disabled", Disabled: true, Value: "Can't touch this", Base: mt.Base{Maw: "320", Mb: mt.SM}})
+		@mt.TextInput(mt.TextInputProps{Label: "Radius xl", Radius: mt.XL, Placeholder: "Rounded", RightSection: mt.Raw(iconAt), Base: mt.Base{Maw: "320"}})
+	}
+}

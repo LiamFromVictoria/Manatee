@@ -1,0 +1,81 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+const iconPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`
+
+templ ButtonPage() {
+	@Demo("Variants", `@mt.Button(mt.ButtonProps{Variant: mt.Light}) { Light }`) {
+		@Row() {
+			for _, v := range []string{mt.Filled, mt.Light, mt.Outline, mt.Subtle, mt.Default, mt.Transparent, mt.White, mt.Gradient} {
+				@mt.Button(mt.ButtonProps{Variant: v}) {
+					{ v }
+				}
+			}
+		}
+	}
+	@Demo("Colors", `@mt.Button(mt.ButtonProps{Color: mt.Teal}) { Teal }`) {
+		@Row() {
+			for _, c := range []string{mt.Dark, mt.Gray, mt.Red, mt.Pink, mt.Grape, mt.Violet, mt.Indigo, mt.Blue, mt.Cyan, mt.Teal, mt.Green, mt.Lime, mt.Yellow, mt.Orange, "red.3", "#ff00aa"} {
+				@mt.Button(mt.ButtonProps{Color: c}) {
+					{ c }
+				}
+			}
+		}
+	}
+	@Demo("Sizes", `@mt.Button(mt.ButtonProps{Size: mt.LG}) { Large }`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL, "compact-sm", "compact-md"} {
+				@mt.Button(mt.ButtonProps{Size: s}) {
+					{ s }
+				}
+			}
+		}
+	}
+	@Demo("Sections, loading, disabled", `@mt.Button(mt.ButtonProps{LeftSection: mt.Raw(iconSVG)}) { Create }`) {
+		@Row() {
+			@mt.Button(mt.ButtonProps{LeftSection: mt.Raw(iconPlus)}) {
+				Create
+			}
+			@mt.Button(mt.ButtonProps{Variant: mt.Default, RightSection: mt.Raw(iconPlus)}) {
+				Add item
+			}
+			@mt.Button(mt.ButtonProps{Loading: true}) {
+				Loading
+			}
+			@mt.Button(mt.ButtonProps{Disabled: true}) {
+				Disabled
+			}
+			@mt.Button(mt.ButtonProps{Href: "#", Variant: mt.Outline}) {
+				Link button
+			}
+			@mt.Button(mt.ButtonProps{Variant: mt.Gradient, GradientFrom: mt.Violet, GradientTo: mt.Pink, GradientDeg: 90, Radius: mt.XL}) {
+				Gradient
+			}
+		}
+	}
+	@Demo("Full width and group", `@mt.ButtonGroup(mt.ButtonGroupProps{}) { @mt.Button(...) ... }`) {
+		@mt.Button(mt.ButtonProps{FullWidth: true, Base: mt.Base{Mb: mt.MD}}) {
+			Full width
+		}
+		@mt.ButtonGroup(mt.ButtonGroupProps{}) {
+			@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+				First
+			}
+			@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+				Second
+			}
+			@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+				Third
+			}
+		}
+	}
+	@Demo("Form submission", `<form method="post" action="/echo">… @mt.Button(mt.ButtonProps{Type: "submit"}) { Submit }</form>`) {
+		<form method="post" action="/echo" target="_blank">
+			@mt.TextInput(mt.TextInputProps{Name: "email", Label: "Email", Placeholder: "you@example.com", Type: "email", Required: true, Base: mt.Base{Mb: mt.SM}})
+			@mt.Button(mt.ButtonProps{Type: "submit"}) {
+				Submit
+			}
+		</form>
+	}
+}

@@ -1,0 +1,62 @@
+/* Global document styles. Component styles live in each element's shadow root. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--mt-font-family);
+  font-size: var(--mt-font-size-md);
+  line-height: var(--mt-line-height);
+  background-color: var(--mt-color-body);
+  color: var(--mt-color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Floating / deferred content must not flash before its element upgrades. */
+mt-modal:not(:defined),
+mt-drawer:not(:defined),
+mt-tooltip:not(:defined) > [slot],
+mt-menu-dropdown:not(:defined),
+mt-popover-dropdown:not(:defined),
+mt-notifications:not(:defined),
+mt-tab-panel:not(:defined),
+mt-accordion-panel:not(:defined) {
+  display: none;
+}
+
+/* Block-level containers keep their layout before upgrade to limit shift. */
+mt-container,
+mt-stack,
+mt-grid,
+mt-simple-grid,
+mt-card,
+mt-paper,
+mt-alert,
+mt-app-shell,
+mt-divider,
+mt-text-input,
+mt-textarea,
+mt-password-input,
+mt-number-input,
+mt-select,
+mt-table,
+mt-tabs,
+mt-accordion {
+  display: block;
+}

@@ -1,0 +1,49 @@
+package mt
+
+// ButtonProps mirrors Mantine's Button.
+type ButtonProps struct {
+	Base
+	Variant      string // filled (default) | light | outline | subtle | default | transparent | white | gradient
+	Color        string
+	Size         string // xs..xl, compact-xs..compact-xl
+	Radius       string
+	FullWidth    bool
+	Disabled     bool
+	Loading      bool
+	Justify      string // CSS justify-content for the inner content
+	Type         string // button (default) | submit | reset
+	Href         string // renders an anchor
+	Target       string
+	GradientFrom string
+	GradientTo   string
+	GradientDeg  int
+	LeftSection  templ.Component
+	RightSection templ.Component
+}
+
+templ Button(p ButtonProps) {
+	<mt-button
+		{ attrs(p.Base,
+			"variant", p.Variant, "color", p.Color, "size", p.Size, "radius", p.Radius,
+			"full-width", p.FullWidth, "disabled", p.Disabled, "loading", p.Loading, "justify", p.Justify,
+			"type", p.Type, "href", p.Href, "target", p.Target,
+			"gradient-from", p.GradientFrom, "gradient-to", p.GradientTo, "gradient-deg", p.GradientDeg,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		{ children... }
+		@slot("right-section", p.RightSection)
+	</mt-button>
+}
+
+// ButtonGroupProps mirrors Mantine's Button.Group.
+type ButtonGroupProps struct {
+	Base
+	Orientation string // horizontal (default) | vertical
+}
+
+templ ButtonGroup(p ButtonGroupProps) {
+	<mt-button-group { attrs(p.Base, "orientation", p.Orientation)... }>
+		{ children... }
+	</mt-button-group>
+}
