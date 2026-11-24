@@ -34,6 +34,8 @@ type TextareaProps struct {
 	Resize       string // none (default) | vertical | both
 	LeftSection  templ.Component
 	RightSection templ.Component
+	// LeftSectionWidth / RightSectionWidth override the section width (default: input height).
+	LeftSectionWidth, RightSectionWidth string
 }
 
 func Textarea(p TextareaProps) templ.Component {
@@ -68,6 +70,7 @@ func Textarea(p TextareaProps) templ.Component {
 				"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
 				"autocomplete", p.AutoComplete, "minlength", p.MinLength, "maxlength", p.MaxLength,
 				"autosize", p.Autosize, "min-rows", p.MinRows, "max-rows", p.MaxRows, "resize", p.Resize,
+				"left-section-width", p.LeftSectionWidth, "right-section-width", p.RightSectionWidth,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

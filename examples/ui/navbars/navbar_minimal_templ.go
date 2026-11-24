@@ -63,7 +63,7 @@ func NavbarMinimal() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.navbar-minimal {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 750px;\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t}\n\t\t\t.navbar-minimal__main { flex: 1; margin-top: 50px; }\n\t\t\t.navbar-minimal__link {\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5)); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { background-color: var(--mt-color-blue-light); color: var(--mt-color-blue-light-color); }\n\t\t\t\t}\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.navbar-minimal {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 750px;\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t}\n\t\t\t.navbar-minimal__main { flex: 1; margin-top: 50px; }\n\t\t\t.navbar-minimal__link {\n\t\t\t\tborder: 0; background: none; padding: 0; font: inherit; cursor: pointer;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5)); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { background-color: var(--mt-color-blue-light); color: var(--mt-color-blue-light-color); }\n\t\t\t\t}\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -93,7 +93,7 @@ func NavbarMinimal() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = blocks.Logo(30).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = blocks.LogoMark(30).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -139,7 +139,7 @@ func NavbarMinimal() templ.Component {
 					var templ_7745c5c3_Var6 string
 					templ_7745c5c3_Var6, templ_7745c5c3_Err = templruntime.NewAttributeExpression(l.Label).Resolve(ctx)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_minimal.templ`, Line: 64, Col: 83}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_minimal.templ`, Line: 65, Col: 83}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 					if templ_7745c5c3_Err != nil {
@@ -162,7 +162,7 @@ func NavbarMinimal() templ.Component {
 					var templ_7745c5c3_Var7 string
 					templ_7745c5c3_Var7, templ_7745c5c3_Err = templruntime.NewAttributeExpression(l.Label).Resolve(ctx)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_minimal.templ`, Line: 64, Col: 130}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_minimal.templ`, Line: 65, Col: 130}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 					if templ_7745c5c3_Err != nil {

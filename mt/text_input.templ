@@ -24,6 +24,8 @@ type TextInputProps struct {
 	MaxLength    int
 	LeftSection  templ.Component
 	RightSection templ.Component
+	// LeftSectionWidth / RightSectionWidth override the section width (default: input height).
+	LeftSectionWidth, RightSectionWidth string
 }
 
 templ TextInput(p TextInputProps) {
@@ -34,6 +36,7 @@ templ TextInput(p TextInputProps) {
 			"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
 			"autocomplete", p.AutoComplete, "inputmode", p.InputMode, "pattern", p.Pattern,
 			"minlength", p.MinLength, "maxlength", p.MaxLength,
+			"left-section-width", p.LeftSectionWidth, "right-section-width", p.RightSectionWidth,
 		)... }
 	>
 		@slot("left-section", p.LeftSection)

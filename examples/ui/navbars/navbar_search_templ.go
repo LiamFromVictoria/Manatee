@@ -69,7 +69,7 @@ func NavbarSearch() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.navbar-search {\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t\theight: 700px;\n\t\t\t\twidth: 300px;\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tpadding-top: 0;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t}\n\t\t\t.navbar-search__section {\n\t\t\t\tmargin-left: calc(var(--mt-spacing-md) * -1);\n\t\t\t\tmargin-right: calc(var(--mt-spacing-md) * -1);\n\t\t\t\tmargin-bottom: var(--mt-spacing-md);\n\t\t\t\t&:not(:last-of-type) { border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4)); }\n\t\t\t}\n\t\t\t.navbar-search__search-code {\n\t\t\t\tfont-weight: 700;\n\t\t\t\tfont-size: 10px;\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.navbar-search__main-links { padding-left: calc(var(--mt-spacing-md) - var(--mt-spacing-xs)); padding-right: calc(var(--mt-spacing-md) - var(--mt-spacing-xs)); padding-bottom: var(--mt-spacing-md); }\n\t\t\t.navbar-search__main-link {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\twidth: 100%;\n\t\t\t\tfont-size: var(--mt-font-size-xs);\n\t\t\t\tpadding: 8px var(--mt-spacing-xs);\n\t\t\t\tborder-radius: var(--mt-radius-sm);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\tborder: none;\n\t\t\t\tbackground: none;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttext-align: left;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }\n\t\t\t}\n\t\t\t.navbar-search__main-link-inner { display: flex; align-items: center; flex: 1; }\n\t\t\t.navbar-search__main-link-icon { margin-right: var(--mt-spacing-sm); color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); }\n\t\t\t.navbar-search__main-link-badge { padding: 0; width: 20px; height: 20px; pointer-events: none; }\n\t\t\t.navbar-search__collections { padding-left: calc(var(--mt-spacing-md) - 6px); padding-right: calc(var(--mt-spacing-md) - 6px); padding-bottom: var(--mt-spacing-md); }\n\t\t\t.navbar-search__collections-header { padding-left: calc(var(--mt-spacing-md) + 2px); padding-right: var(--mt-spacing-md); margin-bottom: 5px; }\n\t\t\t.navbar-search__collection-link {\n\t\t\t\tdisplay: block;\n\t\t\t\tpadding: 8px var(--mt-spacing-xs);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tborder-radius: var(--mt-radius-sm);\n\t\t\t\tfont-size: var(--mt-font-size-xs);\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-weight: 500;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.navbar-search {\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t\theight: 700px;\n\t\t\t\twidth: 300px;\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tpadding-top: 0;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t}\n\t\t\t.navbar-search__section {\n\t\t\t\tmargin-left: calc(var(--mt-spacing-md) * -1);\n\t\t\t\tmargin-right: calc(var(--mt-spacing-md) * -1);\n\t\t\t\tmargin-bottom: var(--mt-spacing-md);\n\t\t\t\t&:not(:last-of-type) { border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4)); }\n\t\t\t}\n\t\t\t.navbar-search__search-code::part(root) {\n\t\t\t\tfont-weight: 700;\n\t\t\t\tfont-size: 10px;\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.navbar-search__main-links { padding-left: calc(var(--mt-spacing-md) - var(--mt-spacing-xs)); padding-right: calc(var(--mt-spacing-md) - var(--mt-spacing-xs)); padding-bottom: var(--mt-spacing-md); }\n\t\t\t.navbar-search__main-link {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\twidth: 100%;\n\t\t\t\tfont-size: var(--mt-font-size-xs);\n\t\t\t\tpadding: 8px var(--mt-spacing-xs);\n\t\t\t\tborder-radius: var(--mt-radius-sm);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\tborder: none;\n\t\t\t\tbackground: none;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttext-align: left;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }\n\t\t\t}\n\t\t\t.navbar-search__main-link-inner { display: flex; align-items: center; flex: 1; }\n\t\t\t.navbar-search__main-link-icon { display: flex; margin-right: var(--mt-spacing-sm); color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); }\n\t\t\t.navbar-search__main-link-badge { width: 20px; height: 20px; pointer-events: none; }\n\t\t\t.navbar-search__main-link-badge::part(root) { padding: 0; width: 20px; height: 20px; justify-content: center; }\n\t\t\t.navbar-search__collections { padding-left: calc(var(--mt-spacing-md) - 6px); padding-right: calc(var(--mt-spacing-md) - 6px); padding-bottom: var(--mt-spacing-md); }\n\t\t\t.navbar-search__collections-header { padding-left: calc(var(--mt-spacing-md) + 2px); padding-right: var(--mt-spacing-md); margin-bottom: 5px; }\n\t\t\t.navbar-search__collection-link {\n\t\t\t\tdisplay: block;\n\t\t\t\tpadding: 8px var(--mt-spacing-xs);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tborder-radius: var(--mt-radius-sm);\n\t\t\t\tfont-size: var(--mt-font-size-xs);\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-weight: 500;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -94,8 +94,8 @@ func NavbarSearch() templ.Component {
 		templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{
 			Placeholder: "Search", Size: mt.XS, AutoComplete: "off",
 			LeftSection:  navbarSearchIcon(),
-			RightSection: navbarSearchShortcut(),
-			Base:         mt.Base{Mb: mt.SM},
+			RightSection: navbarSearchShortcut(), RightSectionWidth: "70",
+			Base: mt.Base{Mb: mt.SM},
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -120,7 +120,7 @@ func NavbarSearch() templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(l.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 111, Col: 22}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 112, Col: 22}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -146,7 +146,7 @@ func NavbarSearch() templ.Component {
 					var templ_7745c5c3_Var5 string
 					templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(l.Notifications))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 115, Col: 37}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 116, Col: 37}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 					if templ_7745c5c3_Err != nil {
@@ -260,7 +260,7 @@ func NavbarSearch() templ.Component {
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(c.Emoji)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 134, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 135, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
@@ -273,7 +273,7 @@ func NavbarSearch() templ.Component {
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(c.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 134, Col: 80}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 135, Col: 80}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {

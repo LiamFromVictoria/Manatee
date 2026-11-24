@@ -17,7 +17,7 @@ var taskCardAvatars = []string{
 templ TaskCard() {
 	@mt.Card(mt.CardProps{WithBorder: true, Padding: mt.LG, Radius: mt.MD}) {
 		@mt.Group(mt.GroupProps{Justify: "space-between"}) {
-			@blocks.Logo(32)
+			@blocks.LogoMark(32)
 			@mt.Badge(mt.BadgeProps{}) {
 				12 days left
 			}

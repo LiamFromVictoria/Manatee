@@ -50,7 +50,7 @@ templ NavbarSearch() {
 				margin-bottom: var(--mt-spacing-md);
 				&:not(:last-of-type) { border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4)); }
 			}
-			.navbar-search__search-code {
+			.navbar-search__search-code::part(root) {
 				font-weight: 700;
 				font-size: 10px;
 				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));
@@ -73,8 +73,9 @@ templ NavbarSearch() {
 				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }
 			}
 			.navbar-search__main-link-inner { display: flex; align-items: center; flex: 1; }
-			.navbar-search__main-link-icon { margin-right: var(--mt-spacing-sm); color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); }
-			.navbar-search__main-link-badge { padding: 0; width: 20px; height: 20px; pointer-events: none; }
+			.navbar-search__main-link-icon { display: flex; margin-right: var(--mt-spacing-sm); color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); }
+			.navbar-search__main-link-badge { width: 20px; height: 20px; pointer-events: none; }
+			.navbar-search__main-link-badge::part(root) { padding: 0; width: 20px; height: 20px; justify-content: center; }
 			.navbar-search__collections { padding-left: calc(var(--mt-spacing-md) - 6px); padding-right: calc(var(--mt-spacing-md) - 6px); padding-bottom: var(--mt-spacing-md); }
 			.navbar-search__collections-header { padding-left: calc(var(--mt-spacing-md) + 2px); padding-right: var(--mt-spacing-md); margin-bottom: 5px; }
 			.navbar-search__collection-link {
@@ -97,7 +98,7 @@ templ NavbarSearch() {
 		@mt.TextInput(mt.TextInputProps{
 			Placeholder: "Search", Size: mt.XS, AutoComplete: "off",
 			LeftSection: navbarSearchIcon(),
-			RightSection: navbarSearchShortcut(),
+			RightSection: navbarSearchShortcut(), RightSectionWidth: "70",
 			Base:        mt.Base{Mb: mt.SM},
 		})
 		<div class="navbar-search__section">

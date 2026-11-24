@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -34,12 +35,24 @@ var variantSuffixes = []string{"filled", "filled-hover", "light", "light-hover",
 
 func shade(name string, i int) string { return fmt.Sprintf("var(--mt-color-%s-%d)", name, i) }
 
-func rgba(hex string, alpha float64) string {
+func rgb(hex string) (r, g, b float64) {
 	h := strings.TrimPrefix(hex, "#")
-	r, _ := strconv.ParseUint(h[0:2], 16, 8)
-	g, _ := strconv.ParseUint(h[2:4], 16, 8)
-	b, _ := strconv.ParseUint(h[4:6], 16, 8)
-	return fmt.Sprintf("rgba(%d, %d, %d, %g)", r, g, b, alpha)
+	ri, _ := strconv.ParseUint(h[0:2], 16, 8)
+	gi, _ := strconv.ParseUint(h[2:4], 16, 8)
+	bi, _ := strconv.ParseUint(h[4:6], 16, 8)
+	return float64(ri), float64(gi), float64(bi)
+}
+
+func rgba(hex string, alpha float64) string {
+	r, g, b := rgb(hex)
+	return fmt.Sprintf("rgba(%g, %g, %g, %g)", r, g, b, alpha)
+}
+
+// scaled multiplies each channel by f (Mantine darkens shade 9 this way for
+// the dark-scheme "light" variant).
+func scaled(hex string, f float64) string {
+	r, g, b := rgb(hex)
+	return fmt.Sprintf("#%02x%02x%02x", int(math.Round(r*f)), int(math.Round(g*f)), int(math.Round(b*f)))
 }
 
 // tokensCSS generates the theme custom properties for both color schemes.
@@ -127,8 +140,9 @@ func tokensCSS() string {
 			{"--mt-color-overlay", "rgba(0, 0, 0, 0.6)"},
 			{"--mt-color-code-bg", shade("gray", 0)},
 		},
+		// Matches current Mantine: solid light variants (shade 1/2) with shade-9 text.
 		variants: func(n string, s [10]string) []string {
-			return []string{shade(n, 6), shade(n, 7), rgba(s[6], 0.1), rgba(s[6], 0.12), shade(n, 6), shade(n, 6), rgba(s[6], 0.05), shade(n, 6)}
+			return []string{shade(n, 6), shade(n, 7), shade(n, 1), shade(n, 2), shade(n, 9), shade(n, 6), rgba(s[6], 0.05), shade(n, 6)}
 		},
 	}
 	dark := scheme{
@@ -160,8 +174,9 @@ func tokensCSS() string {
 			{"--mt-color-overlay", "rgba(0, 0, 0, 0.6)"},
 			{"--mt-color-code-bg", shade("dark", 8)},
 		},
+		// Matches current Mantine: light variant is shade 9 darkened to 50% (hover 70%), text shade 0.
 		variants: func(n string, s [10]string) []string {
-			return []string{shade(n, 8), shade(n, 9), rgba(s[6], 0.15), rgba(s[6], 0.2), shade(n, 3), shade(n, 4), rgba(s[4], 0.05), shade(n, 4)}
+			return []string{shade(n, 8), shade(n, 9), scaled(s[9], 0.5), scaled(s[9], 0.7), shade(n, 0), shade(n, 4), rgba(s[4], 0.05), shade(n, 4)}
 		},
 	}
 	for _, sc := range []scheme{light, dark} {

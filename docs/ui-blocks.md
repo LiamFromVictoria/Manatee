@@ -107,7 +107,9 @@ plus an `Error` shown from server-rendered state, or a few lines of script.
 - `@tabler/icons-react` → package `github.com/LiamFromVictoria/Manatee/icons`, same names:
   `@icons.IconChevronDown(icons.Props{Size: 16, Stroke: 1.5})`. Every icon ui.mantine.dev
   uses is already generated. `Icon2fa` → `IconAuth2fa`, `IconDiscount2` → `IconDiscount`.
-- `@mantinex/mantine-logo` `MantineLogo` → `@blocks.Logo(size)`.
+- `@mantinex/mantine-logo` `MantineLogo` → `@blocks.Logo(size)`; `type="mark"` → `@blocks.LogoMark(size)`.
+- `UnstyledButton` rendered as a raw `<button class="...">`: the class must reset native chrome
+  (`border: 0; background: none; padding: 0; font: inherit; cursor: pointer;`) before its own rules.
 - `@mantinex/dev-icons` → `icons.IconBrandTwitter` / `IconBrandGithub` / `IconBrandDiscord`.
 - Remote images (images.unsplash.com, raw.githubusercontent.com, …) stay as URLs.
   Local `image.svg` / `bg.svg` files are copied next to the templ file, embedded with
