@@ -64,6 +64,7 @@ templ GetInTouch() {
 					padding-left: var(--mt-spacing-md);
 				}
 			}
+			.get-in-touch__fields { margin-top: -12px; }
 			.get-in-touch__title {
 				margin-bottom: calc(var(--mt-spacing-xl) * 1.5);
 				font-family: Outfit, var(--mt-font-family);
@@ -81,7 +82,7 @@ templ GetInTouch() {
 	@mt.Paper(mt.PaperProps{Shadow: mt.MD, Radius: mt.LG}) {
 		<div class="get-in-touch__wrapper">
 			<div class="get-in-touch__contacts" style={ "background-image:url(" + getInTouchBgDataURL + ")" }>
-				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 700, C: "#fff", Base: mt.Base{Class: "get-in-touch__title"}}) {
+				@mt.Text(mt.TextProps{Fw: 700, C: "#fff", Base: mt.Base{Class: "get-in-touch__title", Fz: mt.LG}}) {
 					Contact information
 				}
 				@mt.Stack(mt.StackProps{}) {
@@ -103,20 +104,22 @@ templ GetInTouch() {
 				}
 			</div>
 			<form class="get-in-touch__form">
-				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 700, Base: mt.Base{Class: "get-in-touch__title"}}) {
+				@mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Class: "get-in-touch__title", Fz: mt.LG}}) {
 					Get in touch
 				}
-				@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2}) {
-					@mt.TextInput(mt.TextInputProps{Label: "Your name", Placeholder: "Your name", Name: "name"})
-					@mt.TextInput(mt.TextInputProps{Label: "Your email", Placeholder: "hello@mantine.dev", Required: true, Name: "email", Type: "email"})
-				}
-				@mt.TextInput(mt.TextInputProps{Label: "Subject", Placeholder: "Subject", Required: true, Name: "subject", Base: mt.Base{Mt: mt.MD}})
-				@mt.Textarea(mt.TextareaProps{Label: "Your message", Placeholder: "Please include all relevant information", MinRows: 3, Name: "message", Base: mt.Base{Mt: mt.MD}})
-				@mt.Group(mt.GroupProps{Justify: "flex-end", Base: mt.Base{Mt: mt.MD}}) {
-					@mt.Button(mt.ButtonProps{Type: "submit"}) {
-						Send message
+				<div class="get-in-touch__fields">
+					@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2}) {
+						@mt.TextInput(mt.TextInputProps{Label: "Your name", Placeholder: "Your name", Name: "name"})
+						@mt.TextInput(mt.TextInputProps{Label: "Your email", Placeholder: "hello@mantine.dev", Required: true, Name: "email", Type: "email"})
 					}
-				}
+					@mt.TextInput(mt.TextInputProps{Label: "Subject", Placeholder: "Subject", Required: true, Name: "subject", Base: mt.Base{Mt: mt.MD}})
+					@mt.Textarea(mt.TextareaProps{Label: "Your message", Placeholder: "Please include all relevant information", MinRows: 3, Name: "message", Base: mt.Base{Mt: mt.MD}})
+					@mt.Group(mt.GroupProps{Justify: "flex-end", Base: mt.Base{Mt: mt.MD}}) {
+						@mt.Button(mt.ButtonProps{Type: "submit"}) {
+							Send message
+						}
+					}
+				</div>
 			</form>
 		</div>
 	}

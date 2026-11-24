@@ -155,13 +155,10 @@ const controlStyles = css`
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: 2.75rem;
-    padding: var(--mt-spacing-md);
-    gap: var(--mt-spacing-md);
+    padding-inline: var(--mt-spacing-md);
     font: inherit;
-    font-size: var(--mt-font-size-sm);
-    font-weight: 500;
-    color: var(--mt-color-text);
+    font-size: var(--mt-font-size-md);
+    color: var(--mt-color-bright);
     background: transparent;
     border: 0;
     text-align: start;
@@ -171,9 +168,10 @@ const controlStyles = css`
   .control:focus-visible { outline: var(--mt-focus-ring); outline-offset: -2px; }
   :host([aria-disabled='true']) .control { color: var(--mt-color-disabled-color); cursor: not-allowed; }
   :host([data-chevron-position='left']) .control { flex-direction: row-reverse; }
-  .icon { display: none; align-items: center; }
+  .icon { display: none; align-items: center; margin-inline-end: var(--mt-spacing-sm); }
   :host([data-has-icon]) .icon { display: flex; }
-  .label { flex: 1; min-width: 0; }
+  :host([data-chevron-position='left']) .icon { margin-inline-end: 0; margin-inline-start: var(--mt-spacing-lg); }
+  .label { flex: 1; min-width: 0; font-weight: 400; padding-block: var(--mt-spacing-sm); }
   .chevron { display: flex; align-items: center; color: var(--mt-color-dimmed); }
   .chevron svg { transition: transform var(--mt-transition); }
   :host([aria-expanded='true']) .chevron svg { transform: rotate(180deg); }

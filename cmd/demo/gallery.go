@@ -51,6 +51,7 @@ func mountGallery(mux *http.ServeMux, pages []Page) {
 		seen[b.Slug] = true
 		mux.Handle("GET /ui/render/"+b.Slug, templ.Handler(BlockCanvas(b)))
 	}
+	mux.Handle("GET "+blocks.FontsPrefix, blocks.FontHandler())
 	mux.Handle("GET /ui", templ.Handler(Layout(pages, "/ui", "UI blocks",
 		strconv.Itoa(len(uiBlocks))+" blocks ported from ui.mantine.dev, built with Manatee components.", GalleryIndex())))
 	for _, c := range blocks.Categories {

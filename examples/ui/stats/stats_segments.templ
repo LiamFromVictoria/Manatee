@@ -55,17 +55,17 @@ templ StatsSegments() {
 	@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{P: mt.MD}}) {
 		@mt.Group(mt.GroupProps{Justify: "space-between"}) {
 			@mt.Group(mt.GroupProps{Align: "flex-end", Gap: mt.XS}) {
-				@mt.Text(mt.TextProps{Size: mt.XL, Fw: 700}) {
+				@mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Fz: mt.XL}}) {
 					345,765
 				}
-				@mt.Text(mt.TextProps{C: mt.Teal, Size: mt.SM, Fw: 700, Base: mt.Base{Class: "stats-segments__diff"}}) {
+				@mt.Text(mt.TextProps{C: mt.Teal, Fw: 700, Base: mt.Base{Class: "stats-segments__diff", Fz: mt.SM}}) {
 					<span>18%</span>
 					@icons.IconArrowUpRight(icons.Props{Size: 16, Stroke: 1.5, Style: "margin-bottom: 4px"})
 				}
 			}
 			@icons.IconDeviceAnalytics(icons.Props{Size: 22, Stroke: 1.5, Class: "stats-segments__icon"})
 		}
-		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 			Page views compared to previous month
 		}
 		@mt.ProgressRoot(mt.ProgressRootProps{Size: "34", Base: mt.Base{Class: "stats-segments__progress", Mt: "40"}}) {
@@ -80,7 +80,7 @@ templ StatsSegments() {
 		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsXs: 3, Base: mt.Base{Mt: mt.XL}}) {
 			for _, s := range statsSegmentsData {
 				@mt.Box(mt.BoxProps{Base: mt.Base{Class: "stats-segments__stat", Style: "border-bottom-color: " + s.Color}}) {
-					@mt.Text(mt.TextProps{Tt: "uppercase", Size: mt.XS, C: mt.Dimmed, Fw: 700}) {
+					@mt.Text(mt.TextProps{Tt: "uppercase", C: mt.Dimmed, Fw: 700, Base: mt.Base{Fz: mt.XS}}) {
 						{ s.Label }
 					}
 					@mt.Group(mt.GroupProps{Justify: "space-between", Align: "flex-end", Gap: "0"}) {

@@ -28,10 +28,10 @@ templ ProgressCardColored() {
 		</style>
 	}
 	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Class: "progress-card-colored"}}) {
-		@mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, Base: mt.Base{Class: "progress-card-colored__title"}}) {
+		@mt.Text(mt.TextProps{Tt: "uppercase", Fw: 700, Base: mt.Base{Class: "progress-card-colored__title", Fz: mt.XS}}) {
 			Monthly goal
 		}
-		@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "progress-card-colored__stats"}}) {
+		@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Class: "progress-card-colored__stats", Fz: mt.LG}}) {
 			$5.431 / $10.000
 		}
 		@mt.Progress(mt.ProgressProps{

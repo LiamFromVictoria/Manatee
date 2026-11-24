@@ -43,10 +43,10 @@ templ CheckboxCard() {
 			Base:    mt.Base{Mr: "xl", Class: "checkbox-card__checkbox"},
 		})
 		<div>
-			@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Mb: "7", Style: "line-height:1"}}) {
+			@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Mb: "7", Lh: "1"}}) {
 				{ "@mantine/core" }
 			}
-			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 				Core components library: inputs, buttons, overlays, etc.
 			}
 		</div>

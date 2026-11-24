@@ -71,7 +71,7 @@ templ StatsGrid() {
 						@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-grid__value"}}) {
 							{ s.Value }
 						}
-						@mt.Text(mt.TextProps{C: statsGridDiffColor(s.Diff), Size: mt.SM, Fw: 500, Base: mt.Base{Class: "stats-grid__diff"}}) {
+						@mt.Text(mt.TextProps{C: statsGridDiffColor(s.Diff), Fw: 500, Base: mt.Base{Class: "stats-grid__diff", Fz: mt.SM}}) {
 							<span>{ strconv.Itoa(s.Diff) + "%" }</span>
 							if s.Diff > 0 {
 								@icons.IconArrowUpRight(icons.Props{Size: 16, Stroke: 1.5})
@@ -80,7 +80,7 @@ templ StatsGrid() {
 							}
 						}
 					}
-					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Mt: "7"}}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mt: "7", Fz: mt.XS}}) {
 						Compared to previous month
 					}
 				}

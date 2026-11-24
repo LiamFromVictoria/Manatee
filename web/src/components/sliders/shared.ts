@@ -108,19 +108,21 @@ export const sliderStyles = css`
     height: var(--_thumb-size);
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: var(--mt-color-body);
-    border: 2px solid var(--mt-c-filled);
+    background: light-dark(var(--mt-white), var(--mt-c-filled));
+    border: 4px solid light-dark(var(--mt-c-filled), var(--mt-white));
+    color: light-dark(var(--mt-c-filled), var(--mt-white));
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
     outline: none;
-    box-shadow: var(--mt-shadow-sm);
+    outline-offset: 2px;
+    transition: box-shadow 100ms ease, transform 100ms ease;
     z-index: 2;
   }
-  .thumb:active { cursor: grabbing; }
-  .thumb:focus-visible { outline: var(--mt-focus-ring); outline-offset: 2px; }
-  :host([disabled]) .thumb { background: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)); border-color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); cursor: not-allowed; box-shadow: none; }
+  .thumb:active, .thumb.dragging { cursor: grabbing; transform: translate(-50%, -50%) scale(1.05); box-shadow: var(--mt-shadow-sm); }
+  .thumb:focus-visible { outline: var(--mt-focus-ring); }
+  :host([disabled]) .thumb { display: none; }
 
   .label {
     position: absolute;
@@ -129,7 +131,7 @@ export const sliderStyles = css`
     transform: translate(-50%, 4px) scale(0.4);
     padding: 0.125rem 0.5rem;
     border-radius: var(--mt-radius-sm);
-    background: var(--mt-c-filled);
+    background: light-dark(var(--mt-color-gray-9), var(--mt-color-dark-4));
     color: var(--mt-white);
     font-size: var(--mt-font-size-xs);
     font-weight: 500;
@@ -152,12 +154,12 @@ export const sliderStyles = css`
     box-sizing: border-box;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3));
-    border: 2px solid var(--mt-color-body);
+    background: var(--mt-white);
+    border: 2px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));
     pointer-events: none;
   }
-  .mark[data-filled] { background: var(--mt-c-filled); border-color: var(--mt-c-filled); }
-  :host([disabled]) .mark[data-filled] { background: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); border-color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); }
+  .mark[data-filled] { border-color: var(--mt-c-filled); }
+  :host([disabled]) .mark[data-filled] { border-color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); }
   .mark-label {
     position: absolute;
     top: calc(100% + var(--mt-spacing-xs));

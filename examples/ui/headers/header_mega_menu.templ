@@ -91,7 +91,7 @@ templ HeaderMegaMenu() {
 						@mt.HoverCardDropdown(mt.HoverCardDropdownProps{Radius: "md", Base: mt.Base{Style: "overflow:hidden"}}) {
 							@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Px: mt.MD}}) {
 								@mt.Text(mt.TextProps{Fw: 500}) { Features }
-								@mt.Anchor(mt.AnchorProps{Href: "#", Size: "xs"}) { View all }
+								@mt.Anchor(mt.AnchorProps{Href: "#", Base: mt.Base{Fz: "xs"}}) { View all }
 							}
 							@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
 							@mt.SimpleGrid(mt.SimpleGridProps{Cols: 2, Spacing: "0"}) {
@@ -112,7 +112,7 @@ templ HeaderMegaMenu() {
 							<div class="header-mega-menu__dropdown-footer">
 								@mt.Group(mt.GroupProps{Justify: "space-between"}) {
 									<div>
-										@mt.Text(mt.TextProps{Fw: 500, Size: "sm"}) { Get started }
+										@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: "sm"}}) { Get started }
 										@mt.Text(mt.TextProps{Size: "xs", C: mt.Dimmed}) { Their food sources have decreased, and their numbers }
 									</div>
 									@mt.Button(mt.ButtonProps{Variant: mt.Default}) { Get started }

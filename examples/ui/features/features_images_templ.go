@@ -20,9 +20,9 @@ type featuresImagesItem struct {
 }
 
 var featuresImagesData = []featuresImagesItem{
-	{Image: "accountants.svg", Title: "Pharmacists", Description: "Azurill can be seen bouncing and playing on its big, rubbery tail"},
+	{Image: "auditors.svg", Title: "Pharmacists", Description: "Azurill can be seen bouncing and playing on its big, rubbery tail"},
 	{Image: "lawyers.svg", Title: "Lawyers", Description: "Fans obsess over the particular length and angle of its arms"},
-	{Image: "auditors.svg", Title: "Bank owners", Description: "They divvy up their prey evenly among the members of their pack"},
+	{Image: "accountants.svg", Title: "Bank owners", Description: "They divvy up their prey evenly among the members of their pack"},
 	{Image: "others.svg", Title: "Others", Description: "Phanpy uses its long nose to shower itself"},
 }
 
@@ -229,7 +229,7 @@ func FeaturesImages() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 700, Size: mt.LG, Base: mt.Base{Class: "features-images__item-title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Fz: mt.LG, Class: "features-images__item-title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

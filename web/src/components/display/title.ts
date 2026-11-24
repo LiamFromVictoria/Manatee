@@ -7,6 +7,9 @@ const styles = css`
     --_lh: var(--mt-h1-line-height);
     font-family: var(--mt-font-family-headings);
     font-weight: var(--mt-heading-font-weight);
+    /* On the host (not .root) so a block's class can override size, like Mantine's className. */
+    font-size: var(--_fz);
+    line-height: var(--_lh);
     color: var(--mt-color-text);
   }
   :host([order='2']) { --_fz: var(--mt-h2-font-size); --_lh: var(--mt-h2-line-height); }
@@ -18,8 +21,6 @@ const styles = css`
   .root {
     margin: 0;
     font: inherit;
-    font-size: var(--_fz);
-    line-height: var(--_lh);
     color: var(--_color, inherit);
     text-align: var(--_ta, inherit);
     text-wrap: var(--_text-wrap, balance);

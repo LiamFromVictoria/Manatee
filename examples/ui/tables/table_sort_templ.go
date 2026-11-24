@@ -334,7 +334,7 @@ func tableSortTh(field, label string) templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Size: mt.SM}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

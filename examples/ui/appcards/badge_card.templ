@@ -15,6 +15,10 @@ var badgeCardBadges = []badgeCardBadge{
 	{"\U0001F93D", "Water sports"},
 }
 
+templ badgeCardEmoji(e string) {
+	{ e }
+}
+
 var badgeCardCSS = templ.NewOnceHandle()
 
 // BadgeCard ports ui.mantine.dev BadgeCard: an image card with a title/country
@@ -52,15 +56,15 @@ templ BadgeCard() {
 			})
 		}
 		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "badge-card__section", Mt: mt.MD}}) {
-			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
-				@mt.Text(mt.TextProps{Size: "lg", Fw: 500}) {
+			@mt.Group(mt.GroupProps{}) {
+				@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG}}) {
 					Verudela Beach
 				}
 				@mt.Badge(mt.BadgeProps{Size: mt.SM, Variant: "light"}) {
 					Croatia
 				}
 			}
-			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: mt.XS}}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Mt: mt.XS}}) {
 				Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully
 				equipped and modernly furnished 4-star self-service apartments located on the
 				Adriatic coastline by one of the most beautiful beaches in Pula.
@@ -72,8 +76,8 @@ templ BadgeCard() {
 			}
 			@mt.Group(mt.GroupProps{Gap: "7", Base: mt.Base{Mt: "5"}}) {
 				for _, b := range badgeCardBadges {
-					@mt.Badge(mt.BadgeProps{Variant: "light"}) {
-						{ b.Emoji } { b.Label }
+					@mt.Badge(mt.BadgeProps{Variant: "light", LeftSection: badgeCardEmoji(b.Emoji)}) {
+						{ b.Label }
 					}
 				}
 			}

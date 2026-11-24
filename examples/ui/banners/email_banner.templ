@@ -27,10 +27,10 @@ templ EmailBanner() {
 			@media (max-width: 48em) {
 				.email-banner { flex-direction: column-reverse; padding: var(--mt-spacing-xl); }
 			}
-			.email-banner__image { max-width: 40%; }
+			.email-banner__image { width: 40%; max-width: 40%; flex: 0 0 auto; }
 			.email-banner__image svg { display: block; width: 100%; height: auto; }
 			@media (max-width: 48em) {
-				.email-banner__image { max-width: 100%; }
+				.email-banner__image { width: 100%; max-width: 100%; }
 			}
 			.email-banner__body { padding-right: calc(var(--mt-spacing-xl) * 4); }
 			@media (max-width: 48em) {
@@ -61,10 +61,10 @@ templ EmailBanner() {
 			@mt.Title(mt.TitleProps{Base: mt.Base{Class: "email-banner__title"}}) {
 				Wait a minute...
 			}
-			@mt.Text(mt.TextProps{Fw: 500, Size: mt.LG, Base: mt.Base{Mb: "5px"}}) {
+			@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Mb: "5px", Fz: mt.LG}}) {
 				Subscribe to our newsletter!
 			}
-			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 				You will never miss important product updates, latest news and community QA sessions. Our
 				newsletter is once a week, every Sunday.
 			}

@@ -38,12 +38,15 @@ templ HeroImageRight() {
 				color: var(--mt-white);
 				font-family: Outfit, var(--mt-font-family);
 				font-weight: 500;
-				line-height: 1.05;
 				max-width: 500px;
+			}
+			.hero-image-right__title::part(root) {
+				line-height: 1.05;
 				font-size: 48px;
 			}
 			@media (max-width: 62em) {
-				.hero-image-right__title { max-width: 100%; font-size: 34px; line-height: 1.15; }
+				.hero-image-right__title { max-width: 100%; }
+				.hero-image-right__title::part(root) { font-size: 34px; line-height: 1.15; }
 			}
 			.hero-image-right__description {
 				color: var(--mt-white);

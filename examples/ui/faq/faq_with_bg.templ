@@ -41,25 +41,21 @@ templ FaqWithBg() {
 			}
 			.faq-with-bg__item {
 				background-color: var(--mt-white) !important;
-				border-bottom: 0;
+				border: 0;
 				border-radius: var(--mt-radius-md);
 				box-shadow: var(--mt-shadow-lg);
 				overflow: hidden;
 			}
 			.faq-with-bg__item mt-accordion-control::part(chevron) { display: none; }
 			.faq-with-bg__item mt-accordion-control::part(control) {
-				font-size: var(--mt-font-size-lg);
-				padding: var(--mt-spacing-lg) var(--mt-spacing-xl);
+				flex-direction: row-reverse;
 				color: var(--mt-black);
 			}
 			.faq-with-bg__item mt-accordion-control::part(control):hover { background-color: transparent; }
 			.faq-with-bg__item mt-accordion-panel::part(content) {
-				padding-left: var(--mt-spacing-xl);
-				line-height: 1.6;
 				color: var(--mt-black);
 			}
 			.faq-with-bg__gradient { background-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-5) 100%); }
-			.faq-with-bg__item[opened] .faq-with-bg__gradient { transform: rotate(45deg); }
 		</style>
 	}
 	<div class="faq-with-bg">

@@ -40,14 +40,17 @@ templ HeroText() {
 			.hero-text__title {
 				text-align: center;
 				font-weight: 800;
-				font-size: 40px;
 				letter-spacing: -1px;
 				color: light-dark(var(--mt-black), var(--mt-white));
 				margin-bottom: var(--mt-spacing-xs);
 				font-family: Outfit, var(--mt-font-family);
 			}
+			.hero-text__title::part(root) {
+				font-size: 40px;
+			}
 			@media (max-width: 36em) {
-				.hero-text__title { font-size: 28px; text-align: left; }
+				.hero-text__title { text-align: left; }
+				.hero-text__title::part(root) { font-size: 28px; }
 			}
 			.hero-text__highlight {
 				color: light-dark(var(--mt-color-blue-6), var(--mt-color-blue-4));

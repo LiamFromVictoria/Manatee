@@ -67,7 +67,7 @@ func GetInTouch() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.get-in-touch__wrapper {\n\t\t\t\tdisplay: flex;\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-8));\n\t\t\t\tborder-radius: var(--mt-radius-lg);\n\t\t\t\tpadding: 4px;\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-8));\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__form {\n\t\t\t\tflex: 1;\n\t\t\t\tpadding: var(--mt-spacing-xl);\n\t\t\t\tpadding-left: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__contacts {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tposition: relative;\n\t\t\t\tborder-radius: var(--mt-radius-lg);\n\t\t\t\tbackground-size: cover;\n\t\t\t\tbackground-position: center;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tpadding: var(--mt-spacing-xl);\n\t\t\t\tflex: 0 0 280px;\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tmargin-bottom: var(--mt-spacing-sm);\n\t\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__title {\n\t\t\t\tmargin-bottom: calc(var(--mt-spacing-xl) * 1.5);\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tmargin-bottom: var(--mt-spacing-xl);\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__icon-row { display: flex; align-items: center; color: var(--mt-white); }\n\t\t\t.get-in-touch__icon-row + .get-in-touch__icon-row { margin-top: var(--mt-spacing-md); }\n\t\t\t.get-in-touch__icon-box { margin-right: var(--mt-spacing-md); }\n\t\t\t.get-in-touch__icon-title { color: var(--mt-color-blue-0); }\n\t\t\t.get-in-touch__icon-description { color: var(--mt-white); }\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.get-in-touch__wrapper {\n\t\t\t\tdisplay: flex;\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-8));\n\t\t\t\tborder-radius: var(--mt-radius-lg);\n\t\t\t\tpadding: 4px;\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-8));\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__form {\n\t\t\t\tflex: 1;\n\t\t\t\tpadding: var(--mt-spacing-xl);\n\t\t\t\tpadding-left: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__contacts {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tposition: relative;\n\t\t\t\tborder-radius: var(--mt-radius-lg);\n\t\t\t\tbackground-size: cover;\n\t\t\t\tbackground-position: center;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tpadding: var(--mt-spacing-xl);\n\t\t\t\tflex: 0 0 280px;\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tmargin-bottom: var(--mt-spacing-sm);\n\t\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__fields { margin-top: -12px; }\n\t\t\t.get-in-touch__title {\n\t\t\t\tmargin-bottom: calc(var(--mt-spacing-xl) * 1.5);\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tmargin-bottom: var(--mt-spacing-xl);\n\t\t\t\t}\n\t\t\t}\n\t\t\t.get-in-touch__icon-row { display: flex; align-items: center; color: var(--mt-white); }\n\t\t\t.get-in-touch__icon-row + .get-in-touch__icon-row { margin-top: var(--mt-spacing-md); }\n\t\t\t.get-in-touch__icon-box { margin-right: var(--mt-spacing-md); }\n\t\t\t.get-in-touch__icon-title { color: var(--mt-color-blue-0); }\n\t\t\t.get-in-touch__icon-description { color: var(--mt-white); }\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -96,7 +96,7 @@ func GetInTouch() templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background-image:url(" + getInTouchBgDataURL + ")")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/contact/get_in_touch.templ`, Line: 83, Col: 98}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/contact/get_in_touch.templ`, Line: 84, Col: 98}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -124,7 +124,7 @@ func GetInTouch() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.LG, Fw: 700, C: "#fff", Base: mt.Base{Class: "get-in-touch__title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 700, C: "#fff", Base: mt.Base{Class: "get-in-touch__title", Fz: mt.LG}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -168,7 +168,7 @@ func GetInTouch() templ.Component {
 						var templ_7745c5c3_Var8 string
 						templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(c.Title)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/contact/get_in_touch.templ`, Line: 95, Col: 18}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/contact/get_in_touch.templ`, Line: 96, Col: 18}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 						if templ_7745c5c3_Err != nil {
@@ -195,7 +195,7 @@ func GetInTouch() templ.Component {
 						var templ_7745c5c3_Var10 string
 						templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(c.Description)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/contact/get_in_touch.templ`, Line: 98, Col: 24}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/contact/get_in_touch.templ`, Line: 99, Col: 24}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 						if templ_7745c5c3_Err != nil {
@@ -240,7 +240,11 @@ func GetInTouch() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.LG, Fw: 700, Base: mt.Base{Class: "get-in-touch__title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Class: "get-in-touch__title", Fz: mt.LG}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"get-in-touch__fields\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -302,7 +306,7 @@ func GetInTouch() templ.Component {
 						}()
 					}
 					ctx = templ.InitializeContext(ctx)
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "Send message")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "Send message")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -318,7 +322,7 @@ func GetInTouch() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "</form></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</div></form></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

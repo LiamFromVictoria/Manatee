@@ -80,10 +80,10 @@ templ ImageCheckboxes() {
 			@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "image-checkboxes__button"}}) {
 				@mt.Image(mt.ImageProps{Src: item.Image, Alt: item.Title, Base: mt.Base{W: "40px", H: "40px"}})
 				<div class="image-checkboxes__body">
-					@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Base: mt.Base{Mb: "5", Style: "line-height:1"}}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Base: mt.Base{Mb: "5", Lh: "1"}}) {
 						{ item.Description }
 					}
-					@mt.Text(mt.TextProps{Fw: 500, Size: mt.SM, Base: mt.Base{Style: "line-height:1"}}) {
+					@mt.Text(mt.TextProps{Fw: 500, Size: mt.SM, Base: mt.Base{Lh: "1"}}) {
 						{ item.Title }
 					}
 				</div>

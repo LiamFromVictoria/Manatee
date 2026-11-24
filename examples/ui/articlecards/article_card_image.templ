@@ -31,12 +31,14 @@ templ ArticleCardImage() {
 				background-position: center;
 			}
 			.article-card-image__title {
+				margin-top: var(--mt-spacing-xs);
+			}
+			.article-card-image__title::part(root) {
 				font-family: Outfit, var(--mt-font-family);
 				font-weight: 600;
 				color: var(--mt-white);
 				line-height: 1.2;
 				font-size: 32px;
-				margin-top: var(--mt-spacing-xs);
 			}
 			.article-card-image__category {
 				color: var(--mt-white);

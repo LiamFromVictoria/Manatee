@@ -6,7 +6,7 @@ const styles = css`
     vertical-align: middle;
     max-width: 100%;
     --_h: 1.25rem;
-    --_fz: var(--mt-font-size-xs);
+    --_fz: 0.6875rem;
     --_px: 0.6875rem;
     --_radius: var(--mt-radius-xl);
     --_bg: var(--mt-c-filled);

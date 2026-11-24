@@ -28,12 +28,14 @@ templ HeroBullets() {
 			.hero-bullets__title {
 				color: light-dark(var(--mt-black), var(--mt-white));
 				font-family: Outfit, var(--mt-font-family);
-				font-size: 44px;
-				line-height: 1.2;
 				font-weight: 500;
 			}
+			.hero-bullets__title::part(root) {
+				font-size: 44px;
+				line-height: 1.2;
+			}
 			@media (max-width: 36em) {
-				.hero-bullets__title { font-size: 28px; }
+				.hero-bullets__title::part(root) { font-size: 28px; }
 			}
 			@media (max-width: 36em) {
 				.hero-bullets__control { flex: 1; }

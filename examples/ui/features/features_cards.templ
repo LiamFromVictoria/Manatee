@@ -48,7 +48,7 @@ templ FeaturesCards() {
 			}
 			.features-cards__description {
 				max-width: 600px;
-				margin: auto;
+				margin-inline: auto;
 			}
 			.features-cards__description::after {
 				content: '';
@@ -89,10 +89,10 @@ templ FeaturesCards() {
 			for _, item := range featuresCardsData {
 				@mt.Card(mt.CardProps{Shadow: mt.MD, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Class: "features-cards__card"}}) {
 					@item.Icon
-					@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "features-cards__card-title", Mt: mt.MD}}) {
+					@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Class: "features-cards__card-title", Mt: mt.MD}}) {
 						{ item.Title }
 					}
-					@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: mt.SM}}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Mt: mt.SM}}) {
 						{ item.Description }
 					}
 				}

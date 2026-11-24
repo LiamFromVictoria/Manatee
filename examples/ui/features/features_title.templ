@@ -79,10 +79,10 @@ templ FeaturesTitle() {
 							@mt.ThemeIcon(mt.ThemeIconProps{Size: "44", Radius: mt.MD, Variant: mt.Gradient, GradientFrom: mt.Blue, GradientTo: mt.Cyan, GradientDeg: 133}) {
 								@item.Icon
 							}
-							@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Mt: mt.SM}}) {
+							@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Mt: mt.SM}}) {
 								{ item.Title }
 							}
-							@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+							@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 								{ item.Description }
 							}
 						</div>

@@ -1,21 +1,21 @@
 import { css, define, html, MtElement, type Props } from '../../core';
 
-const closeIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="60%" height="60%"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+const closeIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="70%" height="70%"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
 
 const styles = css`
   :host {
     display: inline-flex;
     vertical-align: middle;
-    --_size: 2.125rem;
+    --_size: 1.75rem;
     --_radius: var(--mt-radius-default);
     --_hover: var(--mt-c-light-hover);
     --_color: var(--mt-c-light-color);
   }
-  :host([size='xs']) { --_size: 1.375rem; }
-  :host([size='sm']) { --_size: 1.75rem; }
-  :host([size='md']) { --_size: 2.125rem; }
-  :host([size='lg']) { --_size: 2.75rem; }
-  :host([size='xl']) { --_size: 3.75rem; }
+  :host([size='xs']) { --_size: 1.125rem; }
+  :host([size='sm']) { --_size: 1.375rem; }
+  :host([size='md']) { --_size: 1.75rem; }
+  :host([size='lg']) { --_size: 2.125rem; }
+  :host([size='xl']) { --_size: 2.75rem; }
   :host([variant='transparent']) { --_hover: transparent; }
 
   .root {

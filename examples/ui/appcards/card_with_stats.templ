@@ -27,6 +27,7 @@ templ CardWithStats() {
 				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
 			}
 			.card-with-stats__title {
+				margin: 0;
 				font-family: Outfit, var(--mt-font-family);
 				font-weight: 500;
 				line-height: 1;
@@ -45,13 +46,13 @@ templ CardWithStats() {
 		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.LG}}) {
 			<p class="card-with-stats__title">Running challenge</p>
 			@mt.Group(mt.GroupProps{Gap: "5"}) {
-				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+				@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 					80% completed
 				}
 				@mt.RingProgress(mt.RingProgressProps{Size: 18, Thickness: 2, Sections: []mt.RingProgressSection{{Value: 80, Color: mt.Blue}}})
 			}
 		}
-		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Base: mt.Base{Mt: mt.SM, Mb: mt.MD}}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS, Mt: mt.SM, Mb: mt.MD}}) {
 			56 km this month • 17% improvement compared to last month • 443 place in global scoreboard
 		}
 		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "card-with-stats__footer"}}) {

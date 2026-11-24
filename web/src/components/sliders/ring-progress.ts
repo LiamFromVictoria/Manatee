@@ -96,13 +96,13 @@ export class MtRingProgress extends MtElement {
     const size = this.size || 120;
     const thickness = Math.min(this.thickness || 12, size / 4);
     const center = size / 2;
-    const radius = (size - thickness) / 2;
+    const radius = (size * 0.9 - thickness * 2) / 2;
     const circumference = 2 * Math.PI * radius;
     const svg = this.$<SVGSVGElement>('.svg');
     svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
 
     const rootColor = this.rootColor
-      ? resolveColor(this.rootColor)
+      ? resolveColor(this.rootColor, undefined, 'filled')
       : 'light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4))';
     const parts: string[] = [
       `<circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="${rootColor}" stroke-width="${thickness}"></circle>`,
@@ -111,7 +111,7 @@ export class MtRingProgress extends MtElement {
     let offset = 0;
     for (const section of this.#sections()) {
       const len = (circumference * Math.max(section.value, 0)) / 100;
-      const color = resolveColor(section.color, 'var(--mt-color-primary-filled)');
+      const color = resolveColor(section.color, 'var(--mt-color-primary-filled)', 'filled');
       const linecap = this.roundCaps ? 'round' : 'butt';
       const title = section.tooltip ? `<title>${section.tooltip.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)}</title>` : '';
       parts.push(

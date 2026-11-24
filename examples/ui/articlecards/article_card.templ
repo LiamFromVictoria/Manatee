@@ -61,13 +61,13 @@ templ ArticleCard() {
 			{ articleCardInfo.Rating }
 		}
 		<a href={ templ.SafeURL(articleCardInfo.Link) } target="_blank" rel="noreferrer" class="article-card__title">{ articleCardInfo.Title }</a>
-		@mt.Text(mt.TextProps{Size: mt.SM, LineClamp: 4, Base: mt.Base{Style: "opacity:0.9"}}) {
+		@mt.Text(mt.TextProps{LineClamp: 4, Base: mt.Base{Fz: mt.SM, Style: "opacity:0.9"}}) {
 			{ articleCardInfo.Description }
 		}
 		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "article-card__footer"}}) {
 			@mt.Group(mt.GroupProps{Gap: mt.XS}) {
 				@mt.Avatar(mt.AvatarProps{Src: articleCardInfo.AuthorAvatar, Alt: articleCardInfo.AuthorName, Size: "24px"})
-				@mt.Text(mt.TextProps{Size: mt.SM}) {
+				@mt.Text(mt.TextProps{Base: mt.Base{Fz: mt.SM}}) {
 					{ articleCardInfo.AuthorName }
 				}
 			}

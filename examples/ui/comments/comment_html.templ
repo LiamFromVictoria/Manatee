@@ -20,10 +20,10 @@ templ CommentHtml() {
 		@mt.Group(mt.GroupProps{}) {
 			@mt.Avatar(mt.AvatarProps{Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", Alt: "Jacob Warnhalter", Radius: mt.XL})
 			<div>
-				@mt.Text(mt.TextProps{Size: mt.SM}) {
+				@mt.Text(mt.TextProps{Base: mt.Base{Fz: mt.SM}}) {
 					Jacob Warnhalter
 				}
-				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+				@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 					10 minutes ago
 				}
 			</div>

@@ -42,7 +42,7 @@ templ ContactUs() {
 					padding: calc(var(--mt-spacing-xl) * 1.5);
 				}
 			}
-			.contact-us__title {
+			.contact-us__title::part(root) {
 				font-family: Outfit, var(--mt-font-family);
 				color: var(--mt-white);
 				font-weight: 500;
@@ -61,8 +61,8 @@ templ ContactUs() {
 				border-radius: var(--mt-radius-md);
 				box-shadow: var(--mt-shadow-lg);
 			}
-			.contact-us__social { color: var(--mt-white); }
-			.contact-us__social:hover { color: var(--mt-color-blue-1); }
+			.contact-us__social::part(root) { color: var(--mt-white); }
+			.contact-us__social::part(root):hover { color: var(--mt-color-blue-1); }
 			.contact-us__icon-row { display: flex; align-items: center; color: var(--mt-white); }
 			.contact-us__icon-row + .contact-us__icon-row { margin-top: var(--mt-spacing-md); }
 			.contact-us__icon-box { margin-right: var(--mt-spacing-md); }

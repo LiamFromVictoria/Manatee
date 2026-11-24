@@ -44,7 +44,7 @@ func AuthenticationImage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.authentication-image {\n\t\t\t\tmin-height: 900px;\n\t\t\t\tbackground-size: cover;\n\t\t\t\tbackground-image: url(https://images.unsplash.com/photo-1484242857719-4b9144542727?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80);\n\t\t\t}\n\t\t\t.authentication-image__form {\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t\tmin-height: 900px;\n\t\t\t\tmax-width: 450px;\n\t\t\t\tpadding: 30px;\n\t\t\t\tpadding-top: 80px;\n\t\t\t\tborder-radius: 0;\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tmax-width: 100%;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.authentication-image__title {\n\t\t\t\tcolor: light-dark(var(--mt-color-black), var(--mt-color-white));\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-top: var(--mt-spacing-md);\n\t\t\t\tmargin-bottom: 50px;\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.authentication-image {\n\t\t\t\tmin-height: 900px;\n\t\t\t\tbackground-size: cover;\n\t\t\t\tbackground-image: url(https://images.unsplash.com/photo-1484242857719-4b9144542727?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80);\n\t\t\t}\n\t\t\t.authentication-image__form {\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t\tmin-height: 900px;\n\t\t\t\tmax-width: 450px;\n\t\t\t\tpadding: 30px;\n\t\t\t\tpadding-top: 80px;\n\t\t\t\tborder-radius: 0;\n\t\t\t\t@media (max-width: 48em) {\n\t\t\t\t\tmax-width: 100%;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.authentication-image__title {\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-top: var(--mt-spacing-md);\n\t\t\t\tmargin-bottom: 50px;\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -88,7 +88,7 @@ func AuthenticationImage() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Title(mt.TitleProps{Order: 2, Base: mt.Base{Class: "authentication-image__title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Title(mt.TitleProps{Order: 2, C: "bright", Base: mt.Base{Class: "authentication-image__title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -145,7 +145,7 @@ func AuthenticationImage() templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(" ")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/authentication/authentication_image.templ`, Line: 50, Col: 32}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/authentication/authentication_image.templ`, Line: 49, Col: 32}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {

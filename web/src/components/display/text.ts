@@ -3,14 +3,14 @@ import { css, define, html, MtElement, type Props } from '../../core';
 const styles = css`
   :host {
     display: block;
-    --_fz: var(--mt-font-size-sm);
-    --_lh: var(--mt-line-height-sm);
+    --_fz: var(--mt-font-size-md);
+    --_lh: var(--mt-line-height-md);
     font-size: var(--_fz);
     line-height: var(--_lh);
     color: var(--mt-color-text);
   }
   :host([size='xs']) { --_fz: var(--mt-font-size-xs); --_lh: var(--mt-line-height-xs); }
-  :host([size='md']) { --_fz: var(--mt-font-size-md); --_lh: var(--mt-line-height-md); }
+  :host([size='sm']) { --_fz: var(--mt-font-size-sm); --_lh: var(--mt-line-height-sm); }
   :host([size='lg']) { --_fz: var(--mt-font-size-lg); --_lh: var(--mt-line-height-lg); }
   :host([size='xl']) { --_fz: var(--mt-font-size-xl); --_lh: var(--mt-line-height-xl); }
   :host([span]) { display: inline; }
@@ -64,7 +64,7 @@ const styles = css`
 export class MtText extends MtElement {
   static styles = [styles];
   static props: Props = {
-    size: { default: 'sm' },
+    size: { default: 'md' },
     c: { css: '--_color', scale: 'color' },
     fw: { css: '--_fw', type: 'number' },
     fs: { css: '--_fs' },

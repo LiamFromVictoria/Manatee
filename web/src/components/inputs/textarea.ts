@@ -73,7 +73,6 @@ export class MtTextarea extends MtFormElement {
       else this.input.setAttribute(attr, v);
     }
     if (changed.has('value')) this.value = this.getAttribute('value') ?? '';
-    if (changed.has('minRows') && !this.autosize) this.input.rows = this.minRows || 2;
     if (changed.has('autosize') || changed.has('minRows') || changed.has('maxRows')) this.#resize();
   }
 

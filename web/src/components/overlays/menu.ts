@@ -21,6 +21,7 @@ const dropdownStyles = css`
     box-shadow: var(--mt-shadow-md);
     z-index: var(--mt-z-dropdown);
   }
+  .init-focus { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 `;
 
 /** <mt-menu-dropdown role="menu">: the floating panel for <mt-menu>. */
@@ -28,11 +29,18 @@ export class MtMenuDropdown extends MtFloatingPanel {
   static styles = [dropdownStyles, floatingArrowStyles, floatingTransitionStyles];
 
   protected template(): string {
-    return html`<div class="dropdown" part="dropdown" popover="manual"><slot></slot><div class="arrow" part="arrow"></div></div>`;
+    return html`<div class="dropdown" part="dropdown" popover="manual"><div class="init-focus" tabindex="-1"></div><slot></slot><div class="arrow" part="arrow"></div></div>`;
   }
 
   protected onConnect(): void {
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
+  }
+
+  /** Mirrors Mantine's `withInitialFocusPlaceholder`: focused when the menu
+   * opens so the first real item only gets a visible focus ring once the
+   * user actually navigates with the keyboard. */
+  focusInitial(): void {
+    this.$<HTMLElement>('.init-focus').focus();
   }
 }
 
@@ -155,7 +163,7 @@ export class MtMenuItem extends MtElement {
 }
 
 const labelStyles = css`
-  :host { display: block; padding: 0.25rem var(--mt-spacing-sm); font-size: var(--mt-font-size-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--mt-color-dimmed); }
+  :host { display: block; padding: calc(var(--mt-spacing-xs) / 2) var(--mt-spacing-sm); font-size: var(--mt-font-size-xs); font-weight: 600; color: var(--mt-color-dimmed); }
 `;
 
 /** <mt-menu-label>: non-interactive section heading inside a menu dropdown. */
@@ -370,7 +378,7 @@ export class MtMenu extends MtElement {
     });
     document.addEventListener('keydown', this.#onDocKeydown);
     requestAnimationFrame(() => {
-      dropdown.querySelector<MtMenuItem>('mt-menu-item:not([disabled])')?.focus();
+      dropdown.focusInitial();
     });
     this.emit('open');
   }

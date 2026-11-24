@@ -167,7 +167,7 @@ templ StatsControls() {
 						@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-controls__label"}}) {
 							{ s.Label }
 						}
-						@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Class: "stats-controls__count"}}) {
+					@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-controls__count", Fz: mt.XS}}) {
 							<span class="stats-controls__value">{ strconv.Itoa(s.Distance) + "km" }</span>
 							{ " / 10km" }
 						}

@@ -531,6 +531,10 @@ func BlockCanvas(b blocks.Block) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = blocks.FontFaces().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<style>\n\t\t\t\tbody { margin: 0; background: light-dark(var(--mt-white), var(--mt-color-dark-7)); }\n\t\t\t\tbody[data-dimmed] { background: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t\t.ui-canvas { padding: 4px; }\n\t\t\t\t.ui-canvas[data-center] { padding: var(--mt-spacing-md); }\n\t\t\t\t.ui-canvas__inner { max-width: var(--_max, 100%); }\n\t\t\t\t.ui-canvas[data-center] .ui-canvas__inner { margin-inline: auto; }\n\t\t\t\t.ui-canvas[data-max-width] .ui-canvas__inner { padding-block: 40px; }\n\t\t\t</style></head><body")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -564,7 +568,7 @@ func BlockCanvas(b blocks.Block) templ.Component {
 		var templ_7745c5c3_Var29 string
 		templ_7745c5c3_Var29, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(canvasStyle(b))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/demo/gallery.templ`, Line: 112, Col: 56}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/demo/gallery.templ`, Line: 113, Col: 56}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 		if templ_7745c5c3_Err != nil {

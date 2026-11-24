@@ -13,7 +13,7 @@ const styles = css`
     height: 100%;
     border-radius: var(--_radius);
     border: 1px solid var(--mt-color-default-border);
-    background: var(--mt-color-body);
+    background: var(--mt-color-input-bg);
     cursor: pointer;
     transition: background var(--mt-transition), border-color var(--mt-transition);
   }

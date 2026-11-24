@@ -53,7 +53,7 @@ func HeroText() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.hero-text {\n\t\t\t\tposition: relative;\n\t\t\t\tpadding-top: 120px;\n\t\t\t\tpadding-bottom: 80px;\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.hero-text { padding-top: 80px; padding-bottom: 60px; }\n\t\t\t}\n\t\t\t.hero-text__inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 1;\n\t\t\t}\n\t\t\t.hero-text__dots {\n\t\t\t\tposition: absolute;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.hero-text__dots { display: none; }\n\t\t\t}\n\t\t\t.hero-text__title {\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-weight: 800;\n\t\t\t\tfont-size: 40px;\n\t\t\t\tletter-spacing: -1px;\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tmargin-bottom: var(--mt-spacing-xs);\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__title { font-size: 28px; text-align: left; }\n\t\t\t}\n\t\t\t.hero-text__highlight {\n\t\t\t\tcolor: light-dark(var(--mt-color-blue-6), var(--mt-color-blue-4));\n\t\t\t}\n\t\t\t.hero-text__description {\n\t\t\t\ttext-align: center;\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__description { text-align: left; font-size: var(--mt-font-size-md); }\n\t\t\t}\n\t\t\t.hero-text__controls {\n\t\t\t\tmargin-top: var(--mt-spacing-lg);\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__controls { flex-direction: column; }\n\t\t\t}\n\t\t\t.hero-text__control:not(:first-of-type) {\n\t\t\t\tmargin-left: var(--mt-spacing-md);\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__control {\n\t\t\t\t\theight: 42px;\n\t\t\t\t\tfont-size: var(--mt-font-size-md);\n\t\t\t\t}\n\t\t\t\t.hero-text__control:not(:first-of-type) { margin-top: var(--mt-spacing-md); margin-left: 0; }\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.hero-text {\n\t\t\t\tposition: relative;\n\t\t\t\tpadding-top: 120px;\n\t\t\t\tpadding-bottom: 80px;\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.hero-text { padding-top: 80px; padding-bottom: 60px; }\n\t\t\t}\n\t\t\t.hero-text__inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 1;\n\t\t\t}\n\t\t\t.hero-text__dots {\n\t\t\t\tposition: absolute;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.hero-text__dots { display: none; }\n\t\t\t}\n\t\t\t.hero-text__title {\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-weight: 800;\n\t\t\t\tletter-spacing: -1px;\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tmargin-bottom: var(--mt-spacing-xs);\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t}\n\t\t\t.hero-text__title::part(root) {\n\t\t\t\tfont-size: 40px;\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__title { text-align: left; }\n\t\t\t\t.hero-text__title::part(root) { font-size: 28px; }\n\t\t\t}\n\t\t\t.hero-text__highlight {\n\t\t\t\tcolor: light-dark(var(--mt-color-blue-6), var(--mt-color-blue-4));\n\t\t\t}\n\t\t\t.hero-text__description {\n\t\t\t\ttext-align: center;\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__description { text-align: left; font-size: var(--mt-font-size-md); }\n\t\t\t}\n\t\t\t.hero-text__controls {\n\t\t\t\tmargin-top: var(--mt-spacing-lg);\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__controls { flex-direction: column; }\n\t\t\t}\n\t\t\t.hero-text__control:not(:first-of-type) {\n\t\t\t\tmargin-left: var(--mt-spacing-md);\n\t\t\t}\n\t\t\t@media (max-width: 36em) {\n\t\t\t\t.hero-text__control {\n\t\t\t\t\theight: 42px;\n\t\t\t\t\tfont-size: var(--mt-font-size-md);\n\t\t\t\t}\n\t\t\t\t.hero-text__control:not(:first-of-type) { margin-top: var(--mt-spacing-md); margin-left: 0; }\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -114,7 +114,7 @@ func HeroText() templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(" ")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 88, Col: 21}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 91, Col: 21}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -145,7 +145,7 @@ func HeroText() templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(" for any stack")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 92, Col: 22}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 95, Col: 22}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -283,7 +283,7 @@ func heroTextDots(style string) templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(style)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 114, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 117, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -302,7 +302,7 @@ func heroTextDots(style string) templ.Component {
 				var templ_7745c5c3_Var14 string
 				templ_7745c5c3_Var14, templ_7745c5c3_Err = templruntime.NewAttributeExpression(strconv.Itoa(x)).Resolve(ctx)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 124, Col: 50}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 127, Col: 50}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var14)
 				if templ_7745c5c3_Err != nil {
@@ -315,7 +315,7 @@ func heroTextDots(style string) templ.Component {
 				var templ_7745c5c3_Var15 string
 				templ_7745c5c3_Var15, templ_7745c5c3_Err = templruntime.NewAttributeExpression(strconv.Itoa(y)).Resolve(ctx)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 124, Col: 72}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/hero/hero_text.templ`, Line: 127, Col: 72}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
 				if templ_7745c5c3_Err != nil {

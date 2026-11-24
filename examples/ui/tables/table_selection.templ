@@ -62,7 +62,7 @@ templ TableSelection() {
 				<tr>
 					<th style="width:40px">
 						@mt.Checkbox(mt.CheckboxProps{
-							Checked: true,
+							Indeterminate: true,
 							Base:    mt.Base{Class: "table-selection__select-all", Attrs: templ.Attributes{"aria-label": "Select all rows"}},
 						})
 					</th>

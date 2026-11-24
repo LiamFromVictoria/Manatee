@@ -58,7 +58,7 @@ func FaqWithBg() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.faq-with-bg {\n\t\t\t\tpadding-top: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tmin-height: 820px;\n\t\t\t\tbackground-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-4) 100%);\n\t\t\t\tbackground-repeat: no-repeat;\n\t\t\t\tbackground-position: top left;\n\t\t\t\tposition: relative;\n\t\t\t\tcolor: var(--mt-black);\n\t\t\t}\n\t\t\t.faq-with-bg__title {\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\tfont-size: 52px;\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tmargin-bottom: calc(var(--mt-spacing-xl) * 1.5);\n\t\t\t}\n\t\t\t.faq-with-bg__item {\n\t\t\t\tbackground-color: var(--mt-white) !important;\n\t\t\t\tborder-bottom: 0;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tbox-shadow: var(--mt-shadow-lg);\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.faq-with-bg__item mt-accordion-control::part(chevron) { display: none; }\n\t\t\t.faq-with-bg__item mt-accordion-control::part(control) {\n\t\t\t\tfont-size: var(--mt-font-size-lg);\n\t\t\t\tpadding: var(--mt-spacing-lg) var(--mt-spacing-xl);\n\t\t\t\tcolor: var(--mt-black);\n\t\t\t}\n\t\t\t.faq-with-bg__item mt-accordion-control::part(control):hover { background-color: transparent; }\n\t\t\t.faq-with-bg__item mt-accordion-panel::part(content) {\n\t\t\t\tpadding-left: var(--mt-spacing-xl);\n\t\t\t\tline-height: 1.6;\n\t\t\t\tcolor: var(--mt-black);\n\t\t\t}\n\t\t\t.faq-with-bg__gradient { background-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-5) 100%); }\n\t\t\t.faq-with-bg__item[opened] .faq-with-bg__gradient { transform: rotate(45deg); }\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.faq-with-bg {\n\t\t\t\tpadding-top: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tmin-height: 820px;\n\t\t\t\tbackground-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-4) 100%);\n\t\t\t\tbackground-repeat: no-repeat;\n\t\t\t\tbackground-position: top left;\n\t\t\t\tposition: relative;\n\t\t\t\tcolor: var(--mt-black);\n\t\t\t}\n\t\t\t.faq-with-bg__title {\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\tfont-size: 52px;\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tmargin-bottom: calc(var(--mt-spacing-xl) * 1.5);\n\t\t\t}\n\t\t\t.faq-with-bg__item {\n\t\t\t\tbackground-color: var(--mt-white) !important;\n\t\t\t\tborder: 0;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tbox-shadow: var(--mt-shadow-lg);\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.faq-with-bg__item mt-accordion-control::part(chevron) { display: none; }\n\t\t\t.faq-with-bg__item mt-accordion-control::part(control) {\n\t\t\t\tflex-direction: row-reverse;\n\t\t\t\tcolor: var(--mt-black);\n\t\t\t}\n\t\t\t.faq-with-bg__item mt-accordion-control::part(control):hover { background-color: transparent; }\n\t\t\t.faq-with-bg__item mt-accordion-panel::part(content) {\n\t\t\t\tcolor: var(--mt-black);\n\t\t\t}\n\t\t\t.faq-with-bg__gradient { background-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-5) 100%); }\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -146,7 +146,7 @@ func FaqWithBg() templ.Component {
 							var templ_7745c5c3_Var8 string
 							templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(e.Question)
 							if templ_7745c5c3_Err != nil {
-								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/faq/faq_with_bg.templ`, Line: 76, Col: 19}
+								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/faq/faq_with_bg.templ`, Line: 72, Col: 19}
 							}
 							_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 							if templ_7745c5c3_Err != nil {
@@ -173,7 +173,7 @@ func FaqWithBg() templ.Component {
 							var templ_7745c5c3_Var10 string
 							templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(faqWithBgPlaceholder)
 							if templ_7745c5c3_Err != nil {
-								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/faq/faq_with_bg.templ`, Line: 79, Col: 29}
+								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/faq/faq_with_bg.templ`, Line: 75, Col: 29}
 							}
 							_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 							if templ_7745c5c3_Err != nil {

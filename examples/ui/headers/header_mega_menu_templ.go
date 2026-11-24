@@ -198,7 +198,7 @@ func HeaderMegaMenu() templ.Component {
 									}
 									return nil
 								})
-								templ_7745c5c3_Err = mt.Anchor(mt.AnchorProps{Href: "#", Size: "xs"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+								templ_7745c5c3_Err = mt.Anchor(mt.AnchorProps{Href: "#", Base: mt.Base{Fz: "xs"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 								if templ_7745c5c3_Err != nil {
 									return templ_7745c5c3_Err
 								}
@@ -390,7 +390,7 @@ func HeaderMegaMenu() templ.Component {
 									}
 									return nil
 								})
-								templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Size: "sm"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var20), templ_7745c5c3_Buffer)
+								templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: "sm"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var20), templ_7745c5c3_Buffer)
 								if templ_7745c5c3_Err != nil {
 									return templ_7745c5c3_Err
 								}
