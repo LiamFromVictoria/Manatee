@@ -18,9 +18,9 @@ var Blocks = []blocks.Block{
 	{Slug: "authentication-image", Name: "AuthenticationImage", Title: "Authentication page with image", Category: "authentication",
 		Component: AuthenticationImage(), Source: blocks.Source(src, "authentication_image.templ")},
 	{Slug: "authentication-title", Name: "AuthenticationTitle", Title: "Authentication form with title", Category: "authentication",
-		Dimmed: true,
+		Dimmed:    true,
 		Component: AuthenticationTitle(), Source: blocks.Source(src, "authentication_title.templ")},
 	{Slug: "forgot-password", Name: "ForgotPassword", Title: "Forgot password", Category: "authentication",
-		Dimmed: true,
+		Dimmed:    true,
 		Component: ForgotPassword(), Source: blocks.Source(src, "forgot_password.templ")},
 }

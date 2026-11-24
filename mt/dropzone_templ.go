@@ -18,7 +18,8 @@ type DropzoneProps struct {
 	Multiple        *bool // default true
 	Disabled        bool
 	Loading         bool
-	ActivateOnClick *bool // default true
+	ActivateOnClick *bool  // default true
+	Radius          string // radius scale, default md
 	Name            string
 }
 
@@ -51,7 +52,7 @@ func Dropzone(p DropzoneProps) templ.Component {
 			templ_7745c5c3_Err = templruntime.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_ElementWriter, "mt-dropzone", attrs(p.Base,
 				"accept", p.Accept, "max-size", p.MaxSize, "max-files", p.MaxFiles,
 				"multiple", p.Multiple, "disabled", p.Disabled, "loading", p.Loading,
-				"activate-on-click", p.ActivateOnClick, "name", p.Name,
+				"activate-on-click", p.ActivateOnClick, "radius", p.Radius, "name", p.Name,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

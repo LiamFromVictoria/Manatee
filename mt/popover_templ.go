@@ -15,12 +15,27 @@ type PopoverProps struct {
 	Target              templ.Component // required; renders into slot="target"
 	Position            string          // bottom (default) | top | left | right, each with -start/-end
 	Offset              int             // default 8
-	WithArrow           bool
-	Width               string // "target" to match the trigger's width, or raw CSS
+	Width               string          // "target" to match the trigger's width, or raw CSS
 	Disabled            bool
 	Opened              bool
 	CloseOnClickOutside *bool // default true
 	CloseOnEscape       *bool // default true
+	WithArrow           bool
+	ArrowSize           int    // default 7
+	ArrowOffset         int    // default 5
+	ArrowPosition       string // side (default) | center
+	Transition          string // fade (default) | pop | scale-y | slide-down
+	TransitionDuration  int    // ms, default 150
+}
+
+func (PopoverProps) boolAttr(v *bool) any {
+	if v == nil {
+		return nil
+	}
+	if *v {
+		return true
+	}
+	return "false"
 }
 
 // Popover renders the <mt-popover> host. Children render the dropdown
@@ -52,9 +67,11 @@ func Popover(p PopoverProps) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			templ_7745c5c3_Err = templruntime.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_ElementWriter, "mt-popover", attrs(p.Base,
-				"position", p.Position, "offset", p.Offset, "with-arrow", p.WithArrow, "width", p.Width,
+				"position", p.Position, "offset", p.Offset, "width", p.Width,
 				"disabled", p.Disabled, "opened", p.Opened,
-				"close-on-click-outside", p.CloseOnClickOutside, "close-on-escape", p.CloseOnEscape,
+				"close-on-click-outside", p.boolAttr(p.CloseOnClickOutside), "close-on-escape", p.boolAttr(p.CloseOnEscape),
+				"with-arrow", p.WithArrow, "arrow-size", p.ArrowSize, "arrow-offset", p.ArrowOffset, "arrow-position", p.ArrowPosition,
+				"transition", p.Transition, "transition-duration", p.TransitionDuration,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
