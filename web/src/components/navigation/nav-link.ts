@@ -121,6 +121,8 @@ export class MtNavLink extends MtElement {
     this.#syncChildren();
 
     this.addEventListener('click', (e) => {
+      // Clicks on nested NavLinks bubble through this host; only react to our own control row.
+      if (!e.composedPath().includes(this.$('.control'))) return;
       if (this.disabled) {
         e.preventDefault();
         return;
