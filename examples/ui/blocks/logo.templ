@@ -1,0 +1,28 @@
+package blocks
+
+import "strconv"
+
+// Logo is the Manatee wordmark used where ui.mantine.dev renders
+// <MantineLogo/>. Size is the mark height in px (default 28).
+templ Logo(size int) {
+	<span style={ logoStyle(size) } aria-label="Manatee">
+		<svg width={ strconv.Itoa(logoSize(size)) } height={ strconv.Itoa(logoSize(size)) } viewBox="0 0 32 32" aria-hidden="true">
+			<circle cx="16" cy="16" r="15" fill="var(--mt-color-blue-filled)"></circle>
+			<path d="M7 18c2-5 7-8 12-7 4 1 6 4 6 6-2 0-3 2-5 2-3 0-4-2-7-2-3 0-4 2-6 1z" fill="var(--mt-white)"></path>
+			<circle cx="21" cy="14" r="1.2" fill="var(--mt-color-blue-filled)"></circle>
+		</svg>
+		<span>Manatee</span>
+	</span>
+}
+
+func logoSize(size int) int {
+	if size == 0 {
+		return 28
+	}
+	return size
+}
+
+func logoStyle(size int) templ.SafeCSS {
+	s := logoSize(size)
+	return templ.SafeCSS("display:inline-flex;align-items:center;gap:" + strconv.Itoa(s/4) + "px;font-weight:700;font-size:" + strconv.Itoa(s*3/4) + "px;line-height:1;color:var(--mt-color-bright);white-space:nowrap")
+}

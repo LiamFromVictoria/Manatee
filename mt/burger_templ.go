@@ -18,6 +18,9 @@ type BurgerProps struct {
 	LineSize           string
 	TransitionDuration int
 	AriaLabel          string // default "Toggle navigation"
+	// Controls is the id of an element driven by an `opened` attribute
+	// (Drawer, Collapse, ...): the burger toggles it and mirrors its state.
+	Controls string
 }
 
 // Burger renders a <mt-burger> hamburger toggle. It flips its own `opened`
@@ -49,7 +52,7 @@ func Burger(p BurgerProps) templ.Component {
 			}
 			templ_7745c5c3_Err = templruntime.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_ElementWriter, "mt-burger", attrs(p.Base,
 				"opened", p.Opened, "size", p.Size, "color", p.Color, "line-size", p.LineSize,
-				"transition-duration", p.TransitionDuration, "aria-label", p.AriaLabel,
+				"transition-duration", p.TransitionDuration, "aria-label", p.AriaLabel, "controls", p.Controls,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

@@ -1,0 +1,135 @@
+package main
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/mt"
+)
+
+templ GalleryIndex() {
+	for i, c := range blocks.Categories {
+		if i == 0 || blocks.Categories[i-1].Group != c.Group {
+			@mt.Title(mt.TitleProps{Order: 2, Size: "h3", Base: mt.Base{Mt: mt.XL, Mb: mt.MD}}) {
+				{ c.Group }
+			}
+			@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, ColsMd: 3, Spacing: mt.MD}) {
+				for _, cc := range blocks.Categories {
+					if cc.Group == c.Group {
+						<a href={ templ.SafeURL("/ui/" + cc.Slug) } style="text-decoration:none;color:inherit">
+							@mt.Card(mt.CardProps{WithBorder: true, Padding: mt.LG, Radius: mt.MD}) {
+								@mt.Text(mt.TextProps{Fw: 600}) {
+									{ cc.Name }
+								}
+								@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+									{ strconv.Itoa(len(blocksIn(cc.Slug))) } components
+								}
+							}
+						</a>
+					}
+				}
+			}
+		}
+	}
+}
+
+templ GalleryCategory(list []blocks.Block) {
+	<style>
+		.ui-block { margin-bottom: calc(var(--mt-spacing-xl) * 2); }
+		.ui-block__head { display: flex; align-items: center; justify-content: space-between; gap: var(--mt-spacing-sm); margin-bottom: var(--mt-spacing-sm); }
+		.ui-block__frame { display: block; width: 100%; min-height: 120px; border: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4)); border-radius: var(--mt-radius-md); background: transparent; }
+		.ui-block__code { margin: 0; max-height: 32rem; overflow: auto; padding: var(--mt-spacing-md); background: var(--mt-color-code-bg); border: 1px solid var(--mt-color-border); border-radius: var(--mt-radius-md); font-family: var(--mt-font-family-monospace); font-size: var(--mt-font-size-xs); line-height: 1.6; }
+	</style>
+	if len(list) == 0 {
+		@mt.Text(mt.TextProps{C: mt.Dimmed}) {
+			No blocks in this category yet.
+		}
+	}
+	for _, b := range list {
+		<section class="ui-block" id={ b.Slug }>
+			<div class="ui-block__head">
+				@mt.Title(mt.TitleProps{Order: 2, Size: "h4"}) {
+					{ b.Title }
+				}
+				@mt.Button(mt.ButtonProps{Href: "/ui/render/" + b.Slug, Target: "_blank", Variant: mt.Subtle, Size: "compact-sm"}) {
+					Open in new tab
+				}
+			</div>
+			@mt.Tabs(mt.TabsProps{Value: "preview"}) {
+				@mt.TabsList(mt.TabsListProps{Base: mt.Base{Mb: mt.SM}}) {
+					@mt.Tab(mt.TabProps{Value: "preview"}) {
+						Preview
+					}
+					@mt.Tab(mt.TabProps{Value: "code"}) {
+						Code
+					}
+				}
+				@mt.TabsPanel(mt.TabsPanelProps{Value: "preview"}) {
+					<iframe class="ui-block__frame" src={ "/ui/render/" + b.Slug } title={ b.Title } loading="lazy" data-ui-frame={ b.Slug }></iframe>
+				}
+				@mt.TabsPanel(mt.TabsPanelProps{Value: "code"}) {
+					<pre class="ui-block__code"><code>{ b.Source }</code></pre>
+				}
+			}
+		</section>
+	}
+	<script>
+		window.addEventListener('message', (e) => {
+			if (e.origin !== location.origin || !e.data || e.data.type !== 'mt-ui-height') return;
+			const frame = document.querySelector(`iframe[data-ui-frame="${CSS.escape(e.data.slug)}"]`);
+			if (frame) frame.style.height = `${Math.ceil(e.data.height)}px`;
+		});
+		// Keep previews in the docs' color scheme.
+		window.addEventListener('mt-color-scheme-change', (e) => {
+			for (const f of document.querySelectorAll('iframe[data-ui-frame]')) {
+				f.contentWindow?.manatee?.setColorScheme(e.detail);
+			}
+		});
+	</script>
+}
+
+// BlockCanvas renders one block alone, framed like ui.mantine.dev's canvas.
+templ BlockCanvas(b blocks.Block) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>{ b.Title } · Manatee UI</title>
+			@mt.Head(mt.HeadProps{})
+			<style>
+				body { margin: 0; background: light-dark(var(--mt-white), var(--mt-color-dark-7)); }
+				body[data-dimmed] { background: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+				.ui-canvas { padding: 4px; }
+				.ui-canvas[data-center] { padding: var(--mt-spacing-md); }
+				.ui-canvas__inner { max-width: var(--_max, 100%); }
+				.ui-canvas[data-center] .ui-canvas__inner { margin-inline: auto; }
+				.ui-canvas[data-max-width] .ui-canvas__inner { padding-block: 40px; }
+			</style>
+		</head>
+		<body data-dimmed?={ b.Dimmed }>
+			<div class="ui-canvas" data-center?={ b.Center } data-max-width?={ b.MaxWidth > 0 }>
+				<div class="ui-canvas__inner" style={ canvasStyle(b) }>
+					@b.Component
+				</div>
+			</div>
+			@canvasHeightScript(b.Slug)
+		</body>
+	</html>
+}
+
+func canvasStyle(b blocks.Block) templ.SafeCSS {
+	if b.MaxWidth == 0 {
+		return ""
+	}
+	return templ.SafeCSS("--_max:" + strconv.Itoa(b.MaxWidth) + "px")
+}
+
+// canvasHeightScript reports the document height to the gallery page so the
+// preview iframe can size itself.
+script canvasHeightScript(slug string) {
+	if (window.parent === window) return;
+	const post = () => window.parent.postMessage({ type: 'mt-ui-height', slug, height: document.body.getBoundingClientRect().height }, location.origin);
+	new ResizeObserver(post).observe(document.body);
+	post();
+}

@@ -67,6 +67,9 @@ type Base struct {
 	M, Mt, Mb, Ml, Mr, Mx, My string
 	P, Pt, Pb, Pl, Pr, Px, Py string
 	W, H, Miw, Maw, Mih, Mah  string
+
+	// HiddenFrom / VisibleFrom hide the element from / below a breakpoint (xs..xl).
+	HiddenFrom, VisibleFrom string
 }
 
 // attrs builds the host attribute list from Base plus key/value pairs.
@@ -90,6 +93,7 @@ func attrs(b Base, kv ...any) templ.OrderedAttributes {
 		{"m", b.M}, {"mt", b.Mt}, {"mb", b.Mb}, {"ml", b.Ml}, {"mr", b.Mr}, {"mx", b.Mx}, {"my", b.My},
 		{"p", b.P}, {"pt", b.Pt}, {"pb", b.Pb}, {"pl", b.Pl}, {"pr", b.Pr}, {"px", b.Px}, {"py", b.Py},
 		{"w", b.W}, {"h", b.H}, {"miw", b.Miw}, {"maw", b.Maw}, {"mih", b.Mih}, {"mah", b.Mah},
+		{"hidden-from", b.HiddenFrom}, {"visible-from", b.VisibleFrom},
 	} {
 		add(sp.k, sp.v)
 	}

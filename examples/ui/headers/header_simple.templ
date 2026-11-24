@@ -1,0 +1,74 @@
+package headers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/mt"
+)
+
+type headerLink struct{ Link, Label string }
+
+var headerSimpleLinks = []headerLink{
+	{"/about", "Features"},
+	{"/pricing", "Pricing"},
+	{"/learn", "Learn"},
+	{"/community", "Community"},
+}
+
+var headerSimpleCSS = templ.NewOnceHandle()
+
+// HeaderSimple ports ui.mantine.dev HeaderSimple: logo, inline links from the
+// xs breakpoint, and a burger-driven full-screen drawer below it.
+templ HeaderSimple() {
+	@headerSimpleCSS.Once() {
+		<style>
+			.header-simple {
+				height: 56px;
+				margin-bottom: 120px;
+				background-color: var(--mt-color-body);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.header-simple__inner {
+				height: 56px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.header-simple__link {
+				display: block;
+				line-height: 1;
+				padding: 8px 12px;
+				border-radius: var(--mt-radius-sm);
+				text-decoration: none;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				font-size: var(--mt-font-size-sm);
+				font-weight: 500;
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+				&[data-active] { background-color: var(--mt-color-blue-filled); color: var(--mt-white); }
+				@media (max-width: 36em) { border-radius: 0; padding: var(--mt-spacing-md); }
+			}
+			.header-simple__drawer-links { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }
+		</style>
+	}
+	@blocks.Behaviors()
+	<header class="header-simple" data-active-group>
+		@mt.Container(mt.ContainerProps{Size: mt.MD, Base: mt.Base{Class: "header-simple__inner"}}) {
+			@blocks.Logo(28)
+			@mt.Group(mt.GroupProps{Gap: "5", Base: mt.Base{VisibleFrom: mt.XS}}) {
+				@headerSimpleItems()
+			}
+			@mt.Burger(mt.BurgerProps{Size: mt.SM, Controls: "header-simple-drawer", AriaLabel: "Toggle navigation", Base: mt.Base{HiddenFrom: mt.XS}})
+		}
+		@mt.Drawer(mt.DrawerProps{Heading: "Navigation", Size: "100%", Base: mt.Base{ID: "header-simple-drawer", HiddenFrom: mt.XS}}) {
+			<div class="header-simple__drawer-links">
+				@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+				@headerSimpleItems()
+			</div>
+		}
+	</header>
+}
+
+templ headerSimpleItems() {
+	for i, l := range headerSimpleLinks {
+		<a href={ templ.SafeURL(l.Link) } class="header-simple__link" data-active-item={ l.Link } data-active?={ i == 0 }>{ l.Label }</a>
+	}
+}

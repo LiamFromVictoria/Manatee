@@ -26,10 +26,12 @@ func main() {
 	}
 
 	pages := sortedPages()
-	mux.Handle("GET /{$}", templ.Handler(Shell(pages, nil)))
+	mux.Handle("GET /{$}", templ.Handler(Layout(pages, "/", "", "", Home(pages))))
 	for _, p := range pages {
-		mux.Handle("GET /components/"+p.Slug, templ.Handler(Shell(pages, &p)))
+		path := "/components/" + p.Slug
+		mux.Handle("GET "+path, templ.Handler(Layout(pages, path, p.Title, p.Description, p.Body)))
 	}
+	mountGallery(mux, pages)
 	mux.HandleFunc("POST /echo", echoForm)
 
 	log.Printf("manatee demo on http://%s", *addr)

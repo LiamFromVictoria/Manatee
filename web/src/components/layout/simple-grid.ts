@@ -16,14 +16,11 @@ const responsiveVars = (prop: string, target: string): string =>
 
 const styles = css`
   :host {
-    display: block;
     --_cols: 1;
     --_spacing: var(--mt-spacing-md);
     --_vspacing: var(--_spacing);
-  }
-  .root {
     display: grid;
-    grid-template-columns: repeat(var(--_cols), 1fr);
+    grid-template-columns: repeat(var(--_cols), minmax(0, 1fr));
     column-gap: var(--_spacing);
     row-gap: var(--_vspacing);
   }
@@ -59,10 +56,6 @@ export class MtSimpleGrid extends MtElement {
     verticalSpacingLg: { attr: 'vertical-spacing-lg', css: '--_vertical-spacing-lg', scale: 'spacing' },
     verticalSpacingXl: { attr: 'vertical-spacing-xl', css: '--_vertical-spacing-xl', scale: 'spacing' },
   };
-
-  protected template(): string {
-    return '<div class="root" part="root"><slot></slot></div>';
-  }
 }
 
 define('mt-simple-grid', MtSimpleGrid);
