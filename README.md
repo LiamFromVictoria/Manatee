@@ -4,6 +4,8 @@
 
 # Manatee
 
+[![CI](https://github.com/LiamFromVictoria/Manatee/actions/workflows/ci.yml/badge.svg)](https://github.com/LiamFromVictoria/Manatee/actions/workflows/ci.yml)
+
 Mantine-style UI components for Go web apps, built as zero-dependency web components.
 
 - **`<mt-*>` custom elements**: vanilla Shadow DOM, about 1 base class, no runtime deps.
@@ -16,6 +18,10 @@ Mantine-style UI components for Go web apps, built as zero-dependency web compon
 - **No Node required**: esbuild runs through its Go API, and the bundle is embedded with `go:embed`.
 
 ## Quick start
+
+```sh
+go get github.com/LiamFromVictoria/Manatee@latest
+```
 
 ```go
 package main
@@ -178,9 +184,14 @@ go tool templ generate --watch &     # regenerate templ
 go run ./cmd/demo -dev               # docs at http://localhost:8080
 ```
 
-`go generate ./...` runs the bundle build and templ generation. The `dist/` and
+`go generate ./...` runs the bundle build, templ generation and icon generation. The `dist/` and
 `*_templ.go` outputs are committed, so `go get` users need no build step.
-Optional strict type-check: `npx -p typescript tsc -p .`
+Strict type-check: `npx -p typescript@7.0.2 tsc -p .`
+
+CI (`.github/workflows/ci.yml`) runs `gofmt`, `templ fmt`, `go generate ./...` (and fails if
+the committed output is stale), `go vet`, `go test -race` and `tsc`.
+To release, push a `vX.Y.Z` tag: the release workflow reruns CI and publishes a GitHub release
+with generated notes.
 
 Component authoring rules: [docs/authoring.md](docs/authoring.md).
 
