@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/logo.png" alt="Manatee" width="240">
+</p>
+
 # Manatee
 
 Mantine-style UI components for Go web apps, built as zero-dependency web components.
