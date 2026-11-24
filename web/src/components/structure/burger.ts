@@ -48,9 +48,12 @@ const styles = css`
 `;
 
 /**
- * <mt-burger opened size="xs|sm|md|lg|xl" color line-size transition-duration aria-label>
+ * <mt-burger opened size="xs|sm|md|lg|xl" color line-size transition-duration aria-label controls>
  * Toggles its own `opened` state on click and emits a bubbling `toggle` { opened }
  * CustomEvent. mt-app-shell listens for it to drive the mobile navbar drawer.
+ * `controls="<id>"` links it to any element driven by an `opened` attribute
+ * (mt-drawer, mt-collapse, ...): clicks toggle the target, and the burger
+ * mirrors the target's state when it changes elsewhere (Escape, backdrop).
  */
 export class MtBurger extends MtElement {
   static styles = [styles];
@@ -61,6 +64,7 @@ export class MtBurger extends MtElement {
     lineSize: { css: '--_line-size', scale: 'rem' },
     transitionDuration: { type: 'number', default: 300 },
     ariaLabel: { attr: 'aria-label', default: 'Toggle navigation' },
+    controls: {},
   };
 
   declare opened: boolean;
@@ -69,6 +73,8 @@ export class MtBurger extends MtElement {
   declare lineSize: string | null;
   declare transitionDuration: number;
   declare ariaLabel: string;
+  declare controls: string | null;
+  #targetObserver = new MutationObserver(() => this.#mirrorTarget());
 
   protected template(): string {
     return html`
@@ -85,8 +91,22 @@ export class MtBurger extends MtElement {
   protected setup(): void {
     this.$<HTMLButtonElement>('.root').addEventListener('click', () => {
       this.opened = !this.opened;
+      this.#target()?.toggleAttribute('opened', this.opened);
       this.emit('toggle', { opened: this.opened });
     });
+  }
+
+  protected onDisconnect(): void {
+    this.#targetObserver.disconnect();
+  }
+
+  #target(): Element | null {
+    return this.controls ? document.getElementById(this.controls) : null;
+  }
+
+  #mirrorTarget(): void {
+    const target = this.#target();
+    if (target) this.toggleAttribute('opened', target.hasAttribute('opened'));
   }
 
   protected update(changed: Set<string>): void {
@@ -94,6 +114,16 @@ export class MtBurger extends MtElement {
     if (changed.has('opened')) button.setAttribute('aria-expanded', String(this.opened));
     if (changed.has('ariaLabel')) button.setAttribute('aria-label', this.ariaLabel);
     if (changed.has('transitionDuration')) this.style.setProperty('--_duration', `${this.transitionDuration}ms`);
+    if (changed.has('controls')) {
+      this.#targetObserver.disconnect();
+      const target = this.#target();
+      if (!target) button.removeAttribute('aria-controls');
+      else {
+        button.setAttribute('aria-controls', target.id);
+        this.#targetObserver.observe(target, { attributes: true, attributeFilter: ['opened'] });
+        this.#mirrorTarget();
+      }
+    }
   }
 }
 

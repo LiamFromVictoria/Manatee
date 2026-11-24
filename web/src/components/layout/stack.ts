@@ -2,12 +2,9 @@ import { css, define, MtElement, type Props } from '../../core';
 
 const styles = css`
   :host {
-    display: block;
     --_gap: var(--mt-spacing-md);
     --_align: stretch;
     --_justify: flex-start;
-  }
-  .root {
     display: flex;
     flex-direction: column;
     row-gap: var(--_gap);
@@ -27,10 +24,6 @@ export class MtStack extends MtElement {
     align: { css: '--_align', default: 'stretch' },
     justify: { css: '--_justify', default: 'flex-start' },
   };
-
-  protected template(): string {
-    return '<div class="root" part="root"><slot></slot></div>';
-  }
 }
 
 define('mt-stack', MtStack);

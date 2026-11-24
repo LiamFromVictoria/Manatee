@@ -2,19 +2,16 @@ import { css, define, MtElement, type Props } from '../../core';
 
 const styles = css`
   :host {
-    display: block;
     --_gap: var(--mt-spacing-md);
     --_justify: flex-start;
     --_align: center;
-  }
-  .root {
     display: flex;
     flex-wrap: wrap;
     gap: var(--_gap);
     justify-content: var(--_justify);
     align-items: var(--_align);
   }
-  :host([wrap='nowrap']) .root { flex-wrap: nowrap; }
+  :host([wrap='nowrap']) { flex-wrap: nowrap; }
   :host([grow]) ::slotted(*) { flex-grow: 1; flex-basis: 0; min-width: fit-content; }
   :host([grow][prevent-grow-overflow='false']) ::slotted(*) { flex-basis: auto; }
 `;
@@ -33,10 +30,6 @@ export class MtGroup extends MtElement {
     grow: { type: 'boolean' },
     preventGrowOverflow: { type: 'boolean', default: true },
   };
-
-  protected template(): string {
-    return '<div class="root" part="root"><slot></slot></div>';
-  }
 }
 
 define('mt-group', MtGroup);

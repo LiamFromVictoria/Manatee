@@ -1,0 +1,27 @@
+package blocks
+
+var behaviorsOnce = templ.NewOnceHandle()
+
+// Behaviors emits (once per page) the small delegated script that replaces the
+// most common React state in ui.mantine.dev blocks:
+//
+//	Active item: inside an element with `data-active-group`, clicking an element
+//	with `data-active-item="<key>"` prevents navigation and moves the
+//	`data-active` attribute to every item in the group with that key (so a
+//	desktop link and its mobile-drawer copy stay in sync).
+templ Behaviors() {
+	@behaviorsOnce.Once() {
+		<script>
+			document.addEventListener('click', (e) => {
+				const item = e.composedPath().find((n) => n instanceof Element && n.hasAttribute('data-active-item'));
+				const group = item && item.closest('[data-active-group]');
+				if (!group) return;
+				e.preventDefault();
+				const key = item.getAttribute('data-active-item');
+				for (const el of group.querySelectorAll('[data-active-item]')) {
+					el.toggleAttribute('data-active', el.getAttribute('data-active-item') === key);
+				}
+			});
+		</script>
+	}
+}

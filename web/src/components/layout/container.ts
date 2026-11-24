@@ -5,6 +5,7 @@ const styles = css`
     display: block;
     box-sizing: border-box;
     width: 100%;
+    max-width: var(--_maxw);
     padding-inline: var(--mt-spacing-md);
     margin-inline: auto;
     --_maxw: 60rem;
@@ -16,7 +17,6 @@ const styles = css`
   :host([size='xl']) { --_maxw: 82.5rem; }
   :host([fluid]) { --_maxw: 100%; }
   :host([centered='false']) { margin-inline: 0; }
-  .root { max-width: var(--_maxw); }
 `;
 
 /**
@@ -34,14 +34,11 @@ export class MtContainer extends MtElement {
 
   declare size: string;
 
-  protected template(): string {
-    return '<div class="root" part="root"><slot></slot></div>';
-  }
-
   protected update(changed: Set<string>): void {
     if (changed.has('size')) {
       const v = this.size;
-      this.$('.root').style.maxWidth = v && !isToken(v) ? resolve('rem', v) : '';
+      if (v && !isToken(v)) this.style.setProperty('--_maxw', resolve('rem', v));
+      else this.style.removeProperty('--_maxw');
     }
   }
 }

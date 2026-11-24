@@ -12,6 +12,10 @@ import './components/choice';
 import './components/overlays';
 import './components/navigation';
 import './components/structure';
+import './components/primitives';
+import './components/interactive';
+import './components/sliders';
+import './components/media';
 
 export * from './core';
 export { notifications, type NotifyOptions } from './components/overlays';

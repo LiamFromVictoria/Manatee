@@ -500,6 +500,7 @@ var ve=["dark","gray","red","pink","grape","violet","indigo","blue","cyan","teal
     display: block;
     box-sizing: border-box;
     width: 100%;
+    max-width: var(--_maxw);
     padding-inline: var(--mt-spacing-md);
     margin-inline: auto;
     --_maxw: 60rem;
@@ -511,39 +512,32 @@ var ve=["dark","gray","red","pink","grape","violet","indigo","blue","cyan","teal
   :host([size='xl']) { --_maxw: 82.5rem; }
   :host([fluid]) { --_maxw: 100%; }
   :host([centered='false']) { margin-inline: 0; }
-  .root { max-width: var(--_maxw); }
-`,mt=class extends c{static styles=[Qe];static props={size:{default:"md"},fluid:{type:"boolean"},centered:{type:"boolean",default:!0}};template(){return'<div class="root" part="root"><slot></slot></div>'}update(t){if(t.has("size")){let e=this.size;this.$(".root").style.maxWidth=e&&!K(e)?k("rem",e):""}}};n("mt-container",mt);var Je=a`
+`,mt=class extends c{static styles=[Qe];static props={size:{default:"md"},fluid:{type:"boolean"},centered:{type:"boolean",default:!0}};update(t){if(t.has("size")){let e=this.size;e&&!K(e)?this.style.setProperty("--_maxw",k("rem",e)):this.style.removeProperty("--_maxw")}}};n("mt-container",mt);var Je=a`
   :host {
-    display: block;
     --_gap: var(--mt-spacing-md);
     --_justify: flex-start;
     --_align: center;
-  }
-  .root {
     display: flex;
     flex-wrap: wrap;
     gap: var(--_gap);
     justify-content: var(--_justify);
     align-items: var(--_align);
   }
-  :host([wrap='nowrap']) .root { flex-wrap: nowrap; }
+  :host([wrap='nowrap']) { flex-wrap: nowrap; }
   :host([grow]) ::slotted(*) { flex-grow: 1; flex-basis: 0; min-width: fit-content; }
   :host([grow][prevent-grow-overflow='false']) ::slotted(*) { flex-basis: auto; }
-`,ft=class extends c{static styles=[Je];static props={gap:{css:"--_gap",scale:"spacing",default:"md"},justify:{css:"--_justify",default:"flex-start"},align:{css:"--_align",default:"center"},wrap:{default:"wrap"},grow:{type:"boolean"},preventGrowOverflow:{type:"boolean",default:!0}};template(){return'<div class="root" part="root"><slot></slot></div>'}};n("mt-group",ft);var to=a`
+`,ft=class extends c{static styles=[Je];static props={gap:{css:"--_gap",scale:"spacing",default:"md"},justify:{css:"--_justify",default:"flex-start"},align:{css:"--_align",default:"center"},wrap:{default:"wrap"},grow:{type:"boolean"},preventGrowOverflow:{type:"boolean",default:!0}}};n("mt-group",ft);var to=a`
   :host {
-    display: block;
     --_gap: var(--mt-spacing-md);
     --_align: stretch;
     --_justify: flex-start;
-  }
-  .root {
     display: flex;
     flex-direction: column;
     row-gap: var(--_gap);
     align-items: var(--_align);
     justify-content: var(--_justify);
   }
-`,gt=class extends c{static styles=[to];static props={gap:{css:"--_gap",scale:"spacing",default:"md"},align:{css:"--_align",default:"stretch"},justify:{css:"--_justify",default:"flex-start"}};template(){return'<div class="root" part="root"><slot></slot></div>'}};n("mt-stack",gt);var eo=a`
+`,gt=class extends c{static styles=[to];static props={gap:{css:"--_gap",scale:"spacing",default:"md"},align:{css:"--_align",default:"stretch"},justify:{css:"--_justify",default:"flex-start"}}};n("mt-stack",gt);var eo=a`
   :host {
     display: block;
     --_cols: 12;
@@ -582,21 +576,18 @@ var ve=["dark","gray","red","pink","grape","violet","indigo","blue","cyan","teal
 `,bt=class extends c{static styles=[io];static props={span:{css:"--_span",default:12},offset:{css:"--_offset",type:"number",default:0},order:{css:"--_order",type:"number",default:0},spanXs:{attr:"span-xs",css:"--_span-xs",type:"number"},spanSm:{attr:"span-sm",css:"--_span-sm",type:"number"},spanMd:{attr:"span-md",css:"--_span-md",type:"number"},spanLg:{attr:"span-lg",css:"--_span-lg",type:"number"},spanXl:{attr:"span-xl",css:"--_span-xl",type:"number"},offsetXs:{attr:"offset-xs",css:"--_offset-xs",type:"number"},offsetSm:{attr:"offset-sm",css:"--_offset-sm",type:"number"},offsetMd:{attr:"offset-md",css:"--_offset-md",type:"number"},offsetLg:{attr:"offset-lg",css:"--_offset-lg",type:"number"},offsetXl:{attr:"offset-xl",css:"--_offset-xl",type:"number"}}};n("mt-grid",vt);n("mt-grid-col",bt);var ro=[["xs","36em"],["sm","48em"],["md","62em"],["lg","75em"],["xl","88em"]],yt=(i,t)=>ro.map(([e,o])=>`@media (min-width: ${o}) { :host([${i}-${e}]) { ${t}: var(--_${i}-${e}); } }`).join(`
 `),so=a`
   :host {
-    display: block;
     --_cols: 1;
     --_spacing: var(--mt-spacing-md);
     --_vspacing: var(--_spacing);
-  }
-  .root {
     display: grid;
-    grid-template-columns: repeat(var(--_cols), 1fr);
+    grid-template-columns: repeat(var(--_cols), minmax(0, 1fr));
     column-gap: var(--_spacing);
     row-gap: var(--_vspacing);
   }
   ${yt("cols","--_cols")}
   ${yt("spacing","--_spacing")}
   ${yt("vertical-spacing","--_vspacing")}
-`,xt=class extends c{static styles=[so];static props={cols:{css:"--_cols",type:"number",default:1},spacing:{css:"--_spacing",scale:"spacing",default:"md"},verticalSpacing:{css:"--_vspacing",scale:"spacing"},colsXs:{attr:"cols-xs",css:"--_cols-xs",type:"number"},colsSm:{attr:"cols-sm",css:"--_cols-sm",type:"number"},colsMd:{attr:"cols-md",css:"--_cols-md",type:"number"},colsLg:{attr:"cols-lg",css:"--_cols-lg",type:"number"},colsXl:{attr:"cols-xl",css:"--_cols-xl",type:"number"},spacingXs:{attr:"spacing-xs",css:"--_spacing-xs",scale:"spacing"},spacingSm:{attr:"spacing-sm",css:"--_spacing-sm",scale:"spacing"},spacingMd:{attr:"spacing-md",css:"--_spacing-md",scale:"spacing"},spacingLg:{attr:"spacing-lg",css:"--_spacing-lg",scale:"spacing"},spacingXl:{attr:"spacing-xl",css:"--_spacing-xl",scale:"spacing"},verticalSpacingXs:{attr:"vertical-spacing-xs",css:"--_vertical-spacing-xs",scale:"spacing"},verticalSpacingSm:{attr:"vertical-spacing-sm",css:"--_vertical-spacing-sm",scale:"spacing"},verticalSpacingMd:{attr:"vertical-spacing-md",css:"--_vertical-spacing-md",scale:"spacing"},verticalSpacingLg:{attr:"vertical-spacing-lg",css:"--_vertical-spacing-lg",scale:"spacing"},verticalSpacingXl:{attr:"vertical-spacing-xl",css:"--_vertical-spacing-xl",scale:"spacing"}};template(){return'<div class="root" part="root"><slot></slot></div>'}};n("mt-simple-grid",xt);var ao=a`
+`,xt=class extends c{static styles=[so];static props={cols:{css:"--_cols",type:"number",default:1},spacing:{css:"--_spacing",scale:"spacing",default:"md"},verticalSpacing:{css:"--_vspacing",scale:"spacing"},colsXs:{attr:"cols-xs",css:"--_cols-xs",type:"number"},colsSm:{attr:"cols-sm",css:"--_cols-sm",type:"number"},colsMd:{attr:"cols-md",css:"--_cols-md",type:"number"},colsLg:{attr:"cols-lg",css:"--_cols-lg",type:"number"},colsXl:{attr:"cols-xl",css:"--_cols-xl",type:"number"},spacingXs:{attr:"spacing-xs",css:"--_spacing-xs",scale:"spacing"},spacingSm:{attr:"spacing-sm",css:"--_spacing-sm",scale:"spacing"},spacingMd:{attr:"spacing-md",css:"--_spacing-md",scale:"spacing"},spacingLg:{attr:"spacing-lg",css:"--_spacing-lg",scale:"spacing"},spacingXl:{attr:"spacing-xl",css:"--_spacing-xl",scale:"spacing"},verticalSpacingXs:{attr:"vertical-spacing-xs",css:"--_vertical-spacing-xs",scale:"spacing"},verticalSpacingSm:{attr:"vertical-spacing-sm",css:"--_vertical-spacing-sm",scale:"spacing"},verticalSpacingMd:{attr:"vertical-spacing-md",css:"--_vertical-spacing-md",scale:"spacing"},verticalSpacingLg:{attr:"vertical-spacing-lg",css:"--_vertical-spacing-lg",scale:"spacing"},verticalSpacingXl:{attr:"vertical-spacing-xl",css:"--_vertical-spacing-xl",scale:"spacing"}}};n("mt-simple-grid",xt);var ao=a`
   :host { display: flex; align-items: center; justify-content: center; }
   :host([inline]) { display: inline-flex; }
 `,wt=class extends c{static styles=[ao];static props={inline:{type:"boolean"}}};n("mt-center",wt);var no=a`
@@ -1852,7 +1843,7 @@ var ve=["dark","gray","red","pink","grape","violet","indigo","blue","cyan","teal
   :host([opened]) .line-top { top: 50%; transform: translateY(-50%) rotate(45deg); }
   :host([opened]) .line-mid { opacity: 0; }
   :host([opened]) .line-bot { bottom: auto; top: 50%; transform: translateY(-50%) rotate(-45deg); }
-`,pe=class extends c{static styles=[pi];static props={opened:{type:"boolean"},size:{default:"md"},color:{css:"--_color",scale:"color"},lineSize:{css:"--_line-size",scale:"rem"},transitionDuration:{type:"number",default:300},ariaLabel:{attr:"aria-label",default:"Toggle navigation"}};template(){return p`
+`,pe=class extends c{static styles=[pi];static props={opened:{type:"boolean"},size:{default:"md"},color:{css:"--_color",scale:"color"},lineSize:{css:"--_line-size",scale:"rem"},transitionDuration:{type:"number",default:300},ariaLabel:{attr:"aria-label",default:"Toggle navigation"},controls:{}};#t=new MutationObserver(()=>this.#o());template(){return p`
       <button class="root" part="root" type="button">
         <span class="box" part="box" aria-hidden="true">
           <span class="line line-top"></span>
@@ -1860,7 +1851,7 @@ var ve=["dark","gray","red","pink","grape","violet","indigo","blue","cyan","teal
           <span class="line line-bot"></span>
         </span>
       </button>
-    `}setup(){this.$(".root").addEventListener("click",()=>{this.opened=!this.opened,this.emit("toggle",{opened:this.opened})})}update(t){let e=this.$(".root");t.has("opened")&&e.setAttribute("aria-expanded",String(this.opened)),t.has("ariaLabel")&&e.setAttribute("aria-label",this.ariaLabel),t.has("transitionDuration")&&this.style.setProperty("--_duration",`${this.transitionDuration}ms`)}};n("mt-burger",pe);var Ce=!1;function hi(){if(Ce)return;Ce=!0;let i=new CSSStyleSheet;i.replaceSync(`
+    `}setup(){this.$(".root").addEventListener("click",()=>{this.opened=!this.opened,this.#e()?.toggleAttribute("opened",this.opened),this.emit("toggle",{opened:this.opened})})}onDisconnect(){this.#t.disconnect()}#e(){return this.controls?document.getElementById(this.controls):null}#o(){let t=this.#e();t&&this.toggleAttribute("opened",t.hasAttribute("opened"))}update(t){let e=this.$(".root");if(t.has("opened")&&e.setAttribute("aria-expanded",String(this.opened)),t.has("ariaLabel")&&e.setAttribute("aria-label",this.ariaLabel),t.has("transitionDuration")&&this.style.setProperty("--_duration",`${this.transitionDuration}ms`),t.has("controls")){this.#t.disconnect();let o=this.#e();o?(e.setAttribute("aria-controls",o.id),this.#t.observe(o,{attributes:!0,attributeFilter:["opened"]}),this.#o()):e.removeAttribute("aria-controls")}}};n("mt-burger",pe);var Ce=!1;function hi(){if(Ce)return;Ce=!0;let i=new CSSStyleSheet;i.replaceSync(`
     mt-table > table {
       width: 100%;
       border-collapse: collapse;
