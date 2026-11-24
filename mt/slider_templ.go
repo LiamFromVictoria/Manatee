@@ -39,8 +39,9 @@ type SliderProps struct {
 
 // SliderMark is one entry rendered as a light-DOM <mt-slider-mark>, shared by Slider and RangeSlider.
 type SliderMark struct {
-	Value float64
-	Label string
+	Value        float64
+	Label        string
+	LabelContent templ.Component // rich mark label, rendered as the element's children; falls back to Label
 }
 
 func Slider(p SliderProps) templ.Component {
@@ -149,7 +150,17 @@ func sliderMarkEl(m SliderMark) templ.Component {
 			}
 			templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "></mt-slider-mark>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, ">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if m.LabelContent != nil {
+			templ_7745c5c3_Err = m.LabelContent.Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</mt-slider-mark>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -160,30 +171,34 @@ func sliderMarkEl(m SliderMark) templ.Component {
 // RangeSliderProps mirrors Mantine's RangeSlider.
 type RangeSliderProps struct {
 	Base
-	Name             string
-	From             *float64 // default Min
-	To               *float64 // default Max
-	Min              *float64 // default 0
-	Max              *float64 // default 100
-	Step             float64  // default 1
-	Precision        *int
-	Color            string
-	Size             string // xs..xl (default md)
-	Radius           string // default xl
-	ThumbSize        float64
-	ThumbLabel       string
-	Label            *bool
-	LabelFormat      string
-	LabelAlwaysOn    bool
-	ShowLabelOnHover *bool // default true
-	Marks            []SliderMark
-	RestrictToMarks  bool
-	Inverted         bool
-	Disabled         bool
-	MinRange         *float64 // default 10
-	MaxRange         *float64 // default unlimited
-	PushOnOverlap    *bool    // default true
-	ThumbChildren    templ.Component
+	Name              string
+	From              *float64 // default Min
+	To                *float64 // default Max
+	Min               *float64 // default 0
+	Max               *float64 // default 100
+	Step              float64  // default 1
+	Precision         *int
+	Color             string
+	Size              string // xs..xl (default md)
+	Radius            string // default xl
+	ThumbSize         float64
+	ThumbLabel        string
+	ThumbFromLabel    string // overrides ThumbLabel for the "from" thumb
+	ThumbToLabel      string // overrides ThumbLabel for the "to" thumb
+	Label             *bool
+	LabelFormat       string
+	LabelAlwaysOn     bool
+	ShowLabelOnHover  *bool // default true
+	Marks             []SliderMark
+	RestrictToMarks   bool
+	Inverted          bool
+	Disabled          bool
+	MinRange          *float64        // default 10
+	MaxRange          *float64        // default unlimited
+	PushOnOverlap     *bool           // default true
+	ThumbChildren     templ.Component // shared fallback for both thumbs
+	ThumbFromChildren templ.Component // overrides ThumbChildren for the "from" thumb
+	ThumbToChildren   templ.Component // overrides ThumbChildren for the "to" thumb
 }
 
 func RangeSlider(p RangeSliderProps) templ.Component {
@@ -207,7 +222,7 @@ func RangeSlider(p RangeSliderProps) templ.Component {
 			templ_7745c5c3_ElementWriter := templ_7745c5c3_Buffer
 			templ_7745c5c3_Buffer := templ.GetBuffer()
 			var templ_7745c5c3_ElementScripts []templ.ComponentScript
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<mt-range-slider")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<mt-range-slider")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -215,7 +230,8 @@ func RangeSlider(p RangeSliderProps) templ.Component {
 				"name", p.Name, "value", rangeValueAttr(p.From, p.To), "min", p.Min, "max", p.Max,
 				"step", p.Step, "precision", p.Precision,
 				"color", p.Color, "size", p.Size, "radius", p.Radius, "thumb-size", p.ThumbSize,
-				"thumb-label", p.ThumbLabel, "label", p.Label, "label-format", p.LabelFormat,
+				"thumb-label", p.ThumbLabel, "thumb-from-label", p.ThumbFromLabel, "thumb-to-label", p.ThumbToLabel,
+				"label", p.Label, "label-format", p.LabelFormat,
 				"label-always-on", p.LabelAlwaysOn, "show-label-on-hover", p.ShowLabelOnHover,
 				"restrict-to-marks", p.RestrictToMarks, "inverted", p.Inverted, "disabled", p.Disabled,
 				"min-range", p.MinRange, "max-range", p.MaxRange, "push-on-overlap", p.PushOnOverlap,
@@ -233,7 +249,7 @@ func RangeSlider(p RangeSliderProps) templ.Component {
 			}
 			templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, ">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, ">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -247,7 +263,15 @@ func RangeSlider(p RangeSliderProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</mt-range-slider>")
+		templ_7745c5c3_Err = slot("thumb-from-children", p.ThumbFromChildren).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = slot("thumb-to-children", p.ThumbToChildren).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</mt-range-slider>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

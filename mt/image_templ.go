@@ -9,10 +9,12 @@ package mt
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
+import "strings"
+
 // ImageProps mirrors Mantine's Image.
 type ImageProps struct {
 	Base
-	Src         string
+	Src         string // URL, or a data:image/… URL (e.g. an embedded asset)
 	Alt         string
 	Fit         string // cover (default) | contain | fill | none | scale-down
 	Radius      string
@@ -46,8 +48,8 @@ func Image(p ImageProps) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			templ_7745c5c3_Err = templruntime.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_ElementWriter, "mt-image", attrs(p.Base,
-				"src", p.Src, "alt", p.Alt, "fit", p.Fit, "radius", p.Radius,
-				"fallback-src", p.FallbackSrc, "loading", p.Loading,
+				"src", imageURL(p.Src), "alt", p.Alt, "fit", p.Fit, "radius", p.Radius,
+				"fallback-src", imageURL(p.FallbackSrc), "loading", p.Loading,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -68,6 +70,15 @@ func Image(p ImageProps) templ.Component {
 		}
 		return nil
 	})
+}
+
+// imageURL lets data:image/… URLs through templ's URL sanitizer, which
+// otherwise rewrites every data: URL. Image data cannot execute script.
+func imageURL(s string) any {
+	if strings.HasPrefix(s, "data:image/") {
+		return templ.SafeURL(s)
+	}
+	return s
 }
 
 var _ = templruntime.GeneratedTemplate

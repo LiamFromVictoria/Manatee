@@ -12,15 +12,31 @@ import templruntime "github.com/a-h/templ/runtime"
 // MenuProps mirrors Mantine's Menu.
 type MenuProps struct {
 	Base
-	Target           templ.Component // required; renders into slot="target"
-	Trigger          string          // click (default) | hover | click-hover
-	Position         string          // bottom (default) | top | left | right, each with -start/-end
-	Offset           int             // default 8
-	Width            string          // "target" to match the trigger's width, or raw CSS
-	Disabled         bool
-	Opened           bool
-	CloseOnItemClick *bool // default true
-	Loop             *bool // default true
+	Target             templ.Component // required; renders into slot="target"
+	Trigger            string          // click (default) | hover | click-hover
+	Position           string          // bottom (default) | top | left | right, each with -start/-end
+	Offset             int             // default 8
+	Width              string          // "target" to match the trigger's width, or raw CSS
+	Disabled           bool
+	Opened             bool
+	CloseOnItemClick   *bool // default true
+	Loop               *bool // default true
+	WithArrow          bool
+	ArrowSize          int    // default 7
+	ArrowOffset        int    // default 5
+	ArrowPosition      string // side (default) | center
+	Transition         string // fade (default) | pop | scale-y | slide-down
+	TransitionDuration int    // ms, default 150
+}
+
+func (MenuProps) boolAttr(v *bool) any {
+	if v == nil {
+		return nil
+	}
+	if *v {
+		return true
+	}
+	return "false"
 }
 
 // Menu renders the <mt-menu> host. Children render the dropdown (usually a
@@ -54,7 +70,9 @@ func Menu(p MenuProps) templ.Component {
 			templ_7745c5c3_Err = templruntime.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_ElementWriter, "mt-menu", attrs(p.Base,
 				"trigger", p.Trigger, "position", p.Position, "offset", p.Offset, "width", p.Width,
 				"disabled", p.Disabled, "opened", p.Opened,
-				"close-on-item-click", p.CloseOnItemClick, "loop", p.Loop,
+				"close-on-item-click", p.boolAttr(p.CloseOnItemClick), "loop", p.boolAttr(p.Loop),
+				"with-arrow", p.WithArrow, "arrow-size", p.ArrowSize, "arrow-offset", p.ArrowOffset, "arrow-position", p.ArrowPosition,
+				"transition", p.Transition, "transition-duration", p.TransitionDuration,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -228,6 +246,16 @@ type MenuItemProps struct {
 	RightSection     templ.Component
 }
 
+func (MenuItemProps) boolAttr(v *bool) any {
+	if v == nil {
+		return nil
+	}
+	if *v {
+		return true
+	}
+	return "false"
+}
+
 func MenuItem(p MenuItemProps) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -256,7 +284,7 @@ func MenuItem(p MenuItemProps) templ.Component {
 			}
 			templ_7745c5c3_Err = templruntime.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_ElementWriter, "mt-menu-item", attrs(p.Base,
 				"color", p.Color, "disabled", p.Disabled, "href", p.Href, "target", p.Target,
-				"close-menu-on-click", p.CloseMenuOnClick,
+				"close-menu-on-click", p.boolAttr(p.CloseMenuOnClick),
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

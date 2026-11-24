@@ -12,29 +12,35 @@ import templruntime "github.com/a-h/templ/runtime"
 // CarouselProps mirrors Mantine's Carousel (@mantine/carousel).
 type CarouselProps struct {
 	Base
-	Orientation    string // horizontal (default) | vertical
-	SlideSize      string // CSS size, default "100%"
-	SlideGap       string // spacing scale
-	SlideSizeXs    string
-	SlideSizeSm    string
-	SlideSizeMd    string
-	SlideSizeLg    string
-	SlideSizeXl    string
-	SlideGapXs     string
-	SlideGapSm     string
-	SlideGapMd     string
-	SlideGapLg     string
-	SlideGapXl     string
-	Align          string // start | center (default) | end
-	Loop           bool
-	DragFree       bool
-	WithControls   *bool // default true
-	WithIndicators bool
-	ControlsOffset string // spacing scale, default sm
-	ControlSize    int    // px, default 26
-	Height         string
-	Radius         string
-	InitialSlide   int
+	Orientation      string // horizontal (default) | vertical
+	SlideSize        string // CSS size, default "100%"
+	SlideGap         string // spacing scale
+	SlideSizeXs      string
+	SlideSizeSm      string
+	SlideSizeMd      string
+	SlideSizeLg      string
+	SlideSizeXl      string
+	SlideGapXs       string
+	SlideGapSm       string
+	SlideGapMd       string
+	SlideGapLg       string
+	SlideGapXl       string
+	SlidesToScroll   int // default 1
+	SlidesToScrollXs int
+	SlidesToScrollSm int
+	SlidesToScrollMd int
+	SlidesToScrollLg int
+	SlidesToScrollXl int
+	Align            string // start | center (default) | end
+	Loop             bool
+	DragFree         bool
+	WithControls     *bool // default true
+	WithIndicators   bool
+	ControlsOffset   string // spacing scale, default sm
+	ControlSize      int    // px, default 26
+	Height           string
+	Radius           string
+	InitialSlide     int
 }
 
 func Carousel(p CarouselProps) templ.Component {
@@ -70,6 +76,9 @@ func Carousel(p CarouselProps) templ.Component {
 				"slide-gap-xs", p.SlideGapXs, "slide-gap-sm", p.SlideGapSm, "slide-gap-md", p.SlideGapMd,
 				"slide-gap-lg", p.SlideGapLg, "slide-gap-xl", p.SlideGapXl,
 				"align", p.Align, "loop", p.Loop, "drag-free", p.DragFree,
+				"slides-to-scroll", p.SlidesToScroll, "slides-to-scroll-xs", p.SlidesToScrollXs,
+				"slides-to-scroll-sm", p.SlidesToScrollSm, "slides-to-scroll-md", p.SlidesToScrollMd,
+				"slides-to-scroll-lg", p.SlidesToScrollLg, "slides-to-scroll-xl", p.SlidesToScrollXl,
 				"with-controls", p.WithControls, "with-indicators", p.WithIndicators,
 				"controls-offset", p.ControlsOffset, "control-size", p.ControlSize,
 				"height", p.Height, "radius", p.Radius, "initial-slide", p.InitialSlide,

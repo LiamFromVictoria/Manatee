@@ -24,7 +24,8 @@ type TooltipProps struct {
 	OpenDelay  int
 	CloseDelay int
 	Disabled   bool
-	Opened     bool // controlled mode
+	Opened     bool   // controlled mode
+	Radius     string // radius scale, default "sm"
 }
 
 // Tooltip renders the <mt-tooltip> host around its single child target.
@@ -58,6 +59,7 @@ func Tooltip(p TooltipProps) templ.Component {
 				"label", p.Label, "position", p.Position, "offset", p.Offset, "with-arrow", p.WithArrow,
 				"arrow-size", p.ArrowSize, "color", p.Color, "multiline", p.Multiline, "w", p.W,
 				"open-delay", p.OpenDelay, "close-delay", p.CloseDelay, "disabled", p.Disabled, "opened", p.Opened,
+				"radius", p.Radius,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
