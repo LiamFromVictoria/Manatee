@@ -12,8 +12,8 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"fmt"
 
-	"github.com/you/manatee/icons"
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/icons"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 // navbarLinksGroupLink is one sub-link of a collapsible navbar links group.

@@ -10,9 +10,9 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/you/manatee/examples/ui/blocks"
-	"github.com/you/manatee/icons"
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/examples/ui/blocks"
+	"github.com/LiamFromVictoria/Manatee/icons"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 type navbarMinimalLink struct {

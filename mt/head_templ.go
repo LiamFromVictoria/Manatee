@@ -9,7 +9,7 @@ package mt
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee"
+import "github.com/LiamFromVictoria/Manatee"
 
 // HeadProps configures the asset tags.
 type HeadProps struct {

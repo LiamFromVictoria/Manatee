@@ -9,7 +9,7 @@ package comments
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/mt"
 
 // CommentSimple ports ui.mantine.dev CommentSimple: an avatar, name, time
 // and a short comment body, with no card chrome.

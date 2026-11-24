@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 // Layout is the docs chrome. active is the current URL path (highlights the

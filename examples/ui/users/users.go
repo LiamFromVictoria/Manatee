@@ -4,7 +4,7 @@ package users
 import (
 	"embed"
 
-	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/LiamFromVictoria/Manatee/examples/ui/blocks"
 )
 
 //go:embed *.templ

@@ -9,8 +9,8 @@ package authentication
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee/mt"
-import "github.com/you/manatee/icons"
+import "github.com/LiamFromVictoria/Manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/icons"
 
 var forgotPasswordCSS = templ.NewOnceHandle()
 

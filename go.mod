@@ -1,4 +1,4 @@
-module github.com/you/manatee
+module github.com/LiamFromVictoria/Manatee
 
 go 1.27.4
 

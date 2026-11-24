@@ -24,7 +24,7 @@ import (
     "net/http"
 
     "github.com/a-h/templ"
-    "github.com/you/manatee"
+    "github.com/LiamFromVictoria/Manatee"
 )
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 ```templ
 package main
 
-import "github.com/you/manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/mt"
 
 templ Page() {
     <html>

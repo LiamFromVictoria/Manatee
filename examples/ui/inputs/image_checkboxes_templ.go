@@ -13,7 +13,7 @@ import (
 	_ "embed"
 	"encoding/base64"
 
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 //go:embed icons/sea.png
