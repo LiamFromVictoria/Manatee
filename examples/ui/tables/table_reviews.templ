@@ -73,23 +73,23 @@ templ tableReviewsRow(row tableReviewsBook) {
 	}}
 	<tr>
 		<td>
-			@mt.Anchor(mt.AnchorProps{Size: mt.SM}) {
+			@mt.Anchor(mt.AnchorProps{Base: mt.Base{Fz: mt.SM}}) {
 				{ row.Title }
 			}
 		</td>
 		<td>{ strconv.Itoa(row.Year) }</td>
 		<td>
-			@mt.Anchor(mt.AnchorProps{Size: mt.SM}) {
+			@mt.Anchor(mt.AnchorProps{Base: mt.Base{Fz: mt.SM}}) {
 				{ row.Author }
 			}
 		</td>
 		<td>{ tableReviewsFormatInt(total) }</td>
 		<td>
 			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
-				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Teal, Fw: 700}) {
+				@mt.Text(mt.TextProps{C: mt.Teal, Fw: 700, Base: mt.Base{Fz: mt.XS}}) {
 					{ fmt.Sprintf("%.0f%%", positivePct) }
 				}
-				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Red, Fw: 700}) {
+				@mt.Text(mt.TextProps{C: mt.Red, Fw: 700, Base: mt.Base{Fz: mt.XS}}) {
 					{ fmt.Sprintf("%.0f%%", negativePct) }
 				}
 			}

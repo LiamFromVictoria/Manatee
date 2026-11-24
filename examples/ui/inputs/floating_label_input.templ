@@ -36,6 +36,13 @@ templ FloatingLabelInput() {
 			.floating-label-input[data-floating]::part(input)::placeholder {
 				color: var(--mt-color-placeholder);
 			}
+			.floating-label-input::part(required) {
+				transition: opacity 150ms ease;
+				opacity: 0;
+			}
+			.floating-label-input[data-floating]::part(required) {
+				opacity: 1;
+			}
 		</style>
 		<script>
 			function floatingLabelInputSync(el) {

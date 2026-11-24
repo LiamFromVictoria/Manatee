@@ -46,7 +46,7 @@ func ButtonProgress() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.button-progress__progress {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: -1px;\n\t\t\t\theight: auto;\n\t\t\t\tz-index: 0;\n\t\t\t}\n\t\t\t.button-progress__progress::part(track) {\n\t\t\t\tbackground-color: transparent;\n\t\t\t\theight: auto;\n\t\t\t}\n\t\t\t.button-progress__label {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 1;\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.button-progress__progress {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: -1px;\n\t\t\t\theight: auto;\n\t\t\t\tz-index: 0;\n\t\t\t}\n\t\t\t.button-progress__progress::part(track) {\n\t\t\t\tbackground-color: transparent;\n\t\t\t\theight: 100%;\n\t\t\t}\n\t\t\t.button-progress__label {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 1;\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -110,7 +110,7 @@ func buttonProgressBar() templ.Component {
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = mt.Progress(mt.ProgressProps{
 			Value:  0,
-			Color:  "color-mix(in srgb, var(--mt-color-blue-4) 35%, transparent)",
+			Color:  "color-mix(in srgb, var(--mt-color-blue-2) 35%, transparent)",
 			Radius: mt.SM,
 			Base:   mt.Base{Class: "button-progress__progress"},
 		}).Render(ctx, templ_7745c5c3_Buffer)

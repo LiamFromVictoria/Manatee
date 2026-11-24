@@ -38,7 +38,6 @@ templ FeaturesCard() {
 				margin-bottom: var(--mt-spacing-xs);
 				line-height: 1;
 				font-weight: 700;
-				font-size: var(--mt-font-size-xs);
 				letter-spacing: -0.25px;
 				text-transform: uppercase;
 			}
@@ -61,7 +60,7 @@ templ FeaturesCard() {
 				@mt.Text(mt.TextProps{Fw: 500}) {
 					Tesla Model S
 				}
-				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+				@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 					Free recharge at any station
 				}
 			</div>
@@ -70,7 +69,7 @@ templ FeaturesCard() {
 			}
 		}
 		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "features-card__section", Mt: mt.MD}}) {
-			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Class: "features-card__label"}}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Class: "features-card__label"}}) {
 				Basic configuration
 			}
 			@mt.Group(mt.GroupProps{Gap: "8", Base: mt.Base{Mb: "-8px"}}) {
@@ -87,10 +86,10 @@ templ FeaturesCard() {
 		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "features-card__section"}}) {
 			@mt.Group(mt.GroupProps{Gap: "30"}) {
 				<div>
-					@mt.Text(mt.TextProps{Size: mt.XL, Fw: 700, Base: mt.Base{Style: "line-height: 1"}}) {
+					@mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Fz: mt.XL, Style: "line-height: 1"}}) {
 						$168.00
 					}
-					@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Fw: 500, Base: mt.Base{Style: "line-height: 1", Mt: "3"}}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Fw: 500, Base: mt.Base{Fz: mt.SM, Style: "line-height: 1", Mt: "3"}}) {
 						per day
 					}
 				</div>

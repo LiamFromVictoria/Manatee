@@ -22,15 +22,15 @@ templ TaskCard() {
 				12 days left
 			}
 		}
-		@mt.Text(mt.TextProps{Size: "lg", Fw: 500, Base: mt.Base{Mt: mt.MD}}) {
+		@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Mt: mt.MD}}) {
 			5.3 minor release (September 2022)
 		}
-		@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: "5"}}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Mt: "5"}}) {
 			Form context management, Switch, Grid and Indicator components improvements, new hook and
 			10+ other changes
 		}
-		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Mt: mt.MD}}) {
-			Tasks completed:
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Mt: mt.MD}}) {
+			Tasks completed:{ " " }
 			@mt.Text(mt.TextProps{Span: true, Fw: 500, C: mt.Bright}) {
 				23/36
 			}

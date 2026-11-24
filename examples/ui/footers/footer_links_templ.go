@@ -59,7 +59,7 @@ func FooterLinks() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.footer-links {\n\t\t\t\tmargin-top: 120px;\n\t\t\t\tpadding-top: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tpadding-bottom: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.footer-links__logo {\n\t\t\t\tmax-width: 200px;\n\t\t\t\t@media (max-width: 48em) { display: flex; flex-direction: column; align-items: center; }\n\t\t\t}\n\t\t\t.footer-links__description {\n\t\t\t\tmargin-top: 5px;\n\t\t\t\t@media (max-width: 48em) { margin-top: var(--mt-spacing-xs); text-align: center; }\n\t\t\t}\n\t\t\t.footer-links__inner {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\t@media (max-width: 48em) { flex-direction: column; align-items: center; }\n\t\t\t}\n\t\t\t.footer-links__groups {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\t@media (max-width: 48em) { display: none; }\n\t\t\t}\n\t\t\t.footer-links__wrapper { width: 160px; }\n\t\t\t.footer-links__link {\n\t\t\t\tdisplay: block;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-1));\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tpadding-top: 3px;\n\t\t\t\tpadding-bottom: 3px;\n\t\t\t\t&:hover { text-decoration: underline; }\n\t\t\t}\n\t\t\t.footer-links__title {\n\t\t\t\tfont-size: var(--mt-font-size-lg);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tmargin-bottom: calc(var(--mt-spacing-xs) / 2);\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t}\n\t\t\t.footer-links__after {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tmargin-top: var(--mt-spacing-xl);\n\t\t\t\tpadding-top: var(--mt-spacing-xl);\n\t\t\t\tpadding-bottom: var(--mt-spacing-xl);\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));\n\t\t\t\t@media (max-width: 48em) { flex-direction: column; }\n\t\t\t}\n\t\t\t.footer-links__social {\n\t\t\t\t@media (max-width: 48em) { margin-top: var(--mt-spacing-xs); }\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.footer-links {\n\t\t\t\tmargin-top: 120px;\n\t\t\t\tpadding-top: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tpadding-bottom: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.footer-links__logo {\n\t\t\t\tmax-width: 200px;\n\t\t\t\t@media (max-width: 48em) { display: flex; flex-direction: column; align-items: center; }\n\t\t\t}\n\t\t\t.footer-links__description {\n\t\t\t\tmargin-top: 5px;\n\t\t\t\t@media (max-width: 48em) { margin-top: var(--mt-spacing-xs); text-align: center; }\n\t\t\t}\n\t\t\t.footer-links__inner {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\t@media (max-width: 48em) { flex-direction: column; align-items: center; }\n\t\t\t}\n\t\t\t.footer-links__groups {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\t@media (max-width: 48em) { display: none; }\n\t\t\t}\n\t\t\t.footer-links__wrapper { width: 160px; }\n\t\t\t.footer-links__link {\n\t\t\t\tdisplay: block;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-1));\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tpadding-top: 3px;\n\t\t\t\tpadding-bottom: 3px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\t&:hover { text-decoration: underline; }\n\t\t\t}\n\t\t\t.footer-links__title {\n\t\t\t\tfont-size: var(--mt-font-size-lg);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tmargin-bottom: calc(var(--mt-spacing-xs) / 2);\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t}\n\t\t\t.footer-links__after {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tmargin-top: var(--mt-spacing-xl);\n\t\t\t\tpadding-top: var(--mt-spacing-xl);\n\t\t\t\tpadding-bottom: var(--mt-spacing-xl);\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));\n\t\t\t\t@media (max-width: 48em) { flex-direction: column; }\n\t\t\t}\n\t\t\t.footer-links__social {\n\t\t\t\t@media (max-width: 48em) { margin-top: var(--mt-spacing-xs); }\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -139,7 +139,7 @@ func FooterLinks() templ.Component {
 					var templ_7745c5c3_Var6 string
 					templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(g.Title)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/footers/footer_links.templ`, Line: 95, Col: 16}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/footers/footer_links.templ`, Line: 96, Col: 16}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 					if templ_7745c5c3_Err != nil {
@@ -159,7 +159,7 @@ func FooterLinks() templ.Component {
 					var templ_7745c5c3_Var7 string
 					templ_7745c5c3_Var7, templ_7745c5c3_Err = templruntime.NewAttributeExpression(templ.SafeURL(l.Link)).ResolveURL(ctx)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/footers/footer_links.templ`, Line: 98, Col: 38}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/footers/footer_links.templ`, Line: 99, Col: 38}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 					if templ_7745c5c3_Err != nil {
@@ -172,7 +172,7 @@ func FooterLinks() templ.Component {
 					var templ_7745c5c3_Var8 string
 					templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(l.Label)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/footers/footer_links.templ`, Line: 98, Col: 77}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/footers/footer_links.templ`, Line: 99, Col: 77}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 					if templ_7745c5c3_Err != nil {

@@ -23,21 +23,21 @@ templ UserInfoIcons() {
 				Base:   mt.Base{Class: "user-info-icons__avatar"},
 			})
 			<div>
-				@mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, C: mt.Dimmed}) {
+				@mt.Text(mt.TextProps{Tt: "uppercase", Fw: 700, C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 					Software engineer
 				}
-				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "user-info-icons__name"}}) {
+				@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Class: "user-info-icons__name"}}) {
 					Robert Glassbreaker
 				}
 				@mt.Group(mt.GroupProps{Wrap: "nowrap", Gap: "10", Base: mt.Base{Mt: "3"}}) {
 					@icons.IconAt(icons.Props{Stroke: 1.5, Size: 16, Class: "user-info-icons__icon"})
-					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 						robert@glassbreaker.io
 					}
 				}
 				@mt.Group(mt.GroupProps{Wrap: "nowrap", Gap: "10", Base: mt.Base{Mt: "5"}}) {
 					@icons.IconPhoneCall(icons.Props{Stroke: 1.5, Size: 16, Class: "user-info-icons__icon"})
-					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 						+11 (876) 890 56 23
 					}
 				}

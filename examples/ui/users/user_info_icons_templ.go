@@ -101,7 +101,7 @@ func UserInfoIcons() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Tt: "uppercase", Fw: 700, C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -123,7 +123,7 @@ func UserInfoIcons() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "user-info-icons__name"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Class: "user-info-icons__name"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -161,7 +161,7 @@ func UserInfoIcons() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -205,7 +205,7 @@ func UserInfoIcons() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

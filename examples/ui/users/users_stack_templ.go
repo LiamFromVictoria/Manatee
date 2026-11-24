@@ -147,7 +147,7 @@ func UsersStack() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -174,7 +174,7 @@ func UsersStack() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -215,7 +215,7 @@ func UsersStack() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -237,7 +237,7 @@ func UsersStack() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -268,7 +268,7 @@ func UsersStack() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -290,7 +290,7 @@ func UsersStack() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

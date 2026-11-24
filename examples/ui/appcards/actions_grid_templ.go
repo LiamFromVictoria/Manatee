@@ -65,7 +65,7 @@ func ActionsGrid() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.actions-grid__card {\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.actions-grid__title {\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.actions-grid__item {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttext-align: center;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\theight: 90px;\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-6));\n\t\t\t\ttransition: box-shadow 150ms ease, transform 100ms ease;\n\t\t\t\t&:hover {\n\t\t\t\t\tbox-shadow: var(--mt-shadow-sm);\n\t\t\t\t\ttransform: scale(1.02);\n\t\t\t\t}\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.actions-grid__card {\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.actions-grid__title {\n\t\t\t\tmargin: 0;\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.actions-grid__item {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttext-align: center;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\theight: 90px;\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-6));\n\t\t\t\ttransition: box-shadow 150ms ease, transform 100ms ease;\n\t\t\t\t&:hover {\n\t\t\t\t\tbox-shadow: var(--mt-shadow-sm);\n\t\t\t\t\ttransform: scale(1.02);\n\t\t\t\t}\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -175,7 +175,7 @@ func ActionsGrid() templ.Component {
 							var templ_7745c5c3_Var9 string
 							templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(item.Title)
 							if templ_7745c5c3_Err != nil {
-								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/appcards/actions_grid.templ`, Line: 69, Col: 18}
+								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/appcards/actions_grid.templ`, Line: 70, Col: 18}
 							}
 							_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 							if templ_7745c5c3_Err != nil {

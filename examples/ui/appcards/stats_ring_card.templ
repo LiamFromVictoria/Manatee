@@ -52,14 +52,14 @@ templ StatsRingCard() {
 	@mt.Card(mt.CardProps{WithBorder: true, Padding: mt.XL, Radius: mt.MD, Base: mt.Base{Class: "stats-ring-card__card"}}) {
 		<div class="stats-ring-card__inner">
 			<div>
-				@mt.Text(mt.TextProps{Size: mt.XL, Base: mt.Base{Class: "stats-ring-card__label"}}) {
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-ring-card__label", Fz: mt.XL}}) {
 					Project tasks
 				}
 				<div>
 					@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-ring-card__lead", Mt: "30"}}) {
 						1887
 					}
-					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 						Completed
 					}
 				</div>
@@ -91,10 +91,10 @@ templ StatsRingCard() {
 
 templ statsRingCardRingLabel() {
 	<div>
-		@mt.Text(mt.TextProps{Ta: "center", Size: "lg", Base: mt.Base{Class: "stats-ring-card__label"}}) {
+		@mt.Text(mt.TextProps{Ta: "center", Base: mt.Base{Class: "stats-ring-card__label", Fz: mt.LG}}) {
 			81%
 		}
-		@mt.Text(mt.TextProps{Ta: "center", Size: mt.XS, C: mt.Dimmed}) {
+		@mt.Text(mt.TextProps{Ta: "center", C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 			Completed
 		}
 	</div>

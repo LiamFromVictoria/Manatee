@@ -19,7 +19,7 @@ const styles = css`
   .label {
     display: none;
     padding-inline: var(--mt-spacing-xs);
-    font-size: var(--mt-font-size-sm);
+    font-size: var(--mt-font-size-xs);
     color: var(--mt-color-dimmed);
     white-space: nowrap;
   }

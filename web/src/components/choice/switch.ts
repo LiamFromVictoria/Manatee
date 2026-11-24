@@ -42,6 +42,14 @@ const styles = css`
     transition: transform var(--mt-transition);
     pointer-events: none;
   }
+  .thumb:not(.has-icon)::before {
+    content: '';
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    background: var(--mt-color-default-border);
+  }
+  .input:checked ~ .thumb:not(.has-icon)::before { background: var(--mt-c-filled); }
   .input:checked ~ .thumb { transform: translateX(calc(var(--_w) - var(--_thumb) - 4px)); }
   .on-label, .off-label {
     position: absolute;
@@ -118,6 +126,11 @@ export class MtSwitch extends MtFormElement {
     this.input.addEventListener('change', () => {
       this.#syncFormValue();
       this.forwardChange();
+    });
+    const thumb = this.$('.thumb');
+    const iconSlot = this.root.querySelector<HTMLSlotElement>('slot[name="thumb-icon"]');
+    iconSlot?.addEventListener('slotchange', () => {
+      thumb.classList.toggle('has-icon', iconSlot.assignedNodes().length > 0);
     });
   }
 

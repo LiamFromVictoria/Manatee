@@ -56,26 +56,26 @@ templ CarouselCard() {
 			}
 		}
 		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: "lg"}}) {
-			@mt.Text(mt.TextProps{Fw: 500, Size: "lg"}) {
+			@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: "lg"}}) {
 				Forde, Norway
 			}
 			@mt.Group(mt.GroupProps{Gap: "5"}) {
 				@icons.IconStarFilled(icons.Props{Size: 16, Color: "var(--mt-color-yellow-6)"})
-				@mt.Text(mt.TextProps{Size: "sm", Fw: 600}) {
+				@mt.Text(mt.TextProps{Fw: 600, Base: mt.Base{Fz: "sm"}}) {
 					4.78
 				}
 			}
 		}
-		@mt.Text(mt.TextProps{Size: "sm", C: mt.Dimmed, Base: mt.Base{Mt: "sm"}}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: "sm", Mt: "sm"}}) {
 			Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel close to nature in
 			ultimate comfort. Enjoy the view of the epic mountain range of Blegja and the Førdefjord.
 		}
 		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: "md"}}) {
 			<div>
-				@mt.Text(mt.TextProps{Size: "xl", Span: true, Fw: 500, Base: mt.Base{Class: "carousel-card__price"}}) {
+				@mt.Text(mt.TextProps{Span: true, Fw: 500, Base: mt.Base{Fz: "xl", Class: "carousel-card__price"}}) {
 					397$
 				}
-				@mt.Text(mt.TextProps{Span: true, Size: "sm", C: mt.Dimmed}) {
+				@mt.Text(mt.TextProps{Span: true, C: mt.Dimmed, Base: mt.Base{Fz: "sm"}}) {
 					&#32;/ night
 				}
 			</div>

@@ -32,7 +32,7 @@ function installTableSheet(): void {
       border-bottom: 1px solid var(--_border, var(--mt-color-border));
     }
     mt-table > table th, mt-table > table td {
-      padding-block: var(--_vspace, var(--mt-spacing-xs));
+      padding-block: var(--_vspace, 0.4375rem);
       padding-inline: var(--_hspace, var(--mt-spacing-xs));
     }
     mt-table[with-table-border] > table {

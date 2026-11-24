@@ -97,6 +97,7 @@ templ BlockCanvas(b blocks.Block) {
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			<title>{ b.Title } · Manatee UI</title>
 			@mt.Head(mt.HeadProps{})
+			@blocks.FontFaces()
 			<style>
 				body { margin: 0; background: light-dark(var(--mt-white), var(--mt-color-dark-7)); }
 				body[data-dimmed] { background: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }

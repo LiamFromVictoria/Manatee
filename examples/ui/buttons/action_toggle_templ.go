@@ -50,7 +50,7 @@ func ActionToggle() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.action-toggle__icon {\n\t\t\t\twidth: 22px;\n\t\t\t\theight: 22px;\n\t\t\t}\n\t\t\t.action-toggle__dark {\n\t\t\t\tdisplay: none;\n\t\t\t\t[data-mt-color-scheme='dark'] & { display: block; }\n\t\t\t}\n\t\t\t.action-toggle__light {\n\t\t\t\t[data-mt-color-scheme='dark'] & { display: none; }\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.action-toggle__icon {\n\t\t\t\twidth: 22px;\n\t\t\t\theight: 22px;\n\t\t\t}\n\t\t\t.action-toggle__dark {\n\t\t\t\t[data-mt-color-scheme='dark'] & { display: none; }\n\t\t\t}\n\t\t\t.action-toggle__light {\n\t\t\t\tdisplay: none;\n\t\t\t\t[data-mt-color-scheme='dark'] & { display: block; }\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

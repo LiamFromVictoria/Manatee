@@ -43,15 +43,23 @@ export function colorVars(color: string | null | undefined): Record<string, stri
   return out;
 }
 
-/** Resolve a single color value (palette name, shade, or CSS color) to a CSS color. */
-export function resolveColor(color: string | null | undefined, fallback = 'inherit'): string {
+/** Resolve a single color value (palette name, shade, or CSS color) to a CSS color.
+ * `variant` picks the suffix used for a bare palette name (default "text", Mantine's
+ * `c` prop semantics); pass "filled" for solid-fill consumers like RingProgress. */
+export function resolveColor(color: string | null | undefined, fallback = 'inherit', variant: 'text' | 'filled' = 'text'): string {
   if (!color) return fallback;
   const c = color.trim();
+  // Custom properties don't inherit the resolved `color` value the way the
+  // `color` property itself does — `inherit` on `--_color` just inherits the
+  // (usually unset) custom property. `currentColor` computes to `inherit`
+  // when used as a `color` value, which gives the right result through the
+  // `--_color` indirection.
+  if (c === 'inherit') return 'currentColor';
   if (c === 'dimmed') return 'var(--mt-color-dimmed)';
   if (c === 'bright') return 'var(--mt-color-bright)';
   if (c === 'white') return 'var(--mt-white)';
   if (c === 'black') return 'var(--mt-black)';
-  if (NAMED[c]) return `var(--mt-color-${c}-text)`;
+  if (NAMED[c]) return `var(--mt-color-${c}-${variant})`;
   const m = SHADE.exec(c);
   if (m && NAMED[m[1]]) return `var(--mt-color-${m[1]}-${m[2]})`;
   return c;

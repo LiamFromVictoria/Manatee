@@ -239,7 +239,7 @@ func StatsGrid() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: statsGridDiffColor(s.Diff), Size: mt.SM, Fw: 500, Base: mt.Base{Class: "stats-grid__diff"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: statsGridDiffColor(s.Diff), Fw: 500, Base: mt.Base{Class: "stats-grid__diff", Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -267,7 +267,7 @@ func StatsGrid() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Mt: "7"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mt: "7", Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

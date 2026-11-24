@@ -242,7 +242,7 @@ func DropzoneButton() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Ta: "center", Fw: 700, Size: "lg", Base: mt.Base{Mt: "xl"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Ta: "center", Fw: 700, Base: mt.Base{Fz: "lg", Mt: "xl"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

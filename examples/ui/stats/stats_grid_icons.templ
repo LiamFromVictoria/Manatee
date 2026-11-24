@@ -46,10 +46,10 @@ templ StatsGridIcons() {
 				@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{P: mt.MD}}) {
 					@mt.Group(mt.GroupProps{Justify: "space-between"}) {
 						<div>
-							@mt.Text(mt.TextProps{C: mt.Dimmed, Tt: "uppercase", Fw: 700, Size: mt.XS, Base: mt.Base{Class: "stats-grid-icons__label"}}) {
+							@mt.Text(mt.TextProps{C: mt.Dimmed, Tt: "uppercase", Fw: 700, Base: mt.Base{Class: "stats-grid-icons__label", Fz: mt.XS}}) {
 								{ s.Title }
 							}
-							@mt.Text(mt.TextProps{Fw: 700, Size: mt.XL}) {
+							@mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Fz: mt.XL}}) {
 								{ s.Value }
 							}
 						</div>
@@ -61,7 +61,7 @@ templ StatsGridIcons() {
 							}
 						}
 					}
-					@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Mt: mt.MD}}) {
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mt: mt.MD, Fz: mt.SM}}) {
 						@mt.Text(mt.TextProps{Span: true, C: statsGridDiffColor(s.Diff), Fw: 700}) {
 							{ strconv.Itoa(s.Diff) + "%" }
 						}

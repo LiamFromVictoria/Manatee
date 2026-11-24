@@ -1,4 +1,4 @@
-import { css, define, html, MtElement, type Props } from '../../core';
+import { css, define, html, MtElement, rem, type Props } from '../../core';
 
 const personIcon = `<svg viewBox="0 0 24 24" fill="currentColor" width="60%" height="60%"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-9 2.2-9 5v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2c0-2.8-4.6-5-9-5Z"/></svg>`;
 
@@ -67,7 +67,7 @@ export class MtAvatar extends MtElement {
     src: {},
     alt: {},
     name: {},
-    color: { color: true },
+    color: { color: true, default: 'gray' },
     variant: { default: 'light' },
     size: { default: 'md' },
     radius: { css: '--_radius', scale: 'radius', default: '1000px' },
@@ -115,6 +115,13 @@ export class MtAvatar extends MtElement {
     if (changed.has('alt') || changed.has('name')) {
       this.#img.alt = this.alt ?? this.name ?? '';
     }
+    if (changed.has('size')) {
+      // Mantine accepts numeric sizes (px) besides xs..xl.
+      const size = this.getAttribute('size');
+      const m = size && /^(\d+(?:\.\d+)?)(?:px)?$/.exec(size);
+      if (m) this.style.setProperty('--_size', rem(parseFloat(m[1])));
+      else this.style.removeProperty('--_size');
+    }
     this.#sync();
   }
 
@@ -133,6 +140,7 @@ const groupStyles = css`
   :host { display: inline-flex; --_overlap: var(--mt-spacing-sm); }
   ::slotted(mt-avatar) {
     margin-inline-start: calc(var(--_overlap) * -1);
+    border-radius: var(--_radius, 1000px);
     box-shadow: 0 0 0 2px var(--mt-color-body);
   }
   ::slotted(mt-avatar:first-child) { margin-inline-start: 0; }

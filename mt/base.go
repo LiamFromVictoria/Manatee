@@ -67,6 +67,8 @@ type Base struct {
 	M, Mt, Mb, Ml, Mr, Mx, My string
 	P, Pt, Pb, Pl, Pr, Px, Py string
 	W, H, Miw, Maw, Mih, Mah  string
+	// Fz / Lh set font-size / line-height only (Mantine `fz` / `lh`): xs..xl, px number or CSS value.
+	Fz, Lh string
 
 	// HiddenFrom / VisibleFrom hide the element from / below a breakpoint (xs..xl).
 	HiddenFrom, VisibleFrom string
@@ -93,6 +95,7 @@ func attrs(b Base, kv ...any) templ.OrderedAttributes {
 		{"m", b.M}, {"mt", b.Mt}, {"mb", b.Mb}, {"ml", b.Ml}, {"mr", b.Mr}, {"mx", b.Mx}, {"my", b.My},
 		{"p", b.P}, {"pt", b.Pt}, {"pb", b.Pb}, {"pl", b.Pl}, {"pr", b.Pr}, {"px", b.Px}, {"py", b.Py},
 		{"w", b.W}, {"h", b.H}, {"miw", b.Miw}, {"maw", b.Maw}, {"mih", b.Mih}, {"mah", b.Mah},
+		{"fz", b.Fz}, {"lh", b.Lh},
 		{"hidden-from", b.HiddenFrom}, {"visible-from", b.VisibleFrom},
 	} {
 		add(sp.k, sp.v)

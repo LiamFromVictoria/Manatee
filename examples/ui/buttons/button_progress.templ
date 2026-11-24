@@ -19,7 +19,7 @@ templ ButtonProgress() {
 			}
 			.button-progress__progress::part(track) {
 				background-color: transparent;
-				height: auto;
+				height: 100%;
 			}
 			.button-progress__label {
 				position: relative;
@@ -41,7 +41,7 @@ templ ButtonProgress() {
 templ buttonProgressBar() {
 	@mt.Progress(mt.ProgressProps{
 		Value:  0,
-		Color:  "color-mix(in srgb, var(--mt-color-blue-4) 35%, transparent)",
+		Color:  "color-mix(in srgb, var(--mt-color-blue-2) 35%, transparent)",
 		Radius: mt.SM,
 		Base:   mt.Base{Class: "button-progress__progress"},
 	})

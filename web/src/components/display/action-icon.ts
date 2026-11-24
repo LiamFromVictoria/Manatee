@@ -4,18 +4,18 @@ const styles = css`
   :host {
     display: inline-flex;
     vertical-align: middle;
-    --_size: 2.125rem;
+    --_size: 1.75rem;
     --_radius: var(--mt-radius-default);
     --_bg: var(--mt-c-filled);
     --_hover: var(--mt-c-filled-hover);
     --_color: var(--mt-white);
     --_bd: transparent;
   }
-  :host([size='xs']) { --_size: 1.375rem; }
-  :host([size='sm']) { --_size: 1.75rem; }
-  :host([size='md']) { --_size: 2.125rem; }
-  :host([size='lg']) { --_size: 2.75rem; }
-  :host([size='xl']) { --_size: 3.75rem; }
+  :host([size='xs']) { --_size: 1.125rem; }
+  :host([size='sm']) { --_size: 1.375rem; }
+  :host([size='md']) { --_size: 1.75rem; }
+  :host([size='lg']) { --_size: 2.125rem; }
+  :host([size='xl']) { --_size: 2.75rem; }
   :host([size='input-xs']) { --_size: 1.875rem; }
   :host([size='input-sm']) { --_size: 2.25rem; }
   :host([size='input-md']) { --_size: 2.625rem; }

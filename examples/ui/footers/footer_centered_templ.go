@@ -110,7 +110,7 @@ func FooterCentered() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Anchor(mt.AnchorProps{Href: l.Link, C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Style: "line-height:1"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Anchor(mt.AnchorProps{Href: l.Link, C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Lh: "1"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

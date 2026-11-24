@@ -62,7 +62,7 @@ templ UsersTable() {
 						<td>
 							@mt.Group(mt.GroupProps{Gap: mt.SM}) {
 								@mt.Avatar(mt.AvatarProps{Size: mt.MD, Src: row.Avatar, Radius: "30", Base: mt.Base{Class: "users-table__avatar"}})
-								@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+								@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.SM}}) {
 									{ row.Name }
 								}
 							}
@@ -78,7 +78,7 @@ templ UsersTable() {
 							}
 						</td>
 						<td>
-							@mt.Text(mt.TextProps{Size: mt.SM}) {
+							@mt.Text(mt.TextProps{Base: mt.Base{Fz: mt.SM}}) {
 								{ row.Phone }
 							}
 						</td>

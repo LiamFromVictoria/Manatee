@@ -84,7 +84,7 @@ func ProgressCardColored() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, Base: mt.Base{Class: "progress-card-colored__title"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Tt: "uppercase", Fw: 700, Base: mt.Base{Class: "progress-card-colored__title", Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -106,7 +106,7 @@ func ProgressCardColored() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "progress-card-colored__stats"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Class: "progress-card-colored__stats", Fz: mt.LG}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

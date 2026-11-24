@@ -47,6 +47,8 @@ const STYLE_PROPS: Record<string, { props: string[]; scale: Scale }> = {
   maw: { props: ['max-width'], scale: 'rem' },
   mih: { props: ['min-height'], scale: 'rem' },
   mah: { props: ['max-height'], scale: 'rem' },
+  fz: { props: ['font-size'], scale: 'font-size' },
+  lh: { props: ['line-height'], scale: 'line-height' },
 };
 
 const sheetCache = new Map<string, CSSStyleSheet>();

@@ -77,16 +77,16 @@ const styles = css`
     height: var(--_control-size);
     transform: translateY(-50%);
     padding: 0;
-    border: none;
+    border: 1px solid var(--mt-color-gray-3);
     border-radius: 50%;
-    background: var(--mt-color-body);
-    color: var(--mt-color-text);
+    background: var(--mt-white);
+    color: var(--mt-black);
     box-shadow: var(--mt-shadow-md);
     cursor: pointer;
-    opacity: 1;
-    transition: opacity var(--mt-transition), background-color var(--mt-transition);
+    opacity: light-dark(0.85, 0.65);
+    transition: opacity var(--mt-transition);
   }
-  .control:hover:not(:disabled) { background: var(--mt-color-hover); }
+  .control:hover:not(:disabled) { opacity: 1; }
   .control:focus-visible { outline: var(--mt-focus-ring); outline-offset: 2px; }
   .control:disabled { opacity: 0.4; cursor: not-allowed; }
   .control.prev { inset-inline-start: var(--_controls-offset); }

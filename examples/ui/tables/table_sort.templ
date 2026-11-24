@@ -147,7 +147,7 @@ templ tableSortTh(field, label string) {
 	<th class="table-sort__th">
 		@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "table-sort__control", Attrs: templ.Attributes{"data-field": field}}}) {
 			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
-				@mt.Text(mt.TextProps{Fw: 500, Size: mt.SM}) {
+				@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.SM}}) {
 					{ label }
 				}
 				@mt.Center(mt.CenterProps{Base: mt.Base{Class: "table-sort__icon"}}) {

@@ -36,20 +36,20 @@ templ StatsCard() {
 		@mt.Text(mt.TextProps{Ta: "center", Fw: 700, Base: mt.Base{Class: "stats-card__title"}}) {
 			Swimming challenge
 		}
-		@mt.Text(mt.TextProps{C: mt.Dimmed, Ta: "center", Size: mt.SM}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Ta: "center", Base: mt.Base{Fz: mt.SM}}) {
 			32 km / week
 		}
 		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.XS}}) {
-			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 				Progress
 			}
-			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 				62%
 			}
 		}
 		@mt.Progress(mt.ProgressProps{Value: 62, Base: mt.Base{Mt: "5", Attrs: templ.Attributes{"aria-label": "Progress"}}})
 		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.MD}}) {
-			@mt.Text(mt.TextProps{Size: mt.SM}) {
+			@mt.Text(mt.TextProps{Base: mt.Base{Fz: mt.SM}}) {
 				20 / 36 km
 			}
 			@mt.Badge(mt.BadgeProps{Size: mt.SM}) {

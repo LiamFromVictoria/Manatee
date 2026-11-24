@@ -42,7 +42,7 @@ templ FooterCentered() {
 			@blocks.Logo(28)
 			@mt.Group(mt.GroupProps{Base: mt.Base{Class: "footer-centered__links"}}) {
 				for _, l := range footerCenteredLinks {
-					@mt.Anchor(mt.AnchorProps{Href: l.Link, C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Style: "line-height:1"}}) {
+					@mt.Anchor(mt.AnchorProps{Href: l.Link, C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Lh: "1"}}) {
 						{ l.Label }
 					}
 				}

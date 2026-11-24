@@ -14,7 +14,7 @@ const styles = css`
     height: var(--_size);
     border-radius: 50%;
     border: 1px solid var(--mt-color-default-border);
-    background: var(--mt-color-body);
+    background: var(--mt-color-input-bg);
     transition: background var(--mt-transition), border-color var(--mt-transition);
   }
   :host(:focus-visible) .box { outline: var(--mt-focus-ring); outline-offset: 2px; }

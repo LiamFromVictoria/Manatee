@@ -26,7 +26,6 @@ templ HeroImageBackground() {
 			}
 			.hero-image-background__title {
 				font-weight: 800;
-				font-size: 40px;
 				letter-spacing: -1px;
 				padding-left: var(--mt-spacing-md);
 				padding-right: var(--mt-spacing-md);
@@ -35,12 +34,14 @@ templ HeroImageBackground() {
 				text-align: center;
 				font-family: Outfit, var(--mt-font-family);
 			}
+			.hero-image-background__title::part(root) {
+				font-size: 40px;
+			}
 			@media (max-width: 36em) {
-				.hero-image-background__title { font-size: 28px; text-align: left; }
+				.hero-image-background__title { text-align: left; }
+				.hero-image-background__title::part(root) { font-size: 28px; }
 			}
-			.hero-image-background__highlight {
-				color: var(--mt-color-primary-4);
-			}
+			.hero-image-background__highlight { color: var(--mt-white); }
 			.hero-image-background__description {
 				color: var(--mt-color-gray-0);
 				text-align: center;

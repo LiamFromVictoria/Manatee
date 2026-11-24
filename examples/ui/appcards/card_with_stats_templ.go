@@ -52,7 +52,7 @@ func CardWithStats() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.card-with-stats__card {\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t}\n\t\t\t.card-with-stats__footer {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\tpadding: var(--mt-spacing-sm) var(--mt-spacing-lg);\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.card-with-stats__title {\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.card-with-stats__card {\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t}\n\t\t\t.card-with-stats__footer {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\tpadding: var(--mt-spacing-sm) var(--mt-spacing-lg);\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.card-with-stats__title {\n\t\t\t\tmargin: 0;\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -146,7 +146,7 @@ func CardWithStats() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -184,7 +184,7 @@ func CardWithStats() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Base: mt.Base{Mt: mt.SM, Mb: mt.MD}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS, Mt: mt.SM, Mb: mt.MD}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -220,7 +220,7 @@ func CardWithStats() templ.Component {
 						var templ_7745c5c3_Var11 string
 						templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(item.Title)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/appcards/card_with_stats.templ`, Line: 61, Col: 18}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/appcards/card_with_stats.templ`, Line: 62, Col: 18}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 						if templ_7745c5c3_Err != nil {
@@ -247,7 +247,7 @@ func CardWithStats() templ.Component {
 						var templ_7745c5c3_Var13 string
 						templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(item.Value)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/appcards/card_with_stats.templ`, Line: 64, Col: 18}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/appcards/card_with_stats.templ`, Line: 65, Col: 18}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 						if templ_7745c5c3_Err != nil {

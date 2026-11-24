@@ -33,19 +33,19 @@ templ UserCardImage() {
 			Radius: "80",
 			Base:   mt.Base{Class: "user-card-image__avatar", Mx: "auto", Mt: "-30"},
 		})
-		@mt.Text(mt.TextProps{Ta: "center", Size: mt.LG, Fw: 500, Base: mt.Base{Mt: mt.SM}}) {
+		@mt.Text(mt.TextProps{Ta: "center", Fw: 500, Base: mt.Base{Fz: mt.LG, Mt: mt.SM}}) {
 			Bill Headbanger
 		}
-		@mt.Text(mt.TextProps{Ta: "center", Size: mt.SM, C: mt.Dimmed}) {
+		@mt.Text(mt.TextProps{Ta: "center", C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}) {
 			Fullstack engineer
 		}
 		@mt.Group(mt.GroupProps{Justify: "center", Gap: "30", Base: mt.Base{Mt: mt.MD}}) {
 			for _, s := range userCardImageStats {
 				<div>
-					@mt.Text(mt.TextProps{Ta: "center", Size: mt.LG, Fw: 500}) {
+					@mt.Text(mt.TextProps{Ta: "center", Fw: 500, Base: mt.Base{Fz: mt.LG}}) {
 						{ s.Value }
 					}
-					@mt.Text(mt.TextProps{Ta: "center", Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Style: "line-height:1"}}) {
+					@mt.Text(mt.TextProps{Ta: "center", C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Lh: "1"}}) {
 						{ s.Label }
 					}
 				</div>

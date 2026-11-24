@@ -7,12 +7,12 @@ interface Item {
 }
 
 const styles = css`
-  :host { display: inline-block; --_fz: var(--mt-font-size-sm); --_pad-y: 0.375rem; --_pad-x: 0.75rem; }
+  :host { display: inline-block; --_fz: var(--mt-font-size-sm); --_pad-y: 0.1875rem; --_pad-x: 0.625rem; }
   :host([full-width]) { display: block; }
-  :host([size='xs']) { --_fz: var(--mt-font-size-xs); --_pad-y: 0.25rem; --_pad-x: 0.5rem; }
-  :host([size='md']) { --_fz: var(--mt-font-size-md); --_pad-y: 0.5rem; --_pad-x: 1rem; }
-  :host([size='lg']) { --_fz: var(--mt-font-size-lg); --_pad-y: 0.625rem; --_pad-x: 1.25rem; }
-  :host([size='xl']) { --_fz: var(--mt-font-size-xl); --_pad-y: 0.75rem; --_pad-x: 1.5rem; }
+  :host([size='xs']) { --_fz: var(--mt-font-size-xs); --_pad-y: 0.125rem; --_pad-x: 0.375rem; }
+  :host([size='md']) { --_fz: var(--mt-font-size-md); --_pad-y: 0.25rem; --_pad-x: 0.875rem; }
+  :host([size='lg']) { --_fz: var(--mt-font-size-lg); --_pad-y: 0.4375rem; --_pad-x: 1rem; }
+  :host([size='xl']) { --_fz: var(--mt-font-size-xl); --_pad-y: 0.625rem; --_pad-x: 1.25rem; }
 
   .root {
     position: relative;
@@ -56,7 +56,7 @@ const styles = css`
     width: 100%;
     padding: var(--_pad-y) var(--_pad-x);
     font-size: var(--_fz);
-    line-height: 1.2;
+    line-height: var(--mt-line-height);
     font-weight: 500;
     color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));
     border-radius: calc(var(--_radius, var(--mt-radius-default)) - 0.125rem);

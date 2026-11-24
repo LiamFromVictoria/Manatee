@@ -53,7 +53,7 @@ func FaqWithImage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.faq-with-image {\n\t\t\t\tpadding-top: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tpadding-bottom: calc(var(--mt-spacing-xl) * 2);\n\t\t\t}\n\t\t\t.faq-with-image__title {\n\t\t\t\tmargin-bottom: var(--mt-spacing-md);\n\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\tcolor: light-dark(var(--mt-color-black), var(--mt-color-white));\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.faq-with-image__item {\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.faq-with-image {\n\t\t\t\tpadding-top: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tpadding-bottom: calc(var(--mt-spacing-xl) * 2);\n\t\t\t}\n\t\t\t.faq-with-image__title {\n\t\t\t\tmargin-bottom: var(--mt-spacing-md);\n\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.faq-with-image__item {\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

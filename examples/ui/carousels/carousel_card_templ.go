@@ -170,7 +170,7 @@ func CarouselCard() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Size: "lg"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: "lg"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -208,7 +208,7 @@ func CarouselCard() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: "sm", Fw: 600}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 600, Base: mt.Base{Fz: "sm"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -242,7 +242,7 @@ func CarouselCard() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: "sm", C: mt.Dimmed, Base: mt.Base{Mt: "sm"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: "sm", Mt: "sm"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -280,7 +280,7 @@ func CarouselCard() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: "xl", Span: true, Fw: 500, Base: mt.Base{Class: "carousel-card__price"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Text(mt.TextProps{Span: true, Fw: 500, Base: mt.Base{Fz: "xl", Class: "carousel-card__price"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -302,7 +302,7 @@ func CarouselCard() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Text(mt.TextProps{Span: true, Size: "sm", C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Text(mt.TextProps{Span: true, C: mt.Dimmed, Base: mt.Base{Fz: "sm"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

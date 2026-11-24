@@ -20,11 +20,11 @@ templ ActionToggle() {
 				height: 22px;
 			}
 			.action-toggle__dark {
-				display: none;
-				[data-mt-color-scheme='dark'] & { display: block; }
+				[data-mt-color-scheme='dark'] & { display: none; }
 			}
 			.action-toggle__light {
-				[data-mt-color-scheme='dark'] & { display: none; }
+				display: none;
+				[data-mt-color-scheme='dark'] & { display: block; }
 			}
 		</style>
 	}

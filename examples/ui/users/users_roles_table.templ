@@ -49,10 +49,10 @@ templ UsersRolesTable() {
 							@mt.Group(mt.GroupProps{Gap: mt.SM}) {
 								@mt.Avatar(mt.AvatarProps{Size: mt.MD, Src: row.Avatar, Radius: "40", Base: mt.Base{Class: "users-roles-table__avatar"}})
 								<div>
-									@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+									@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.SM}}) {
 										{ row.Name }
 									}
-									@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+									@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 										{ row.Email }
 									}
 								</div>

@@ -92,11 +92,11 @@ func GetInTouchSimple() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{Label: "Name", Placeholder: "Your name", Name: "name", Variant: "filled", Required: true, MinLength: 2}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{Label: "Name", Placeholder: "Your name", Name: "name", Variant: "filled", MinLength: 2}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{Label: "Email", Placeholder: "Your email", Name: "email", Variant: "filled", Required: true, Type: "email"}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{Label: "Email", Placeholder: "Your email", Name: "email", Variant: "filled", Type: "email"}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -106,7 +106,7 @@ func GetInTouchSimple() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{Label: "Subject", Placeholder: "Subject", Name: "subject", Variant: "filled", Required: true, Base: mt.Base{Mt: mt.MD}}).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = mt.TextInput(mt.TextInputProps{Label: "Subject", Placeholder: "Subject", Name: "subject", Variant: "filled", Base: mt.Base{Mt: mt.MD}}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

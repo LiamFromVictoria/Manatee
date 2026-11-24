@@ -265,7 +265,7 @@ func FeaturesTitle() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Mt: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Mt: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -292,7 +292,7 @@ func FeaturesTitle() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}

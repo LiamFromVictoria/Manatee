@@ -6,10 +6,10 @@ import "github.com/LiamFromVictoria/Manatee/mt"
 // labelled progress bar showing a monthly goal.
 templ ProgressCard() {
 	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Style: "background-color: var(--mt-color-body)"}}) {
-		@mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, C: mt.Dimmed}) {
+		@mt.Text(mt.TextProps{Tt: "uppercase", Fw: 700, C: mt.Dimmed, Base: mt.Base{Fz: mt.XS}}) {
 			Monthly goal
 		}
-		@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500}) {
+		@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG}}) {
 			$5.431 / $10.000
 		}
 		@mt.Progress(mt.ProgressProps{

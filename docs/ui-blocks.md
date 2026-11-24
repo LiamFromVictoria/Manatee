@@ -116,12 +116,21 @@ plus an `Error` shown from server-rendered state, or a few lines of script.
   `//go:embed`, and rendered with `@templ.Raw(svg)`, or used as a `data:` URL for CSS backgrounds.
   `mt.Image` accepts `data:image/…` URLs for embedded images. Other plain-string URL props
   reject `data:` URLs, so pass those as `Base.Attrs: templ.Attributes{"src": templ.SafeURL(u)}`.
+- `font-family: Outfit, …` works on block render pages: `blocks.FontFaces()` (in the canvas `<head>`)
+  declares the vendored Outfit variable font served by `blocks.FontHandler()` at `blocks.FontsPrefix`.
 
 ## Gotchas
 
 - A component's own fill/background lives on its inner part, so override it with
   `.x__btn::part(root) { background: … }`. A host class silently loses to the component's
   private variables.
+- Mantine `size=` and `fz=` differ: `size` sets font-size and line-height, `fz`/`lh` set only one.
+  Port `fz`/`lh` to `Base.Fz` / `Base.Lh` (any `mt.*` component), never to `Size`.
+- `mt.Text` / `mt.Title` size lives on the host, so a block class's `font-size`/`line-height` applies
+  directly (like Mantine's `className`); no `::part(root)` needed for those.
+- Raw `<p>`, `<h1..h6>` and `<a>` keep UA margins and underlines that Mantine `Text`/`Title`/`Anchor`
+  remove: reset them in the block class.
+- templ trims whitespace before `@component`; write `{ " " }` where the JSX had a space.
 - `attrs()` omits zero numbers, so an explicit `0` (e.g. Overlay `z-index: 0`) goes through
   `Base.Attrs: templ.Attributes{"z-index": "0"}`.
 - templ parses a text line that starts with a Go keyword (`for …`, `if …`, `switch …`) as

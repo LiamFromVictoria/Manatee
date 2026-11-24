@@ -56,7 +56,7 @@ func ArticleCardImage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.article-card-image {\n\t\t\t\theight: 440px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tbackground-size: cover;\n\t\t\t\tbackground-position: center;\n\t\t\t}\n\t\t\t.article-card-image__title {\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\tline-height: 1.2;\n\t\t\t\tfont-size: 32px;\n\t\t\t\tmargin-top: var(--mt-spacing-xs);\n\t\t\t}\n\t\t\t.article-card-image__category {\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\topacity: 0.7;\n\t\t\t\tfont-weight: 700;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.article-card-image {\n\t\t\t\theight: 440px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tbackground-size: cover;\n\t\t\t\tbackground-position: center;\n\t\t\t}\n\t\t\t.article-card-image__title {\n\t\t\t\tmargin-top: var(--mt-spacing-xs);\n\t\t\t}\n\t\t\t.article-card-image__title::part(root) {\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\tline-height: 1.2;\n\t\t\t\tfont-size: 32px;\n\t\t\t}\n\t\t\t.article-card-image__category {\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\topacity: 0.7;\n\t\t\t\tfont-weight: 700;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -97,7 +97,7 @@ func ArticleCardImage() templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(articleCardImageInfo.Category)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/articlecards/article_card_image.templ`, Line: 56, Col: 35}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/articlecards/article_card_image.templ`, Line: 58, Col: 35}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -124,7 +124,7 @@ func ArticleCardImage() templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(articleCardImageInfo.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/articlecards/article_card_image.templ`, Line: 59, Col: 32}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/articlecards/article_card_image.templ`, Line: 61, Col: 32}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -155,7 +155,7 @@ func ArticleCardImage() templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(articleCardImageInfo.Label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/articlecards/article_card_image.templ`, Line: 63, Col: 31}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/articlecards/article_card_image.templ`, Line: 65, Col: 31}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {

@@ -35,10 +35,10 @@ templ SwitchesCard() {
 		</style>
 	}
 	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Class: "switches-card__card"}}) {
-		@mt.Text(mt.TextProps{Size: "lg", Fw: 500, Base: mt.Base{Class: "switches-card__title"}}) {
+		@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Class: "switches-card__title", Fz: mt.LG}}) {
 			Configure notifications
 		}
-		@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Mt: "3", Mb: mt.XL}}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mt: "3", Mb: mt.XL, Fz: mt.XS}}) {
 			Choose what notifications you want to receive
 		}
 		for _, item := range switchesCardItems {

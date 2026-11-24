@@ -88,7 +88,7 @@ func ForgotPasswordInput() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = mt.Anchor(mt.AnchorProps{Href: "#", Fw: 500, Size: mt.XS, Base: mt.Base{Pt: "2"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = mt.Anchor(mt.AnchorProps{Href: "#", Fw: 500, Base: mt.Base{Fz: mt.XS, Pt: "2"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -12,13 +12,14 @@ export const wrapperStyles = css`
     --_label-fz: var(--mt-font-size-sm);
     --_hint-fz: var(--mt-font-size-xs);
     --_radius: var(--mt-radius-default);
+    --_chevron-size: 1.125rem;
     font-size: var(--_fz);
     line-height: var(--mt-line-height);
   }
-  :host([size='xs']) { --_height: 1.875rem; --_fz: var(--mt-font-size-xs); --_label-fz: var(--mt-font-size-xs); --_hint-fz: calc(var(--mt-font-size-xs) - 0.125rem); }
-  :host([size='md']) { --_height: 2.625rem; --_fz: var(--mt-font-size-md); --_label-fz: var(--mt-font-size-md); --_hint-fz: var(--mt-font-size-sm); }
-  :host([size='lg']) { --_height: 3.125rem; --_fz: var(--mt-font-size-lg); --_label-fz: var(--mt-font-size-lg); --_hint-fz: var(--mt-font-size-md); }
-  :host([size='xl']) { --_height: 3.75rem; --_fz: var(--mt-font-size-xl); --_label-fz: var(--mt-font-size-xl); --_hint-fz: var(--mt-font-size-lg); }
+  :host([size='xs']) { --_height: 1.875rem; --_fz: var(--mt-font-size-xs); --_label-fz: var(--mt-font-size-xs); --_hint-fz: calc(var(--mt-font-size-xs) - 0.125rem); --_chevron-size: 0.875rem; }
+  :host([size='md']) { --_height: 2.625rem; --_fz: var(--mt-font-size-md); --_label-fz: var(--mt-font-size-md); --_hint-fz: var(--mt-font-size-sm); --_chevron-size: 1.25rem; }
+  :host([size='lg']) { --_height: 3.125rem; --_fz: var(--mt-font-size-lg); --_label-fz: var(--mt-font-size-lg); --_hint-fz: var(--mt-font-size-md); --_chevron-size: 1.5rem; }
+  :host([size='xl']) { --_height: 3.75rem; --_fz: var(--mt-font-size-xl); --_label-fz: var(--mt-font-size-xl); --_hint-fz: var(--mt-font-size-lg); --_chevron-size: 1.75rem; }
 
   .label {
     display: inline-block;
@@ -43,9 +44,7 @@ export const wrapperStyles = css`
 
 /** Text-like control box: border, variants, left/right sections. */
 export const inputStyles = css`
-  .field { position: relative; margin-top: calc(var(--mt-spacing-xs) / 2); }
-  .label[hidden] + .description[hidden] + .field,
-  .label[hidden] + .field { margin-top: 0; }
+  .field { position: relative; margin-top: 0; }
   .description:not([hidden]) + .field { margin-top: calc(var(--mt-spacing-xs) / 2); }
 
   .input {
@@ -108,7 +107,7 @@ export function wrapperTemplate(control: string, opts: { labelFor?: boolean } = 
   const tag = opts.labelFor === false ? 'div' : 'label';
   const forAttr = opts.labelFor === false ? '' : ' for="control"';
   return html`
-    <${tag} class="label" part="label" id="label"${forAttr} hidden><slot name="label"><span class="label-text"></span></slot><span class="required" aria-hidden="true" hidden>*</span></${tag}>
+    <${tag} class="label" part="label" id="label"${forAttr} hidden><slot name="label"><span class="label-text"></span></slot><span class="required" part="required" aria-hidden="true" hidden>*</span></${tag}>
     <div class="description" part="description" id="description" hidden><slot name="description"><span class="description-text"></span></slot></div>
     ${control}
     <div class="error" part="error" id="error" hidden><slot name="error"><span class="error-text"></span></slot></div>

@@ -51,7 +51,7 @@ func EmailBanner() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.email-banner {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tpadding: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-8));\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-8));\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.email-banner { flex-direction: column-reverse; padding: var(--mt-spacing-xl); }\n\t\t\t}\n\t\t\t.email-banner__image { max-width: 40%; }\n\t\t\t.email-banner__image svg { display: block; width: 100%; height: auto; }\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.email-banner__image { max-width: 100%; }\n\t\t\t}\n\t\t\t.email-banner__body { padding-right: calc(var(--mt-spacing-xl) * 4); }\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.email-banner__body { padding-right: 0; margin-top: var(--mt-spacing-xl); }\n\t\t\t}\n\t\t\t.email-banner__title {\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tline-height: 1;\n\t\t\t\tmargin-bottom: var(--mt-spacing-md);\n\t\t\t}\n\t\t\t.email-banner__controls { display: flex; margin-top: var(--mt-spacing-xl); }\n\t\t\t.email-banner__input-wrapper { width: 100%; flex: 1; }\n\t\t\t.email-banner__input-wrapper::part(input) {\n\t\t\t\tborder-top-right-radius: 0;\n\t\t\t\tborder-bottom-right-radius: 0;\n\t\t\t\tborder-right: 0;\n\t\t\t}\n\t\t\t.email-banner__control::part(root) {\n\t\t\t\tborder-top-left-radius: 0;\n\t\t\t\tborder-bottom-left-radius: 0;\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.email-banner {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tpadding: calc(var(--mt-spacing-xl) * 2);\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-8));\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-8));\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.email-banner { flex-direction: column-reverse; padding: var(--mt-spacing-xl); }\n\t\t\t}\n\t\t\t.email-banner__image { width: 40%; max-width: 40%; flex: 0 0 auto; }\n\t\t\t.email-banner__image svg { display: block; width: 100%; height: auto; }\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.email-banner__image { width: 100%; max-width: 100%; }\n\t\t\t}\n\t\t\t.email-banner__body { padding-right: calc(var(--mt-spacing-xl) * 4); }\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.email-banner__body { padding-right: 0; margin-top: var(--mt-spacing-xl); }\n\t\t\t}\n\t\t\t.email-banner__title {\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-family: Outfit, var(--mt-font-family);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tline-height: 1;\n\t\t\t\tmargin-bottom: var(--mt-spacing-md);\n\t\t\t}\n\t\t\t.email-banner__controls { display: flex; margin-top: var(--mt-spacing-xl); }\n\t\t\t.email-banner__input-wrapper { width: 100%; flex: 1; }\n\t\t\t.email-banner__input-wrapper::part(input) {\n\t\t\t\tborder-top-right-radius: 0;\n\t\t\t\tborder-bottom-right-radius: 0;\n\t\t\t\tborder-right: 0;\n\t\t\t}\n\t\t\t.email-banner__control::part(root) {\n\t\t\t\tborder-top-left-radius: 0;\n\t\t\t\tborder-bottom-left-radius: 0;\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -105,7 +105,7 @@ func EmailBanner() templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Size: mt.LG, Base: mt.Base{Mb: "5px"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Mb: "5px", Fz: mt.LG}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -127,7 +127,7 @@ func EmailBanner() templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

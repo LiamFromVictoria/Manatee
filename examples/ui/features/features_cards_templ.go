@@ -74,7 +74,7 @@ func FeaturesCards() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.features-cards__title {\n\t\t\t\tfont-size: 34px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.features-cards__title { font-size: 24px; }\n\t\t\t}\n\t\t\t.features-cards__description {\n\t\t\t\tmax-width: 600px;\n\t\t\t\tmargin: auto;\n\t\t\t}\n\t\t\t.features-cards__description::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: block;\n\t\t\t\tbackground-color: var(--mt-color-blue-filled);\n\t\t\t\twidth: 45px;\n\t\t\t\theight: 2px;\n\t\t\t\tmargin-top: var(--mt-spacing-sm);\n\t\t\t\tmargin-left: auto;\n\t\t\t\tmargin-right: auto;\n\t\t\t}\n\t\t\t.features-cards__card {\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.features-cards__card-title::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: block;\n\t\t\t\tbackground-color: var(--mt-color-blue-filled);\n\t\t\t\twidth: 45px;\n\t\t\t\theight: 2px;\n\t\t\t\tmargin-top: var(--mt-spacing-sm);\n\t\t\t}\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.features-cards__title {\n\t\t\t\tfont-size: 34px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t@media (max-width: 48em) {\n\t\t\t\t.features-cards__title { font-size: 24px; }\n\t\t\t}\n\t\t\t.features-cards__description {\n\t\t\t\tmax-width: 600px;\n\t\t\t\tmargin-inline: auto;\n\t\t\t}\n\t\t\t.features-cards__description::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: block;\n\t\t\t\tbackground-color: var(--mt-color-blue-filled);\n\t\t\t\twidth: 45px;\n\t\t\t\theight: 2px;\n\t\t\t\tmargin-top: var(--mt-spacing-sm);\n\t\t\t\tmargin-left: auto;\n\t\t\t\tmargin-right: auto;\n\t\t\t}\n\t\t\t.features-cards__card {\n\t\t\t\tborder: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.features-cards__card-title::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: block;\n\t\t\t\tbackground-color: var(--mt-color-blue-filled);\n\t\t\t\twidth: 45px;\n\t\t\t\theight: 2px;\n\t\t\t\tmargin-top: var(--mt-spacing-sm);\n\t\t\t}\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -232,7 +232,7 @@ func FeaturesCards() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "features-cards__card-title", Mt: mt.MD}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Fz: mt.LG, Class: "features-cards__card-title", Mt: mt.MD}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -259,7 +259,7 @@ func FeaturesCards() templ.Component {
 							}
 							return nil
 						})
-						templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM, Mt: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}

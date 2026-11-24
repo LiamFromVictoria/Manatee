@@ -132,7 +132,7 @@ func FeaturesAsymmetrical() templ.Component {
 						var templ_7745c5c3_Var6 string
 						templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Title)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/features/features_asymmetrical.templ`, Line: 76, Col: 19}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/features/features_asymmetrical.templ`, Line: 76, Col: 18}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 						if templ_7745c5c3_Err != nil {
@@ -140,7 +140,7 @@ func FeaturesAsymmetrical() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 700, Size: mt.LG, Base: mt.Base{Class: "features-asymmetrical__title", Mb: mt.XS, Mt: "5"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{Fw: 700, Base: mt.Base{Fz: mt.LG, Class: "features-asymmetrical__title", Mb: mt.XS, Mt: "5"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -167,7 +167,7 @@ func FeaturesAsymmetrical() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Fz: mt.SM}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

@@ -259,7 +259,7 @@ func FeaturesGrid() templ.Component {
 						}
 						return nil
 					})
-					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Style: "line-height:1.6"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Lh: "1.6"}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
