@@ -9,6 +9,7 @@ import {
   type Mark,
   parseMarks,
   renderMarks,
+  richMarkContent,
   sliderStyles,
   trackSizeStyles,
 } from './shared';
@@ -23,10 +24,12 @@ type Index = 0 | 1;
 
 /**
  * <mt-range-slider value="20,80" min="0" max="100" step="1" precision color
- *                  size="xs..xl" radius thumb-size thumb-label label label-format
- *                  label-always-on show-label-on-hover restrict-to-marks inverted
+ *                  size="xs..xl" radius thumb-size thumb-label thumb-from-label thumb-to-label
+ *                  label label-format label-always-on show-label-on-hover restrict-to-marks inverted
  *                  disabled name marks min-range="10" max-range push-on-overlap>
- * Slots: thumb-children (applies to both thumbs). Light-DOM children: <mt-slider-mark value label>.
+ * Slots: thumb-children (shared fallback for both thumbs), thumb-from-children,
+ * thumb-to-children (per-thumb content, falls back to thumb-children when empty).
+ * Light-DOM children: <mt-slider-mark value label> (label can also be rich content).
  * Events: `input` while dragging/stepping, `change` on commit. Form-associated:
  * submits two FormData entries under `name` (from, then to).
  */
@@ -45,6 +48,8 @@ export class MtRangeSlider extends MtElement {
     radius: { css: '--_radius', scale: 'radius', default: 'xl' },
     thumbSize: { css: '--_thumb-size', scale: 'rem' },
     thumbLabel: {},
+    thumbFromLabel: {},
+    thumbToLabel: {},
     label: { type: 'boolean', default: true },
     labelFormat: { default: '{value}' },
     labelAlwaysOn: { type: 'boolean' },
@@ -64,6 +69,8 @@ export class MtRangeSlider extends MtElement {
   declare step: number;
   declare precision: number | null;
   declare thumbLabel: string | null;
+  declare thumbFromLabel: string | null;
+  declare thumbToLabel: string | null;
   declare label: boolean;
   declare labelFormat: string | null;
   declare labelAlwaysOn: boolean;
@@ -91,11 +98,11 @@ export class MtRangeSlider extends MtElement {
             <div class="bar inverted-b" part="bar"></div>
             <div class="marks" part="marks"></div>
             <div class="thumb from" part="thumb-from" role="slider" tabindex="0">
-              <slot name="thumb-children"></slot>
+              <slot name="thumb-from-children"></slot>
               <div class="label" part="label"></div>
             </div>
             <div class="thumb to" part="thumb-to" role="slider" tabindex="0">
-              <slot name="thumb-children"></slot>
+              <slot name="thumb-to-children"></slot>
               <div class="label" part="label"></div>
             </div>
           </div>
@@ -141,6 +148,7 @@ export class MtRangeSlider extends MtElement {
     this.$<HTMLElement>('.track-container').addEventListener('pointerdown', (e) => this.#onPointerDown(e as PointerEvent));
     this.$<HTMLElement>('.thumb.from').addEventListener('keydown', (e) => this.#onKeyDown(e as KeyboardEvent, 0));
     this.$<HTMLElement>('.thumb.to').addEventListener('keydown', (e) => this.#onKeyDown(e as KeyboardEvent, 1));
+    this.#syncThumbChildren();
 
     this.#commitFormValue();
     this.#syncMarks();
@@ -159,9 +167,15 @@ export class MtRangeSlider extends MtElement {
       }
       this.toggleAttribute('aria-disabled', this.isDisabled);
     }
-    if (changed.has('thumbLabel') && this.thumbLabel) {
-      this.$('.thumb.from').setAttribute('aria-label', `${this.thumbLabel} (from)`);
-      this.$('.thumb.to').setAttribute('aria-label', `${this.thumbLabel} (to)`);
+    if (changed.has('thumbLabel') || changed.has('thumbFromLabel') || changed.has('thumbToLabel')) {
+      const fromLabel = this.thumbFromLabel ?? this.thumbLabel;
+      const toLabel = this.thumbToLabel ?? this.thumbLabel;
+      const fromThumb = this.$('.thumb.from');
+      const toThumb = this.$('.thumb.to');
+      if (fromLabel) fromThumb.setAttribute('aria-label', fromLabel);
+      else fromThumb.removeAttribute('aria-label');
+      if (toLabel) toThumb.setAttribute('aria-label', toLabel);
+      else toThumb.removeAttribute('aria-label');
     }
     if (changed.has('showLabelOnHover')) {
       for (const thumb of this.root.querySelectorAll<HTMLElement>('.thumb')) thumb.classList.toggle('hover-label', this.showLabelOnHover);
@@ -188,11 +202,25 @@ export class MtRangeSlider extends MtElement {
     } else {
       this.#marksData = Array.from(this.querySelectorAll(':scope > mt-slider-mark')).map((el) => ({
         value: Number(el.getAttribute('value') ?? '0'),
-        label: el.getAttribute('label') ?? (el.textContent?.trim() || undefined),
+        label: el.getAttribute('label') ?? undefined,
+        labelHtml: richMarkContent(el),
       }));
     }
     this.$<HTMLElement>('.marks').innerHTML = renderMarks(this.#marksData, this.min, this.max);
     this.#updateMarksFilled();
+  }
+
+  /** Per-thumb content falls back to clones of the shared `thumb-children` slot when empty. */
+  #syncThumbChildren(): void {
+    const shared = Array.from(this.querySelectorAll(':scope > [slot="thumb-children"]'));
+    for (const side of ['from', 'to'] as const) {
+      const slotEl = this.$<HTMLSlotElement>(`slot[name="thumb-${side}-children"]`);
+      const dedicated = this.querySelectorAll(`:scope > [slot="thumb-${side}-children"]`).length > 0;
+      slotEl.innerHTML = '';
+      if (!dedicated) {
+        for (const node of shared) slotEl.appendChild(node.cloneNode(true));
+      }
+    }
   }
 
   #updateMarksFilled(): void {

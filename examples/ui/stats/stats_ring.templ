@@ -1,0 +1,54 @@
+package stats
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type statsRingItem struct {
+	Label, Value, Color string
+	Progress             float64
+	Up                   bool
+}
+
+var statsRingData = []statsRingItem{
+	{"Page views", "456,578", "teal", 65, true},
+	{"New users", "2,550", "blue", 72, true},
+	{"Orders", "4,735", "red", 52, false},
+}
+
+// StatsRing ports ui.mantine.dev StatsRing: a row of cards with a ring
+// progress indicator and trend icon next to each metric.
+templ StatsRing() {
+	@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 3}) {
+		for _, s := range statsRingData {
+			@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{P: mt.XS}}) {
+				@mt.Group(mt.GroupProps{}) {
+					@mt.RingProgress(mt.RingProgressProps{
+						Size: 80, Thickness: 8, RoundCaps: true,
+						Sections: []mt.RingProgressSection{{Value: s.Progress, Color: s.Color}},
+						Label:    statsRingLabel(s.Up),
+					})
+					<div>
+						@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Tt: "uppercase", Fw: 700}) {
+							{ s.Label }
+						}
+						@mt.Text(mt.TextProps{Fw: 700, Size: mt.XL}) {
+							{ s.Value }
+						}
+					</div>
+				}
+			}
+		}
+	}
+}
+
+templ statsRingLabel(up bool) {
+	@mt.Center(mt.CenterProps{}) {
+		if up {
+			@icons.IconArrowUpRight(icons.Props{Size: 20, Stroke: 1.5})
+		} else {
+			@icons.IconArrowDownRight(icons.Props{Size: 20, Stroke: 1.5})
+		}
+	}
+}

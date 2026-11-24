@@ -1,0 +1,100 @@
+package users
+
+import (
+	"fmt"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type usersStackRow struct {
+	Avatar, Name, Job, Email string
+	Rate                     float64
+}
+
+var usersStackData = []usersStackRow{
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png", "Robert Wolfkisser", "Engineer", "rob_wolf@gmail.com", 22},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png", "Jill Jailbreaker", "Engineer", "jj@breaker.com", 45},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png", "Henry Silkeater", "Designer", "henry@silkeater.io", 76},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png", "Bill Horsefighter", "Designer", "bhorsefighter@gmail.com", 15},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", "Jeremy Footviewer", "Manager", "jeremy@foot.dev", 98},
+}
+
+var usersStackCSS = templ.NewOnceHandle()
+
+// UsersStack ports ui.mantine.dev UsersStack.
+templ UsersStack() {
+	@usersStackCSS.Once() {
+		<style>
+			.users-stack__avatar::part(root) { width: 2.5rem; height: 2.5rem; }
+		</style>
+	}
+	@mt.TableScrollContainer(mt.TableScrollContainerProps{MinWidth: "800"}) {
+		@mt.Table(mt.TableProps{VerticalSpacing: mt.MD}) {
+			<tbody>
+				for _, row := range usersStackData {
+					<tr>
+						<td>
+							@mt.Group(mt.GroupProps{Gap: mt.SM}) {
+								@mt.Avatar(mt.AvatarProps{Size: mt.MD, Src: row.Avatar, Radius: "40", Base: mt.Base{Class: "users-stack__avatar"}})
+								<div>
+									@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+										{ row.Name }
+									}
+									@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS}) {
+										{ row.Job }
+									}
+								</div>
+							}
+						</td>
+						<td>
+							@mt.Text(mt.TextProps{Size: mt.SM}) {
+								{ row.Email }
+							}
+							@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+								Email
+							}
+						</td>
+						<td>
+							@mt.Text(mt.TextProps{Size: mt.SM}) {
+								{ fmt.Sprintf("$%.1f / hr", row.Rate) }
+							}
+							@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+								Rate
+							}
+						</td>
+						<td>
+							@mt.Group(mt.GroupProps{Gap: "0", Justify: "flex-end"}) {
+								@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Gray, AriaLabel: "Edit"}) {
+									@icons.IconPencil(icons.Props{Size: 16, Stroke: 1.5})
+								}
+								@mt.Menu(mt.MenuProps{Position: "bottom-end", WithArrow: true, Transition: "pop", Target: usersStackMenuTarget()}) {
+									@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+										@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconMessages(icons.Props{Size: 16, Stroke: 1.5})}) {
+											Send message
+										}
+										@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconNote(icons.Props{Size: 16, Stroke: 1.5})}) {
+											Add note
+										}
+										@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconReportAnalytics(icons.Props{Size: 16, Stroke: 1.5})}) {
+											Analytics
+										}
+										@mt.MenuItem(mt.MenuItemProps{Color: mt.Red, LeftSection: icons.IconTrash(icons.Props{Size: 16, Stroke: 1.5})}) {
+											Terminate contract
+										}
+									}
+								}
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
+	}
+}
+
+templ usersStackMenuTarget() {
+	@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Gray, AriaLabel: "Menu"}) {
+		@icons.IconDots(icons.Props{Size: 16, Stroke: 1.5})
+	}
+}

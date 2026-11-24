@@ -1,0 +1,87 @@
+package users
+
+import "github.com/you/manatee/mt"
+
+type usersRolesTableRow struct {
+	Avatar, Name, Job, Email, Role, LastActive string
+	Active                                     bool
+}
+
+var usersRolesTableData = []usersRolesTableRow{
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-9.png", "Robert Wolfkisser", "Engineer", "rob_wolf@gmail.com", "Collaborator", "2 days ago", true},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-6.png", "Jill Jailbreaker", "Engineer", "jj@breaker.com", "Collaborator", "6 days ago", true},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-10.png", "Henry Silkeater", "Designer", "henry@silkeater.io", "Contractor", "2 days ago", false},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", "Bill Horsefighter", "Designer", "bhorsefighter@gmail.com", "Contractor", "5 days ago", true},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png", "Jeremy Footviewer", "Manager", "jeremy@foot.dev", "Manager", "3 days ago", false},
+}
+
+var usersRolesTableSelectData = []mt.SelectItem{
+	{Value: "Manager", Label: "Manager"},
+	{Value: "Collaborator", Label: "Collaborator"},
+	{Value: "Contractor", Label: "Contractor"},
+}
+
+var usersRolesTableFalse = false
+
+var usersRolesTableCSS = templ.NewOnceHandle()
+
+// UsersRolesTable ports ui.mantine.dev UsersRolesTable.
+templ UsersRolesTable() {
+	@usersRolesTableCSS.Once() {
+		<style>
+			.users-roles-table__avatar::part(root) { width: 2.5rem; height: 2.5rem; }
+		</style>
+	}
+	@mt.TableScrollContainer(mt.TableScrollContainerProps{MinWidth: "800"}) {
+		@mt.Table(mt.TableProps{VerticalSpacing: mt.SM}) {
+			<thead>
+				<tr>
+					<th>Employee</th>
+					<th>Role</th>
+					<th>Last active</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, row := range usersRolesTableData {
+					<tr>
+						<td>
+							@mt.Group(mt.GroupProps{Gap: mt.SM}) {
+								@mt.Avatar(mt.AvatarProps{Size: mt.MD, Src: row.Avatar, Radius: "40", Base: mt.Base{Class: "users-roles-table__avatar"}})
+								<div>
+									@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+										{ row.Name }
+									}
+									@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+										{ row.Email }
+									}
+								</div>
+							}
+						</td>
+						<td>
+							@mt.Select(mt.SelectProps{
+								Variant:       mt.Unstyled,
+								Value:         row.Role,
+								Data:          usersRolesTableSelectData,
+								AllowDeselect: &usersRolesTableFalse,
+								Base:          mt.Base{Attrs: templ.Attributes{"aria-label": "Role"}},
+							})
+						</td>
+						<td>{ row.LastActive }</td>
+						<td>
+							if row.Active {
+								@mt.Badge(mt.BadgeProps{Variant: mt.Light, FullWidth: true}) {
+									Active
+								}
+							} else {
+								@mt.Badge(mt.BadgeProps{Variant: mt.Light, Color: mt.Gray, FullWidth: true}) {
+									Disabled
+								}
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
+	}
+}

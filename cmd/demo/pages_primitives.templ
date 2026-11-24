@@ -103,6 +103,22 @@ templ UnstyledButtonPage() {
 			}
 		}
 	}
+	@Demo("Host-class flex layout (icon + text + chevron)", `@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Style: "display:flex;align-items:center;justify-content:space-between"}}) { ... }`) {
+		@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{W: "280", Style: "display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.5rem 0.75rem;border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md)"}}) {
+			<span style="display:flex;align-items:center;gap:0.625rem">
+				@mt.Avatar(mt.AvatarProps{Name: "Jane Doe", Color: mt.Blue, Size: mt.SM})
+				<span style="display:flex;flex-direction:column;align-items:flex-start">
+					@mt.Text(mt.TextProps{Size: mt.SM, Fw: 600}) {
+						Jane Doe
+					}
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+						jane@example.com
+					}
+				</span>
+			</span>
+			@icons.IconChevronRight(icons.Props{Size: 16})
+		}
+	}
 	@Demo("Link mode and disabled", `@mt.UnstyledButton(mt.UnstyledButtonProps{Href: "#"})`) {
 		@Row() {
 			@mt.UnstyledButton(mt.UnstyledButtonProps{Href: "#"}) {

@@ -1,0 +1,70 @@
+package sliders
+
+import "github.com/you/manatee/mt"
+
+var sliderInputCSS = templ.NewOnceHandle()
+
+// SliderInput ports ui.mantine.dev SliderInput: a NumberInput with a slim
+// slider overlaid on its bottom border, kept in sync both ways by a small
+// delegated script (number input drives the slider, and vice versa).
+templ SliderInput() {
+	@sliderInputCSS.Once() {
+		<style>
+			.slider-input {
+				position: relative;
+			}
+			.slider-input__input::part(input) {
+				height: auto;
+				padding-top: 22px;
+				padding-bottom: 3px;
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+			.slider-input__input::part(label) {
+				position: absolute;
+				pointer-events: none;
+				padding-left: var(--mt-spacing-sm);
+				padding-top: calc(var(--mt-spacing-sm) / 2);
+				z-index: 1;
+			}
+			.slider-input__slider {
+				position: absolute;
+				width: 100%;
+				bottom: -1px;
+			}
+			.slider-input__slider::part(thumb) {
+				width: 16px;
+				height: 16px;
+			}
+			.slider-input__slider::part(bar) {
+				border-radius: 0;
+			}
+		</style>
+		<script>
+			document.addEventListener('input', (e) => {
+				const wrapper = e.target.closest && e.target.closest('.slider-input');
+				if (!wrapper) return;
+				if (e.target.matches('mt-number-input')) {
+					const v = e.target.value;
+					if (typeof v === 'number' && !Number.isNaN(v)) {
+						wrapper.querySelector('mt-slider').value = v;
+					}
+				} else if (e.target.matches('mt-slider')) {
+					wrapper.querySelector('mt-number-input').value = e.detail.value;
+				}
+			});
+		</script>
+	}
+	<div class="slider-input">
+		@mt.NumberInput(mt.NumberInputProps{
+			Value: new(2200.0), Label: "Your daily kcal consumption", Placeholder: "2200 is an average value",
+			Step: 50, Min: new(0.0), Max: new(8000.0), HideControls: true,
+			Base: mt.Base{Class: "slider-input__input"},
+		})
+		@mt.Slider(mt.SliderProps{
+			Max: new(8000.0), Step: 50, Min: new(0.0), Label: new(false), Value: new(2200.0),
+			ThumbLabel: "Daily Kcal",
+			Base:       mt.Base{Class: "slider-input__slider", Style: "--_size: 2px"},
+		})
+	</div>
+}

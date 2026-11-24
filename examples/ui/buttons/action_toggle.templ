@@ -1,0 +1,43 @@
+package buttons
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var actionToggleCSS = templ.NewOnceHandle()
+
+var actionToggleOnClick = templ.JSFuncCall("manatee.toggleColorScheme")
+
+// ActionToggle ports ui.mantine.dev ActionToggle: a single ActionIcon that
+// toggles the page color scheme. The sun/moon icons swap visibility purely
+// via CSS on [data-mt-color-scheme], no script needed.
+templ ActionToggle() {
+	@actionToggleCSS.Once() {
+		<style>
+			.action-toggle__icon {
+				width: 22px;
+				height: 22px;
+			}
+			.action-toggle__dark {
+				display: none;
+				[data-mt-color-scheme='dark'] & { display: block; }
+			}
+			.action-toggle__light {
+				[data-mt-color-scheme='dark'] & { display: none; }
+			}
+		</style>
+	}
+	@mt.Group(mt.GroupProps{Justify: "center"}) {
+		@mt.ActionIcon(mt.ActionIconProps{
+			Variant:   mt.Default,
+			Size:      mt.XL,
+			Radius:    mt.MD,
+			AriaLabel: "Toggle color scheme",
+			Base:      mt.Base{Attrs: templ.Attributes{"onclick": actionToggleOnClick}},
+		}) {
+			@icons.IconSun(icons.Props{Stroke: 1.5, Class: "action-toggle__icon action-toggle__light"})
+			@icons.IconMoon(icons.Props{Stroke: 1.5, Class: "action-toggle__icon action-toggle__dark"})
+		}
+	}
+}

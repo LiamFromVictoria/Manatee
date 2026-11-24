@@ -29,7 +29,7 @@ const styles = css`
     inset-block: 0;
     inset-inline-start: 0;
     width: 0.25rem;
-    background: var(--_bar, var(--mt-color-gray-4));
+    background: var(--_bar, var(--mt-color-primary-filled));
   }
   .icon {
     display: none;
@@ -39,7 +39,7 @@ const styles = css`
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background: var(--_icon-bg, var(--mt-color-gray-1));
+    background: var(--_icon-bg, light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)));
     color: var(--_icon-fg, var(--mt-color-dimmed));
   }
   .icon.visible { display: flex; }

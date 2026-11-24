@@ -1,0 +1,71 @@
+package buttons
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var buttonCopyCSS = templ.NewOnceHandle()
+
+// ButtonCopy ports ui.mantine.dev ButtonCopy: a CopyButton wrapping a
+// Tooltip+Button; a tiny script mirrors the host's `copied` attribute onto
+// the tooltip's `opened` attribute and swaps the trailing icon, since
+// Manatee's CopyButton exposes state via the `copied` attribute/`copy` event
+// rather than a React render-prop.
+templ ButtonCopy() {
+	@buttonCopyCSS.Once() {
+		<style>
+			.button-copy__button::part(root) { padding-right: 0.875rem; height: 3rem; }
+			.button-copy__button::part(right-section) { margin-inline-start: 1.375rem; }
+		</style>
+	}
+	@mt.CopyButton(mt.CopyButtonProps{Value: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", Base: mt.Base{Class: "button-copy"}}) {
+		@mt.Tooltip(mt.TooltipProps{Label: "Link copied!", Offset: 5, Position: "bottom", WithArrow: true, Radius: mt.XL, Base: mt.Base{Class: "button-copy__tooltip"}}) {
+			@mt.Button(mt.ButtonProps{
+				Variant:      mt.Light,
+				Radius:       mt.XL,
+				Size:         mt.MD,
+				RightSection: buttonCopyRightSection(),
+				Base:         mt.Base{Class: "button-copy__button"},
+			}) {
+				Copy link to clipboard
+			}
+		}
+	}
+	@buttonCopyScript()
+}
+
+templ buttonCopyRightSection() {
+	<span class="button-copy__icon-copy">
+		@icons.IconCopy(icons.Props{Size: 20, Stroke: 1.5})
+	</span>
+	<span class="button-copy__icon-check" hidden>
+		@icons.IconCheck(icons.Props{Size: 20, Stroke: 1.5})
+	</span>
+}
+
+var buttonCopyScriptOnce = templ.NewOnceHandle()
+
+templ buttonCopyScript() {
+	@buttonCopyScriptOnce.Once() {
+		<script>
+			document.addEventListener('copy', (e) => {
+				const cb = e.target;
+				if (!(cb instanceof Element) || cb.tagName !== 'MT-COPY-BUTTON' || !cb.classList.contains('button-copy')) return;
+				const tooltip = cb.querySelector('.button-copy__tooltip');
+				const copyIcon = cb.querySelector('.button-copy__icon-copy');
+				const checkIcon = cb.querySelector('.button-copy__icon-check');
+				if (tooltip) tooltip.setAttribute('opened', '');
+				if (copyIcon) copyIcon.hidden = true;
+				if (checkIcon) checkIcon.hidden = false;
+				window.clearTimeout(cb.__buttonCopyTimer);
+				const timeout = Number(cb.getAttribute('timeout')) || 1000;
+				cb.__buttonCopyTimer = window.setTimeout(() => {
+					if (tooltip) tooltip.removeAttribute('opened');
+					if (copyIcon) copyIcon.hidden = false;
+					if (checkIcon) checkIcon.hidden = true;
+				}, timeout);
+			});
+		</script>
+	}
+}

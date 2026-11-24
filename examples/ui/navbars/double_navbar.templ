@@ -1,0 +1,140 @@
+package navbars
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type doubleNavbarMainLink struct {
+	Icon  templ.Component
+	Label string
+}
+
+var doubleNavbarMainLinks = []doubleNavbarMainLink{
+	{icons.IconHome2(icons.Props{Size: 22, Stroke: 1.5}), "Home"},
+	{icons.IconGauge(icons.Props{Size: 22, Stroke: 1.5}), "Dashboard"},
+	{icons.IconDeviceDesktopAnalytics(icons.Props{Size: 22, Stroke: 1.5}), "Analytics"},
+	{icons.IconCalendarStats(icons.Props{Size: 22, Stroke: 1.5}), "Releases"},
+	{icons.IconUser(icons.Props{Size: 22, Stroke: 1.5}), "Account"},
+	{icons.IconFingerprint(icons.Props{Size: 22, Stroke: 1.5}), "Security"},
+	{icons.IconSettings(icons.Props{Size: 22, Stroke: 1.5}), "Settings"},
+}
+
+var doubleNavbarLinks = []string{
+	"Security", "Settings", "Dashboard", "Releases", "Account", "Orders",
+	"Clients", "Databases", "Pull Requests", "Open Issues", "Wiki pages",
+}
+
+var doubleNavbarCSS = templ.NewOnceHandle()
+
+// DoubleNavbar ports ui.mantine.dev DoubleNavbar: a narrow icon rail
+// (mainLinks, active-tracked) next to a wide section whose title and link
+// list switch with the active main link.
+templ DoubleNavbar() {
+	@doubleNavbarCSS.Once() {
+		<style>
+			.double-navbar {
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-6));
+				height: 750px;
+				width: 300px;
+				display: flex;
+				flex-direction: column;
+				border-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.double-navbar__wrapper { display: flex; flex: 1; }
+			.double-navbar__aside {
+				flex: 0 0 60px;
+				background-color: var(--mt-color-body);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				border-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));
+			}
+			.double-navbar__main { flex: 1; background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			.double-navbar__main-link {
+				width: 44px;
+				height: 44px;
+				border-radius: var(--mt-radius-md);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5)); }
+				&[data-active] {
+					&, &:hover { background-color: var(--mt-color-blue-light); color: var(--mt-color-blue-light-color); }
+				}
+			}
+			.double-navbar__title {
+				font-family: var(--mt-font-family);
+				margin-bottom: var(--mt-spacing-xl);
+				background-color: var(--mt-color-body);
+				padding: var(--mt-spacing-md);
+				font-weight: 500;
+				padding-top: 18px;
+				height: 60px;
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));
+			}
+			.double-navbar__logo {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				height: 60px;
+				padding-top: var(--mt-spacing-md);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));
+				margin-bottom: var(--mt-spacing-xl);
+			}
+			.double-navbar__link {
+				display: block;
+				text-decoration: none;
+				border-top-right-radius: var(--mt-radius-md);
+				border-bottom-right-radius: var(--mt-radius-md);
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				padding: 0 var(--mt-spacing-md);
+				font-size: var(--mt-font-size-sm);
+				margin-right: var(--mt-spacing-md);
+				font-weight: 500;
+				height: 44px;
+				line-height: 44px;
+				&:hover { background-color: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)); color: light-dark(var(--mt-color-dark), var(--mt-color-light)); }
+				&[data-active] {
+					&, &:hover { border-left-color: var(--mt-color-blue-filled); background-color: var(--mt-color-blue-filled); color: var(--mt-white); }
+				}
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const btn = e.composedPath().find((n) => n instanceof Element && n.classList && n.classList.contains('double-navbar__main-link'));
+				if (!btn) return;
+				const nav = btn.closest('.double-navbar');
+				const title = nav && nav.querySelector('.double-navbar__title');
+				if (title) title.textContent = btn.getAttribute('data-active-item');
+			});
+		</script>
+	}
+	@blocks.Behaviors()
+	<nav class="double-navbar">
+		<div class="double-navbar__wrapper">
+			<div class="double-navbar__aside" data-active-group="main">
+				<div class="double-navbar__logo">
+					@blocks.Logo(30)
+				</div>
+				for i, l := range doubleNavbarMainLinks {
+					@mt.Tooltip(mt.TooltipProps{Label: l.Label, Position: "right", WithArrow: true}) {
+						<button type="button" class="double-navbar__main-link" data-active-item={ l.Label } data-active?={ i == 3 } aria-label={ l.Label }>
+							@l.Icon
+						</button>
+					}
+				}
+			</div>
+			<div class="double-navbar__main">
+				<h4 class="double-navbar__title">Releases</h4>
+				<div data-active-group>
+					for i, l := range doubleNavbarLinks {
+						<a class="double-navbar__link" data-active-item={ l } data-active?={ i == 1 } href="#">{ l }</a>
+					}
+				</div>
+			</div>
+		</div>
+	</nav>
+}

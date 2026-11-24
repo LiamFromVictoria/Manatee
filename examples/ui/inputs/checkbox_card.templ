@@ -1,0 +1,54 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var checkboxCardCSS = templ.NewOnceHandle()
+
+// CheckboxCard ports ui.mantine.dev CheckboxCard: a button-as-label card that
+// toggles a checkbox when clicked anywhere, not just on the checkbox itself.
+templ CheckboxCard() {
+	@checkboxCardCSS.Once() {
+		<style>
+			.checkbox-card {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				border: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-8));
+				border-radius: var(--mt-radius-md);
+				padding: var(--mt-spacing-lg);
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-8));
+				&:hover {
+					background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-9));
+				}
+			}
+			.checkbox-card__checkbox::part(input) {
+				cursor: pointer;
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const path = e.composedPath();
+				const card = path.find((n) => n instanceof Element && n.classList.contains('checkbox-card'));
+				if (!card) return;
+				if (path.some((n) => n instanceof Element && n.tagName === 'MT-CHECKBOX')) return;
+				const cb = card.querySelector('mt-checkbox');
+				if (cb) cb.checked = !cb.checked;
+			});
+		</script>
+	}
+	@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "checkbox-card"}}) {
+		@mt.Checkbox(mt.CheckboxProps{
+			Checked: true,
+			Size:    mt.MD,
+			Base:    mt.Base{Mr: "xl", Class: "checkbox-card__checkbox"},
+		})
+		<div>
+			@mt.Text(mt.TextProps{Fw: 500, Base: mt.Base{Mb: "7", Style: "line-height:1"}}) {
+				{ "@mantine/core" }
+			}
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+				Core components library: inputs, buttons, overlays, etc.
+			}
+		</div>
+	}
+}

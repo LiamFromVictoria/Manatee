@@ -1,0 +1,92 @@
+package faq
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var faqWithBgPlaceholder = "It can't help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren't many people or Pokémon.It was born from sludge on the ocean floor. In a sterile environment, the germs within its body can't multiply, and it dies.It has no eyeballs, so it can't see. It checks its surroundings via the ultrasonic waves it emits from its mouth."
+
+var faqWithBgEntries = []faqSimpleEntry{
+	{"reset-password", "How can I reset my password?"},
+	{"another-account", "Can I create more that one account?"},
+	{"newsletter", "How can I subscribe to monthly newsletter?"},
+	{"credit-card", "Do you store credit card information securely?"},
+	{"payment", "What payment systems to you work with?"},
+}
+
+var faqWithBgCSS = templ.NewOnceHandle()
+
+// FaqWithBg ports ui.mantine.dev FaqWithBg: an FAQ accordion over a radial
+// blue gradient background, with a custom "+" chevron that rotates when a
+// panel is open and the stock chevron hidden via ::part.
+templ FaqWithBg() {
+	@faqWithBgCSS.Once() {
+		<style>
+			.faq-with-bg {
+				padding-top: calc(var(--mt-spacing-xl) * 2);
+				min-height: 820px;
+				background-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-4) 100%);
+				background-repeat: no-repeat;
+				background-position: top left;
+				position: relative;
+				color: var(--mt-black);
+			}
+			.faq-with-bg__title {
+				color: var(--mt-white);
+				font-size: 52px;
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+				margin-bottom: calc(var(--mt-spacing-xl) * 1.5);
+			}
+			.faq-with-bg__item {
+				background-color: var(--mt-white) !important;
+				border-bottom: 0;
+				border-radius: var(--mt-radius-md);
+				box-shadow: var(--mt-shadow-lg);
+				overflow: hidden;
+			}
+			.faq-with-bg__item mt-accordion-control::part(chevron) { display: none; }
+			.faq-with-bg__item mt-accordion-control::part(control) {
+				font-size: var(--mt-font-size-lg);
+				padding: var(--mt-spacing-lg) var(--mt-spacing-xl);
+				color: var(--mt-black);
+			}
+			.faq-with-bg__item mt-accordion-control::part(control):hover { background-color: transparent; }
+			.faq-with-bg__item mt-accordion-panel::part(content) {
+				padding-left: var(--mt-spacing-xl);
+				line-height: 1.6;
+				color: var(--mt-black);
+			}
+			.faq-with-bg__gradient { background-image: radial-gradient(var(--mt-color-blue-6) 0%, var(--mt-color-blue-5) 100%); }
+			.faq-with-bg__item[opened] .faq-with-bg__gradient { transform: rotate(45deg); }
+		</style>
+	}
+	<div class="faq-with-bg">
+		@mt.Container(mt.ContainerProps{Size: mt.SM}) {
+			@mt.Title(mt.TitleProps{Ta: "center", Base: mt.Base{Class: "faq-with-bg__title"}}) {
+				Frequently Asked Questions
+			}
+			@mt.Accordion(mt.AccordionProps{
+				Value: "reset-password", ChevronPosition: "right", DisableChevronRotation: true, Variant: "separated",
+			}) {
+				for _, e := range faqWithBgEntries {
+					@mt.AccordionItem(mt.AccordionItemProps{Value: e.Value, Base: mt.Base{Class: "faq-with-bg__item"}}) {
+						@mt.AccordionControl(mt.AccordionControlProps{Icon: faqWithBgIcon()}) {
+							{ e.Question }
+						}
+						@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+							{ faqWithBgPlaceholder }
+						}
+					}
+				}
+			}
+		}
+	</div>
+}
+
+templ faqWithBgIcon() {
+	@mt.ThemeIcon(mt.ThemeIconProps{Radius: "xl", Size: "26", Base: mt.Base{Class: "faq-with-bg__gradient"}}) {
+		@icons.IconPlus(icons.Props{Size: 18, Stroke: 1.5})
+	}
+}

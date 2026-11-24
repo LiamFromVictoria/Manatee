@@ -66,7 +66,7 @@ function installTableSheet(): void {
 }
 
 const hostStyles = css`
-  :host { display: block; overflow-x: auto; }
+  :host { display: block; }
 `;
 
 /**

@@ -1,0 +1,86 @@
+package toc
+
+import (
+	"fmt"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type tocLink struct {
+	Label string
+	Link  string
+	Order int
+}
+
+var tableOfContentsLinks = []tocLink{
+	{"Usage", "#usage", 1},
+	{"Position and placement", "#position", 1},
+	{"With other overlays", "#overlays", 1},
+	{"Manage focus", "#focus", 1},
+	{"Examples", "#1", 1},
+	{"Show on focus", "#2", 2},
+	{"Show on hover", "#3", 2},
+	{"With form", "#4", 2},
+}
+
+const tableOfContentsActive = "#overlays"
+
+var tableOfContentsCSS = templ.NewOnceHandle()
+
+// TableOfContents ports ui.mantine.dev TableOfContents: a static list of
+// section links with one entry highlighted as active; clicking never
+// navigates (the links are illustrative, not real anchors on this page).
+templ TableOfContents() {
+	@tableOfContentsCSS.Once() {
+		<style>
+			.table-of-contents__link {
+				display: block;
+				text-decoration: none;
+				color: var(--mt-color-text);
+				line-height: 1.2;
+				font-size: var(--mt-font-size-sm);
+				padding: var(--mt-spacing-xs);
+				border-top-right-radius: var(--mt-radius-sm);
+				border-bottom-right-radius: var(--mt-radius-sm);
+				border-left: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.table-of-contents__link:hover {
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+			}
+			.table-of-contents__link[data-active] {
+				font-weight: 500;
+				border-left-color: light-dark(var(--mt-color-blue-6), var(--mt-color-blue-4));
+				color: light-dark(var(--mt-color-blue-6), var(--mt-color-blue-4));
+			}
+			.table-of-contents__link[data-active],
+			.table-of-contents__link[data-active]:hover {
+				background-color: var(--mt-color-blue-light) !important;
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const link = e.composedPath().find((n) => n instanceof Element && n.matches('.table-of-contents__link'));
+				if (link) e.preventDefault();
+			});
+		</script>
+	}
+	<div>
+		@mt.Group(mt.GroupProps{Base: mt.Base{Mb: mt.MD}}) {
+			@icons.IconListSearch(icons.Props{Size: 18, Stroke: 1.5})
+			@mt.Text(mt.TextProps{}) {
+				Table of contents
+			}
+		}
+		for _, l := range tableOfContentsLinks {
+			<a
+				href={ templ.SafeURL(l.Link) }
+				class="table-of-contents__link"
+				style={ fmt.Sprintf("padding-left:calc(%d * var(--mt-spacing-md))", l.Order) }
+				data-active?={ l.Link == tableOfContentsActive }
+			>
+				{ l.Label }
+			</a>
+		}
+	</div>
+}

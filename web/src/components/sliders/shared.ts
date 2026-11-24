@@ -3,6 +3,8 @@ import { css, escapeHtml } from '../../core';
 export interface Mark {
   value: number;
   label?: string;
+  /** Serialized rich content (cloned light-DOM children), takes priority over `label`. */
+  labelHtml?: string;
 }
 
 export function clamp(v: number, min: number, max: number): number {
@@ -54,6 +56,14 @@ export function findClosestValue(value: number, values: number[]): number {
   return values.reduce((closest, v) => (Math.abs(v - value) < Math.abs(closest - value) ? v : closest), values[0]);
 }
 
+/** Clone `el`'s light-DOM children into a detached container and serialize them, for use as a mark's rich label. */
+export function richMarkContent(el: Element): string | undefined {
+  if (el.childNodes.length === 0) return undefined;
+  const container = document.createElement('div');
+  for (const node of Array.from(el.childNodes)) container.appendChild(node.cloneNode(true));
+  return container.innerHTML.trim() ? container.innerHTML : undefined;
+}
+
 export function formatLabel(format: string | null, value: number): string {
   return (format ?? '{value}').replace('{value}', String(value));
 }
@@ -62,7 +72,11 @@ export function renderMarks(marks: Mark[], min: number, max: number): string {
   return marks
     .map((m) => {
       const pos = getPosition(m.value, min, max);
-      const label = m.label ? `<span class="mark-label" part="mark-label">${escapeHtml(m.label)}</span>` : '';
+      const label = m.labelHtml
+        ? `<span class="mark-label" part="mark-label">${m.labelHtml}</span>`
+        : m.label
+          ? `<span class="mark-label" part="mark-label">${escapeHtml(m.label)}</span>`
+          : '';
       return `<span class="mark" part="mark" data-value="${m.value}" style="left:${pos}%">${label}</span>`;
     })
     .join('');
@@ -81,11 +95,11 @@ export const trackSizeStyles = css`
 export const sliderStyles = css`
   .root { position: relative; padding-block: calc(var(--_thumb-size) / 2); outline: none; -webkit-tap-highlight-color: transparent; touch-action: none; }
   .track-container { position: relative; width: 100%; }
-  .track { position: relative; height: var(--_size); border-radius: var(--_radius); background: var(--mt-color-gray-2); cursor: pointer; }
+  .track { position: relative; height: var(--_size); border-radius: var(--_radius); background: light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4)); cursor: pointer; }
   :host([disabled]) .track { cursor: not-allowed; }
 
   .bar { position: absolute; top: 0; bottom: 0; background: var(--mt-c-filled); border-radius: var(--_radius); }
-  :host([disabled]) .bar { background: var(--mt-color-gray-4); }
+  :host([disabled]) .bar { background: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); }
 
   .thumb {
     position: absolute;
@@ -106,7 +120,7 @@ export const sliderStyles = css`
   }
   .thumb:active { cursor: grabbing; }
   .thumb:focus-visible { outline: var(--mt-focus-ring); outline-offset: 2px; }
-  :host([disabled]) .thumb { background: var(--mt-color-gray-1); border-color: var(--mt-color-gray-4); cursor: not-allowed; box-shadow: none; }
+  :host([disabled]) .thumb { background: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)); border-color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); cursor: not-allowed; box-shadow: none; }
 
   .label {
     position: absolute;
@@ -138,12 +152,12 @@ export const sliderStyles = css`
     box-sizing: border-box;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: var(--mt-color-gray-4);
+    background: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3));
     border: 2px solid var(--mt-color-body);
     pointer-events: none;
   }
   .mark[data-filled] { background: var(--mt-c-filled); border-color: var(--mt-c-filled); }
-  :host([disabled]) .mark[data-filled] { background: var(--mt-color-gray-4); border-color: var(--mt-color-gray-4); }
+  :host([disabled]) .mark[data-filled] { background: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); border-color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3)); }
   .mark-label {
     position: absolute;
     top: calc(100% + var(--mt-spacing-xs));

@@ -1,0 +1,37 @@
+package grids
+
+import "github.com/you/manatee/mt"
+
+// GridAsymmetrical ports ui.mantine.dev GridAsymmetrical: a 12-column grid of
+// skeleton placeholders with an asymmetrical, responsive layout.
+templ GridAsymmetrical() {
+	@mt.Container(mt.ContainerProps{Base: mt.Base{My: mt.MD}}) {
+		@mt.Grid(mt.GridProps{}) {
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 4}) {
+				@gridsSkeleton()
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 8}) {
+				@gridsSkeleton()
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 8}) {
+				@gridsSkeleton()
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 4}) {
+				@gridsSkeleton()
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 3}) {
+				@gridsSkeleton()
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 3}) {
+				@gridsSkeleton()
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanXs: 6}) {
+				@gridsSkeleton()
+			}
+		}
+	}
+}
+
+templ gridsSkeleton() {
+	@mt.Skeleton(mt.SkeletonProps{Height: "140px", Radius: mt.MD, Animate: new(false)})
+}

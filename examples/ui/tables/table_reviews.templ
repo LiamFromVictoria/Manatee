@@ -1,0 +1,108 @@
+package tables
+
+import (
+	"fmt"
+	"strconv"
+
+	"github.com/you/manatee/mt"
+)
+
+type tableReviewsBook struct {
+	Title, Author       string
+	Year                int
+	Positive, Negative  int
+}
+
+var tableReviewsBooks = []tableReviewsBook{
+	{Title: "Foundation", Author: "Isaac Asimov", Year: 1951, Positive: 2223, Negative: 259},
+	{Title: "Frankenstein", Author: "Mary Shelley", Year: 1818, Positive: 5677, Negative: 1265},
+	{Title: "Solaris", Author: "Stanislaw Lem", Year: 1961, Positive: 3487, Negative: 1845},
+	{Title: "Dune", Author: "Frank Herbert", Year: 1965, Positive: 8576, Negative: 663},
+	{Title: "The Left Hand of Darkness", Author: "Ursula K. Le Guin", Year: 1969, Positive: 6631, Negative: 993},
+	{Title: "A Scanner Darkly", Author: "Philip K Dick", Year: 1977, Positive: 8124, Negative: 1847},
+}
+
+// tableReviewsFormatInt renders n with thousands separators, like
+// Intl.NumberFormat().format(n).
+func tableReviewsFormatInt(n int) string {
+	s := strconv.Itoa(n)
+	for i := len(s) - 3; i > 0; i -= 3 {
+		s = s[:i] + "," + s[i:]
+	}
+	return s
+}
+
+var tableReviewsCSS = templ.NewOnceHandle()
+
+// TableReviews ports ui.mantine.dev TableReviews: a horizontally scrollable
+// table whose last column shows a two-section Progress bar built from
+// precomputed positive/negative review percentages.
+templ TableReviews() {
+	@tableReviewsCSS.Once() {
+		<style>
+			.table-reviews__progress-section:not(:first-of-type) {
+				border-left: 3px solid light-dark(var(--mt-white), var(--mt-color-dark-7));
+			}
+		</style>
+	}
+	@mt.TableScrollContainer(mt.TableScrollContainerProps{MinWidth: "800px"}) {
+		@mt.Table(mt.TableProps{VerticalSpacing: mt.XS}) {
+			<thead>
+				<tr>
+					<th>Book title</th>
+					<th>Year</th>
+					<th>Author</th>
+					<th>Reviews</th>
+					<th>Reviews distribution</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, row := range tableReviewsBooks {
+					@tableReviewsRow(row)
+				}
+			</tbody>
+		}
+	}
+}
+
+templ tableReviewsRow(row tableReviewsBook) {
+	{{
+		total := row.Positive + row.Negative
+		positivePct := float64(row.Positive) / float64(total) * 100
+		negativePct := float64(row.Negative) / float64(total) * 100
+	}}
+	<tr>
+		<td>
+			@mt.Anchor(mt.AnchorProps{Size: mt.SM}) {
+				{ row.Title }
+			}
+		</td>
+		<td>{ strconv.Itoa(row.Year) }</td>
+		<td>
+			@mt.Anchor(mt.AnchorProps{Size: mt.SM}) {
+				{ row.Author }
+			}
+		</td>
+		<td>{ tableReviewsFormatInt(total) }</td>
+		<td>
+			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Teal, Fw: 700}) {
+					{ fmt.Sprintf("%.0f%%", positivePct) }
+				}
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Red, Fw: 700}) {
+					{ fmt.Sprintf("%.0f%%", negativePct) }
+				}
+			}
+			@mt.ProgressRoot(mt.ProgressRootProps{}) {
+				@mt.ProgressSection(mt.ProgressSectionProps{
+					Value: positivePct, Color: mt.Teal,
+					Base: mt.Base{Class: "table-reviews__progress-section", Attrs: templ.Attributes{"aria-label": "Positive reviews"}},
+				})
+				@mt.ProgressSection(mt.ProgressSectionProps{
+					Value: negativePct, Color: mt.Red,
+					Base: mt.Base{Class: "table-reviews__progress-section", Attrs: templ.Attributes{"aria-label": "Negative reviews"}},
+				})
+			}
+		</td>
+	</tr>
+}

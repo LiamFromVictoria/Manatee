@@ -1,0 +1,100 @@
+package users
+
+import (
+	"strings"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type usersTableRow struct {
+	Avatar, Name, Job, Email, Phone string
+}
+
+var usersTableData = []usersTableRow{
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png", "Robert Wolfkisser", "Engineer", "rob_wolf@gmail.com", "+44 (452) 886 09 12"},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png", "Jill Jailbreaker", "Engineer", "jj@breaker.com", "+44 (934) 777 12 76"},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", "Henry Silkeater", "Designer", "henry@silkeater.io", "+44 (901) 384 88 34"},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png", "Bill Horsefighter", "Designer", "bhorsefighter@gmail.com", "+44 (667) 341 45 22"},
+	{"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-10.png", "Jeremy Footviewer", "Manager", "jeremy@foot.dev", "+44 (881) 245 65 65"},
+}
+
+var usersTableJobColors = map[string]string{
+	"engineer": mt.Blue,
+	"manager":  mt.Cyan,
+	"designer": mt.Pink,
+}
+
+var usersTableCSS = templ.NewOnceHandle()
+
+// UsersTable ports ui.mantine.dev UsersTable. The email cell uses Mantine's
+// Anchor component="button" (a non-navigating button styled as a link):
+// ported as mt.UnstyledButton with anchor-matching CSS.
+templ UsersTable() {
+	@usersTableCSS.Once() {
+		<style>
+			.users-table__avatar::part(root) { width: 1.875rem; height: 1.875rem; }
+			.users-table__email {
+				color: var(--mt-color-anchor);
+				font-size: var(--mt-font-size-sm);
+				&:hover { text-decoration: underline; }
+			}
+		</style>
+	}
+	@mt.TableScrollContainer(mt.TableScrollContainerProps{MinWidth: "800"}) {
+		@mt.Table(mt.TableProps{VerticalSpacing: mt.SM}) {
+			<thead>
+				<tr>
+					<th>Employee</th>
+					<th>Job title</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>
+						@mt.VisuallyHidden(mt.VisuallyHiddenProps{}) {
+							Actions
+						}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, row := range usersTableData {
+					<tr>
+						<td>
+							@mt.Group(mt.GroupProps{Gap: mt.SM}) {
+								@mt.Avatar(mt.AvatarProps{Size: mt.MD, Src: row.Avatar, Radius: "30", Base: mt.Base{Class: "users-table__avatar"}})
+								@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+									{ row.Name }
+								}
+							}
+						</td>
+						<td>
+							@mt.Badge(mt.BadgeProps{Color: usersTableJobColors[strings.ToLower(row.Job)], Variant: mt.Light}) {
+								{ row.Job }
+							}
+						</td>
+						<td>
+							@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "users-table__email"}}) {
+								{ row.Email }
+							}
+						</td>
+						<td>
+							@mt.Text(mt.TextProps{Size: mt.SM}) {
+								{ row.Phone }
+							}
+						</td>
+						<td>
+							@mt.Group(mt.GroupProps{Gap: "0", Justify: "flex-end"}) {
+								@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Gray, AriaLabel: "Edit user"}) {
+									@icons.IconPencil(icons.Props{Size: 16, Stroke: 1.5})
+								}
+								@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Red, AriaLabel: "Delete user"}) {
+									@icons.IconTrash(icons.Props{Size: 16, Stroke: 1.5})
+								}
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
+	}
+}

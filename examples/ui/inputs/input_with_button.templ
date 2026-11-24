@@ -1,0 +1,29 @@
+package inputs
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+// InputWithButton ports ui.mantine.dev InputWithButton: a pill search input
+// with a search icon and a filled circular submit button in its right section.
+templ InputWithButton() {
+	@mt.TextInput(mt.TextInputProps{
+		Radius:      mt.XL,
+		Size:        mt.MD,
+		Placeholder: "Search questions",
+		LeftSection: inputWithButtonSearchIcon(),
+		RightSection: inputWithButtonAction(),
+		Base:        mt.Base{Attrs: templ.Attributes{"aria-label": "Search questions"}},
+	})
+}
+
+templ inputWithButtonSearchIcon() {
+	@icons.IconSearch(icons.Props{Size: 18, Stroke: 1.5})
+}
+
+templ inputWithButtonAction() {
+	@mt.ActionIcon(mt.ActionIconProps{Size: "32px", Radius: mt.XL, Color: mt.Primary, Variant: mt.Filled, AriaLabel: "Search"}) {
+		@icons.IconArrowRight(icons.Props{Size: 18, Stroke: 1.5})
+	}
+}

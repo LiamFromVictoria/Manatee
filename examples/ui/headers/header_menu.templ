@@ -1,0 +1,130 @@
+package headers
+
+import (
+	"fmt"
+
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type headerMenuLink struct {
+	Link, Label string
+	SubLinks    []headerLink
+}
+
+var headerMenuLinks = []headerMenuLink{
+	{Link: "/about", Label: "Features"},
+	{Label: "Learn", SubLinks: []headerLink{
+		{"/docs", "Documentation"},
+		{"/resources", "Resources"},
+		{"/community", "Community"},
+		{"/blog", "Blog"},
+	}},
+	{Link: "/about", Label: "About"},
+	{Link: "/pricing", Label: "Pricing"},
+	{Label: "Support", SubLinks: []headerLink{
+		{"/faq", "FAQ"},
+		{"/demo", "Book a demo"},
+		{"/forums", "Forums"},
+	}},
+}
+
+var headerMenuCSS = templ.NewOnceHandle()
+
+// HeaderMenu ports ui.mantine.dev HeaderMenu: inline links with two
+// hover-triggered dropdown Menus, collapsing to a burger drawer where the
+// dropdown links become Collapse groups.
+templ HeaderMenu() {
+	@headerMenuCSS.Once() {
+		<style>
+			.header-menu {
+				height: 56px;
+				margin-bottom: 120px;
+				background-color: var(--mt-color-body);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.header-menu__inner {
+				height: 56px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.header-menu__link {
+				display: block;
+				line-height: 1;
+				padding: 8px 12px;
+				border-radius: var(--mt-radius-sm);
+				text-decoration: none;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				font-size: var(--mt-font-size-sm);
+				font-weight: 500;
+				@media (max-width: 48em) { border-radius: 0; padding: var(--mt-spacing-md); width: 100%; }
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.header-menu__sub-link {
+				display: block;
+				text-decoration: none;
+				padding: var(--mt-spacing-xs) var(--mt-spacing-md);
+				padding-left: calc(var(--mt-spacing-md) * 2);
+				font-size: var(--mt-font-size-sm);
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.header-menu__link-label { margin-right: 5px; }
+			.header-menu__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }
+		</style>
+	}
+	<header class="header-menu">
+		@mt.Container(mt.ContainerProps{Size: mt.MD}) {
+			<div class="header-menu__inner">
+				@blocks.Logo(28)
+				@mt.Group(mt.GroupProps{Gap: "5", Base: mt.Base{VisibleFrom: mt.SM}}) {
+					for _, l := range headerMenuLinks {
+						if len(l.SubLinks) > 0 {
+							@mt.Menu(mt.MenuProps{Trigger: "hover", Target: headerMenuTarget(l.Label)}) {
+								@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+									for _, s := range l.SubLinks {
+										@mt.MenuItem(mt.MenuItemProps{Href: s.Link}) { { s.Label } }
+									}
+								}
+							}
+						} else {
+							<a href="#" class="header-menu__link">{ l.Label }</a>
+						}
+					}
+				}
+				@mt.Burger(mt.BurgerProps{Size: mt.SM, Controls: "header-menu-drawer", AriaLabel: "Toggle navigation", Base: mt.Base{HiddenFrom: mt.SM}})
+			</div>
+		}
+	</header>
+	@mt.Drawer(mt.DrawerProps{Heading: "Navigation", Size: "100%", Base: mt.Base{ID: "header-menu-drawer", HiddenFrom: mt.SM}}) {
+		<div class="header-menu__drawer-scroll">
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			for i, l := range headerMenuLinks {
+				if len(l.SubLinks) > 0 {
+					<button type="button" class="header-menu__link" data-mt-toggle={ fmt.Sprintf("header-menu-drawer-group-%d", i) } style="display:flex;align-items:center;width:100%;border:none;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit">
+						<span class="header-menu__link-label">{ l.Label }</span>
+						@icons.IconChevronDown(icons.Props{Size: 14, Stroke: 1.5})
+					</button>
+					@mt.Collapse(mt.CollapseProps{Base: mt.Base{ID: fmt.Sprintf("header-menu-drawer-group-%d", i)}}) {
+						for _, s := range l.SubLinks {
+							<a href="#" class="header-menu__sub-link">{ s.Label }</a>
+						}
+					}
+				} else {
+					<a href="#" class="header-menu__link">{ l.Label }</a>
+				}
+			}
+		</div>
+	}
+}
+
+templ headerMenuTarget(label string) {
+	<a href="#" class="header-menu__link">
+		@mt.Center(mt.CenterProps{}) {
+			<span class="header-menu__link-label">{ label }</span>
+			@icons.IconChevronDown(icons.Props{Size: 14, Stroke: 1.5})
+		}
+	</a>
+}

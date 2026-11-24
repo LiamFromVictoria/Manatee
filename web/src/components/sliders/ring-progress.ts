@@ -101,7 +101,9 @@ export class MtRingProgress extends MtElement {
     const svg = this.$<SVGSVGElement>('.svg');
     svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
 
-    const rootColor = this.rootColor ? resolveColor(this.rootColor) : 'var(--mt-color-gray-2)';
+    const rootColor = this.rootColor
+      ? resolveColor(this.rootColor)
+      : 'light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4))';
     const parts: string[] = [
       `<circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="${rootColor}" stroke-width="${thickness}"></circle>`,
     ];

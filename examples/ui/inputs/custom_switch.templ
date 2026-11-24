@@ -1,0 +1,48 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var customSwitchCSS = templ.NewOnceHandle()
+
+// CustomSwitch ports ui.mantine.dev CustomSwitch: a thin pill track with an
+// oversized overhanging thumb, resized and recolored entirely via ::part().
+// A tiny delegated script mirrors the native "checked" state onto the host
+// attribute, since ::part() can't react to the internal input's :checked.
+templ CustomSwitch() {
+	@customSwitchCSS.Once() {
+		<style>
+			.custom-switch::part(root) {
+				align-items: center;
+			}
+			.custom-switch::part(track) {
+				width: 40px;
+				height: 6px;
+				overflow: visible;
+			}
+			.custom-switch::part(thumb) {
+				width: 20px;
+				height: 20px;
+				top: -7px;
+				left: -2px;
+				border: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+				transition: background-color 100ms ease, left 100ms ease;
+				transform: none !important;
+			}
+			.custom-switch[checked]::part(thumb) {
+				background-color: var(--mt-color-blue-filled);
+				left: calc(100% - 12px);
+				border-color: light-dark(var(--mt-white), var(--mt-color-dark-7));
+			}
+		</style>
+		<script>
+			document.addEventListener('change', (e) => {
+				const el = e.target;
+				if (!(el instanceof HTMLElement) || !el.matches('.custom-switch')) return;
+				el.toggleAttribute('checked', el.checked);
+			});
+		</script>
+	}
+	@mt.Group(mt.GroupProps{Justify: "center", Base: mt.Base{P: mt.MD}}) {
+		@mt.Switch(mt.SwitchProps{Label: "Custom Switch", Base: mt.Base{Class: "custom-switch"}})
+	}
+}

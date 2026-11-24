@@ -1,0 +1,167 @@
+package tables
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type tableSortPerson struct {
+	Name, Email, Company string
+}
+
+var tableSortData = []tableSortPerson{
+	{"Athena Weissnat", "Elouise.Prohaska@yahoo.com", "Little - Rippin"},
+	{"Deangelo Runolfsson", "Kadin_Trantow87@yahoo.com", "Greenfelder - Krajcik"},
+	{"Danny Carter", "Marina3@hotmail.com", "Kohler and Sons"},
+	{"Trace Tremblay PhD", "Antonina.Pouros@yahoo.com", "Crona, Aufderhar and Senger"},
+	{"Derek Dibbert", "Abagail29@hotmail.com", "Gottlieb LLC"},
+	{"Viola Bernhard", "Jamie23@hotmail.com", "Funk, Rohan and Kreiger"},
+	{"Austin Jacobi", "Genesis42@yahoo.com", "Botsford - Corwin"},
+	{"Hershel Mosciski", "Idella.Stehr28@yahoo.com", "Okuneva, Farrell and Kilback"},
+	{"Mylene Ebert", "Hildegard17@hotmail.com", "Kirlin and Sons"},
+	{"Lou Trantow", "Hillard.Barrows1@hotmail.com", "Parisian - Lemke"},
+	{"Dariana Weimann", "Colleen80@gmail.com", "Schowalter - Donnelly"},
+	{"Dr. Christy Herman", "Lilyan98@gmail.com", "VonRueden - Labadie"},
+	{"Katelin Schuster", "Erich_Brekke76@gmail.com", "Jacobson - Smitham"},
+	{"Melyna Macejkovic", "Kylee4@yahoo.com", "Schuster LLC"},
+	{"Pinkie Rice", "Fiona.Kutch@hotmail.com", "Wolf, Trantow and Zulauf"},
+	{"Brain Kreiger", "Rico98@hotmail.com", "Lueilwitz Group"},
+}
+
+var tableSortCSS = templ.NewOnceHandle()
+
+// TableSort ports ui.mantine.dev TableSort: a search box filtering every
+// column and three clickable headers that sort rows and flip direction.
+// React's search/sortBy/reversed state is replaced by a delegated `input`
+// (search) and `click` (header) listener scoped to the block root: rows
+// carry their raw field values as data attributes, the script hides
+// non-matching rows and reorders matching ones in the DOM, and toggles the
+// header's selector/ascending/descending icon.
+templ TableSort() {
+	@tableSortCSS.Once() {
+		<style>
+			.table-sort__th {
+				padding: 0;
+			}
+			.table-sort__control {
+				width: 100%;
+				padding: var(--mt-spacing-xs) var(--mt-spacing-md);
+				background: none;
+				border: none;
+				text-align: left;
+				cursor: pointer;
+				&:hover {
+					background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+				}
+			}
+			.table-sort__icon {
+				width: 21px;
+				height: 21px;
+				border-radius: 21px;
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const btn = e.target.closest && e.target.closest('.table-sort__control');
+				if (!btn) return;
+				const root = btn.closest('.table-sort');
+				if (!root) return;
+
+				const field = btn.dataset.field;
+				const reversed = field === root.dataset.sortBy ? root.dataset.reversed !== 'true' : false;
+				root.dataset.sortBy = field;
+				root.dataset.reversed = String(reversed);
+
+				root.querySelectorAll('.table-sort__control').forEach((b) => {
+					const sorted = b.dataset.field === field;
+					b.querySelector('.table-sort__icon-selector').hidden = sorted;
+					b.querySelector('.table-sort__icon-asc').hidden = !(sorted && reversed);
+					b.querySelector('.table-sort__icon-desc').hidden = !(sorted && !reversed);
+				});
+
+				const tbody = root.querySelector('.table-sort__body');
+				const rows = [...tbody.querySelectorAll('tr[data-name]')];
+				rows.sort((a, b) => {
+					const av = a.dataset[field] || '';
+					const bv = b.dataset[field] || '';
+					return reversed ? bv.localeCompare(av) : av.localeCompare(bv);
+				});
+				rows.forEach((r) => tbody.appendChild(r));
+			});
+
+			document.addEventListener('input', (e) => {
+				if (!e.target.matches || !e.target.matches('.table-sort__search')) return;
+				const root = e.target.closest('.table-sort');
+				if (!root) return;
+
+				const query = (e.target.value || '').toLowerCase().trim();
+				const tbody = root.querySelector('.table-sort__body');
+				const rows = [...tbody.querySelectorAll('tr[data-name]')];
+				let visible = 0;
+				rows.forEach((r) => {
+					const match =
+						!query ||
+						['name', 'email', 'company'].some((k) => (r.dataset[k] || '').toLowerCase().includes(query));
+					r.hidden = !match;
+					if (match) visible += 1;
+				});
+				const empty = root.querySelector('.table-sort__empty');
+				if (empty) empty.hidden = visible !== 0;
+			});
+		</script>
+	}
+	@mt.ScrollArea(mt.ScrollAreaProps{Base: mt.Base{Class: "table-sort"}}) {
+		@mt.TextInput(mt.TextInputProps{
+			Placeholder: "Search by any field", Base: mt.Base{Mb: mt.MD, Class: "table-sort__search"},
+			LeftSection: icons.IconSearch(icons.Props{Size: 16, Stroke: 1.5}),
+		})
+		@mt.Table(mt.TableProps{HorizontalSpacing: mt.MD, VerticalSpacing: mt.XS, Layout: "fixed", Base: mt.Base{Miw: "700px"}}) {
+			<tbody>
+				<tr>
+					@tableSortTh("name", "Name")
+					@tableSortTh("email", "Email")
+					@tableSortTh("company", "Company")
+				</tr>
+			</tbody>
+			<tbody class="table-sort__body">
+				for _, row := range tableSortData {
+					<tr data-name={ row.Name } data-email={ row.Email } data-company={ row.Company }>
+						<td>{ row.Name }</td>
+						<td>{ row.Email }</td>
+						<td>{ row.Company }</td>
+					</tr>
+				}
+				<tr class="table-sort__empty" hidden>
+					<td colspan="3">
+						@mt.Text(mt.TextProps{Fw: 500, Ta: "center"}) {
+							Nothing found
+						}
+					</td>
+				</tr>
+			</tbody>
+		}
+	}
+}
+
+templ tableSortTh(field, label string) {
+	<th class="table-sort__th">
+		@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "table-sort__control", Attrs: templ.Attributes{"data-field": field}}}) {
+			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+				@mt.Text(mt.TextProps{Fw: 500, Size: mt.SM}) {
+					{ label }
+				}
+				@mt.Center(mt.CenterProps{Base: mt.Base{Class: "table-sort__icon"}}) {
+					<span class="table-sort__icon-selector">
+						@icons.IconSelector(icons.Props{Size: 16, Stroke: 1.5})
+					</span>
+					<span class="table-sort__icon-asc" hidden>
+						@icons.IconChevronUp(icons.Props{Size: 16, Stroke: 1.5})
+					</span>
+					<span class="table-sort__icon-desc" hidden>
+						@icons.IconChevronDown(icons.Props{Size: 16, Stroke: 1.5})
+					</span>
+				}
+			}
+		}
+	</th>
+}

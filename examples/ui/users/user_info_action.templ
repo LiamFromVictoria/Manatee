@@ -1,0 +1,29 @@
+package users
+
+import "github.com/you/manatee/mt"
+
+var userInfoActionCSS = templ.NewOnceHandle()
+
+templ UserInfoAction() {
+	@userInfoActionCSS.Once() {
+		<style>
+			.user-info-action__avatar::part(root) { width: 7.5rem; height: 7.5rem; }
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{Radius: mt.MD, WithBorder: true, Base: mt.Base{P: mt.LG}}) {
+		@mt.Avatar(mt.AvatarProps{
+			Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png", Alt: "Jane Fingerlicker",
+			Radius: "120",
+			Base:   mt.Base{Class: "user-info-action__avatar", Mx: "auto"},
+		})
+		@mt.Text(mt.TextProps{Ta: "center", Size: mt.LG, Fw: 500, Base: mt.Base{Mt: mt.MD}}) {
+			Jane Fingerlicker
+		}
+		@mt.Text(mt.TextProps{Ta: "center", C: mt.Dimmed, Size: mt.SM}) {
+			jfingerlicker@me.io • Art director
+		}
+		@mt.Button(mt.ButtonProps{Variant: mt.Default, FullWidth: true, Base: mt.Base{Mt: mt.MD}}) {
+			Send message
+		}
+	}
+}

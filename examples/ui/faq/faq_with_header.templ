@@ -1,0 +1,179 @@
+package faq
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type faqWithHeaderContact struct {
+	Title, Description string
+	Icon                templ.Component
+}
+
+var faqWithHeaderContacts = []faqWithHeaderContact{
+	{"Email", "hello@mantine.dev", icons.IconAt(icons.Props{Size: 24})},
+	{"Phone", "+49 (800) 335 35 35", icons.IconPhone(icons.Props{Size: 24})},
+	{"Address", "844 Morris Park avenue", icons.IconMapPin(icons.Props{Size: 24})},
+	{"Working hours", "8 a.m. – 11 p.m.", icons.IconSun(icons.Props{Size: 24})},
+}
+
+type faqWithHeaderCategory struct{ Label, Image string }
+
+var faqWithHeaderCategories = []faqWithHeaderCategory{
+	{"Customer Support", "https://images.unsplash.com/photo-1508780709619-79562169bc64?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"},
+	{"User Guides", "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80"},
+	{"Sales Questions", "https://images.unsplash.com/photo-1543286386-713bdd548da4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"},
+}
+
+var faqWithHeaderCSS = templ.NewOnceHandle()
+
+// FaqWithHeader ports ui.mantine.dev FaqWithHeader: a gradient hero with a
+// giant "FAQ" watermark title and a contact card, plus three category cards.
+templ FaqWithHeader() {
+	@faqWithHeaderCSS.Once() {
+		<style>
+			.faq-with-header {
+				padding-top: var(--mt-spacing-md);
+				padding-bottom: calc(var(--mt-spacing-xl) * 2);
+			}
+			.faq-with-header__header {
+				height: 400px;
+				padding-top: var(--mt-spacing-md);
+				background-image: linear-gradient(135deg, var(--mt-color-blue-4) 0%, var(--mt-color-blue-6) 100%);
+				background-size: cover;
+				display: flex;
+				align-items: flex-end;
+				justify-content: space-between;
+				position: relative;
+				padding: calc(var(--mt-spacing-xl) * 1.5) calc(var(--mt-spacing-xl) * 2);
+				border-radius: var(--mt-radius-lg);
+				margin-bottom: var(--mt-spacing-lg);
+				@media (max-width: 67.5em) {
+					height: auto;
+					flex-direction: column-reverse;
+					align-items: initial;
+					padding: var(--mt-spacing-xl);
+				}
+			}
+			.faq-with-header__title {
+				color: var(--mt-white);
+				position: relative;
+				z-index: 1;
+				font-size: 46px;
+				font-weight: 800;
+				letter-spacing: -0.5px;
+				font-family: Outfit, var(--mt-font-family);
+				@media (max-width: 67.5em) {
+					font-size: 22px;
+					text-align: center;
+					margin-top: var(--mt-spacing-xl);
+				}
+			}
+			.faq-with-header__title-overlay {
+				z-index: 0;
+				position: absolute;
+				color: var(--mt-white);
+				font-weight: 500;
+				opacity: 0.1;
+				font-size: 320px;
+				line-height: 1;
+				top: 10px;
+				left: 45px;
+				pointer-events: none;
+				font-family: Outfit, var(--mt-font-family);
+				@media (max-width: 67.5em) {
+					display: none;
+				}
+			}
+			.faq-with-header__contact {
+				padding: calc(var(--mt-spacing-xl) * 1.5);
+				background-color: var(--mt-white);
+				border-radius: var(--mt-radius-lg);
+				box-shadow: var(--mt-shadow-md);
+				align-self: center;
+				@media (max-width: 67.5em) {
+					padding: var(--mt-spacing-xl);
+				}
+			}
+			.faq-with-header__contact-title {
+				color: var(--mt-black);
+				margin-bottom: var(--mt-spacing-xl);
+				line-height: 1;
+			}
+			.faq-with-header__category-card {
+				height: 160px;
+				position: relative;
+				background-size: 100%;
+				background-position: center;
+				color: var(--mt-white);
+				border-radius: var(--mt-radius-lg);
+				padding: var(--mt-spacing-xl);
+				overflow: hidden;
+				transition: background-size 300ms ease;
+				&:hover { background-size: 105%; }
+			}
+			.faq-with-header__category-label {
+				color: var(--mt-white);
+				z-index: 2;
+				position: relative;
+			}
+			.faq-with-header__icon-row {
+				display: flex;
+				align-items: center;
+				color: var(--mt-white);
+			}
+			.faq-with-header__icon-row + .faq-with-header__icon-row { margin-top: var(--mt-spacing-md); }
+			.faq-with-header__icon {
+				margin-right: var(--mt-spacing-md);
+			}
+			.faq-with-header__icon-title { color: var(--mt-color-gray-6); }
+			.faq-with-header__icon-description { color: var(--mt-black); }
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: mt.LG, Base: mt.Base{Class: "faq-with-header"}}) {
+		<div class="faq-with-header__header">
+			<div>
+				@mt.Title(mt.TitleProps{Base: mt.Base{Class: "faq-with-header__title"}}) {
+					Frequently Asked Questions
+				}
+				@mt.Title(mt.TitleProps{Base: mt.Base{Class: "faq-with-header__title-overlay", Attrs: templ.Attributes{"role": "presentation"}}}) {
+					FAQ
+				}
+			</div>
+			<div class="faq-with-header__contact">
+				@mt.Text(mt.TextProps{Size: mt.XL, Fw: 500, Base: mt.Base{Class: "faq-with-header__contact-title"}}) {
+					Contact us
+				}
+				@mt.Stack(mt.StackProps{}) {
+					for _, c := range faqWithHeaderContacts {
+						<div class="faq-with-header__icon-row">
+							@mt.ThemeIcon(mt.ThemeIconProps{Size: "40", Radius: mt.MD, Variant: "gradient", GradientFrom: "blue.4", GradientTo: "blue.6", GradientDeg: 135, Base: mt.Base{Class: "faq-with-header__icon"}}) {
+								@c.Icon
+							}
+							<div>
+								@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Class: "faq-with-header__icon-title"}}) {
+									{ c.Title }
+								}
+								@mt.Text(mt.TextProps{Base: mt.Base{Class: "faq-with-header__icon-description"}}) {
+									{ c.Description }
+								}
+							</div>
+						</div>
+					}
+				}
+			</div>
+		</div>
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 3}) {
+			for _, cat := range faqWithHeaderCategories {
+				@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "faq-with-header__category-card", Style: "background-image:url(" + cat.Image + ")"}}) {
+				@mt.Overlay(mt.OverlayProps{Color: "#000", BackgroundOpacity: faqWithHeaderOpacity(0.6), ZIndex: 1})
+					@mt.Text(mt.TextProps{Size: mt.XL, Ta: "center", Fw: 700, Base: mt.Base{Class: "faq-with-header__category-label"}}) {
+						{ cat.Label }
+					}
+				}
+			}
+		}
+	}
+}
+
+func faqWithHeaderOpacity(f float64) *float64 { return &f }

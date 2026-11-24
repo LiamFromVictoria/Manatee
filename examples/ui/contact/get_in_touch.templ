@@ -1,0 +1,123 @@
+package contact
+
+import (
+	"encoding/base64"
+	_ "embed"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+//go:embed bg.svg
+var getInTouchBgSVG []byte
+
+var getInTouchBgDataURL = "data:image/svg+xml;base64," + base64.StdEncoding.EncodeToString(getInTouchBgSVG)
+
+type getInTouchIcon struct {
+	Title, Description string
+	Icon                templ.Component
+}
+
+var getInTouchIcons = []getInTouchIcon{
+	{"Email", "hello@mantine.dev", icons.IconAt(icons.Props{Size: 24})},
+	{"Phone", "+49 (800) 335 35 35", icons.IconPhone(icons.Props{Size: 24})},
+	{"Address", "844 Morris Park avenue", icons.IconMapPin(icons.Props{Size: 24})},
+	{"Working hours", "8 a.m. – 11 p.m.", icons.IconSun(icons.Props{Size: 24})},
+}
+
+var getInTouchCSS = templ.NewOnceHandle()
+
+// GetInTouch ports ui.mantine.dev GetInTouch: a two-column card with a
+// background-image contact panel and a message form.
+templ GetInTouch() {
+	@getInTouchCSS.Once() {
+		<style>
+			.get-in-touch__wrapper {
+				display: flex;
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-8));
+				border-radius: var(--mt-radius-lg);
+				padding: 4px;
+				border: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-8));
+				@media (max-width: 48em) {
+					flex-direction: column;
+				}
+			}
+			.get-in-touch__form {
+				flex: 1;
+				padding: var(--mt-spacing-xl);
+				padding-left: calc(var(--mt-spacing-xl) * 2);
+				@media (max-width: 48em) {
+					padding: var(--mt-spacing-md);
+				}
+			}
+			.get-in-touch__contacts {
+				box-sizing: border-box;
+				position: relative;
+				border-radius: var(--mt-radius-lg);
+				background-size: cover;
+				background-position: center;
+				border: 1px solid transparent;
+				padding: var(--mt-spacing-xl);
+				flex: 0 0 280px;
+				@media (max-width: 48em) {
+					margin-bottom: var(--mt-spacing-sm);
+					padding-left: var(--mt-spacing-md);
+				}
+			}
+			.get-in-touch__title {
+				margin-bottom: calc(var(--mt-spacing-xl) * 1.5);
+				font-family: Outfit, var(--mt-font-family);
+				@media (max-width: 48em) {
+					margin-bottom: var(--mt-spacing-xl);
+				}
+			}
+			.get-in-touch__icon-row { display: flex; align-items: center; color: var(--mt-white); }
+			.get-in-touch__icon-row + .get-in-touch__icon-row { margin-top: var(--mt-spacing-md); }
+			.get-in-touch__icon-box { margin-right: var(--mt-spacing-md); }
+			.get-in-touch__icon-title { color: var(--mt-color-blue-0); }
+			.get-in-touch__icon-description { color: var(--mt-white); }
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{Shadow: mt.MD, Radius: mt.LG}) {
+		<div class="get-in-touch__wrapper">
+			<div class="get-in-touch__contacts" style={ "background-image:url(" + getInTouchBgDataURL + ")" }>
+				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 700, C: "#fff", Base: mt.Base{Class: "get-in-touch__title"}}) {
+					Contact information
+				}
+				@mt.Stack(mt.StackProps{}) {
+					for _, c := range getInTouchIcons {
+						<div class="get-in-touch__icon-row">
+							<div class="get-in-touch__icon-box">
+								@c.Icon
+							</div>
+							<div>
+								@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Class: "get-in-touch__icon-title"}}) {
+									{ c.Title }
+								}
+								@mt.Text(mt.TextProps{Base: mt.Base{Class: "get-in-touch__icon-description"}}) {
+									{ c.Description }
+								}
+							</div>
+						</div>
+					}
+				}
+			</div>
+			<form class="get-in-touch__form">
+				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 700, Base: mt.Base{Class: "get-in-touch__title"}}) {
+					Get in touch
+				}
+				@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2}) {
+					@mt.TextInput(mt.TextInputProps{Label: "Your name", Placeholder: "Your name", Name: "name"})
+					@mt.TextInput(mt.TextInputProps{Label: "Your email", Placeholder: "hello@mantine.dev", Required: true, Name: "email", Type: "email"})
+				}
+				@mt.TextInput(mt.TextInputProps{Label: "Subject", Placeholder: "Subject", Required: true, Name: "subject", Base: mt.Base{Mt: mt.MD}})
+				@mt.Textarea(mt.TextareaProps{Label: "Your message", Placeholder: "Please include all relevant information", MinRows: 3, Name: "message", Base: mt.Base{Mt: mt.MD}})
+				@mt.Group(mt.GroupProps{Justify: "flex-end", Base: mt.Base{Mt: mt.MD}}) {
+					@mt.Button(mt.ButtonProps{Type: "submit"}) {
+						Send message
+					}
+				}
+			</form>
+		</div>
+	}
+}

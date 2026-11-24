@@ -1,0 +1,149 @@
+package navbars
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type navbarSegmentedLink struct {
+	Icon  templ.Component
+	Label string
+}
+
+var navbarSegmentedAccount = []navbarSegmentedLink{
+	{icons.IconBellRinging(icons.Props{Size: 25, Stroke: 1.5}), "Notifications"},
+	{icons.IconReceipt2(icons.Props{Size: 25, Stroke: 1.5}), "Billing"},
+	{icons.IconFingerprint(icons.Props{Size: 25, Stroke: 1.5}), "Security"},
+	{icons.IconKey(icons.Props{Size: 25, Stroke: 1.5}), "SSH Keys"},
+	{icons.IconDatabaseImport(icons.Props{Size: 25, Stroke: 1.5}), "Databases"},
+	{icons.IconAuth2fa(icons.Props{Size: 25, Stroke: 1.5}), "Authentication"},
+	{icons.IconSettings(icons.Props{Size: 25, Stroke: 1.5}), "Other Settings"},
+}
+
+var navbarSegmentedGeneral = []navbarSegmentedLink{
+	{icons.IconShoppingCart(icons.Props{Size: 25, Stroke: 1.5}), "Orders"},
+	{icons.IconLicense(icons.Props{Size: 25, Stroke: 1.5}), "Receipts"},
+	{icons.IconMessage2(icons.Props{Size: 25, Stroke: 1.5}), "Reviews"},
+	{icons.IconMessages(icons.Props{Size: 25, Stroke: 1.5}), "Messages"},
+	{icons.IconUsers(icons.Props{Size: 25, Stroke: 1.5}), "Customers"},
+	{icons.IconReceiptRefund(icons.Props{Size: 25, Stroke: 1.5}), "Refunds"},
+	{icons.IconFileAnalytics(icons.Props{Size: 25, Stroke: 1.5}), "Files"},
+}
+
+var navbarSegmentedData = []mt.SelectItem{
+	{Value: "account", Label: "Account"},
+	{Value: "general", Label: "System"},
+}
+
+var navbarSegmentedCSS = templ.NewOnceHandle()
+
+// NavbarSegmented ports ui.mantine.dev NavbarSegmented: a SegmentedControl
+// switching between two icon+label link sections, with an active-tracked
+// link in each and a footer with account actions.
+templ NavbarSegmented() {
+	@navbarSegmentedCSS.Once() {
+		<style>
+			.navbar-segmented {
+				background-color: var(--mt-color-body);
+				height: 840px;
+				width: 300px;
+				padding: var(--mt-spacing-md);
+				display: flex;
+				flex-direction: column;
+				border-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.navbar-segmented__main { flex: 1; margin-top: var(--mt-spacing-xl); }
+			.navbar-segmented__title { text-transform: uppercase; letter-spacing: -0.25px; }
+			.navbar-segmented__link {
+				display: flex;
+				align-items: center;
+				text-decoration: none;
+				font-size: var(--mt-font-size-sm);
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));
+				padding: var(--mt-spacing-xs) var(--mt-spacing-sm);
+				border-radius: var(--mt-radius-sm);
+				font-weight: 500;
+				&:hover {
+					background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+					color: light-dark(var(--mt-black), var(--mt-white));
+					.navbar-segmented__link-icon { color: light-dark(var(--mt-black), var(--mt-white)); }
+				}
+				&[data-active] {
+					&, &:hover {
+						background-color: var(--mt-color-blue-light);
+						color: var(--mt-color-blue-light-color);
+						.navbar-segmented__link-icon { color: var(--mt-color-blue-light-color); }
+					}
+				}
+			}
+			.navbar-segmented__link-icon { color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); margin-right: var(--mt-spacing-sm); width: 25px; height: 25px; }
+			.navbar-segmented__footer { border-top: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4)); padding-top: var(--mt-spacing-md); }
+		</style>
+	}
+	<nav class="navbar-segmented" data-mt-toggle-section>
+		<div>
+			@mt.Text(mt.TextProps{Fw: 500, Size: "sm", C: mt.Dimmed, Base: mt.Base{Class: "navbar-segmented__title", Mb: mt.XS}}) {
+				bgluesticker@mantine.dev
+			}
+			@mt.SegmentedControl(mt.SegmentedControlProps{
+				Name: "navbar-segmented-section", Value: "account", FullWidth: true,
+				Data: navbarSegmentedData,
+			})
+		</div>
+		<div class="navbar-segmented__main" data-active-group>
+			<div data-navbar-segmented-section="account">
+				for i, l := range navbarSegmentedAccount {
+					<a href="#" class="navbar-segmented__link" data-active-item={ "account-" + l.Label } data-active?={ i == 1 }>
+						<span class="navbar-segmented__link-icon">
+							@l.Icon
+						</span>
+						<span>{ l.Label }</span>
+					</a>
+				}
+			</div>
+			<div data-navbar-segmented-section="general" style="display:none">
+				for _, l := range navbarSegmentedGeneral {
+					<a href="#" class="navbar-segmented__link" data-active-item={ "general-" + l.Label }>
+						<span class="navbar-segmented__link-icon">
+							@l.Icon
+						</span>
+						<span>{ l.Label }</span>
+					</a>
+				}
+			</div>
+		</div>
+		<div class="navbar-segmented__footer">
+			<a href="#" class="navbar-segmented__link">
+				<span class="navbar-segmented__link-icon">
+					@icons.IconSwitchHorizontal(icons.Props{Size: 25, Stroke: 1.5})
+				</span>
+				<span>Change account</span>
+			</a>
+			<a href="#" class="navbar-segmented__link">
+				<span class="navbar-segmented__link-icon">
+					@icons.IconLogout(icons.Props{Size: 25, Stroke: 1.5})
+				</span>
+				<span>Logout</span>
+			</a>
+		</div>
+	</nav>
+	@navbarSegmentedScript()
+}
+
+var navbarSegmentedScriptOnce = templ.NewOnceHandle()
+
+templ navbarSegmentedScript() {
+	@navbarSegmentedScriptOnce.Once() {
+		<script>
+			document.addEventListener('change', (e) => {
+				const el = e.composedPath().find((n) => n instanceof Element && n.hasAttribute && n.hasAttribute('data-mt-toggle-section'));
+				if (!el) return;
+				const value = e.detail && e.detail.value;
+				if (!value) return;
+				for (const section of el.querySelectorAll('[data-navbar-segmented-section]')) {
+					section.style.display = section.getAttribute('data-navbar-segmented-section') === value ? '' : 'none';
+				}
+			});
+		</script>
+	}
+}

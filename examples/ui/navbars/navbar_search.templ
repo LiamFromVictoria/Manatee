@@ -1,0 +1,148 @@
+package navbars
+
+import (
+	"fmt"
+
+	"github.com/you/manatee/examples/ui/users"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type navbarSearchLink struct {
+	Icon          templ.Component
+	Label         string
+	Notifications int
+}
+
+var navbarSearchMainLinks = []navbarSearchLink{
+	{icons.IconBulb(icons.Props{Size: 20, Stroke: 1.5}), "Activity", 3},
+	{icons.IconCheckbox(icons.Props{Size: 20, Stroke: 1.5}), "Tasks", 4},
+	{icons.IconUser(icons.Props{Size: 20, Stroke: 1.5}), "Contacts", 0},
+}
+
+type navbarSearchCollection struct{ Emoji, Label string }
+
+var navbarSearchCollections = []navbarSearchCollection{
+	{"👍", "Sales"}, {"🚚", "Deliveries"}, {"💸", "Discounts"}, {"💰", "Profits"},
+	{"✨", "Reports"}, {"🛒", "Orders"}, {"📅", "Events"}, {"🙈", "Debts"}, {"💁‍♀️", "Customers"},
+}
+
+var navbarSearchCSS = templ.NewOnceHandle()
+
+// NavbarSearch ports ui.mantine.dev NavbarSearch: a UserButton header, search
+// input, icon+badge main links, and an emoji collections list.
+templ NavbarSearch() {
+	@navbarSearchCSS.Once() {
+		<style>
+			.navbar-search {
+				background-color: var(--mt-color-body);
+				height: 700px;
+				width: 300px;
+				padding: var(--mt-spacing-md);
+				padding-top: 0;
+				display: flex;
+				flex-direction: column;
+				border-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.navbar-search__section {
+				margin-left: calc(var(--mt-spacing-md) * -1);
+				margin-right: calc(var(--mt-spacing-md) * -1);
+				margin-bottom: var(--mt-spacing-md);
+				&:not(:last-of-type) { border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4)); }
+			}
+			.navbar-search__search-code {
+				font-weight: 700;
+				font-size: 10px;
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));
+				border: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-7));
+			}
+			.navbar-search__main-links { padding-left: calc(var(--mt-spacing-md) - var(--mt-spacing-xs)); padding-right: calc(var(--mt-spacing-md) - var(--mt-spacing-xs)); padding-bottom: var(--mt-spacing-md); }
+			.navbar-search__main-link {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				font-size: var(--mt-font-size-xs);
+				padding: 8px var(--mt-spacing-xs);
+				border-radius: var(--mt-radius-sm);
+				font-weight: 500;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				border: none;
+				background: none;
+				cursor: pointer;
+				text-align: left;
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }
+			}
+			.navbar-search__main-link-inner { display: flex; align-items: center; flex: 1; }
+			.navbar-search__main-link-icon { margin-right: var(--mt-spacing-sm); color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); }
+			.navbar-search__main-link-badge { padding: 0; width: 20px; height: 20px; pointer-events: none; }
+			.navbar-search__collections { padding-left: calc(var(--mt-spacing-md) - 6px); padding-right: calc(var(--mt-spacing-md) - 6px); padding-bottom: var(--mt-spacing-md); }
+			.navbar-search__collections-header { padding-left: calc(var(--mt-spacing-md) + 2px); padding-right: var(--mt-spacing-md); margin-bottom: 5px; }
+			.navbar-search__collection-link {
+				display: block;
+				padding: 8px var(--mt-spacing-xs);
+				text-decoration: none;
+				border-radius: var(--mt-radius-sm);
+				font-size: var(--mt-font-size-xs);
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				line-height: 1;
+				font-weight: 500;
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0)); }
+			}
+		</style>
+	}
+	<nav class="navbar-search">
+		<div class="navbar-search__section">
+			@users.UserButton()
+		</div>
+		@mt.TextInput(mt.TextInputProps{
+			Placeholder: "Search", Size: mt.XS, AutoComplete: "off",
+			LeftSection: navbarSearchIcon(),
+			RightSection: navbarSearchShortcut(),
+			Base:        mt.Base{Mb: mt.SM},
+		})
+		<div class="navbar-search__section">
+			<div class="navbar-search__main-links">
+				for _, l := range navbarSearchMainLinks {
+					<button type="button" class="navbar-search__main-link">
+						<div class="navbar-search__main-link-inner">
+							<span class="navbar-search__main-link-icon">
+								@l.Icon
+							</span>
+							<span>{ l.Label }</span>
+						</div>
+						if l.Notifications > 0 {
+							@mt.Badge(mt.BadgeProps{Size: "sm", Variant: "filled", Base: mt.Base{Class: "navbar-search__main-link-badge"}}) {
+								{ fmt.Sprint(l.Notifications) }
+							}
+						}
+					</button>
+				}
+			</div>
+		</div>
+		<div class="navbar-search__section">
+			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "navbar-search__collections-header"}}) {
+				@mt.Text(mt.TextProps{Size: "xs", Fw: 500, C: mt.Dimmed}) { Collections }
+				@mt.Tooltip(mt.TooltipProps{Label: "Create collection", WithArrow: true, Position: "right"}) {
+					@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Default, Size: "18", AriaLabel: "Create collection"}) {
+						@icons.IconPlus(icons.Props{Size: 12, Stroke: 1.5})
+					}
+				}
+			}
+			<div class="navbar-search__collections">
+				for _, c := range navbarSearchCollections {
+					<a href="#" class="navbar-search__collection-link">
+						<span style="margin-right:9px;font-size:16px">{ c.Emoji }</span> { c.Label }
+					</a>
+				}
+			</div>
+		</div>
+	</nav>
+}
+
+templ navbarSearchIcon() {
+	@icons.IconSearch(icons.Props{Size: 12, Stroke: 1.5})
+}
+
+templ navbarSearchShortcut() {
+	@mt.Code(mt.CodeProps{Base: mt.Base{Class: "navbar-search__search-code"}}) { Ctrl + K }
+}

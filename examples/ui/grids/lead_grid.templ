@@ -1,0 +1,28 @@
+package grids
+
+import "github.com/you/manatee/mt"
+
+// leadGridSecondaryHeight replicates calc(300px / 2 - var(--mt-spacing-md) / 2),
+// the height of the two small skeletons stacked beside the large one.
+const leadGridSecondaryHeight = "calc(300px / 2 - var(--mt-spacing-md) / 2)"
+
+// LeadGrid ports ui.mantine.dev LeadGrid: a tall skeleton on the left, a
+// 3-skeleton mini-grid on the right.
+templ LeadGrid() {
+	@mt.Container(mt.ContainerProps{Base: mt.Base{My: mt.MD}}) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, Spacing: mt.MD}) {
+			@mt.Skeleton(mt.SkeletonProps{Height: "300px", Radius: mt.MD, Animate: new(false)})
+			@mt.Grid(mt.GridProps{Gutter: mt.MD}) {
+				@mt.GridCol(mt.GridColProps{}) {
+					@mt.Skeleton(mt.SkeletonProps{Height: leadGridSecondaryHeight, Radius: mt.MD, Animate: new(false)})
+				}
+				@mt.GridCol(mt.GridColProps{Span: "6"}) {
+					@mt.Skeleton(mt.SkeletonProps{Height: leadGridSecondaryHeight, Radius: mt.MD, Animate: new(false)})
+				}
+				@mt.GridCol(mt.GridColProps{Span: "6"}) {
+					@mt.Skeleton(mt.SkeletonProps{Height: leadGridSecondaryHeight, Radius: mt.MD, Animate: new(false)})
+				}
+			}
+		}
+	}
+}

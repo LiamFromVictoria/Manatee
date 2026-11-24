@@ -1,10 +1,22 @@
 import { css, define, html, MtElement, type Props } from '../../core';
 
 const styles = css`
-  :host { display: inline-block; }
+  :host { display: block; }
 
   .root {
-    display: block;
+    display: inherit;
+    flex-direction: inherit;
+    flex-wrap: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+    align-content: inherit;
+    gap: inherit;
+    row-gap: inherit;
+    column-gap: inherit;
+    grid-template-columns: inherit;
+    grid-template-rows: inherit;
+    grid-auto-flow: inherit;
+    place-items: inherit;
     width: 100%;
     height: 100%;
     font: inherit;

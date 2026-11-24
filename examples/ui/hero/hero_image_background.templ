@@ -1,0 +1,104 @@
+package hero
+
+import "github.com/you/manatee/mt"
+
+var heroImageBackgroundCSS = templ.NewOnceHandle()
+
+// HeroImageBackground ports ui.mantine.dev HeroImageBackground: full-bleed
+// photo with a dark overlay, centered title/description/CTAs.
+templ HeroImageBackground() {
+	@heroImageBackgroundCSS.Once() {
+		<style>
+			.hero-image-background {
+				position: relative;
+				padding-top: 180px;
+				padding-bottom: 130px;
+				background-image: url(https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=980&q=80);
+				background-size: cover;
+				background-position: center;
+			}
+			@media (max-width: 36em) {
+				.hero-image-background { padding-top: 80px; padding-bottom: 50px; }
+			}
+			.hero-image-background__inner {
+				position: relative;
+				z-index: 1;
+			}
+			.hero-image-background__title {
+				font-weight: 800;
+				font-size: 40px;
+				letter-spacing: -1px;
+				padding-left: var(--mt-spacing-md);
+				padding-right: var(--mt-spacing-md);
+				color: var(--mt-white);
+				margin-bottom: var(--mt-spacing-xs);
+				text-align: center;
+				font-family: Outfit, var(--mt-font-family);
+			}
+			@media (max-width: 36em) {
+				.hero-image-background__title { font-size: 28px; text-align: left; }
+			}
+			.hero-image-background__highlight {
+				color: var(--mt-color-primary-4);
+			}
+			.hero-image-background__description {
+				color: var(--mt-color-gray-0);
+				text-align: center;
+			}
+			@media (max-width: 36em) {
+				.hero-image-background__description { font-size: var(--mt-font-size-md); text-align: left; }
+			}
+			.hero-image-background__controls {
+				margin-top: calc(var(--mt-spacing-xl) * 1.5);
+				display: flex;
+				justify-content: center;
+				padding-left: var(--mt-spacing-md);
+				padding-right: var(--mt-spacing-md);
+			}
+			@media (max-width: 36em) {
+				.hero-image-background__controls { flex-direction: column; }
+			}
+			.hero-image-background__control {
+				height: 42px;
+				font-size: var(--mt-font-size-md);
+			}
+			.hero-image-background__control:not(:first-of-type) {
+				margin-left: var(--mt-spacing-md);
+			}
+			@media (max-width: 36em) {
+				.hero-image-background__control:not(:first-of-type) { margin-top: var(--mt-spacing-md); margin-left: 0; }
+			}
+			.hero-image-background__secondary-control::part(root) {
+				color: var(--mt-white);
+				background-color: rgba(255, 255, 255, 0.4);
+			}
+			.hero-image-background__secondary-control::part(root):hover {
+				background-color: rgba(255, 255, 255, 0.45);
+			}
+		</style>
+	}
+	<div class="hero-image-background">
+		@mt.Overlay(mt.OverlayProps{Color: "#000", BackgroundOpacity: new(0.65), ZIndex: 1})
+		<div class="hero-image-background__inner">
+			@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Class: "hero-image-background__title"}}) {
+				Automated AI code reviews for{ " " }
+				@mt.Text(mt.TextProps{Span: true, Inherit: true, Base: mt.Base{Class: "hero-image-background__highlight"}}) {
+					any stack
+				}
+			}
+			@mt.Container(mt.ContainerProps{Size: "640px"}) {
+				@mt.Text(mt.TextProps{Size: mt.LG, Base: mt.Base{Class: "hero-image-background__description"}}) {
+					Build more reliable software with AI companion. AI is also trained to detect lazy developers who do nothing and just complain on Twitter.
+				}
+			}
+			<div class="hero-image-background__controls">
+				@mt.Button(mt.ButtonProps{Variant: mt.White, Size: mt.LG, Base: mt.Base{Class: "hero-image-background__control"}}) {
+					Get started
+				}
+				@mt.Button(mt.ButtonProps{Size: mt.LG, Base: mt.Base{Class: "hero-image-background__control hero-image-background__secondary-control"}}) {
+					Live demo
+				}
+			</div>
+		</div>
+	</div>
+}

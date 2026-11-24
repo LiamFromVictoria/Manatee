@@ -1,0 +1,26 @@
+package comments
+
+import "github.com/you/manatee/mt"
+
+// CommentSimple ports ui.mantine.dev CommentSimple: an avatar, name, time
+// and a short comment body, with no card chrome.
+templ CommentSimple() {
+	<div>
+		@mt.Group(mt.GroupProps{}) {
+			@mt.Avatar(mt.AvatarProps{Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png", Alt: "Jacob Warnhalter", Radius: mt.XL})
+			<div>
+				@mt.Text(mt.TextProps{Size: mt.SM}) {
+					Jacob Warnhalter
+				}
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					10 minutes ago
+				}
+			</div>
+		}
+		@mt.Text(mt.TextProps{Size: mt.SM, Base: mt.Base{Pl: "54px", Pt: mt.SM}}) {
+			This Pokémon likes to lick its palms that are sweetened by being soaked in honey. Teddiursa
+			concocts its own honey by blending fruits and pollen collected by Beedrill. Blastoise has
+			water spouts that protrude from its shell. The water spouts are very accurate.
+		}
+	</div>
+}

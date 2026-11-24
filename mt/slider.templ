@@ -30,8 +30,9 @@ type SliderProps struct {
 
 // SliderMark is one entry rendered as a light-DOM <mt-slider-mark>, shared by Slider and RangeSlider.
 type SliderMark struct {
-	Value float64
-	Label string
+	Value        float64
+	Label        string
+	LabelContent templ.Component // rich mark label, rendered as the element's children; falls back to Label
 }
 
 templ Slider(p SliderProps) {
@@ -52,7 +53,11 @@ templ Slider(p SliderProps) {
 }
 
 templ sliderMarkEl(m SliderMark) {
-	<mt-slider-mark { attrs(Base{}, "value", m.Value, "label", m.Label)... }></mt-slider-mark>
+	<mt-slider-mark { attrs(Base{}, "value", m.Value, "label", m.Label)... }>
+		if m.LabelContent != nil {
+			@m.LabelContent
+		}
+	</mt-slider-mark>
 }
 
 // RangeSliderProps mirrors Mantine's RangeSlider.
@@ -70,6 +75,8 @@ type RangeSliderProps struct {
 	Radius           string // default xl
 	ThumbSize        float64
 	ThumbLabel       string
+	ThumbFromLabel   string // overrides ThumbLabel for the "from" thumb
+	ThumbToLabel     string // overrides ThumbLabel for the "to" thumb
 	Label            *bool
 	LabelFormat      string
 	LabelAlwaysOn    bool
@@ -81,7 +88,9 @@ type RangeSliderProps struct {
 	MinRange         *float64 // default 10
 	MaxRange         *float64 // default unlimited
 	PushOnOverlap    *bool    // default true
-	ThumbChildren    templ.Component
+	ThumbChildren     templ.Component // shared fallback for both thumbs
+	ThumbFromChildren templ.Component // overrides ThumbChildren for the "from" thumb
+	ThumbToChildren   templ.Component // overrides ThumbChildren for the "to" thumb
 }
 
 templ RangeSlider(p RangeSliderProps) {
@@ -90,7 +99,8 @@ templ RangeSlider(p RangeSliderProps) {
 			"name", p.Name, "value", rangeValueAttr(p.From, p.To), "min", p.Min, "max", p.Max,
 			"step", p.Step, "precision", p.Precision,
 			"color", p.Color, "size", p.Size, "radius", p.Radius, "thumb-size", p.ThumbSize,
-			"thumb-label", p.ThumbLabel, "label", p.Label, "label-format", p.LabelFormat,
+			"thumb-label", p.ThumbLabel, "thumb-from-label", p.ThumbFromLabel, "thumb-to-label", p.ThumbToLabel,
+			"label", p.Label, "label-format", p.LabelFormat,
 			"label-always-on", p.LabelAlwaysOn, "show-label-on-hover", p.ShowLabelOnHover,
 			"restrict-to-marks", p.RestrictToMarks, "inverted", p.Inverted, "disabled", p.Disabled,
 			"min-range", p.MinRange, "max-range", p.MaxRange, "push-on-overlap", p.PushOnOverlap,
@@ -100,6 +110,8 @@ templ RangeSlider(p RangeSliderProps) {
 			@sliderMarkEl(m)
 		}
 		@slot("thumb-children", p.ThumbChildren)
+		@slot("thumb-from-children", p.ThumbFromChildren)
+		@slot("thumb-to-children", p.ThumbToChildren)
 	</mt-range-slider>
 }
 

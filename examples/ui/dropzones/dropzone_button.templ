@@ -1,0 +1,86 @@
+package dropzones
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var dropzoneButtonCSS = templ.NewOnceHandle()
+
+// DropzoneButton ports ui.mantine.dev DropzoneButton: a Dropzone with an
+// overlapping "Select files" button that opens the file picker via
+// data-mt-dropzone-open.
+templ DropzoneButton() {
+	@dropzoneButtonCSS.Once() {
+		<style>
+			.dropzone-button__wrapper {
+				position: relative;
+				margin-bottom: 30px;
+			}
+			.dropzone-button__dropzone {
+				border-width: 1px;
+				padding-bottom: 50px;
+				color: var(--mt-color-bright);
+			}
+			.dropzone-button__icon {
+				color: light-dark(var(--mt-color-gray-4), var(--mt-white));
+			}
+			.dropzone-button__control {
+				position: absolute;
+				width: 250px;
+				left: calc(50% - 125px);
+				bottom: -20px;
+			}
+			.dropzone-button__description {
+				text-align: center;
+				font-size: var(--mt-font-size-sm);
+				color: var(--mt-color-dimmed);
+				margin-top: var(--mt-spacing-xs);
+			}
+		</style>
+	}
+	<div class="dropzone-button__wrapper">
+		@mt.Dropzone(mt.DropzoneProps{
+			Base:    mt.Base{ID: "dropzone-button-dz", Class: "dropzone-button__dropzone", Attrs: templ.Attributes{"aria-label": "Drop files here"}},
+			Accept:  "application/pdf",
+			MaxSize: 30 * 1024 * 1024,
+			Radius:  "md",
+		}) {
+			<div style="pointer-events:none">
+				@mt.Group(mt.GroupProps{Justify: "center"}) {
+					@mt.DropzoneAccept(mt.DropzoneAcceptProps{}) {
+						@icons.IconDownload(icons.Props{Size: 50, Color: "var(--mt-color-blue-6)", Stroke: 1.5})
+					}
+					@mt.DropzoneReject(mt.DropzoneRejectProps{}) {
+						@icons.IconX(icons.Props{Size: 50, Color: "var(--mt-color-red-6)", Stroke: 1.5})
+					}
+					@mt.DropzoneIdle(mt.DropzoneIdleProps{}) {
+						@icons.IconCloudUpload(icons.Props{Size: 50, Stroke: 1.5, Class: "dropzone-button__icon"})
+					}
+				}
+				@mt.Text(mt.TextProps{Ta: "center", Fw: 700, Size: "lg", Base: mt.Base{Mt: "xl"}}) {
+					@mt.DropzoneAccept(mt.DropzoneAcceptProps{}) {
+						Drop files here
+					}
+					@mt.DropzoneReject(mt.DropzoneRejectProps{}) {
+						Pdf file less than 30mb
+					}
+					@mt.DropzoneIdle(mt.DropzoneIdleProps{}) {
+						Upload resume
+					}
+				}
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "dropzone-button__description"}}) {
+					Drag'n'drop files here to upload. We can accept only <i>.pdf</i> files that
+					are less than 30mb in size.
+				}
+			</div>
+		}
+		@mt.Button(mt.ButtonProps{
+			Size:   "md",
+			Radius: "xl",
+			Base:   mt.Base{Class: "dropzone-button__control", Attrs: templ.Attributes{"data-mt-dropzone-open": "dropzone-button-dz"}},
+		}) {
+			Select files
+		}
+	</div>
+}

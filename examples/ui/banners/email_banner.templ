@@ -1,0 +1,82 @@
+package banners
+
+import (
+	_ "embed"
+
+	"github.com/you/manatee/mt"
+)
+
+//go:embed image.svg
+var emailBannerImageSVG string
+
+var emailBannerCSS = templ.NewOnceHandle()
+
+// EmailBanner ports ui.mantine.dev EmailBanner: a signup banner with copy,
+// an email input joined to a button, and a decorative illustration.
+templ EmailBanner() {
+	@emailBannerCSS.Once() {
+		<style>
+			.email-banner {
+				display: flex;
+				align-items: center;
+				padding: calc(var(--mt-spacing-xl) * 2);
+				border-radius: var(--mt-radius-md);
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-8));
+				border: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-8));
+			}
+			@media (max-width: 48em) {
+				.email-banner { flex-direction: column-reverse; padding: var(--mt-spacing-xl); }
+			}
+			.email-banner__image { max-width: 40%; }
+			.email-banner__image svg { display: block; width: 100%; height: auto; }
+			@media (max-width: 48em) {
+				.email-banner__image { max-width: 100%; }
+			}
+			.email-banner__body { padding-right: calc(var(--mt-spacing-xl) * 4); }
+			@media (max-width: 48em) {
+				.email-banner__body { padding-right: 0; margin-top: var(--mt-spacing-xl); }
+			}
+			.email-banner__title {
+				color: light-dark(var(--mt-black), var(--mt-white));
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+				line-height: 1;
+				margin-bottom: var(--mt-spacing-md);
+			}
+			.email-banner__controls { display: flex; margin-top: var(--mt-spacing-xl); }
+			.email-banner__input-wrapper { width: 100%; flex: 1; }
+			.email-banner__input-wrapper::part(input) {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+				border-right: 0;
+			}
+			.email-banner__control::part(root) {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+		</style>
+	}
+	<div class="email-banner">
+		<div class="email-banner__body">
+			@mt.Title(mt.TitleProps{Base: mt.Base{Class: "email-banner__title"}}) {
+				Wait a minute...
+			}
+			@mt.Text(mt.TextProps{Fw: 500, Size: mt.LG, Base: mt.Base{Mb: "5px"}}) {
+				Subscribe to our newsletter!
+			}
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+				You will never miss important product updates, latest news and community QA sessions. Our
+				newsletter is once a week, every Sunday.
+			}
+			<div class="email-banner__controls">
+				@mt.TextInput(mt.TextInputProps{Placeholder: "Your email", Radius: mt.MD, Size: mt.MD, Base: mt.Base{Class: "email-banner__input-wrapper"}})
+				@mt.Button(mt.ButtonProps{Radius: mt.MD, Size: mt.MD, Base: mt.Base{Class: "email-banner__control"}}) {
+					Subscribe
+				}
+			</div>
+		</div>
+		<div class="email-banner__image">
+			@templ.Raw(emailBannerImageSVG)
+		</div>
+	</div>
+}

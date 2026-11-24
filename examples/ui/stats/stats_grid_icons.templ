@@ -1,0 +1,80 @@
+package stats
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type statsGridIconsItem struct {
+	Title, Value string
+	Diff         int
+}
+
+var statsGridIconsData = []statsGridIconsItem{
+	{"Revenue", "$13,456", 34},
+	{"Profit", "$4,145", -13},
+	{"Coupons usage", "745", 18},
+}
+
+var statsGridIconsCSS = templ.NewOnceHandle()
+
+func statsGridIconsColor(diff int) string {
+	if diff > 0 {
+		return "color: var(--mt-color-teal-6)"
+	}
+	return "color: var(--mt-color-red-6)"
+}
+
+// StatsGridIcons ports ui.mantine.dev StatsGridIcons: a responsive grid of
+// cards, each with a diff-colored trend icon badge and summary line.
+templ StatsGridIcons() {
+	@statsGridIconsCSS.Once() {
+		<style>
+			.stats-grid-icons {
+				padding: calc(var(--mt-spacing-xl) * 1.5);
+			}
+			.stats-grid-icons__label {
+				font-family: Outfit, var(--mt-font-family);
+			}
+		</style>
+	}
+	<div class="stats-grid-icons">
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 3}) {
+			for _, s := range statsGridIconsData {
+				@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{P: mt.MD}}) {
+					@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+						<div>
+							@mt.Text(mt.TextProps{C: mt.Dimmed, Tt: "uppercase", Fw: 700, Size: mt.XS, Base: mt.Base{Class: "stats-grid-icons__label"}}) {
+								{ s.Title }
+							}
+							@mt.Text(mt.TextProps{Fw: 700, Size: mt.XL}) {
+								{ s.Value }
+							}
+						</div>
+						@mt.ThemeIcon(mt.ThemeIconProps{Color: mt.Gray, Variant: "light", Size: "38", Radius: mt.MD, Base: mt.Base{Style: statsGridIconsColor(s.Diff)}}) {
+							if s.Diff > 0 {
+								@icons.IconArrowUpRight(icons.Props{Size: 28, Stroke: 1.5})
+							} else {
+								@icons.IconArrowDownRight(icons.Props{Size: 28, Stroke: 1.5})
+							}
+						}
+					}
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Mt: mt.MD}}) {
+						@mt.Text(mt.TextProps{Span: true, C: statsGridDiffColor(s.Diff), Fw: 700}) {
+							{ strconv.Itoa(s.Diff) + "%" }
+						}
+						{ " " }
+						if s.Diff > 0 {
+							increase
+						} else {
+							decrease
+						}
+						{ " compared to last month" }
+					}
+				}
+			}
+		}
+	</div>
+}

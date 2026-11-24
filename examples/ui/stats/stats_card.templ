@@ -1,0 +1,60 @@
+package stats
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var statsCardCSS = templ.NewOnceHandle()
+
+// StatsCard ports ui.mantine.dev StatsCard: a bordered card with an
+// overlapping icon badge above a progress bar and a goal summary.
+templ StatsCard() {
+	@statsCardCSS.Once() {
+		<style>
+			.stats-card {
+				position: relative;
+				overflow: visible;
+				padding: var(--mt-spacing-xl);
+				padding-top: calc(var(--mt-spacing-xl) * 1.5 + 20px);
+			}
+			.stats-card__icon {
+				position: absolute;
+				top: -20px;
+				left: calc(50% - 30px);
+			}
+			.stats-card__title {
+				font-family: Outfit, var(--mt-font-family);
+				line-height: 1;
+			}
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{Radius: mt.MD, WithBorder: true, Base: mt.Base{Class: "stats-card", Mt: "20"}}) {
+		@mt.ThemeIcon(mt.ThemeIconProps{Size: "60", Radius: "60", Base: mt.Base{Class: "stats-card__icon"}}) {
+			@icons.IconSwimming(icons.Props{Size: 32, Stroke: 1.5})
+		}
+		@mt.Text(mt.TextProps{Ta: "center", Fw: 700, Base: mt.Base{Class: "stats-card__title"}}) {
+			Swimming challenge
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Ta: "center", Size: mt.SM}) {
+			32 km / week
+		}
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.XS}}) {
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+				Progress
+			}
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+				62%
+			}
+		}
+		@mt.Progress(mt.ProgressProps{Value: 62, Base: mt.Base{Mt: "5", Attrs: templ.Attributes{"aria-label": "Progress"}}})
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.MD}}) {
+			@mt.Text(mt.TextProps{Size: mt.SM}) {
+				20 / 36 km
+			}
+			@mt.Badge(mt.BadgeProps{Size: mt.SM}) {
+				4 days left
+			}
+		}
+	}
+}

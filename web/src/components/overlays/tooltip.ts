@@ -10,7 +10,7 @@ const styles = css`
     max-width: var(--_w, 13.75rem);
     width: var(--_w, max-content);
     border: 0;
-    border-radius: var(--mt-radius-default);
+    border-radius: var(--_radius, var(--mt-radius-sm));
     background: var(--_bg, var(--mt-color-tooltip));
     color: var(--_fg, var(--mt-color-tooltip-color));
     font-size: var(--mt-font-size-xs);
@@ -58,6 +58,7 @@ export class MtTooltip extends MtElement {
     closeDelay: { type: 'number', default: 0 },
     disabled: { type: 'boolean' },
     opened: { type: 'boolean' },
+    radius: { css: '--_radius', scale: 'radius', default: 'sm' },
   };
 
   declare label: string | null;
@@ -72,6 +73,7 @@ export class MtTooltip extends MtElement {
   declare closeDelay: number;
   declare disabled: boolean;
   declare opened: boolean;
+  declare radius: string;
 
   #cleanup: (() => void) | null = null;
   #timer = 0;

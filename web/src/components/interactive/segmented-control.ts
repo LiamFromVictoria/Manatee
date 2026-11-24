@@ -201,16 +201,21 @@ export class MtSegmentedControl extends MtFormElement {
   #updateIndicator(animate: boolean): void {
     const indicator = this.$<HTMLElement>('.indicator');
     const checked = this.root.querySelector<HTMLInputElement>('.radio:checked');
-    const label = checked?.nextElementSibling as HTMLElement | null;
-    if (!checked || !label) {
+    // .segment is the nearest positioned ancestor of its own children (it has
+    // position:relative for z-index stacking), so the checked radio's label
+    // sibling reports offsetLeft/offsetTop relative to itself (~0), not to
+    // .root. The .segment wrapper itself is positioned directly against
+    // .root (root is the next positioned ancestor up), so measure that.
+    const segment = checked?.parentElement as HTMLElement | null;
+    if (!checked || !segment) {
       indicator.style.opacity = '0';
       return;
     }
     if (!animate) indicator.style.transition = 'none';
     indicator.style.opacity = '1';
-    indicator.style.width = `${label.offsetWidth}px`;
-    indicator.style.height = `${label.offsetHeight}px`;
-    indicator.style.transform = `translate(${label.offsetLeft}px, ${label.offsetTop}px)`;
+    indicator.style.width = `${segment.offsetWidth}px`;
+    indicator.style.height = `${segment.offsetHeight}px`;
+    indicator.style.transform = `translate(${segment.offsetLeft}px, ${segment.offsetTop}px)`;
     if (!animate) {
       indicator.getBoundingClientRect();
       indicator.style.transition = '';

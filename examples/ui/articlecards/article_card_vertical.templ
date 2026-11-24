@@ -1,0 +1,72 @@
+package articlecards
+
+import "github.com/you/manatee/mt"
+
+type articleCardVerticalData struct {
+	Category, Title, AuthorName, AuthorAvatar, Date, Image string
+}
+
+var articleCardVerticalInfo = articleCardVerticalData{
+	Category:     "technology",
+	Title:        "The best laptop for Frontend engineers in 2022",
+	AuthorName:   "Elsa Typechecker",
+	AuthorAvatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png",
+	Date:         "Feb 6th",
+	Image:        "https://images.unsplash.com/photo-1602080858428-57174f9431cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+}
+
+var articleCardVerticalCSS = templ.NewOnceHandle()
+
+// ArticleCardVertical ports ui.mantine.dev ArticleCardVertical: an image
+// beside a text body, stacking to a column below 755px.
+templ ArticleCardVertical() {
+	@articleCardVerticalCSS.Once() {
+		<style>
+			.article-card-vertical {
+				background-color: var(--mt-color-body);
+				display: flex;
+				flex-wrap: nowrap;
+				flex-direction: row;
+			}
+			@media (max-width: 755px) {
+				.article-card-vertical { flex-direction: column; }
+			}
+			.article-card-vertical__image { max-width: 220px; }
+			@media (max-width: 755px) {
+				.article-card-vertical__image { max-width: 100%; max-height: 180px; }
+			}
+			.article-card-vertical__title {
+				font-weight: 500;
+				font-family: Outfit, var(--mt-font-family);
+				line-height: 1.2;
+				color: var(--mt-color-bright);
+			}
+			.article-card-vertical__body { padding: var(--mt-spacing-md); }
+		</style>
+	}
+	@mt.Card(mt.CardProps{Radius: mt.MD, WithBorder: true, Padding: "0", Base: mt.Base{Class: "article-card-vertical"}}) {
+		@mt.Image(mt.ImageProps{Src: articleCardVerticalInfo.Image, Alt: articleCardVerticalInfo.Title, Base: mt.Base{Class: "article-card-vertical__image"}})
+		<div class="article-card-vertical__body">
+			@mt.Text(mt.TextProps{Tt: "uppercase", Fw: 700, Size: mt.XS, Base: mt.Base{Style: "opacity:0.8"}}) {
+				{ articleCardVerticalInfo.Category }
+			}
+			@mt.Text(mt.TextProps{Base: mt.Base{Class: "article-card-vertical__title", Mt: mt.XS, Mb: mt.MD}}) {
+				{ articleCardVerticalInfo.Title }
+			}
+			@mt.Group(mt.GroupProps{Gap: mt.XS}) {
+				@mt.Group(mt.GroupProps{Gap: "7px"}) {
+					@mt.Avatar(mt.AvatarProps{Size: "20px", Src: articleCardVerticalInfo.AuthorAvatar, Alt: articleCardVerticalInfo.AuthorName})
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Bright}) {
+						{ articleCardVerticalInfo.AuthorName }
+					}
+				}
+				@mt.Text(mt.TextProps{Span: true, Size: mt.XS, Base: mt.Base{Style: "opacity:0.8"}}) {
+					•
+				}
+				@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Style: "opacity:0.8"}}) {
+					{ articleCardVerticalInfo.Date }
+				}
+			}
+		</div>
+	}
+}

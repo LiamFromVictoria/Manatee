@@ -104,6 +104,16 @@ templ TooltipPage() {
 					Multiline
 				}
 			}
+			@mt.Tooltip(mt.TooltipProps{Label: "Square radius", Radius: "0"}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+					radius="0"
+				}
+			}
+			@mt.Tooltip(mt.TooltipProps{Label: "Rounder radius", Radius: mt.LG}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+					radius="lg"
+				}
+			}
 		}
 	}
 }
@@ -120,6 +130,36 @@ templ PopoverPage() {
 		@mt.Popover(mt.PopoverProps{Target: demoTarget("Match width"), Width: "target"}) {
 			@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
 				<p>This dropdown matches the target's width.</p>
+			}
+		}
+	}
+	@Demo("Arrow position and size", `@mt.Popover(mt.PopoverProps{WithArrow: true, ArrowSize: 10, ArrowPosition: "center", ...})`) {
+		@Row() {
+			@mt.Popover(mt.PopoverProps{Target: demoTarget("side (default)"), Position: "top-start", WithArrow: true}) {
+				@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
+					<p>arrow-position="side"</p>
+				}
+			}
+			@mt.Popover(mt.PopoverProps{Target: demoTarget("center"), Position: "top-start", WithArrow: true, ArrowPosition: "center"}) {
+				@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
+					<p>arrow-position="center"</p>
+				}
+			}
+			@mt.Popover(mt.PopoverProps{Target: demoTarget("large arrow"), WithArrow: true, ArrowSize: 12}) {
+				@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
+					<p>arrow-size="12"</p>
+				}
+			}
+		}
+	}
+	@Demo("Transitions", `@mt.Popover(mt.PopoverProps{Transition: "scale-y", ...})`) {
+		@Row() {
+			for _, t := range []string{"fade", "pop", "scale-y", "slide-down"} {
+				@mt.Popover(mt.PopoverProps{Target: demoTarget(t), Transition: t, TransitionDuration: 200}) {
+					@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
+						<p>transition="{ t }"</p>
+					}
+				}
 			}
 		}
 	}
@@ -156,6 +196,46 @@ templ MenuPage() {
 				}
 				@mt.MenuItem(mt.MenuItemProps{}) {
 					Second action
+				}
+			}
+		}
+	}
+	@Demo("With arrow", `@mt.Menu(mt.MenuProps{WithArrow: true, ArrowSize: 10, ...})`) {
+		@Row() {
+			@mt.Menu(mt.MenuProps{Target: demoTarget("With arrow"), WithArrow: true}) {
+				@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+					@mt.MenuItem(mt.MenuItemProps{}) {
+						First action
+					}
+					@mt.MenuItem(mt.MenuItemProps{}) {
+						Second action
+					}
+				}
+			}
+			@mt.Menu(mt.MenuProps{Target: demoTarget("Centered arrow"), WithArrow: true, ArrowPosition: "center", ArrowSize: 10}) {
+				@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+					@mt.MenuItem(mt.MenuItemProps{}) {
+						First action
+					}
+					@mt.MenuItem(mt.MenuItemProps{}) {
+						Second action
+					}
+				}
+			}
+		}
+	}
+	@Demo("Transitions", `@mt.Menu(mt.MenuProps{Transition: "scale-y", ...})`) {
+		@Row() {
+			for _, t := range []string{"fade", "pop", "scale-y", "slide-down"} {
+				@mt.Menu(mt.MenuProps{Target: demoTarget(t), Transition: t, TransitionDuration: 200}) {
+					@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+						@mt.MenuItem(mt.MenuItemProps{}) {
+							First action
+						}
+						@mt.MenuItem(mt.MenuItemProps{}) {
+							Second action
+						}
+					}
 				}
 			}
 		}

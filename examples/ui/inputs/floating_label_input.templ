@@ -1,0 +1,61 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var floatingLabelInputCSS = templ.NewOnceHandle()
+
+// FloatingLabelInput ports ui.mantine.dev FloatingLabelInput: the label
+// floats above the field once it's focused or has a value. A small delegated
+// script toggles a `data-floating` attribute on focus/blur/input (Chromium
+// doesn't support `:has(::part(...))`, so this can't be pure CSS).
+templ FloatingLabelInput() {
+	@floatingLabelInputCSS.Once() {
+		<style>
+			.floating-label-input {
+				position: relative;
+			}
+			.floating-label-input::part(label) {
+				position: absolute;
+				z-index: 2;
+				top: 7px;
+				left: var(--mt-spacing-sm);
+				pointer-events: none;
+				color: light-dark(var(--mt-color-gray-5), var(--mt-color-dark-3));
+				transition: transform 150ms ease, font-size 150ms ease, color 150ms ease;
+			}
+			.floating-label-input[data-floating]::part(label) {
+				transform: translate(calc(var(--mt-spacing-sm) * -1), -28px);
+				font-size: var(--mt-font-size-xs);
+				font-weight: 500;
+				color: light-dark(var(--mt-black), var(--mt-white));
+			}
+			.floating-label-input::part(input)::placeholder {
+				transition: color 150ms ease;
+				color: transparent;
+			}
+			.floating-label-input[data-floating]::part(input)::placeholder {
+				color: var(--mt-color-placeholder);
+			}
+		</style>
+		<script>
+			function floatingLabelInputSync(el) {
+				const floating = el.matches(':focus-within') || (el.value ?? '').trim().length > 0;
+				el.toggleAttribute('data-floating', floating);
+			}
+			for (const type of ['focusin', 'focusout', 'input']) {
+				document.addEventListener(type, (e) => {
+					if (e.target instanceof HTMLElement && e.target.matches('.floating-label-input')) {
+						floatingLabelInputSync(e.target);
+					}
+				});
+			}
+		</script>
+	}
+	@mt.TextInput(mt.TextInputProps{
+		Label:        "Floating label",
+		Placeholder:  "OMG, it also has a placeholder",
+		Required:     true,
+		AutoComplete: "nope",
+		Base:         mt.Base{Class: "floating-label-input", Mt: mt.MD},
+	})
+}

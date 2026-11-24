@@ -1,0 +1,73 @@
+package carousels
+
+import "github.com/you/manatee/mt"
+
+var cardsCarouselData = []struct {
+	Image    string
+	Title    string
+	Category string
+}{
+	{"https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80", "Best forests to visit in North America", "nature"},
+	{"https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80", "Hawaii beaches review: better than you think", "beach"},
+	{"https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80", "Mountains at night: 12 best locations to enjoy the view", "nature"},
+	{"https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80", "Aurora in Norway: when to visit for best experience", "nature"},
+	{"https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80", "Best places to visit this winter", "tourism"},
+	{"https://images.unsplash.com/photo-1582721478779-0ae163c05a60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80", "Active volcanos reviews: travel at your own risk", "nature"},
+}
+
+var cardsCarouselCSS = templ.NewOnceHandle()
+
+// CardsCarousel ports ui.mantine.dev CardsCarousel: a horizontal carousel of
+// image-background cards, two slides visible from the sm breakpoint.
+templ CardsCarousel() {
+	@cardsCarouselCSS.Once() {
+		<style>
+			.cards-carousel__card {
+				height: 440px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: flex-start;
+				background-size: cover;
+				background-position: center;
+			}
+			.cards-carousel__title {
+				font-family: Outfit, sans-serif;
+				font-weight: 600;
+				color: var(--mt-white);
+				line-height: 1.2;
+				font-size: 32px;
+				margin-top: var(--mt-spacing-xs);
+			}
+			.cards-carousel__category {
+				color: var(--mt-white);
+				opacity: 0.7;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+		</style>
+	}
+	@mt.Carousel(mt.CarouselProps{SlideSize: "100%", SlideSizeSm: "50%", SlideGap: "2", Align: "start", SlidesToScroll: 1, SlidesToScrollSm: 2}) {
+		for _, item := range cardsCarouselData {
+			@mt.CarouselSlide(mt.CarouselSlideProps{}) {
+				@mt.Paper(mt.PaperProps{
+					Shadow: "md",
+					Radius: "md",
+					Base:   mt.Base{P: "xl", Class: "cards-carousel__card", Style: "background-image:url(" + item.Image + ")"},
+				}) {
+					<div>
+						@mt.Text(mt.TextProps{Size: "xs", Base: mt.Base{Class: "cards-carousel__category"}}) {
+							{ item.Category }
+						}
+						@mt.Title(mt.TitleProps{Order: 3, Base: mt.Base{Class: "cards-carousel__title"}}) {
+							{ item.Title }
+						}
+					</div>
+					@mt.Button(mt.ButtonProps{Variant: "white", Color: "dark"}) {
+						Read article
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,129 @@
+package headers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var headerTabsTabs = []string{
+	"Home", "Orders", "Education", "Community", "Forums", "Support", "Account", "Helpdesk",
+}
+
+var headerTabsCSS = templ.NewOnceHandle()
+
+// HeaderTabs ports ui.mantine.dev HeaderTabs: a logo, user menu, and an
+// outline Tabs row below it, collapsing to a burger drawer with the tabs
+// listed as plain links.
+templ HeaderTabs() {
+	@headerTabsCSS.Once() {
+		<style>
+			.header-tabs {
+				padding-top: var(--mt-spacing-sm);
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-2), transparent);
+				margin-bottom: 120px;
+			}
+			.header-tabs__main-section { padding-bottom: var(--mt-spacing-sm); }
+			.header-tabs__user {
+				color: light-dark(var(--mt-black), var(--mt-color-dark-0));
+				padding: var(--mt-spacing-xs) var(--mt-spacing-sm);
+				border-radius: var(--mt-radius-sm);
+				transition: background-color 100ms ease;
+				&:hover { background-color: light-dark(var(--mt-white), var(--mt-color-dark-8)); }
+				&[data-expanded] { background-color: light-dark(var(--mt-white), var(--mt-color-dark-8)); }
+				@media (max-width: 36em) { display: none; }
+			}
+			.header-tabs__tabs::part(indicator) { display: none; }
+			.header-tabs__tab {
+				font-weight: 500;
+				height: 38px;
+				background-color: transparent;
+				position: relative;
+				bottom: -1px;
+				&:hover { background-color: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)); }
+				&[data-active] {
+					background-color: light-dark(var(--mt-white), var(--mt-color-dark-7));
+					border-color: light-dark(var(--mt-color-gray-2), var(--mt-color-dark-7));
+					border-bottom-color: transparent;
+				}
+			}
+			.header-tabs__drawer-link {
+				display: block;
+				padding: var(--mt-spacing-md);
+				text-decoration: none;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				font-size: var(--mt-font-size-sm);
+				font-weight: 500;
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.header-tabs__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }
+		</style>
+	}
+	<div class="header-tabs">
+		@mt.Container(mt.ContainerProps{Size: mt.MD, Base: mt.Base{Class: "header-tabs__main-section"}}) {
+			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+				@blocks.Logo(28)
+				@mt.Burger(mt.BurgerProps{Size: mt.SM, Controls: "header-tabs-drawer", AriaLabel: "Toggle navigation", Base: mt.Base{HiddenFrom: mt.XS}})
+				@mt.Menu(mt.MenuProps{Width: "260", Position: "bottom-end", Target: headerTabsUserTarget()}) {
+					@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconHeart(icons.Props{Size: 16, Color: "var(--mt-color-red-6)", Stroke: 1.5})}) {
+							Liked posts
+						}
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconStar(icons.Props{Size: 16, Color: "var(--mt-color-yellow-6)", Stroke: 1.5})}) {
+							Saved posts
+						}
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconMessage(icons.Props{Size: 16, Color: "var(--mt-color-blue-6)", Stroke: 1.5})}) {
+							Your comments
+						}
+						<mt-menu-label>Settings</mt-menu-label>
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconSettings(icons.Props{Size: 16, Stroke: 1.5})}) {
+							Account settings
+						}
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconSwitchHorizontal(icons.Props{Size: 16, Stroke: 1.5})}) {
+							Change account
+						}
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconLogout(icons.Props{Size: 16, Stroke: 1.5})}) {
+							Logout
+						}
+						<mt-menu-divider></mt-menu-divider>
+						<mt-menu-label>Danger zone</mt-menu-label>
+						@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconPlayerPause(icons.Props{Size: 16, Stroke: 1.5})}) {
+							Pause subscription
+						}
+						@mt.MenuItem(mt.MenuItemProps{Color: mt.Red, LeftSection: icons.IconTrash(icons.Props{Size: 16, Stroke: 1.5})}) {
+							Delete account
+						}
+					}
+				}
+			}
+		}
+		@mt.Container(mt.ContainerProps{Size: mt.MD}) {
+			@mt.Tabs(mt.TabsProps{Value: "Home", Variant: "outline", Base: mt.Base{Class: "header-tabs__tabs", VisibleFrom: mt.SM}}) {
+				@mt.TabsList(mt.TabsListProps{}) {
+					for _, t := range headerTabsTabs {
+						@mt.Tab(mt.TabProps{Value: t, Base: mt.Base{Class: "header-tabs__tab"}}) { { t } }
+					}
+				}
+			}
+		}
+	</div>
+	@mt.Drawer(mt.DrawerProps{Heading: "Navigation", Size: "100%", Base: mt.Base{ID: "header-tabs-drawer", HiddenFrom: mt.XS}}) {
+		<div class="header-tabs__drawer-scroll">
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			for _, t := range headerTabsTabs {
+				<a href="#" class="header-tabs__drawer-link">{ t }</a>
+			}
+		</div>
+	}
+}
+
+templ headerTabsUserTarget() {
+	@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "header-tabs__user"}}) {
+		@mt.Group(mt.GroupProps{Gap: "7"}) {
+			@mt.Avatar(mt.AvatarProps{Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png", Radius: "xl", Size: "20"})
+			@mt.Text(mt.TextProps{Fw: 500, Size: "sm", Base: mt.Base{Mr: "3"}}) { Jane Spoonfighter }
+			@icons.IconChevronDown(icons.Props{Size: 12, Stroke: 1.5})
+		}
+	}
+}

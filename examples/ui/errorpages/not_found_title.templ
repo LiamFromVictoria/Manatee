@@ -1,0 +1,58 @@
+package errorpages
+
+import "github.com/you/manatee/mt"
+
+var notFoundTitleCSS = templ.NewOnceHandle()
+
+// NotFoundTitle ports ui.mantine.dev NotFoundTitle: a plain 404 page.
+templ NotFoundTitle() {
+	@notFoundTitleCSS.Once() {
+		<style>
+			.not-found-title {
+				padding-top: 80px;
+				padding-bottom: 80px;
+			}
+			.not-found-title__label {
+				text-align: center;
+				font-weight: 500;
+				font-size: 38px;
+				line-height: 1;
+				margin-bottom: calc(1.5 * var(--mt-spacing-xl));
+				color: var(--mt-color-gray-2);
+				@media (max-width: 48em) {
+					font-size: 32px;
+				}
+			}
+			.not-found-title__description {
+				max-width: 500px;
+				margin: auto;
+				margin-top: var(--mt-spacing-xl);
+				margin-bottom: calc(1.5 * var(--mt-spacing-xl));
+			}
+			.not-found-title__title {
+				font-family: Outfit, var(--mt-font-family);
+				text-align: center;
+				font-weight: 500;
+				font-size: 38px;
+				@media (max-width: 48em) {
+					font-size: 32px;
+				}
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Base: mt.Base{Class: "not-found-title"}}) {
+		<div class="not-found-title__label">404</div>
+		@mt.Title(mt.TitleProps{Base: mt.Base{Class: "not-found-title__title"}}) {
+			You have found a secret place.
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.LG, Ta: "center", Base: mt.Base{Class: "not-found-title__description"}}) {
+			Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has
+			been moved to another URL.
+		}
+		@mt.Group(mt.GroupProps{Justify: "center"}) {
+			@mt.Button(mt.ButtonProps{Variant: mt.Subtle, Size: mt.MD}) {
+				Take me back to home page
+			}
+		}
+	}
+}

@@ -1,0 +1,58 @@
+package inputs
+
+import "github.com/you/manatee/icons"
+import "github.com/you/manatee/mt"
+
+var inputTooltipCSS = templ.NewOnceHandle()
+
+// InputTooltip ports ui.mantine.dev InputTooltip: a tooltip on an icon
+// (hover-triggered) and a tooltip on a password field that opens on focus
+// and relabels/recolors itself once the value is long enough, via a small
+// delegated script (Tooltip already opens on focus/hover for free).
+templ InputTooltip() {
+	@inputTooltipCSS.Once() {
+		<script>
+			document.addEventListener('input', (e) => {
+				const input = e.target;
+				if (!(input instanceof HTMLElement) || !input.matches('.input-tooltip__password')) return;
+				const tip = input.closest('mt-tooltip');
+				if (!tip) return;
+				const valid = input.value.trim().length >= 6;
+				tip.setAttribute('label', valid ? 'All good!' : 'Password must include at least 6 characters');
+				if (valid) tip.setAttribute('color', 'teal');
+				else tip.removeAttribute('color');
+			});
+		</script>
+	}
+	@mt.TextInput(mt.TextInputProps{
+		Label:        "Tooltip shown on icon hover",
+		Placeholder:  "Your email",
+		RightSection: inputTooltipIcon(),
+	})
+	@mt.Tooltip(mt.TooltipProps{
+		Label:     "Password must include at least 6 characters",
+		Position:  "bottom-start",
+		WithArrow: true,
+	}) {
+		@mt.PasswordInput(mt.PasswordInputProps{
+			Label:       "Tooltip shown onFocus",
+			Required:    true,
+			Placeholder: "Your password",
+			Base:        mt.Base{Class: "input-tooltip__password", Mt: mt.MD},
+		})
+	}
+}
+
+templ inputTooltipIcon() {
+	@mt.Tooltip(mt.TooltipProps{
+		Label:     "We store your data securely",
+		Position:  "top-end",
+		WithArrow: true,
+	}) {
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Style: "cursor:help"}}) {
+			@mt.Center(mt.CenterProps{}) {
+				@icons.IconInfoCircle(icons.Props{Size: 18, Stroke: 1.5})
+			}
+		}
+	}
+}

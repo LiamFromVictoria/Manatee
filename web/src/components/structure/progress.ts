@@ -36,7 +36,7 @@ const progressStyles = css`
     position: relative;
     width: 100%;
     height: var(--_size);
-    background: var(--mt-color-gray-1);
+    background: light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));
     border-radius: var(--_radius, var(--mt-radius-xl));
     overflow: hidden;
   }
@@ -102,7 +102,7 @@ const rootStyles = css`
     --_size: 0.5rem;
     height: var(--_size);
     border-radius: var(--_radius, var(--mt-radius-xl));
-    background: var(--mt-color-gray-1);
+    background: light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));
     overflow: hidden;
   }
   :host([size='xs']) { --_size: 0.1875rem; }

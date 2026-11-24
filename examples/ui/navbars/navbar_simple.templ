@@ -1,0 +1,106 @@
+package navbars
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type navbarSimpleLink struct {
+	Icon  templ.Component
+	Label string
+}
+
+var navbarSimpleLinks = []navbarSimpleLink{
+	{icons.IconBellRinging(icons.Props{Size: 25, Stroke: 1.5}), "Notifications"},
+	{icons.IconReceipt2(icons.Props{Size: 25, Stroke: 1.5}), "Billing"},
+	{icons.IconFingerprint(icons.Props{Size: 25, Stroke: 1.5}), "Security"},
+	{icons.IconKey(icons.Props{Size: 25, Stroke: 1.5}), "SSH Keys"},
+	{icons.IconDatabaseImport(icons.Props{Size: 25, Stroke: 1.5}), "Databases"},
+	{icons.IconAuth2fa(icons.Props{Size: 25, Stroke: 1.5}), "Authentication"},
+	{icons.IconSettings(icons.Props{Size: 25, Stroke: 1.5}), "Other Settings"},
+}
+
+var navbarSimpleCSS = templ.NewOnceHandle()
+
+// NavbarSimple ports ui.mantine.dev NavbarSimple: a logo+version header, a
+// list of active-tracked icon links, and a plain footer.
+templ NavbarSimple() {
+	@navbarSimpleCSS.Once() {
+		<style>
+			.navbar-simple {
+				height: 700px;
+				width: 300px;
+				padding: var(--mt-spacing-md);
+				display: flex;
+				flex-direction: column;
+				border-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.navbar-simple__main { flex: 1; }
+			.navbar-simple__header {
+				padding-bottom: var(--mt-spacing-md);
+				margin-bottom: calc(var(--mt-spacing-md) * 1.5);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.navbar-simple__footer {
+				padding-top: var(--mt-spacing-md);
+				margin-top: var(--mt-spacing-md);
+				border-top: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.navbar-simple__link {
+				display: flex;
+				align-items: center;
+				text-decoration: none;
+				font-size: var(--mt-font-size-sm);
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));
+				padding: var(--mt-spacing-xs) var(--mt-spacing-sm);
+				border-radius: var(--mt-radius-sm);
+				font-weight: 500;
+				&:hover {
+					background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+					color: light-dark(var(--mt-black), var(--mt-white));
+					.navbar-simple__link-icon { color: light-dark(var(--mt-black), var(--mt-white)); }
+				}
+				&[data-active] {
+					&, &:hover {
+						background-color: var(--mt-color-blue-light);
+						color: var(--mt-color-blue-light-color);
+						.navbar-simple__link-icon { color: var(--mt-color-blue-light-color); }
+					}
+				}
+			}
+			.navbar-simple__link-icon { color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-2)); margin-right: var(--mt-spacing-sm); width: 25px; height: 25px; }
+		</style>
+	}
+	@blocks.Behaviors()
+	<nav class="navbar-simple">
+		<div class="navbar-simple__main" data-active-group>
+			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "navbar-simple__header"}}) {
+				@blocks.Logo(28)
+				@mt.Code(mt.CodeProps{Base: mt.Base{Style: "font-weight:700"}}) { v3.1.2 }
+			}
+			for i, l := range navbarSimpleLinks {
+				<a href="#" class="navbar-simple__link" data-active-item={ l.Label } data-active?={ i == 1 }>
+					<span class="navbar-simple__link-icon">
+						@l.Icon
+					</span>
+					<span>{ l.Label }</span>
+				</a>
+			}
+		</div>
+		<div class="navbar-simple__footer">
+			<a href="#" class="navbar-simple__link">
+				<span class="navbar-simple__link-icon">
+					@icons.IconSwitchHorizontal(icons.Props{Size: 25, Stroke: 1.5})
+				</span>
+				<span>Change account</span>
+			</a>
+			<a href="#" class="navbar-simple__link">
+				<span class="navbar-simple__link-icon">
+					@icons.IconLogout(icons.Props{Size: 25, Stroke: 1.5})
+				</span>
+				<span>Logout</span>
+			</a>
+		</div>
+	</nav>
+}

@@ -1,0 +1,93 @@
+package articlecards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var imageCardCSS = templ.NewOnceHandle()
+
+// ImageCard ports ui.mantine.dev ImageCard: a linked image card with a
+// bottom gradient overlay, a title, and view/comment counts.
+templ ImageCard() {
+	@imageCardCSS.Once() {
+		<style>
+			.image-card {
+				display: block;
+				position: relative;
+				height: 280px;
+				padding: var(--mt-spacing-lg);
+				box-shadow: var(--mt-shadow-lg);
+				border-radius: var(--mt-radius-md);
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+				overflow: hidden;
+				color: inherit;
+				text-decoration: none;
+			}
+			.image-card:hover .image-card__image { transform: scale(1.03); }
+			.image-card__image {
+				position: absolute;
+				inset: 0;
+				background-size: cover;
+				transition: transform 500ms ease;
+			}
+			.image-card__overlay {
+				position: absolute;
+				top: 20%;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 90%);
+			}
+			.image-card__content {
+				height: 100%;
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				z-index: 1;
+			}
+			.image-card__title { color: var(--mt-white); margin-bottom: 5px; }
+			.image-card__body-text { color: var(--mt-color-dark-2); margin-left: 7px; }
+			.image-card__author { color: var(--mt-color-dark-2); }
+		</style>
+	}
+	<a
+		href="https://mantine.dev/"
+		target="_blank"
+		rel="noreferrer"
+		class="image-card"
+	>
+		<div
+			class="image-card__image"
+			style="background-image:url(https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80)"
+		></div>
+		<div class="image-card__overlay"></div>
+		<div class="image-card__content">
+			<div>
+				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "image-card__title"}}) {
+					Journey to Swiss Alps
+				}
+				@mt.Group(mt.GroupProps{Justify: "space-between", Gap: mt.XS}) {
+					@mt.Text(mt.TextProps{Size: mt.SM, Base: mt.Base{Class: "image-card__author"}}) {
+						Robert Gluesticker
+					}
+					@mt.Group(mt.GroupProps{Gap: mt.LG}) {
+						@mt.Center(mt.CenterProps{}) {
+							@icons.IconEye(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-dark-2)"})
+							@mt.Text(mt.TextProps{Size: mt.SM, Base: mt.Base{Class: "image-card__body-text"}}) {
+								7847
+							}
+						}
+						@mt.Center(mt.CenterProps{}) {
+							@icons.IconMessageCircle(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-dark-2)"})
+							@mt.Text(mt.TextProps{Size: mt.SM, Base: mt.Base{Class: "image-card__body-text"}}) {
+								5
+							}
+						}
+					}
+				}
+			</div>
+		</div>
+	</a>
+}

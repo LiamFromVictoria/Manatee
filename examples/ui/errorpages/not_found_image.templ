@@ -1,0 +1,71 @@
+package errorpages
+
+import (
+	_ "embed"
+
+	"github.com/you/manatee/mt"
+)
+
+//go:embed image.svg
+var notFoundImageSVG string
+
+var notFoundImageCSS = templ.NewOnceHandle()
+
+// NotFoundImage ports ui.mantine.dev NotFoundImage: a 404 page with an
+// illustration that swaps sides on mobile vs desktop (two copies, CSS-hidden).
+templ NotFoundImage() {
+	@notFoundImageCSS.Once() {
+		<style>
+			.not-found-image {
+				padding-top: 80px;
+				padding-bottom: 80px;
+			}
+			.not-found-image__title {
+				font-weight: 500;
+				font-size: 34px;
+				margin-bottom: var(--mt-spacing-md);
+				font-family: Outfit, var(--mt-font-family);
+				@media (max-width: 48em) {
+					font-size: 32px;
+				}
+			}
+			.not-found-image__control {
+				@media (max-width: 48em) {
+					width: 100%;
+				}
+			}
+			.not-found-image__mobile-image {
+				@media (min-width: 48em) {
+					display: none;
+				}
+			}
+			.not-found-image__desktop-image {
+				@media (max-width: 47.99em) {
+					display: none;
+				}
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Base: mt.Base{Class: "not-found-image"}}) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, Spacing: "40", SpacingSm: "80"}) {
+			<div class="not-found-image__mobile-image">
+				@templ.Raw(notFoundImageSVG)
+			</div>
+			<div>
+				@mt.Title(mt.TitleProps{Base: mt.Base{Class: "not-found-image__title"}}) {
+					Something is not right...
+				}
+				@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.LG}) {
+					Page you are trying to open does not exist. You may have mistyped the address, or the
+					page has been moved to another URL. If you think this is an error contact support.
+				}
+				@mt.Button(mt.ButtonProps{Variant: mt.Outline, Size: mt.MD, Base: mt.Base{Mt: mt.XL, Class: "not-found-image__control"}}) {
+					Get back to home page
+				}
+			</div>
+			<div class="not-found-image__desktop-image">
+				@templ.Raw(notFoundImageSVG)
+			</div>
+		}
+	}
+}

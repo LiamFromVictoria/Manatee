@@ -104,14 +104,28 @@ Edit the palette there to change the primary color everywhere.
 
 | Group | Components |
 |---|---|
-| Layout | AppShell, Container, Group, Stack, Grid, SimpleGrid, Center, Space, Divider |
-| Typography | Text, Title |
-| Buttons | Button, ButtonGroup, ActionIcon, ActionIconGroup |
-| Data display | Badge, Card, Paper, Avatar, Accordion, Table |
-| Inputs | TextInput, Textarea, PasswordInput, NumberInput, Select, Checkbox, CheckboxGroup, Switch, Radio, RadioGroup |
-| Overlays | Modal, Drawer, Tooltip, Popover, Menu |
-| Navigation | Tabs, NavLink, Breadcrumbs, Pagination, Burger |
-| Feedback | Alert, Loader, Progress, Notifications (JS API + `mt.Notify` for HTMX `HX-Trigger`) |
+| Layout | AppShell, Container, Group, Stack, Grid, SimpleGrid, Center, Space, Divider, Box, AspectRatio, ScrollArea |
+| Typography | Text, Title, Anchor, Code, List, Typography |
+| Buttons | Button, ButtonGroup, ActionIcon, ActionIconGroup, UnstyledButton, CloseButton, CopyButton |
+| Data display | Badge, Card, Paper, Avatar, Accordion, Table, Image, ThemeIcon, Carousel, Sortable |
+| Inputs | TextInput, Textarea, PasswordInput, NumberInput, Select, NativeSelect, Autocomplete, SegmentedControl, Checkbox, CheckboxGroup, Switch, Radio, RadioGroup, Slider, RangeSlider, Dropzone |
+| Overlays | Modal, Drawer, Tooltip, Popover, HoverCard, Menu, Overlay |
+| Navigation | Tabs, NavLink, Breadcrumbs, Pagination, Burger, Collapse |
+| Feedback | Alert, Loader, Progress, RingProgress, Skeleton, Notifications (JS API + `mt.Notify` for HTMX `HX-Trigger`) |
+| Utilities | VisuallyHidden; `hiddenFrom`/`visibleFrom` on every component via `Base` |
+
+Icons: package `icons` provides Tabler icons as templ components
+(`@icons.IconHeart(icons.Props{Size: 18})`). Add names to `icons/icons.txt`, then run
+`go generate ./icons`.
+
+## UI blocks
+
+`examples/ui` ports all 123 blocks from [ui.mantine.dev](https://ui.mantine.dev)
+(MIT, © Vitaly Rtischev): navbars, headers, footers, hero sections, features, auth forms,
+FAQ, stats, tables, drag-and-drop lists, carousels, article cards and more. Each block is
+a single copy-paste templ file. Browse them at `/ui` in the demo server
+(`go run ./cmd/demo`), with live previews and source. The porting conventions are in
+[docs/ui-blocks.md](docs/ui-blocks.md).
 
 Modals and drawers open without any JS of your own: `data-mt-open="<id>"` / `data-mt-close`.
 

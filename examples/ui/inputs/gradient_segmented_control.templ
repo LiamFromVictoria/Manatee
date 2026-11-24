@@ -1,0 +1,37 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var gradientSegmentedControlCSS = templ.NewOnceHandle()
+
+// GradientSegmentedControl ports ui.mantine.dev GradientSegmentedControl: a
+// SegmentedControl whose indicator is a pink-to-orange gradient. Setting a
+// Color (any color works; it's never shown) makes the component apply its
+// built-in "active label turns white" rule, which the gradient reuses.
+templ GradientSegmentedControl() {
+	@gradientSegmentedControlCSS.Once() {
+		<style>
+			.gradient-segmented-control::part(root) {
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-6));
+				box-shadow: var(--mt-shadow-md);
+				border: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-4));
+			}
+			.gradient-segmented-control::part(indicator) {
+				background-image: linear-gradient(to right, var(--mt-color-pink-filled), var(--mt-color-orange-filled)) !important;
+			}
+		</style>
+	}
+	@mt.SegmentedControl(mt.SegmentedControlProps{
+		Radius: mt.XL,
+		Size:   mt.MD,
+		Color:  mt.Pink,
+		Data: []mt.SelectItem{
+			{Value: "All", Label: "All"},
+			{Value: "AI/ML", Label: "AI/ML"},
+			{Value: "C++", Label: "C++"},
+			{Value: "Rust", Label: "Rust"},
+			{Value: "TypeScript", Label: "TypeScript"},
+		},
+		Base: mt.Base{Class: "gradient-segmented-control"},
+	})
+}

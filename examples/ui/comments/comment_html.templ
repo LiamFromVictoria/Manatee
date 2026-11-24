@@ -1,0 +1,37 @@
+package comments
+
+import "github.com/you/manatee/mt"
+
+const commentHTMLContent = `<p>I use <a href="https://heroku.com/" rel="noopener noreferrer" target="_blank">Heroku</a> to host my Node.js application, but MongoDB add-on appears to be too <strong>expensive</strong>. I consider switching to <a href="https://www.digitalocean.com/" rel="noopener noreferrer" target="_blank">Digital Ocean</a> VPS to save some cash.</p>`
+
+var commentHTMLCSS = templ.NewOnceHandle()
+
+// CommentHtml ports ui.mantine.dev CommentHtml: a bordered comment card
+// whose body renders trusted rich HTML via Typography.
+templ CommentHtml() {
+	@commentHTMLCSS.Once() {
+		<style>
+			.comment-html { padding: var(--mt-spacing-lg) var(--mt-spacing-xl); }
+			.comment-html__body { padding-left: 54px; padding-top: var(--mt-spacing-sm); font-size: var(--mt-font-size-sm); }
+			.comment-html__content > p:last-child { margin-bottom: 0; }
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{Class: "comment-html"}}) {
+		@mt.Group(mt.GroupProps{}) {
+			@mt.Avatar(mt.AvatarProps{Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", Alt: "Jacob Warnhalter", Radius: mt.XL})
+			<div>
+				@mt.Text(mt.TextProps{Size: mt.SM}) {
+					Jacob Warnhalter
+				}
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					10 minutes ago
+				}
+			</div>
+		}
+		@mt.Typography(mt.TypographyProps{Base: mt.Base{Class: "comment-html__body"}}) {
+			<div class="comment-html__content">
+				@templ.Raw(commentHTMLContent)
+			</div>
+		}
+	}
+}

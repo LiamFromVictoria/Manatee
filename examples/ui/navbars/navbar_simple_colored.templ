@@ -1,0 +1,100 @@
+package navbars
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var navbarSimpleColoredCSS = templ.NewOnceHandle()
+
+// NavbarSimpleColored ports ui.mantine.dev NavbarSimpleColored: the same
+// layout as NavbarSimple on a filled blue background with an inverted logo
+// and white-on-blue active state.
+templ NavbarSimpleColored() {
+	@navbarSimpleColoredCSS.Once() {
+		<style>
+			.navbar-simple-colored {
+				height: 700px;
+				width: 300px;
+				padding: var(--mt-spacing-md);
+				display: flex;
+				flex-direction: column;
+				background-color: var(--mt-color-blue-filled);
+			}
+			.navbar-simple-colored__main { flex: 1; }
+			.navbar-simple-colored__header {
+				padding-bottom: var(--mt-spacing-md);
+				margin-bottom: calc(var(--mt-spacing-md) * 1.5);
+				border-bottom: 1px solid var(--mt-color-blue-7);
+			}
+			.navbar-simple-colored__footer {
+				padding-top: var(--mt-spacing-md);
+				margin-top: var(--mt-spacing-md);
+				border-top: 1px solid var(--mt-color-blue-7);
+			}
+			.navbar-simple-colored__version { background-color: var(--mt-color-blue-7); color: var(--mt-white); }
+			.navbar-simple-colored__link {
+				display: flex;
+				align-items: center;
+				text-decoration: none;
+				font-size: var(--mt-font-size-sm);
+				color: var(--mt-white);
+				padding: var(--mt-spacing-xs) var(--mt-spacing-sm);
+				border-radius: var(--mt-radius-sm);
+				font-weight: 500;
+				&:hover {
+					background-color: var(--mt-color-blue-7);
+					color: var(--mt-white);
+					.navbar-simple-colored__link-icon { color: var(--mt-white); }
+				}
+				&[data-active] {
+					&, &:hover {
+						box-shadow: var(--mt-shadow-sm);
+						background-color: var(--mt-white);
+						color: var(--mt-color-blue-filled);
+						.navbar-simple-colored__link-icon { color: var(--mt-color-blue-filled); }
+					}
+				}
+			}
+			.navbar-simple-colored__link-icon { color: var(--mt-color-blue-1); margin-right: var(--mt-spacing-sm); width: 25px; height: 25px; }
+			.navbar-simple-colored__logo svg circle:first-of-type { fill: var(--mt-white); }
+			.navbar-simple-colored__logo svg path { fill: var(--mt-color-blue-filled); }
+			.navbar-simple-colored__logo svg circle:last-of-type { fill: var(--mt-white); }
+			.navbar-simple-colored__logo span:last-child { color: var(--mt-white) !important; }
+		</style>
+	}
+	@blocks.Behaviors()
+	<nav class="navbar-simple-colored">
+		<div class="navbar-simple-colored__main" data-active-group>
+			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "navbar-simple-colored__header"}}) {
+				<span class="navbar-simple-colored__logo">
+					@blocks.Logo(28)
+				</span>
+				@mt.Code(mt.CodeProps{Base: mt.Base{Class: "navbar-simple-colored__version", Style: "font-weight:700"}}) { v3.1.2 }
+			}
+			for i, l := range navbarSimpleLinks {
+				<a href="#" class="navbar-simple-colored__link" data-active-item={ l.Label } data-active?={ i == 1 }>
+					<span class="navbar-simple-colored__link-icon">
+						@l.Icon
+					</span>
+					<span>{ l.Label }</span>
+				</a>
+			}
+		</div>
+		<div class="navbar-simple-colored__footer">
+			<a href="#" class="navbar-simple-colored__link">
+				<span class="navbar-simple-colored__link-icon">
+					@icons.IconSwitchHorizontal(icons.Props{Size: 25, Stroke: 1.5})
+				</span>
+				<span>Change account</span>
+			</a>
+			<a href="#" class="navbar-simple-colored__link">
+				<span class="navbar-simple-colored__link-icon">
+					@icons.IconLogout(icons.Props{Size: 25, Stroke: 1.5})
+				</span>
+				<span>Logout</span>
+			</a>
+		</div>
+	</nav>
+}

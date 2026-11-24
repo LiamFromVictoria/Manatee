@@ -1,0 +1,98 @@
+package stats
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type statsSegmentsItem struct {
+	Label, Count, Color string
+	Part                 float64
+}
+
+var statsSegmentsData = []statsSegmentsItem{
+	{"Mobile", "204,001", "#47d6ab", 59},
+	{"Desktop", "121,017", "#03141a", 35},
+	{"Tablet", "31,118", "#4fcdf7", 6},
+}
+
+var statsSegmentsCSS = templ.NewOnceHandle()
+
+func statsSegmentsPct(part float64) string {
+	return strconv.FormatFloat(part, 'f', -1, 64) + "%"
+}
+
+// StatsSegments ports ui.mantine.dev StatsSegments: a multi-section progress
+// bar with a per-device legend below it.
+templ StatsSegments() {
+	@statsSegmentsCSS.Once() {
+		<style>
+			.stats-segments__progress mt-progress-section::part(label) {
+				font-family: Outfit, var(--mt-font-family);
+				line-height: 1;
+				font-size: var(--mt-font-size-sm);
+			}
+			.stats-segments__stat {
+				border-bottom: 3px solid;
+				padding-bottom: 5px;
+			}
+			.stats-segments__stat-count {
+				font-family: Outfit, var(--mt-font-family);
+				line-height: 1.3;
+			}
+			.stats-segments__diff {
+				font-family: Outfit, var(--mt-font-family);
+				display: flex;
+				align-items: center;
+			}
+			.stats-segments__icon {
+				color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3));
+			}
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{P: mt.MD}}) {
+		@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+			@mt.Group(mt.GroupProps{Align: "flex-end", Gap: mt.XS}) {
+				@mt.Text(mt.TextProps{Size: mt.XL, Fw: 700}) {
+					345,765
+				}
+				@mt.Text(mt.TextProps{C: mt.Teal, Size: mt.SM, Fw: 700, Base: mt.Base{Class: "stats-segments__diff"}}) {
+					<span>18%</span>
+					@icons.IconArrowUpRight(icons.Props{Size: 16, Stroke: 1.5, Style: "margin-bottom: 4px"})
+				}
+			}
+			@icons.IconDeviceAnalytics(icons.Props{Size: 22, Stroke: 1.5, Class: "stats-segments__icon"})
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+			Page views compared to previous month
+		}
+		@mt.ProgressRoot(mt.ProgressRootProps{Size: "34", Base: mt.Base{Class: "stats-segments__progress", Mt: "40"}}) {
+			for _, s := range statsSegmentsData {
+				@mt.ProgressSection(mt.ProgressSectionProps{Value: s.Part, Color: s.Color, Base: mt.Base{Attrs: templ.Attributes{"aria-label": s.Label}}}) {
+					if s.Part > 10 {
+						{ statsSegmentsPct(s.Part) }
+					}
+				}
+			}
+		}
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsXs: 3, Base: mt.Base{Mt: mt.XL}}) {
+			for _, s := range statsSegmentsData {
+				@mt.Box(mt.BoxProps{Base: mt.Base{Class: "stats-segments__stat", Style: "border-bottom-color: " + s.Color}}) {
+					@mt.Text(mt.TextProps{Tt: "uppercase", Size: mt.XS, C: mt.Dimmed, Fw: 700}) {
+						{ s.Label }
+					}
+					@mt.Group(mt.GroupProps{Justify: "space-between", Align: "flex-end", Gap: "0"}) {
+						@mt.Text(mt.TextProps{Fw: 700}) {
+							{ s.Count }
+						}
+						@mt.Text(mt.TextProps{C: s.Color, Fw: 700, Size: mt.SM, Base: mt.Base{Class: "stats-segments__stat-count"}}) {
+							{ statsSegmentsPct(s.Part) }
+						}
+					}
+				}
+			}
+		}
+	}
+}

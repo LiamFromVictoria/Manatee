@@ -1,0 +1,51 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var currencyInputCSS = templ.NewOnceHandle()
+
+// CurrencyInput ports ui.mantine.dev CurrencyInput: a number TextInput with a
+// currency NativeSelect contained in its right section.
+templ CurrencyInput() {
+	@currencyInputCSS.Once() {
+		<style>
+			.currency-input::part(right-section) {
+				width: 92px;
+			}
+			.currency-input::part(input) {
+				padding-inline-end: 92px;
+			}
+			.currency-input-select::part(input) {
+				padding-inline-end: 28px !important;
+				font-weight: 500;
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				width: 92px;
+				margin-right: -2px;
+			}
+			.currency-input-select::part(right-section) {
+				width: 28px;
+			}
+		</style>
+	}
+	@mt.TextInput(mt.TextInputProps{
+		Type:        "number",
+		Placeholder: "1000",
+		Label:       "Transfer amount",
+		RightSection: currencyInputSelect(),
+		Base:        mt.Base{Class: "currency-input"},
+	})
+}
+
+templ currencyInputSelect() {
+	@mt.NativeSelect(mt.NativeSelectProps{
+		Data: []mt.SelectItem{
+			{Value: "eur", Label: "🇪🇺 EUR"},
+			{Value: "usd", Label: "🇺🇸 USD"},
+			{Value: "cad", Label: "🇨🇦 CAD"},
+			{Value: "gbp", Label: "🇬🇧 GBP"},
+			{Value: "aud", Label: "🇦🇺 AUD"},
+		},
+		Base: mt.Base{Class: "currency-input-select", Attrs: templ.Attributes{"aria-label": "Currency"}},
+	})
+}

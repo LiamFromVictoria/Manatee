@@ -1,0 +1,179 @@
+package stats
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type statsControlsItem struct {
+	Icon     func(...icons.Props) templ.Component
+	Label    string
+	Distance int
+}
+
+var statsControlsData = []statsControlsItem{
+	{icons.IconRun, "Running", 8},
+	{icons.IconSwimming, "Swimming", 5},
+	{icons.IconBike, "Bike", 6},
+}
+
+var statsControlsCSS = templ.NewOnceHandle()
+
+// StatsControls ports ui.mantine.dev StatsControls: a gradient panel with a
+// date stepper (previous/next day) next to a row of distance stats. The date
+// is advanced client-side; the server renders the initial day.
+templ StatsControls() {
+	@statsControlsCSS.Once() {
+		<style>
+			.stats-controls {
+				background-image: linear-gradient(-60deg, var(--mt-color-blue-4) 0%, var(--mt-color-blue-7) 100%);
+				padding: var(--mt-spacing-xl);
+				border-radius: var(--mt-radius-md);
+				display: flex;
+				@media (max-width: 36em) {
+					flex-direction: column;
+				}
+			}
+			.stats-controls__icon {
+				color: var(--mt-color-blue-6);
+			}
+			.stats-controls__stat {
+				min-width: 98px;
+				padding-top: var(--mt-spacing-xl);
+				min-height: 140px;
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				justify-content: space-between;
+				background-color: var(--mt-white);
+			}
+			.stats-controls__label {
+				text-transform: uppercase;
+				font-weight: 700;
+				font-size: var(--mt-font-size-xs);
+				font-family: Outfit, var(--mt-font-family);
+				color: var(--mt-color-gray-6);
+				line-height: 1.2;
+			}
+			.stats-controls__value {
+				font-size: var(--mt-font-size-sm);
+				font-weight: 700;
+				color: var(--mt-black);
+			}
+			.stats-controls__count {
+				color: var(--mt-color-gray-6);
+			}
+			.stats-controls__day {
+				font-size: 44px;
+				font-weight: 700;
+				color: var(--mt-white);
+				line-height: 1;
+				text-align: center;
+				margin-bottom: 5px;
+				font-family: Outfit, var(--mt-font-family);
+			}
+			.stats-controls__month {
+				font-size: var(--mt-font-size-sm);
+				color: var(--mt-white);
+				line-height: 1;
+				text-align: center;
+			}
+			.stats-controls__controls {
+				display: flex;
+				flex-direction: column;
+				margin-right: calc(var(--mt-spacing-xl) * 2);
+				@media (max-width: 36em) {
+					flex-direction: row;
+					align-items: center;
+					margin-right: 0;
+					margin-bottom: var(--mt-spacing-xl);
+				}
+			}
+			.stats-controls__date {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.stats-controls__control {
+				height: 28px;
+				width: 100%;
+				color: var(--mt-color-blue-2);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: var(--mt-radius-md);
+				transition: background-color 50ms ease;
+				@media (max-width: 36em) {
+					height: 34px;
+					width: 34px;
+				}
+				&:hover {
+					background-color: var(--mt-color-blue-5);
+					color: var(--mt-white);
+				}
+			}
+			.stats-controls__control-icon {
+				@media (max-width: 36em) {
+					transform: rotate(-90deg);
+				}
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const btn = e.composedPath().find((n) => n instanceof Element && n.hasAttribute('data-step'));
+				if (!btn) return;
+				const root = btn.closest('.stats-controls');
+				const date = root && root.querySelector('.stats-controls__date');
+				if (!date) return;
+				const d = new Date(date.dataset.date + 'T00:00:00');
+				d.setDate(d.getDate() + (btn.getAttribute('data-step') === 'next' ? 1 : -1));
+				date.dataset.date = d.toISOString().slice(0, 10);
+				date.querySelector('.stats-controls__day').textContent = String(d.getDate()).padStart(2, '0');
+				date.querySelector('.stats-controls__month').textContent = d.toLocaleString('en-US', { month: 'long' });
+			});
+		</script>
+	}
+	<div class="stats-controls">
+		<div class="stats-controls__controls">
+			@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{
+				Class: "stats-controls__control",
+				Attrs: templ.Attributes{"data-step": "next", "aria-label": "Next day"},
+			}}) {
+				@icons.IconChevronUp(icons.Props{Size: 16, Stroke: 1.5, Class: "stats-controls__control-icon"})
+			}
+			<div class="stats-controls__date" data-date="2021-10-24">
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-controls__day"}}) {
+					24
+				}
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-controls__month"}}) {
+					October
+				}
+			</div>
+			@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{
+				Class: "stats-controls__control",
+				Attrs: templ.Attributes{"data-step": "prev", "aria-label": "Previous day"},
+			}}) {
+				@icons.IconChevronDown(icons.Props{Size: 16, Stroke: 1.5, Class: "stats-controls__control-icon"})
+			}
+		</div>
+		@mt.Group(mt.GroupProps{Base: mt.Base{Style: "flex: 1"}}) {
+			for _, s := range statsControlsData {
+				@mt.Paper(mt.PaperProps{Radius: mt.MD, Shadow: mt.MD, Base: mt.Base{Class: "stats-controls__stat", P: mt.XS}}) {
+					@s.Icon(icons.Props{Size: 32, Stroke: 1.5, Class: "stats-controls__icon"})
+					<div>
+						@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-controls__label"}}) {
+							{ s.Label }
+						}
+						@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Class: "stats-controls__count"}}) {
+							<span class="stats-controls__value">{ strconv.Itoa(s.Distance) + "km" }</span>
+							{ " / 10km" }
+						}
+					</div>
+				}
+			}
+		}
+	</div>
+}

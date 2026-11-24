@@ -1,4 +1,5 @@
-import { autoPosition, colorVars, css, define, html, MtElement, onDismiss, type Placement, type Props, resolve } from '../../core';
+import { autoPosition, colorVars, css, define, html, MtElement, onDismiss, type Placement, type Props, rem, resolve } from '../../core';
+import { ARROW_PROPS, floatingArrowStyles, floatingTransitionStyles, MtFloatingPanel, resolveTarget, TRANSITION_PROPS } from './floating-panel';
 
 /** <mt-menu-target>: optional wrapper marking the trigger when it isn't a single element with slot="target". */
 export class MtMenuTarget extends MtElement {
@@ -19,34 +20,19 @@ const dropdownStyles = css`
     color: var(--mt-color-text);
     box-shadow: var(--mt-shadow-md);
     z-index: var(--mt-z-dropdown);
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity var(--mt-transition), transform var(--mt-transition);
   }
-  .dropdown:popover-open { opacity: 1; transform: scale(1); }
-  .dropdown:not(:popover-open) { display: none; }
 `;
 
 /** <mt-menu-dropdown role="menu">: the floating panel for <mt-menu>. */
-export class MtMenuDropdown extends MtElement {
-  static styles = [dropdownStyles];
+export class MtMenuDropdown extends MtFloatingPanel {
+  static styles = [dropdownStyles, floatingArrowStyles, floatingTransitionStyles];
 
   protected template(): string {
-    return html`<div class="dropdown" part="dropdown" popover="manual"><slot></slot></div>`;
+    return html`<div class="dropdown" part="dropdown" popover="manual"><slot></slot><div class="arrow" part="arrow"></div></div>`;
   }
 
   protected onConnect(): void {
     if (!this.hasAttribute('role')) this.setAttribute('role', 'menu');
-  }
-
-  get box(): HTMLElement {
-    return this.$<HTMLElement>('.dropdown');
-  }
-  show(): void {
-    this.box.showPopover();
-  }
-  hide(): void {
-    if (this.box.matches(':popover-open')) this.box.hidePopover();
   }
 }
 
@@ -215,6 +201,8 @@ export class MtMenu extends MtElement {
     opened: { type: 'boolean' },
     closeOnItemClick: { type: 'boolean', default: true },
     loop: { type: 'boolean', default: true },
+    ...ARROW_PROPS,
+    ...TRANSITION_PROPS,
   };
 
   declare trigger: string;
@@ -225,6 +213,12 @@ export class MtMenu extends MtElement {
   declare opened: boolean;
   declare closeOnItemClick: boolean;
   declare loop: boolean;
+  declare withArrow: boolean;
+  declare arrowSize: number;
+  declare arrowOffset: number;
+  declare arrowPosition: string;
+  declare transition: string;
+  declare transitionDuration: number;
 
   #cleanup: (() => void) | null = null;
   #dismiss: (() => void) | null = null;
@@ -236,13 +230,8 @@ export class MtMenu extends MtElement {
     return html`<slot name="target"></slot><slot></slot>`;
   }
 
-  get #targetWrapper(): HTMLElement | null {
-    return this.querySelector<HTMLElement>(':scope > [slot="target"], :scope > mt-menu-target');
-  }
   get #target(): HTMLElement | null {
-    const w = this.#targetWrapper;
-    if (!w) return null;
-    return w.tagName === 'MT-MENU-TARGET' ? ((w.firstElementChild as HTMLElement | null) ?? w) : w;
+    return resolveTarget(this.querySelector<HTMLElement>(':scope > [slot="target"], :scope > mt-menu-target'));
   }
   get #dropdown(): MtMenuDropdown | null {
     return this.querySelector<MtMenuDropdown>(':scope > mt-menu-dropdown');
@@ -367,6 +356,12 @@ export class MtMenu extends MtElement {
     if (!target || !dropdown || this.#visible) return;
     this.#visible = true;
     target.setAttribute('aria-expanded', 'true');
+    dropdown.toggleAttribute('with-arrow', this.withArrow);
+    dropdown.setAttribute('arrow-position', this.arrowPosition);
+    dropdown.setAttribute('transition', this.transition);
+    dropdown.box.style.setProperty('--_arrow', rem(this.arrowSize));
+    dropdown.box.style.setProperty('--_arrow-offset', rem(this.arrowOffset));
+    dropdown.box.style.setProperty('--_dur', `${this.transitionDuration}ms`);
     dropdown.show();
     if (this.width && this.width !== 'target') dropdown.box.style.width = resolve('rem', this.width);
     this.#cleanup = autoPosition(target, dropdown.box, { placement: this.position, offset: this.offset, matchWidth: this.width === 'target' });

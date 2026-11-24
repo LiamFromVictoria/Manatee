@@ -1,0 +1,84 @@
+package buttons
+
+import "github.com/you/manatee/mt"
+
+var buttonProgressCSS = templ.NewOnceHandle()
+
+// ButtonProgress ports ui.mantine.dev ButtonProgress. A small script drives
+// the click-to-upload simulation: it advances the overlay Progress's value
+// every 20ms and swaps the button's label/color, matching the original's
+// useInterval-based state machine (idle -> loading -> loaded -> idle).
+templ ButtonProgress() {
+	@buttonProgressCSS.Once() {
+		<style>
+			.button-progress__progress {
+				position: absolute;
+				inset: -1px;
+				height: auto;
+				z-index: 0;
+			}
+			.button-progress__progress::part(track) {
+				background-color: transparent;
+				height: auto;
+			}
+			.button-progress__label {
+				position: relative;
+				z-index: 1;
+			}
+		</style>
+	}
+	@mt.Button(mt.ButtonProps{
+		FullWidth:    true,
+		Radius:       mt.MD,
+		RightSection: buttonProgressBar(),
+		Base:         mt.Base{Class: "button-progress", Attrs: templ.Attributes{"data-state": "idle"}},
+	}) {
+		<div class="button-progress__label">Upload files</div>
+	}
+	@buttonProgressScript()
+}
+
+templ buttonProgressBar() {
+	@mt.Progress(mt.ProgressProps{
+		Value:  0,
+		Color:  "color-mix(in srgb, var(--mt-color-blue-4) 35%, transparent)",
+		Radius: mt.SM,
+		Base:   mt.Base{Class: "button-progress__progress"},
+	})
+}
+
+var buttonProgressScriptOnce = templ.NewOnceHandle()
+
+templ buttonProgressScript() {
+	@buttonProgressScriptOnce.Once() {
+		<script>
+			document.addEventListener('click', (e) => {
+				const btn = e.target.closest && e.target.closest('.button-progress');
+				if (!btn || btn.dataset.state === 'loading') return;
+				const label = btn.querySelector('.button-progress__label');
+				const bar = btn.querySelector('.button-progress__progress');
+				if (btn.dataset.state === 'loaded') {
+					btn.dataset.state = 'idle';
+					btn.removeAttribute('color');
+					if (label) label.textContent = 'Upload files';
+					if (bar) bar.setAttribute('value', '0');
+					return;
+				}
+				btn.dataset.state = 'loading';
+				if (label) label.textContent = 'Uploading files';
+				let value = 0;
+				const id = window.setInterval(() => {
+					value += 1;
+					if (bar) bar.setAttribute('value', String(value));
+					if (value >= 100) {
+						window.clearInterval(id);
+						btn.dataset.state = 'loaded';
+						btn.setAttribute('color', 'teal');
+						if (label) label.textContent = 'Files uploaded';
+						if (bar) bar.setAttribute('value', '0');
+					}
+				}, 20);
+			});
+		</script>
+	}
+}
