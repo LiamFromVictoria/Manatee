@@ -83,7 +83,9 @@ templ NavbarNested() {
 		<div class="navbar-nested__header">
 			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
 				@blocks.Logo(24)
-				@mt.Code(mt.CodeProps{Base: mt.Base{Style: "font-weight:700"}}) { v3.1.2 }
+				@mt.Code(mt.CodeProps{Base: mt.Base{Style: "font-weight:700"}}) {
+					v3.1.2 
+				}
 			}
 		</div>
 		@mt.ScrollArea(mt.ScrollAreaProps{Base: mt.Base{Class: "navbar-nested__links"}}) {

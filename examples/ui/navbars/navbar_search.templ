@@ -97,9 +97,9 @@ templ NavbarSearch() {
 		</div>
 		@mt.TextInput(mt.TextInputProps{
 			Placeholder: "Search", Size: mt.XS, AutoComplete: "off",
-			LeftSection: navbarSearchIcon(),
+			LeftSection:  navbarSearchIcon(),
 			RightSection: navbarSearchShortcut(), RightSectionWidth: "70",
-			Base:        mt.Base{Mb: mt.SM},
+			Base: mt.Base{Mb: mt.SM},
 		})
 		<div class="navbar-search__section">
 			<div class="navbar-search__main-links">
@@ -122,7 +122,9 @@ templ NavbarSearch() {
 		</div>
 		<div class="navbar-search__section">
 			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "navbar-search__collections-header"}}) {
-				@mt.Text(mt.TextProps{Size: "xs", Fw: 500, C: mt.Dimmed}) { Collections }
+				@mt.Text(mt.TextProps{Size: "xs", Fw: 500, C: mt.Dimmed}) {
+					Collections 
+				}
 				@mt.Tooltip(mt.TooltipProps{Label: "Create collection", WithArrow: true, Position: "right"}) {
 					@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Default, Size: "18", AriaLabel: "Create collection"}) {
 						@icons.IconPlus(icons.Props{Size: 12, Stroke: 1.5})
@@ -145,5 +147,7 @@ templ navbarSearchIcon() {
 }
 
 templ navbarSearchShortcut() {
-	@mt.Code(mt.CodeProps{Base: mt.Base{Class: "navbar-search__search-code"}}) { Ctrl + K }
+	@mt.Code(mt.CodeProps{Base: mt.Base{Class: "navbar-search__search-code"}}) {
+		Ctrl + K 
+	}
 }

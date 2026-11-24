@@ -1,8 +1,8 @@
 package contact
 
 import (
-	"encoding/base64"
 	_ "embed"
+	"encoding/base64"
 
 	"github.com/LiamFromVictoria/Manatee/icons"
 	"github.com/LiamFromVictoria/Manatee/mt"
@@ -15,7 +15,7 @@ var getInTouchBgDataURL = "data:image/svg+xml;base64," + base64.StdEncoding.Enco
 
 type getInTouchIcon struct {
 	Title, Description string
-	Icon                templ.Component
+	Icon               templ.Component
 }
 
 var getInTouchIcons = []getInTouchIcon{

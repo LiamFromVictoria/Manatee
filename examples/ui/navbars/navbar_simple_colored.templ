@@ -71,7 +71,9 @@ templ NavbarSimpleColored() {
 				<span class="navbar-simple-colored__logo">
 					@blocks.Logo(28)
 				</span>
-				@mt.Code(mt.CodeProps{Base: mt.Base{Class: "navbar-simple-colored__version", Style: "font-weight:700"}}) { v3.1.2 }
+				@mt.Code(mt.CodeProps{Base: mt.Base{Class: "navbar-simple-colored__version", Style: "font-weight:700"}}) {
+					v3.1.2 
+				}
 			}
 			for i, l := range navbarSimpleLinks {
 				<a href="#" class="navbar-simple-colored__link" data-active-item={ l.Label } data-active?={ i == 1 }>

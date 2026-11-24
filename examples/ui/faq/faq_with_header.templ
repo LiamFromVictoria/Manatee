@@ -7,7 +7,7 @@ import (
 
 type faqWithHeaderContact struct {
 	Title, Description string
-	Icon                templ.Component
+	Icon               templ.Component
 }
 
 var faqWithHeaderContacts = []faqWithHeaderContact{
@@ -172,7 +172,7 @@ templ FaqWithHeader() {
 		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 3}) {
 			for _, cat := range faqWithHeaderCategories {
 				@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "faq-with-header__category-card", Style: "background-image:url(" + cat.Image + ")"}}) {
-				@mt.Overlay(mt.OverlayProps{Color: "#000", BackgroundOpacity: faqWithHeaderOpacity(0.6), ZIndex: 1})
+					@mt.Overlay(mt.OverlayProps{Color: "#000", BackgroundOpacity: faqWithHeaderOpacity(0.6), ZIndex: 1})
 					@mt.Text(mt.TextProps{Size: mt.XL, Ta: "center", Fw: 700, Base: mt.Base{Class: "faq-with-header__category-label"}}) {
 						{ cat.Label }
 					}

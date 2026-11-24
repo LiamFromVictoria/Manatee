@@ -86,7 +86,9 @@ templ HeaderMenu() {
 							@mt.Menu(mt.MenuProps{Trigger: "hover", Target: headerMenuTarget(l.Label)}) {
 								@mt.MenuDropdown(mt.MenuDropdownProps{}) {
 									for _, s := range l.SubLinks {
-										@mt.MenuItem(mt.MenuItemProps{Href: s.Link}) { { s.Label } }
+										@mt.MenuItem(mt.MenuItemProps{Href: s.Link}) {
+											{ s.Label }
+										}
 									}
 								}
 							}

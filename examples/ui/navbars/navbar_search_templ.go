@@ -260,7 +260,7 @@ func NavbarSearch() templ.Component {
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(c.Emoji)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 135, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 137, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
@@ -273,7 +273,7 @@ func NavbarSearch() templ.Component {
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(c.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 135, Col: 80}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/navbar_search.templ`, Line: 137, Col: 80}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {

@@ -7,11 +7,11 @@ type MenuProps struct {
 	Trigger            string          // click (default) | hover | click-hover
 	Position           string          // bottom (default) | top | left | right, each with -start/-end
 	Offset             int             // default 8
-	Width              string // "target" to match the trigger's width, or raw CSS
+	Width              string          // "target" to match the trigger's width, or raw CSS
 	Disabled           bool
 	Opened             bool
-	CloseOnItemClick   *bool  // default true
-	Loop               *bool  // default true
+	CloseOnItemClick   *bool // default true
+	Loop               *bool // default true
 	WithArrow          bool
 	ArrowSize          int    // default 7
 	ArrowOffset        int    // default 5
@@ -124,5 +124,5 @@ type MenuDividerProps struct {
 }
 
 templ MenuDivider(p MenuDividerProps) {
-	<mt-menu-divider { attrs(p.Base)... }/>
+	<mt-menu-divider { attrs(p.Base)... }></mt-menu-divider>
 }

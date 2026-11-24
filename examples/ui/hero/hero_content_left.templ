@@ -59,9 +59,9 @@ templ HeroContentLeft() {
 	}
 	<div class="hero-content-left">
 		@mt.Overlay(mt.OverlayProps{
-			Gradient: "linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 40%)",
+			Gradient:          "linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 40%)",
 			BackgroundOpacity: new(1.0),
-			Base: mt.Base{Attrs: templ.Attributes{"z-index": "0"}},
+			Base:              mt.Base{Attrs: templ.Attributes{"z-index": "0"}},
 		})
 		@mt.Container(mt.ContainerProps{Size: mt.MD, Base: mt.Base{Class: "hero-content-left__container"}}) {
 			@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Class: "hero-content-left__title"}}) {

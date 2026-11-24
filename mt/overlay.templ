@@ -3,14 +3,14 @@ package mt
 // OverlayProps mirrors Mantine's Overlay.
 type OverlayProps struct {
 	Base
-	Color            string // default #000
+	Color             string   // default #000
 	BackgroundOpacity *float64 // default 0.6
-	Blur             int    // px
-	Gradient         string // CSS gradient, overrides Color/BackgroundOpacity
-	Radius           string
-	ZIndex           int // default 200
-	Center           bool
-	Fixed            bool
+	Blur              int      // px
+	Gradient          string   // CSS gradient, overrides Color/BackgroundOpacity
+	Radius            string
+	ZIndex            int // default 200
+	Center            bool
+	Fixed             bool
 }
 
 templ Overlay(p OverlayProps) {

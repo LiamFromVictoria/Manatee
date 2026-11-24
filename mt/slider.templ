@@ -63,31 +63,31 @@ templ sliderMarkEl(m SliderMark) {
 // RangeSliderProps mirrors Mantine's RangeSlider.
 type RangeSliderProps struct {
 	Base
-	Name             string
-	From             *float64 // default Min
-	To               *float64 // default Max
-	Min              *float64 // default 0
-	Max              *float64 // default 100
-	Step             float64  // default 1
-	Precision        *int
-	Color            string
-	Size             string // xs..xl (default md)
-	Radius           string // default xl
-	ThumbSize        float64
-	ThumbLabel       string
-	ThumbFromLabel   string // overrides ThumbLabel for the "from" thumb
-	ThumbToLabel     string // overrides ThumbLabel for the "to" thumb
-	Label            *bool
-	LabelFormat      string
-	LabelAlwaysOn    bool
-	ShowLabelOnHover *bool // default true
-	Marks            []SliderMark
-	RestrictToMarks  bool
-	Inverted         bool
-	Disabled         bool
-	MinRange         *float64 // default 10
-	MaxRange         *float64 // default unlimited
-	PushOnOverlap    *bool    // default true
+	Name              string
+	From              *float64 // default Min
+	To                *float64 // default Max
+	Min               *float64 // default 0
+	Max               *float64 // default 100
+	Step              float64  // default 1
+	Precision         *int
+	Color             string
+	Size              string // xs..xl (default md)
+	Radius            string // default xl
+	ThumbSize         float64
+	ThumbLabel        string
+	ThumbFromLabel    string // overrides ThumbLabel for the "from" thumb
+	ThumbToLabel      string // overrides ThumbLabel for the "to" thumb
+	Label             *bool
+	LabelFormat       string
+	LabelAlwaysOn     bool
+	ShowLabelOnHover  *bool // default true
+	Marks             []SliderMark
+	RestrictToMarks   bool
+	Inverted          bool
+	Disabled          bool
+	MinRange          *float64        // default 10
+	MaxRange          *float64        // default unlimited
+	PushOnOverlap     *bool           // default true
 	ThumbChildren     templ.Component // shared fallback for both thumbs
 	ThumbFromChildren templ.Component // overrides ThumbChildren for the "from" thumb
 	ThumbToChildren   templ.Component // overrides ThumbChildren for the "to" thumb

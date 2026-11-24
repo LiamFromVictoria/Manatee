@@ -77,8 +77,12 @@ templ ArticlesCardsGrid() {
 					@mt.AspectRatio(mt.AspectRatioProps{Ratio: "1920/1080"}) {
 						@mt.Image(mt.ImageProps{Src: a.Image, Alt: a.Title, Radius: mt.MD})
 					}
-					@mt.Text(mt.TextProps{Base: mt.Base{Class: "articles-cards-grid__date"}}) { { a.Date } }
-					@mt.Text(mt.TextProps{Base: mt.Base{Class: "articles-cards-grid__title"}}) { { a.Title } }
+					@mt.Text(mt.TextProps{Base: mt.Base{Class: "articles-cards-grid__date"}}) {
+						{ a.Date }
+					}
+					@mt.Text(mt.TextProps{Base: mt.Base{Class: "articles-cards-grid__title"}}) {
+						{ a.Title }
+					}
 				</a>
 			}
 		}

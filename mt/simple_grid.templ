@@ -3,13 +3,13 @@ package mt
 // SimpleGridProps mirrors Mantine's SimpleGrid.
 type SimpleGridProps struct {
 	Base
-	Cols             int
-	Spacing          string // xs..xl (default md) or a raw value
-	VerticalSpacing  string // defaults to Spacing
+	Cols                                                                       int
+	Spacing                                                                    string // xs..xl (default md) or a raw value
+	VerticalSpacing                                                            string // defaults to Spacing
 	ColsXs, ColsSm, ColsMd, ColsLg, ColsXl                                     int
 	SpacingXs, SpacingSm, SpacingMd, SpacingLg, SpacingXl                      string
 	VerticalSpacingXs, VerticalSpacingSm, VerticalSpacingMd, VerticalSpacingLg string
-	VerticalSpacingXl                                                         string
+	VerticalSpacingXl                                                          string
 }
 
 templ SimpleGrid(p SimpleGridProps) {

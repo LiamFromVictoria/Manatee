@@ -77,7 +77,9 @@ templ NavbarSimple() {
 		<div class="navbar-simple__main" data-active-group>
 			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "navbar-simple__header"}}) {
 				@blocks.Logo(28)
-				@mt.Code(mt.CodeProps{Base: mt.Base{Style: "font-weight:700"}}) { v3.1.2 }
+				@mt.Code(mt.CodeProps{Base: mt.Base{Style: "font-weight:700"}}) {
+					v3.1.2 
+				}
 			}
 			for i, l := range navbarSimpleLinks {
 				<a href="#" class="navbar-simple__link" data-active-item={ l.Label } data-active?={ i == 1 }>

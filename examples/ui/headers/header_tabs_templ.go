@@ -383,7 +383,7 @@ func HeaderTabs() templ.Component {
 							var templ_7745c5c3_Var19 string
 							templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(t)
 							if templ_7745c5c3_Err != nil {
-								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_tabs.templ`, Line: 105, Col: 84}
+								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_tabs.templ`, Line: 106, Col: 10}
 							}
 							_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 							if templ_7745c5c3_Err != nil {
@@ -446,7 +446,7 @@ func HeaderTabs() templ.Component {
 				var templ_7745c5c3_Var21 string
 				templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(t)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_tabs.templ`, Line: 115, Col: 52}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_tabs.templ`, Line: 117, Col: 52}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 				if templ_7745c5c3_Err != nil {

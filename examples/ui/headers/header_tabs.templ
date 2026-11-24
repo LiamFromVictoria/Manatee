@@ -102,7 +102,9 @@ templ HeaderTabs() {
 			@mt.Tabs(mt.TabsProps{Value: "Home", Variant: "outline", Base: mt.Base{Class: "header-tabs__tabs", VisibleFrom: mt.SM}}) {
 				@mt.TabsList(mt.TabsListProps{}) {
 					for _, t := range headerTabsTabs {
-						@mt.Tab(mt.TabProps{Value: t, Base: mt.Base{Class: "header-tabs__tab"}}) { { t } }
+						@mt.Tab(mt.TabProps{Value: t, Base: mt.Base{Class: "header-tabs__tab"}}) {
+							{ t }
+						}
 					}
 				}
 			}
@@ -122,7 +124,9 @@ templ headerTabsUserTarget() {
 	@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "header-tabs__user"}}) {
 		@mt.Group(mt.GroupProps{Gap: "7"}) {
 			@mt.Avatar(mt.AvatarProps{Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png", Radius: "xl", Size: "20"})
-			@mt.Text(mt.TextProps{Fw: 500, Size: "sm", Base: mt.Base{Mr: "3", Lh: "1"}}) { Jane Spoonfighter }
+			@mt.Text(mt.TextProps{Fw: 500, Size: "sm", Base: mt.Base{Mr: "3", Lh: "1"}}) {
+				Jane Spoonfighter 
+			}
 			@icons.IconChevronDown(icons.Props{Size: 12, Stroke: 1.5})
 		}
 	}

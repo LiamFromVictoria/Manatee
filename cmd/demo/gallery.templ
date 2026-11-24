@@ -128,6 +128,7 @@ func canvasStyle(b blocks.Block) templ.SafeCSS {
 
 // canvasHeightScript reports the document height to the gallery page so the
 // preview iframe can size itself.
+
 script canvasHeightScript(slug string) {
 	if (window.parent === window) return;
 	const post = () => window.parent.postMessage({ type: 'mt-ui-height', slug, height: document.body.getBoundingClientRect().height }, location.origin);

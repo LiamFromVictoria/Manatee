@@ -5,19 +5,19 @@ package mt
 // from (label = text content).
 type SegmentedControlProps struct {
 	Base
-	Name                      string
-	Value                     string
-	Color                     string
-	Size                      string
-	Radius                    string
-	FullWidth                 bool
-	Orientation               string // horizontal (default) | vertical
-	Disabled                  bool
-	ReadOnly                  bool
-	Required                  bool
-	TransitionDuration        int // ms, default 200
-	TransitionTimingFunction  string
-	Data                      []SelectItem
+	Name                     string
+	Value                    string
+	Color                    string
+	Size                     string
+	Radius                   string
+	FullWidth                bool
+	Orientation              string // horizontal (default) | vertical
+	Disabled                 bool
+	ReadOnly                 bool
+	Required                 bool
+	TransitionDuration       int // ms, default 200
+	TransitionTimingFunction string
+	Data                     []SelectItem
 }
 
 templ SegmentedControl(p SegmentedControlProps) {

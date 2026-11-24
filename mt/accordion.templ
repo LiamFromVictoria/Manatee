@@ -3,13 +3,13 @@ package mt
 // AccordionProps mirrors Mantine's Accordion.
 type AccordionProps struct {
 	Base
-	Value                   string // comma-separated when Multiple
-	Multiple                bool
-	Variant                 string // default | contained | filled | separated
-	ChevronPosition         string // left | right (default)
-	DisableChevronRotation  bool
-	Radius                  string
-	TransitionDuration      int // ms, default 200
+	Value                  string // comma-separated when Multiple
+	Multiple               bool
+	Variant                string // default | contained | filled | separated
+	ChevronPosition        string // left | right (default)
+	DisableChevronRotation bool
+	Radius                 string
+	TransitionDuration     int // ms, default 200
 }
 
 templ Accordion(p AccordionProps) {

@@ -9,12 +9,12 @@ import (
 // with a search icon and a filled circular submit button in its right section.
 templ InputWithButton() {
 	@mt.TextInput(mt.TextInputProps{
-		Radius:      mt.XL,
-		Size:        mt.MD,
-		Placeholder: "Search questions",
-		LeftSection: inputWithButtonSearchIcon(),
+		Radius:       mt.XL,
+		Size:         mt.MD,
+		Placeholder:  "Search questions",
+		LeftSection:  inputWithButtonSearchIcon(),
 		RightSection: inputWithButtonAction(),
-		Base:        mt.Base{Attrs: templ.Attributes{"aria-label": "Search questions"}},
+		Base:         mt.Base{Attrs: templ.Attributes{"aria-label": "Search questions"}},
 	})
 }
 

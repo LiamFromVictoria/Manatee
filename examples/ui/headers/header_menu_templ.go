@@ -161,7 +161,7 @@ func HeaderMenu() templ.Component {
 										var templ_7745c5c3_Var8 string
 										templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(s.Label)
 										if templ_7745c5c3_Err != nil {
-											return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 89, Col: 66}
+											return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 90, Col: 20}
 										}
 										_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 										if templ_7745c5c3_Err != nil {
@@ -194,7 +194,7 @@ func HeaderMenu() templ.Component {
 						var templ_7745c5c3_Var9 string
 						templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(l.Label)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 94, Col: 54}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 96, Col: 54}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 						if templ_7745c5c3_Err != nil {
@@ -259,7 +259,7 @@ func HeaderMenu() templ.Component {
 					var templ_7745c5c3_Var11 string
 					templ_7745c5c3_Var11, templ_7745c5c3_Err = templruntime.NewAttributeExpression(fmt.Sprintf("header-menu-drawer-group-%d", i)).Resolve(ctx)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 107, Col: 115}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 109, Col: 115}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11)
 					if templ_7745c5c3_Err != nil {
@@ -272,7 +272,7 @@ func HeaderMenu() templ.Component {
 					var templ_7745c5c3_Var12 string
 					templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(l.Label)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 108, Col: 53}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 110, Col: 53}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 					if templ_7745c5c3_Err != nil {
@@ -310,7 +310,7 @@ func HeaderMenu() templ.Component {
 							var templ_7745c5c3_Var14 string
 							templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(s.Label)
 							if templ_7745c5c3_Err != nil {
-								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 113, Col: 58}
+								return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 115, Col: 58}
 							}
 							_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 							if templ_7745c5c3_Err != nil {
@@ -335,7 +335,7 @@ func HeaderMenu() templ.Component {
 					var templ_7745c5c3_Var15 string
 					templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(l.Label)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 117, Col: 52}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 119, Col: 52}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 					if templ_7745c5c3_Err != nil {
@@ -401,7 +401,7 @@ func headerMenuTarget(label string) templ.Component {
 			var templ_7745c5c3_Var18 string
 			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 127, Col: 48}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_menu.templ`, Line: 129, Col: 48}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 			if templ_7745c5c3_Err != nil {
