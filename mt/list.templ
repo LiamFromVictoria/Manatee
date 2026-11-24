@@ -1,0 +1,38 @@
+package mt
+
+// ListProps mirrors Mantine's List.
+type ListProps struct {
+	Base
+	Type          string // unordered (default) | ordered
+	Size          string
+	Spacing       string
+	Center        bool
+	WithPadding   bool
+	ListStyleType string
+	Icon          templ.Component // default icon applied to items without their own
+}
+
+templ List(p ListProps) {
+	<mt-list
+		{ attrs(p.Base,
+			"type", p.Type, "size", p.Size, "spacing", p.Spacing, "center", p.Center,
+			"with-padding", p.WithPadding, "list-style-type", p.ListStyleType,
+		)... }
+	>
+		@slot("icon", p.Icon)
+		{ children... }
+	</mt-list>
+}
+
+// ListItemProps mirrors Mantine's List.Item.
+type ListItemProps struct {
+	Base
+	Icon templ.Component // overrides the list's default icon for this item
+}
+
+templ ListItem(p ListItemProps) {
+	<mt-list-item { attrs(p.Base)... }>
+		@slot("icon", p.Icon)
+		{ children... }
+	</mt-list-item>
+}

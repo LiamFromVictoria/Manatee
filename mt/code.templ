@@ -1,0 +1,14 @@
+package mt
+
+// CodeProps mirrors Mantine's Code.
+type CodeProps struct {
+	Base
+	Color string
+	Block bool
+}
+
+templ Code(p CodeProps) {
+	<mt-code { attrs(p.Base, "color", p.Color, "block", p.Block)... }>
+		{ children... }
+	</mt-code>
+}

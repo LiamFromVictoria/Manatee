@@ -1,0 +1,144 @@
+package main
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+templ SliderPage() {
+	@Demo("Usage", `@mt.Slider(mt.SliderProps{})`) {
+		@mt.Slider(mt.SliderProps{Base: mt.Base{Maw: "400"}})
+	}
+	@Demo("Color, size and radius", `@mt.Slider(mt.SliderProps{Color: mt.Grape, Size: mt.XL})`) {
+		@mt.Stack(mt.StackProps{Base: mt.Base{Maw: "400"}}) {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Slider(mt.SliderProps{Color: mt.Grape, Size: s, Value: new(40.0)})
+			}
+		}
+	}
+	@Demo("Marks", `@mt.Slider(mt.SliderProps{Marks: []mt.SliderMark{{Value: 20}, {Value: 50, Label: "50%"}, {Value: 80}}})`) {
+		@mt.Slider(mt.SliderProps{
+			Value: new(40.0),
+			Marks: []mt.SliderMark{
+				{Value: 0, Label: "0%"},
+				{Value: 20},
+				{Value: 50, Label: "50%"},
+				{Value: 80},
+				{Value: 100, Label: "100%"},
+			},
+			Base: mt.Base{Maw: "400", Mb: "xl"},
+		})
+	}
+	@Demo("Restrict to marks", `@mt.Slider(mt.SliderProps{RestrictToMarks: true, Marks: [...]})`) {
+		@mt.Slider(mt.SliderProps{
+			RestrictToMarks: true,
+			Value:           new(25.0),
+			Marks: []mt.SliderMark{
+				{Value: 0}, {Value: 25}, {Value: 50}, {Value: 75}, {Value: 100},
+			},
+			Base: mt.Base{Maw: "400", Mb: "xl"},
+		})
+	}
+	@Demo("Label format, always on, thumb icon", `@mt.Slider(mt.SliderProps{LabelFormat: "{value}°C", LabelAlwaysOn: true, ThumbChildren: icons.IconGripVertical(...)})`) {
+		@mt.Stack(mt.StackProps{Base: mt.Base{Maw: "400"}}) {
+			@mt.Slider(mt.SliderProps{LabelFormat: "{value}°C", LabelAlwaysOn: true, Value: new(60.0), Color: mt.Red})
+			@mt.Slider(mt.SliderProps{ThumbChildren: icons.IconGripVertical(icons.Props{Size: 14}), ThumbSize: 20, Value: new(35.0)})
+			@mt.Slider(mt.SliderProps{Label: new(false), Value: new(70.0)})
+		}
+	}
+	@Demo("Inverted and disabled", `@mt.Slider(mt.SliderProps{Inverted: true})`) {
+		@mt.Stack(mt.StackProps{Base: mt.Base{Maw: "400"}}) {
+			@mt.Slider(mt.SliderProps{Inverted: true, Value: new(30.0)})
+			@mt.Slider(mt.SliderProps{Disabled: true, Value: new(50.0)})
+		}
+	}
+	@Demo("Step and precision, in a form", `@mt.Slider(mt.SliderProps{Name: "volume", Step: 0.5, Precision: new(1)})`) {
+		<form method="post" action="/echo">
+			@mt.Slider(mt.SliderProps{Name: "volume", Step: 0.5, Precision: new(1), Value: new(12.5), Base: mt.Base{Maw: "400", Mb: "md"}})
+			@mt.Button(mt.ButtonProps{Type: "submit"}) {
+				Submit
+			}
+		</form>
+	}
+}
+
+templ RangeSliderPage() {
+	@Demo("Usage", `@mt.RangeSlider(mt.RangeSliderProps{From: new(20.0), To: new(80.0)})`) {
+		@mt.RangeSlider(mt.RangeSliderProps{From: new(20.0), To: new(80.0), Base: mt.Base{Maw: "400"}})
+	}
+	@Demo("minRange / maxRange / pushOnOverlap", `@mt.RangeSlider(mt.RangeSliderProps{MinRange: new(10.0), MaxRange: new(40.0)})`) {
+		@mt.Stack(mt.StackProps{Base: mt.Base{Maw: "400"}}) {
+			@mt.RangeSlider(mt.RangeSliderProps{From: new(20.0), To: new(40.0), MinRange: new(10.0), MaxRange: new(40.0), Color: mt.Teal})
+			@mt.RangeSlider(mt.RangeSliderProps{From: new(20.0), To: new(30.0), MinRange: new(10.0), PushOnOverlap: new(false), Color: mt.Orange})
+		}
+	}
+	@Demo("Marks and restrictToMarks", `@mt.RangeSlider(mt.RangeSliderProps{RestrictToMarks: true, Marks: [...]})`) {
+		@mt.RangeSlider(mt.RangeSliderProps{
+			From:            new(25.0),
+			To:              new(75.0),
+			RestrictToMarks: true,
+			Marks: []mt.SliderMark{
+				{Value: 0}, {Value: 25}, {Value: 50}, {Value: 75}, {Value: 100},
+			},
+			Base: mt.Base{Maw: "400", Mb: "xl"},
+		})
+	}
+	@Demo("Size, color, label always on", `@mt.RangeSlider(mt.RangeSliderProps{Size: mt.LG, LabelAlwaysOn: true})`) {
+		@mt.RangeSlider(mt.RangeSliderProps{From: new(10.0), To: new(90.0), Size: mt.LG, Color: mt.Pink, LabelAlwaysOn: true, Base: mt.Base{Maw: "400", Mb: "xl"}})
+	}
+	@Demo("Disabled, in a form (submits two entries)", `@mt.RangeSlider(mt.RangeSliderProps{Name: "price"})`) {
+		<form method="post" action="/echo">
+			@mt.RangeSlider(mt.RangeSliderProps{Name: "price", From: new(20.0), To: new(80.0), Base: mt.Base{Maw: "400", Mb: "md"}})
+			@mt.Button(mt.ButtonProps{Type: "submit"}) {
+				Submit
+			}
+		</form>
+	}
+}
+
+templ RingProgressPage() {
+	@Demo("Usage", `@mt.RingProgress(mt.RingProgressProps{Sections: []mt.RingProgressSection{{Value: 40, Color: mt.Cyan}, {Value: 15, Color: mt.Blue}}})`) {
+		@Row() {
+			@mt.RingProgress(mt.RingProgressProps{
+				Sections: []mt.RingProgressSection{
+					{Value: 40, Color: mt.Cyan},
+					{Value: 15, Color: mt.Blue},
+					{Value: 15, Color: mt.Grape},
+				},
+			})
+		}
+	}
+	@Demo("Label and tooltip", `@mt.RingProgress(mt.RingProgressProps{Label: ..., Sections: [{Value, Color, Tooltip}, ...]})`) {
+		@Row() {
+			@mt.RingProgress(mt.RingProgressProps{
+				Label: ringUsageLabel(),
+				Sections: []mt.RingProgressSection{
+					{Value: 40, Color: mt.Cyan, Tooltip: "Documents: 40%"},
+					{Value: 15, Color: mt.Blue, Tooltip: "Photos: 15%"},
+					{Value: 15, Color: mt.Grape, Tooltip: "Videos: 15%"},
+				},
+			})
+		}
+	}
+	@Demo("Size, thickness and round caps", `@mt.RingProgress(mt.RingProgressProps{Size: 160, Thickness: 20, RoundCaps: true})`) {
+		@Row() {
+			@mt.RingProgress(mt.RingProgressProps{Size: 80, Thickness: 8, Sections: []mt.RingProgressSection{{Value: 65, Color: mt.Green}}})
+			@mt.RingProgress(mt.RingProgressProps{Size: 120, Thickness: 12, RoundCaps: true, Sections: []mt.RingProgressSection{{Value: 65, Color: mt.Green}}})
+			@mt.RingProgress(mt.RingProgressProps{Size: 180, Thickness: 24, RoundCaps: true, Sections: []mt.RingProgressSection{{Value: 65, Color: mt.Green}}})
+		}
+	}
+	@Demo("Root color (unfilled background)", `@mt.RingProgress(mt.RingProgressProps{RootColor: mt.Dark})`) {
+		@Row() {
+			@mt.RingProgress(mt.RingProgressProps{
+				RootColor: mt.Dark,
+				Sections:  []mt.RingProgressSection{{Value: 70, Color: mt.Yellow}},
+			})
+		}
+	}
+}
+
+templ ringUsageLabel() {
+	@mt.Text(mt.TextProps{Size: "xs", Ta: "center"}) {
+		Usage
+	}
+}

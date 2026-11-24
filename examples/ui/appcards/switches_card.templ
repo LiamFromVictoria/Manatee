@@ -1,0 +1,58 @@
+package appcards
+
+import "github.com/you/manatee/mt"
+
+type switchesCardItem struct{ Title, Description string }
+
+var switchesCardItems = []switchesCardItem{
+	{"Messages", "Direct messages you have received from other users"},
+	{"Review requests", "Code review requests from your team members"},
+	{"Comments", "Daily digest with comments on your posts"},
+	{"Recommendations", "Digest with best community posts from previous week"},
+}
+
+var switchesCardCSS = templ.NewOnceHandle()
+
+// SwitchesCard ports ui.mantine.dev SwitchesCard: a notification-preferences
+// card with a title/description switch row per item.
+templ SwitchesCard() {
+	@switchesCardCSS.Once() {
+		<style>
+			.switches-card__card {
+				background-color: var(--mt-color-body);
+			}
+			.switches-card__item + .switches-card__item {
+				padding-top: var(--mt-spacing-sm);
+				margin-top: var(--mt-spacing-sm);
+				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));
+			}
+			.switches-card__switch * {
+				cursor: pointer;
+			}
+			.switches-card__title {
+				line-height: 1;
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Class: "switches-card__card"}}) {
+		@mt.Text(mt.TextProps{Size: "lg", Fw: 500, Base: mt.Base{Class: "switches-card__title"}}) {
+			Configure notifications
+		}
+		@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Mt: "3", Mb: mt.XL}}) {
+			Choose what notifications you want to receive
+		}
+		for _, item := range switchesCardItems {
+			@mt.Group(mt.GroupProps{Justify: "space-between", Wrap: "nowrap", Gap: mt.XL, Base: mt.Base{Class: "switches-card__item"}}) {
+				<div>
+					@mt.Text(mt.TextProps{}) {
+						{ item.Title }
+					}
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+						{ item.Description }
+					}
+				</div>
+				@mt.Switch(mt.SwitchProps{OnLabel: "ON", OffLabel: "OFF", Size: mt.LG, Base: mt.Base{Class: "switches-card__switch", Attrs: templ.Attributes{"aria-label": item.Title}}})
+			}
+		}
+	}
+}

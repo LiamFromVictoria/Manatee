@@ -1,0 +1,23 @@
+package mt
+
+// SkeletonProps mirrors Mantine's Skeleton.
+type SkeletonProps struct {
+	Base
+	Height  string
+	Width   string
+	Circle  bool
+	Radius  string
+	Animate *bool // default true
+	Visible *bool // default true
+}
+
+templ Skeleton(p SkeletonProps) {
+	<mt-skeleton
+		{ attrs(p.Base,
+			"height", p.Height, "width", p.Width, "circle", p.Circle, "radius", p.Radius,
+			"animate", p.Animate, "visible", p.Visible,
+		)... }
+	>
+		{ children... }
+	</mt-skeleton>
+}

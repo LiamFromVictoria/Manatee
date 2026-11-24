@@ -1,0 +1,42 @@
+package mt
+
+// NativeSelectProps mirrors Mantine's NativeSelect. Data/Groups become the
+// light-DOM <option>/<optgroup> children cloned into the shadow <select>.
+type NativeSelectProps struct {
+	Base
+	Name        string
+	Value       string
+	Label       string
+	Description string
+	Error       string
+	Variant     string // default | filled | unstyled
+	Size        string
+	Radius      string
+	Required    bool
+	Disabled    bool
+	Data        []SelectItem
+	Groups      []SelectGroup
+	LeftSection templ.Component
+}
+
+templ NativeSelect(p NativeSelectProps) {
+	<mt-native-select
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "label", p.Label, "description", p.Description, "error", p.Error,
+			"variant", p.Variant, "size", p.Size, "radius", p.Radius, "required", p.Required, "disabled", p.Disabled,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		for _, it := range p.Data {
+			<option value={ it.Value } disabled?={ it.Disabled }>{ it.Label }</option>
+		}
+		for _, g := range p.Groups {
+			<optgroup label={ g.Label }>
+				for _, it := range g.Items {
+					<option value={ it.Value } disabled?={ it.Disabled }>{ it.Label }</option>
+				}
+			</optgroup>
+		}
+		{ children... }
+	</mt-native-select>
+}

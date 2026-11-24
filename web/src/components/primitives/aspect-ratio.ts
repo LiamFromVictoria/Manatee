@@ -1,13 +1,10 @@
-import { css, define, html, MtElement, type Props } from '../../core';
+import { css, define, MtElement, type Props } from '../../core';
 
 const styles = css`
   :host {
     display: block;
+    position: relative;
     --_ratio: 1;
-    position: relative;
-  }
-  .root {
-    position: relative;
     aspect-ratio: var(--_ratio);
   }
   ::slotted(*) {
@@ -27,10 +24,6 @@ export class MtAspectRatio extends MtElement {
   static props: Props = {
     ratio: { css: '--_ratio', scale: 'raw', default: '1' },
   };
-
-  protected template(): string {
-    return html`<div class="root" part="root"><slot></slot></div>`;
-  }
 }
 
 define('mt-aspect-ratio', MtAspectRatio);

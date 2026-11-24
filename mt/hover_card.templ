@@ -1,0 +1,42 @@
+package mt
+
+// HoverCardProps mirrors Mantine's HoverCard.
+type HoverCardProps struct {
+	Base
+	Position            string // top | bottom (default) | left | right, with -start/-end
+	Offset              int    // px, default 8
+	WithArrow           bool
+	Width               string // px/rem value, or "target" to match the target width
+	Disabled            bool
+	Opened              bool
+	OpenDelay           int // ms, default 0
+	CloseDelay          int // ms, default 150
+	CloseOnClickOutside *bool // default true
+	Target              templ.Component
+}
+
+templ HoverCard(p HoverCardProps) {
+	<mt-hover-card
+		{ attrs(p.Base,
+			"position", p.Position, "offset", p.Offset, "with-arrow", p.WithArrow, "width", p.Width,
+			"disabled", p.Disabled, "opened", p.Opened, "open-delay", p.OpenDelay, "close-delay", p.CloseDelay,
+			"close-on-click-outside", p.CloseOnClickOutside,
+		)... }
+	>
+		@slot("target", p.Target)
+		{ children... }
+	</mt-hover-card>
+}
+
+// HoverCardDropdownProps mirrors Mantine's HoverCard.Dropdown.
+type HoverCardDropdownProps struct {
+	Base
+	Radius string
+	Shadow string // default md
+}
+
+templ HoverCardDropdown(p HoverCardDropdownProps) {
+	<mt-hover-card-dropdown { attrs(p.Base, "radius", p.Radius, "shadow", p.Shadow)... }>
+		{ children... }
+	</mt-hover-card-dropdown>
+}

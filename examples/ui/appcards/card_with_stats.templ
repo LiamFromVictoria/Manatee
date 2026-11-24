@@ -1,0 +1,70 @@
+package appcards
+
+import "github.com/you/manatee/mt"
+
+type cardWithStatsItem struct{ Title, Value string }
+
+var cardWithStatsItems = []cardWithStatsItem{
+	{"Distance", "27.4 km"},
+	{"Avg. speed", "9.6 km/h"},
+	{"Score", "88/100"},
+}
+
+var cardWithStatsCSS = templ.NewOnceHandle()
+
+// CardWithStats ports ui.mantine.dev CardWithStats: an image card with a
+// progress-ring completion badge and a footer row of stat pairs.
+templ CardWithStats() {
+	@cardWithStatsCSS.Once() {
+		<style>
+			.card-with-stats__card {
+				background-color: var(--mt-color-body);
+			}
+			.card-with-stats__footer {
+				display: flex;
+				justify-content: space-between;
+				padding: var(--mt-spacing-sm) var(--mt-spacing-lg);
+				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
+			}
+			.card-with-stats__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+				line-height: 1;
+				font-size: var(--mt-font-size-sm);
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{WithBorder: true, Padding: mt.LG, Radius: mt.MD, Base: mt.Base{Class: "card-with-stats__card"}}) {
+		@mt.CardSection(mt.CardSectionProps{}) {
+			@mt.Image(mt.ImageProps{
+				Src: "https://images.unsplash.com/photo-1581889470536-467bdbe30cd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+				Alt: "Running challenge",
+				Base: mt.Base{H: "100px"},
+			})
+		}
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.LG}}) {
+			<p class="card-with-stats__title">Running challenge</p>
+			@mt.Group(mt.GroupProps{Gap: "5"}) {
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					80% completed
+				}
+				@mt.RingProgress(mt.RingProgressProps{Size: 18, Thickness: 2, Sections: []mt.RingProgressSection{{Value: 80, Color: mt.Blue}}})
+			}
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Base: mt.Base{Mt: mt.SM, Mb: mt.MD}}) {
+			56 km this month • 17% improvement compared to last month • 443 place in global scoreboard
+		}
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "card-with-stats__footer"}}) {
+			for _, item := range cardWithStatsItems {
+				<div>
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+						{ item.Title }
+					}
+					@mt.Text(mt.TextProps{Fw: 500, Size: mt.SM}) {
+						{ item.Value }
+					}
+				</div>
+			}
+		}
+	}
+}

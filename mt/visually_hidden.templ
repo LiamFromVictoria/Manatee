@@ -1,0 +1,12 @@
+package mt
+
+// VisuallyHiddenProps mirrors Mantine's VisuallyHidden.
+type VisuallyHiddenProps struct {
+	Base
+}
+
+templ VisuallyHidden(p VisuallyHiddenProps) {
+	<mt-visually-hidden { attrs(p.Base)... }>
+		{ children... }
+	</mt-visually-hidden>
+}

@@ -1,0 +1,90 @@
+package appcards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type badgeCardBadge struct{ Emoji, Label string }
+
+var badgeCardBadges = []badgeCardBadge{
+	{"\u2600\ufe0f", "Sunny weather"},
+	{"\U0001F993", "Onsite zoo"},
+	{"\U0001F30A", "Sea"},
+	{"\U0001F332", "Nature"},
+	{"\U0001F93D", "Water sports"},
+}
+
+var badgeCardCSS = templ.NewOnceHandle()
+
+// BadgeCard ports ui.mantine.dev BadgeCard: an image card with a title/country
+// row, a description, a row of emoji badges, and a details/like action row.
+templ BadgeCard() {
+	@badgeCardCSS.Once() {
+		<style>
+			.badge-card__card {
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-7));
+			}
+			.badge-card__section {
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+				padding-left: var(--mt-spacing-md);
+				padding-right: var(--mt-spacing-md);
+				padding-bottom: var(--mt-spacing-md);
+			}
+			.badge-card__like {
+				color: var(--mt-color-red-6);
+				width: 20px;
+				height: 20px;
+			}
+			.badge-card__label {
+				text-transform: uppercase;
+				font-size: var(--mt-font-size-xs);
+				font-weight: 700;
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Padding: mt.MD, Base: mt.Base{Class: "badge-card__card"}}) {
+		@mt.CardSection(mt.CardSectionProps{}) {
+			@mt.Image(mt.ImageProps{
+				Src: "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
+				Alt: "Verudela Beach",
+				Base: mt.Base{H: "180px"},
+			})
+		}
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "badge-card__section", Mt: mt.MD}}) {
+			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+				@mt.Text(mt.TextProps{Size: "lg", Fw: 500}) {
+					Verudela Beach
+				}
+				@mt.Badge(mt.BadgeProps{Size: mt.SM, Variant: "light"}) {
+					Croatia
+				}
+			}
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: mt.XS}}) {
+				Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully
+				equipped and modernly furnished 4-star self-service apartments located on the
+				Adriatic coastline by one of the most beautiful beaches in Pula.
+			}
+		}
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "badge-card__section"}}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Class: "badge-card__label", Mt: mt.MD}}) {
+				Perfect for you, if you enjoy
+			}
+			@mt.Group(mt.GroupProps{Gap: "7", Base: mt.Base{Mt: "5"}}) {
+				for _, b := range badgeCardBadges {
+					@mt.Badge(mt.BadgeProps{Variant: "light"}) {
+						{ b.Emoji } { b.Label }
+					}
+				}
+			}
+		}
+		@mt.Group(mt.GroupProps{Base: mt.Base{Mt: mt.XS}}) {
+			@mt.Button(mt.ButtonProps{Radius: mt.MD, Base: mt.Base{Style: "flex: 1"}}) {
+				Show details
+			}
+			@mt.ActionIcon(mt.ActionIconProps{Variant: "default", Radius: mt.MD, Size: "36", AriaLabel: "Like"}) {
+				@icons.IconHeart(icons.Props{Stroke: 1.5, Class: "badge-card__like"})
+			}
+		}
+	}
+}

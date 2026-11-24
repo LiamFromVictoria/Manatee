@@ -1,0 +1,103 @@
+package appcards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type featuresCardItem struct {
+	Label string
+	Icon  func(...icons.Props) templ.Component
+}
+
+var featuresCardItems = []featuresCardItem{
+	{"4 passengers", icons.IconUsers},
+	{"100 km/h in 4 seconds", icons.IconGauge},
+	{"Automatic gearbox", icons.IconManualGearbox},
+	{"Electric", icons.IconGasStation},
+}
+
+var featuresCardCSS = templ.NewOnceHandle()
+
+// FeaturesCard ports ui.mantine.dev FeaturesCard: an image card with a
+// title/discount row, an icon-feature list, and a price/rent-now row.
+templ FeaturesCard() {
+	@featuresCardCSS.Once() {
+		<style>
+			.features-card__card {
+				background-color: var(--mt-color-body);
+			}
+			.features-card__image-section {
+				padding: var(--mt-spacing-md);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.features-card__label {
+				margin-bottom: var(--mt-spacing-xs);
+				line-height: 1;
+				font-weight: 700;
+				font-size: var(--mt-font-size-xs);
+				letter-spacing: -0.25px;
+				text-transform: uppercase;
+			}
+			.features-card__section {
+				padding: var(--mt-spacing-md);
+				border-top: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.features-card__icon {
+				margin-right: 5px;
+				color: light-dark(var(--mt-color-gray-5), var(--mt-color-dark-2));
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{Class: "features-card__card"}}) {
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "features-card__image-section"}}) {
+			@mt.Image(mt.ImageProps{Src: "https://i.imgur.com/ZL52Q2D.png", Alt: "Tesla Model S"})
+		}
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.MD}}) {
+			<div>
+				@mt.Text(mt.TextProps{Fw: 500}) {
+					Tesla Model S
+				}
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+					Free recharge at any station
+				}
+			</div>
+			@mt.Badge(mt.BadgeProps{Variant: "outline"}) {
+				25% off
+			}
+		}
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "features-card__section", Mt: mt.MD}}) {
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Class: "features-card__label"}}) {
+				Basic configuration
+			}
+			@mt.Group(mt.GroupProps{Gap: "8", Base: mt.Base{Mb: "-8px"}}) {
+				for _, f := range featuresCardItems {
+					@mt.Center(mt.CenterProps{Inline: true}) {
+						@f.Icon(icons.Props{Size: 16, Stroke: 1.5, Class: "features-card__icon"})
+						@mt.Text(mt.TextProps{Size: mt.XS}) {
+							{ f.Label }
+						}
+					}
+				}
+			}
+		}
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "features-card__section"}}) {
+			@mt.Group(mt.GroupProps{Gap: "30"}) {
+				<div>
+					@mt.Text(mt.TextProps{Size: mt.XL, Fw: 700, Base: mt.Base{Style: "line-height: 1"}}) {
+						$168.00
+					}
+					@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Fw: 500, Base: mt.Base{Style: "line-height: 1", Mt: "3"}}) {
+						per day
+					}
+				</div>
+				@mt.Button(mt.ButtonProps{Radius: mt.XL, Base: mt.Base{Style: "flex: 1"}}) {
+					Rent now
+				}
+			}
+		}
+	}
+}

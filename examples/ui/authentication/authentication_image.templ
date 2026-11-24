@@ -1,0 +1,57 @@
+package authentication
+
+import "github.com/you/manatee/mt"
+
+var authenticationImageCSS = templ.NewOnceHandle()
+
+// AuthenticationImage ports ui.mantine.dev AuthenticationImage: a login card
+// over a full-bleed Unsplash photo, full width below the sm breakpoint.
+templ AuthenticationImage() {
+	@authenticationImageCSS.Once() {
+		<style>
+			.authentication-image {
+				min-height: 900px;
+				background-size: cover;
+				background-image: url(https://images.unsplash.com/photo-1484242857719-4b9144542727?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80);
+			}
+			.authentication-image__form {
+				border-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));
+				min-height: 900px;
+				max-width: 450px;
+				padding: 30px;
+				padding-top: 80px;
+				border-radius: 0;
+				@media (max-width: 48em) {
+					max-width: 100%;
+				}
+			}
+			.authentication-image__title {
+				color: light-dark(var(--mt-color-black), var(--mt-color-white));
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+				text-align: center;
+				margin-top: var(--mt-spacing-md);
+				margin-bottom: 50px;
+			}
+		</style>
+	}
+	<div class="authentication-image">
+		@mt.Paper(mt.PaperProps{Base: mt.Base{Class: "authentication-image__form"}}) {
+			@mt.Title(mt.TitleProps{Order: 2, Base: mt.Base{Class: "authentication-image__title"}}) {
+				Welcome back to Mantine!
+			}
+			@mt.TextInput(mt.TextInputProps{Label: "Email address", Placeholder: "hello@gmail.com", Size: mt.MD, Radius: mt.MD})
+			@mt.PasswordInput(mt.PasswordInputProps{Label: "Password", Placeholder: "Your password", Size: mt.MD, Radius: mt.MD, Base: mt.Base{Mt: mt.MD}})
+			@mt.Checkbox(mt.CheckboxProps{Label: "Keep me logged in", Size: mt.MD, Base: mt.Base{Mt: mt.XL}})
+			@mt.Button(mt.ButtonProps{FullWidth: true, Size: mt.MD, Radius: mt.MD, Base: mt.Base{Mt: mt.XL}}) {
+				Login
+			}
+			@mt.Text(mt.TextProps{Ta: "center", Base: mt.Base{Mt: mt.MD}}) {
+				Don't have an account? { " " }
+				@mt.Anchor(mt.AnchorProps{Href: "#", Fw: 500}) {
+					Register
+				}
+			}
+		}
+	</div>
+}

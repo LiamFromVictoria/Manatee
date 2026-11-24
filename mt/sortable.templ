@@ -1,0 +1,23 @@
+package mt
+
+// SortableProps mirrors manatee's Sortable (no direct Mantine equivalent;
+// replaces @dnd-kit usage in ui.mantine.dev blocks).
+type SortableProps struct {
+	Base
+	Items       string // CSS selector (relative to this element) picking the reorderable items, default ":scope > *"
+	Handle      string // CSS selector restricting drag start to a handle within each item
+	Orientation string // vertical (default) | horizontal
+	Disabled    bool
+	Name        string // form field name; submits the order as repeated values
+}
+
+templ Sortable(p SortableProps) {
+	<mt-sortable
+		{ attrs(p.Base,
+			"items", p.Items, "handle", p.Handle, "orientation", p.Orientation,
+			"disabled", p.Disabled, "name", p.Name,
+		)... }
+	>
+		{ children... }
+	</mt-sortable>
+}

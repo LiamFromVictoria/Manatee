@@ -1,0 +1,21 @@
+package mt
+
+// CollapseProps mirrors Mantine's Collapse.
+type CollapseProps struct {
+	Base
+	Opened                   bool
+	TransitionDuration       int // ms, default 200
+	TransitionTimingFunction string
+	AnimateOpacity           *bool // default true
+}
+
+templ Collapse(p CollapseProps) {
+	<mt-collapse
+		{ attrs(p.Base,
+			"opened", p.Opened, "transition-duration", p.TransitionDuration,
+			"transition-timing-function", p.TransitionTimingFunction, "animate-opacity", p.AnimateOpacity,
+		)... }
+	>
+		{ children... }
+	</mt-collapse>
+}
