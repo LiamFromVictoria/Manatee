@@ -73,6 +73,7 @@ Without templ, write the elements directly:
 | `withBorder` | `with-border` | `WithBorder: true` |
 | `title` | `heading` | `Title` |
 | `mt="md"` (style props) | `mt="md"` | `Base: mt.Base{Mt: mt.MD}` |
+| `fz="sm"` / `lh={1}` | `fz="sm"` / `lh="1"` | `Base: mt.Base{Fz: mt.SM, Lh: "1"}` |
 | `leftSection={<Icon/>}` | `<span slot="left-section">` | `LeftSection: templ.Component` |
 | `onChange` | `change` event (detail carries the value) | n/a |
 
@@ -102,6 +103,13 @@ Edit the palette there to change the primary color everywhere.
 
 ## Components
 
+Every component has a docs page with live examples and the templ code for each one.
+Run `go run ./cmd/demo` and open <http://localhost:8080>.
+
+<p align="center">
+  <img src="docs/screenshots/docs-button.png" alt="Button docs page in dark mode" width="800">
+</p>
+
 | Group | Components |
 |---|---|
 | Layout | AppShell, Container, Group, Stack, Grid, SimpleGrid, Center, Space, Divider, Box, AspectRatio, ScrollArea |
@@ -121,13 +129,46 @@ Icons: package `icons` provides Tabler icons as templ components
 ## UI blocks
 
 `examples/ui` ports all 123 blocks from [ui.mantine.dev](https://ui.mantine.dev)
-(MIT, © Vitaly Rtischev): navbars, headers, footers, hero sections, features, auth forms,
-FAQ, stats, tables, drag-and-drop lists, carousels, article cards and more. Each block is
-a single copy-paste templ file. Browse them at `/ui` in the demo server
-(`go run ./cmd/demo`), with live previews and source. The porting conventions are in
-[docs/ui-blocks.md](docs/ui-blocks.md).
+(MIT, © Vitaly Rtischev), built only from Manatee components and checked side by side
+against the original site. Each block is one copy-paste templ file.
 
-Modals and drawers open without any JS of your own: `data-mt-open="<id>"` / `data-mt-close`.
+| | |
+|---|---|
+| <img src="docs/screenshots/hero-bullets.png" alt="HeroBullets block"> | <img src="docs/screenshots/features-cards.png" alt="FeaturesCards block"> |
+| <img src="docs/screenshots/authentication-title.png" alt="AuthenticationTitle block"> | <img src="docs/screenshots/navbar-search.png" alt="NavbarSearch block"> |
+| <img src="docs/screenshots/users-table.png" alt="UsersTable block"> | <img src="docs/screenshots/stats-ring.png" alt="StatsRing block"> |
+
+Categories: navbars, headers, footers, grids, hero, features, FAQ, contact, error pages,
+banners, buttons, inputs, sliders, dropzones, authentication, app cards, article cards,
+user info and controls, comments, stats, tables, drag and drop, carousels, table of contents.
+
+Browse the gallery at <http://localhost:8080/ui> (`go run ./cmd/demo`). Each block has a live
+preview, light/dark toggle and its source.
+
+Use a block by importing its category package and calling it like any templ component:
+
+```templ
+import (
+    "github.com/LiamFromVictoria/Manatee/examples/ui/blocks"
+    "github.com/LiamFromVictoria/Manatee/examples/ui/hero"
+)
+
+templ Landing() {
+    <head>
+        @mt.Head(mt.HeadProps{})
+        @blocks.FontFaces()
+    </head>
+    <body>
+        @hero.HeroBullets()
+    </body>
+}
+```
+
+`blocks.FontFaces()` declares Outfit, the font block headings use; serve it with
+`mux.Handle("GET "+blocks.FontsPrefix, blocks.FontHandler())`.
+Interactive blocks (burgers, drawers, active links, modals) need no JS of your own:
+they use `data-mt-open="<id>"` / `data-mt-close` and a small script each block includes once.
+The porting conventions are in [docs/ui-blocks.md](docs/ui-blocks.md).
 
 ## Development
 
@@ -152,5 +193,7 @@ web/src/core/      MtElement base, form base, theme color/scale, floating
 web/src/components element implementations by group
 web/global.css     document-level styles; web/tokens.css is generated
 cmd/mtbuild        token generator + esbuild bundler
-cmd/demo           documentation server
+cmd/demo           documentation server and /ui block gallery
+icons/             Tabler icons as templ components
+examples/ui/       ui.mantine.dev block ports, one package per category
 ```
