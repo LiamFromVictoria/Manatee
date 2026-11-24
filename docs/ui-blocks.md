@@ -104,7 +104,7 @@ plus an `Error` shown from server-rendered state, or a few lines of script.
 
 ## Assets
 
-- `@tabler/icons-react` → package `github.com/you/manatee/icons`, same names:
+- `@tabler/icons-react` → package `github.com/LiamFromVictoria/Manatee/icons`, same names:
   `@icons.IconChevronDown(icons.Props{Size: 16, Stroke: 1.5})`. Every icon ui.mantine.dev
   uses is already generated. `Icon2fa` → `IconAuth2fa`, `IconDiscount2` → `IconDiscount`.
 - `@mantinex/mantine-logo` `MantineLogo` → `@blocks.Logo(size)`.

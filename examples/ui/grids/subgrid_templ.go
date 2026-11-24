@@ -9,7 +9,7 @@ package grids
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/mt"
 
 // subgridHeight2/subgridHeight3 replicate BASE_HEIGHT / n - spacing * ((n-1) / n)
 // for a 360px tall base skeleton, keeping the stacked skeletons' total height

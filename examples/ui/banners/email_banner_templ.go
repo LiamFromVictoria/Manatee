@@ -12,7 +12,7 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	_ "embed"
 
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 //go:embed image.svg

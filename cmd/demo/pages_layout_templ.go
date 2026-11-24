@@ -12,7 +12,7 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"fmt"
 
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 // swatch renders a colored placeholder box used by layout demos.

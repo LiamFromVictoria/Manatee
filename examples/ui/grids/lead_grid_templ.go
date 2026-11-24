@@ -9,7 +9,7 @@ package grids
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/mt"
 
 // leadGridSecondaryHeight replicates calc(300px / 2 - var(--mt-spacing-md) / 2),
 // the height of the two small skeletons stacked beside the large one.

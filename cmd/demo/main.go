@@ -7,10 +7,11 @@ package main
 import (
 	"flag"
 	"log"
+	"net"
 	"net/http"
 
+	"github.com/LiamFromVictoria/Manatee"
 	"github.com/a-h/templ"
-	"github.com/you/manatee"
 )
 
 func main() {
@@ -34,8 +35,19 @@ func main() {
 	mountGallery(mux, pages)
 	mux.HandleFunc("POST /echo", echoForm)
 
-	log.Printf("manatee demo on http://%s", *addr)
-	log.Fatal(http.ListenAndServe(*addr, mux))
+	ln, err := net.Listen("tcp", *addr)
+	if err != nil {
+		// If something answers on the address, it is already being served
+		// (often an earlier demo a cancelled `go run` left behind).
+		if c, dialErr := net.Dial("tcp", *addr); dialErr == nil {
+			c.Close()
+			log.Fatalf("%s is already in use, probably by an earlier demo that is still running "+
+				"(a cancelled `go run` can leave its demo process behind). Stop it, or pass -addr localhost:8081.", *addr)
+		}
+		log.Fatal(err)
+	}
+	log.Printf("manatee demo on http://%s", ln.Addr())
+	log.Fatal(http.Serve(ln, mux))
 }
 
 // echoForm returns submitted form fields as a plain-text listing; used by form demos.

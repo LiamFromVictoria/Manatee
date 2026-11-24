@@ -9,7 +9,7 @@ package grids
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/mt"
 
 // GridAsymmetrical ports ui.mantine.dev GridAsymmetrical: a 12-column grid of
 // skeleton placeholders with an asymmetrical, responsive layout.

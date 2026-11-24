@@ -12,7 +12,7 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"strconv"
 
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 var heroTextCSS = templ.NewOnceHandle()

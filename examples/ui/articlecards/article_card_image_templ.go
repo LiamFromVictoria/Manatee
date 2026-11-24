@@ -9,7 +9,7 @@ package articlecards
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/you/manatee/mt"
+import "github.com/LiamFromVictoria/Manatee/mt"
 
 type articleCardImageData struct {
 	Category, Title, Link, Label, Image string

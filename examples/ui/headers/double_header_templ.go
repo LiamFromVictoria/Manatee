@@ -10,8 +10,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/you/manatee/examples/ui/blocks"
-	"github.com/you/manatee/mt"
+	"github.com/LiamFromVictoria/Manatee/examples/ui/blocks"
+	"github.com/LiamFromVictoria/Manatee/mt"
 )
 
 var doubleHeaderMainLinks = []headerLink{
