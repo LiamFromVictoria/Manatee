@@ -64,7 +64,7 @@ func TaskCard() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = blocks.Logo(32).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = blocks.LogoMark(32).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

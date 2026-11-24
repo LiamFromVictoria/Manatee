@@ -64,7 +64,7 @@ func HeaderMegaMenu() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.header-mega-menu__header {\n\t\t\t\theight: 60px;\n\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\tpadding-right: var(--mt-spacing-md);\n\t\t\t\tborder-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t.header-mega-menu__link {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\theight: 100%;\n\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\tpadding-right: var(--mt-spacing-md);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\t@media (max-width: 48em) { height: 42px; width: 100%; }\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t}\n\t\t\t.header-mega-menu__drawer-link {\n\t\t\t\tdisplay: block;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tpadding: 11px var(--mt-spacing-md);\n\t\t\t\twidth: 100%;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t}\n\t\t\t.header-mega-menu__sub-link {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: var(--mt-spacing-xs) var(--mt-spacing-md);\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7)); }\n\t\t\t}\n\t\t\t.header-mega-menu__dropdown-footer {\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));\n\t\t\t\tmargin: calc(var(--mt-spacing-md) * -1);\n\t\t\t\tmargin-top: var(--mt-spacing-sm);\n\t\t\t\tpadding: var(--mt-spacing-md) calc(var(--mt-spacing-md) * 2);\n\t\t\t\tpadding-bottom: var(--mt-spacing-xl);\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.header-mega-menu__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.header-mega-menu__header {\n\t\t\t\theight: 60px;\n\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\tpadding-right: var(--mt-spacing-md);\n\t\t\t\tborder-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t.header-mega-menu__link {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\theight: 100%;\n\t\t\t\tpadding-left: var(--mt-spacing-md);\n\t\t\t\tpadding-right: var(--mt-spacing-md);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\t@media (max-width: 48em) { height: 42px; width: 100%; }\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t}\n\t\t\t.header-mega-menu__drawer-link {\n\t\t\t\tborder: 0; background: none; padding: 0; font: inherit; cursor: pointer; width: 100%; text-align: start;\n\t\t\t\tdisplay: block;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tcolor: light-dark(var(--mt-black), var(--mt-white));\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tpadding: 11px var(--mt-spacing-md);\n\t\t\t\twidth: 100%;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t}\n\t\t\t.header-mega-menu__sub-link {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: var(--mt-spacing-xs) var(--mt-spacing-md);\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7)); }\n\t\t\t}\n\t\t\t.header-mega-menu__dropdown-footer {\n\t\t\t\tbackground-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));\n\t\t\t\tmargin: calc(var(--mt-spacing-md) * -1);\n\t\t\t\tmargin-top: var(--mt-spacing-sm);\n\t\t\t\tpadding: var(--mt-spacing-md) calc(var(--mt-spacing-md) * 2);\n\t\t\t\tpadding-bottom: var(--mt-spacing-xl);\n\t\t\t\tborder-top: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));\n\t\t\t}\n\t\t\t.header-mega-menu__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -290,7 +290,7 @@ func HeaderMegaMenu() templ.Component {
 												var templ_7745c5c3_Var16 string
 												templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(item.Title)
 												if templ_7745c5c3_Err != nil {
-													return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 104, Col: 70}
+													return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 105, Col: 70}
 												}
 												_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 												if templ_7745c5c3_Err != nil {
@@ -317,7 +317,7 @@ func HeaderMegaMenu() templ.Component {
 												var templ_7745c5c3_Var18 string
 												templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(item.Description)
 												if templ_7745c5c3_Err != nil {
-													return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 105, Col: 81}
+													return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 106, Col: 81}
 												}
 												_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 												if templ_7745c5c3_Err != nil {
@@ -669,7 +669,7 @@ func HeaderMegaMenu() templ.Component {
 								var templ_7745c5c3_Var32 string
 								templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(item.Title)
 								if templ_7745c5c3_Err != nil {
-									return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 149, Col: 65}
+									return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 150, Col: 65}
 								}
 								_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
 								if templ_7745c5c3_Err != nil {
@@ -696,7 +696,7 @@ func HeaderMegaMenu() templ.Component {
 								var templ_7745c5c3_Var34 string
 								templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(item.Description)
 								if templ_7745c5c3_Err != nil {
-									return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 150, Col: 76}
+									return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/headers/header_mega_menu.templ`, Line: 151, Col: 76}
 								}
 								_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 								if templ_7745c5c3_Err != nil {

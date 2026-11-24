@@ -96,10 +96,10 @@ export const inputStyles = css`
     pointer-events: none;
   }
   .section ::slotted(*) { pointer-events: all; }
-  .section.left { inset-inline-start: 0; }
-  .section.right { inset-inline-end: 0; }
-  .field.has-left .input { --_pl: var(--_height); }
-  .field.has-right .input { --_pr: var(--_height); }
+  .section.left { inset-inline-start: 0; width: var(--_ls-w, var(--_height)); }
+  .section.right { inset-inline-end: 0; width: var(--_rs-w, var(--_height)); }
+  .field.has-left .input { --_pl: var(--_ls-w, var(--_height)); }
+  .field.has-right .input { --_pr: var(--_rs-w, var(--_height)); }
   :host([error]:not([error=''])) .section { color: var(--mt-color-error); }
 `;
 
@@ -147,6 +147,8 @@ export class MtFormElement extends MtElement {
     disabled: { type: 'boolean' },
     size: { default: 'sm' },
     radius: { css: '--_radius', scale: 'radius' },
+    leftSectionWidth: { css: '--_ls-w', scale: 'rem' },
+    rightSectionWidth: { css: '--_rs-w', scale: 'rem' },
   };
 
   declare name: string | null;

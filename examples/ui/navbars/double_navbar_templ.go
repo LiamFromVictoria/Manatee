@@ -69,7 +69,7 @@ func DoubleNavbar() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.double-navbar {\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-6));\n\t\t\t\theight: 750px;\n\t\t\t\twidth: 300px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t}\n\t\t\t.double-navbar__wrapper { display: flex; flex: 1; }\n\t\t\t.double-navbar__aside {\n\t\t\t\tflex: 0 0 60px;\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.double-navbar__main { flex: 1; background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t.double-navbar__main-link {\n\t\t\t\twidth: 44px;\n\t\t\t\theight: 44px;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5)); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { background-color: var(--mt-color-blue-light); color: var(--mt-color-blue-light-color); }\n\t\t\t\t}\n\t\t\t}\n\t\t\t.double-navbar__title {\n\t\t\t\tfont-family: var(--mt-font-family);\n\t\t\t\tmargin-bottom: var(--mt-spacing-xl);\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tpadding-top: 18px;\n\t\t\t\theight: 60px;\n\t\t\t\tborder-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.double-navbar__logo {\n\t\t\t\twidth: 100%;\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\theight: 60px;\n\t\t\t\tpadding-top: var(--mt-spacing-md);\n\t\t\t\tborder-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t\tmargin-bottom: var(--mt-spacing-xl);\n\t\t\t}\n\t\t\t.double-navbar__link {\n\t\t\t\tdisplay: block;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tborder-top-right-radius: var(--mt-radius-md);\n\t\t\t\tborder-bottom-right-radius: var(--mt-radius-md);\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\tpadding: 0 var(--mt-spacing-md);\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tmargin-right: var(--mt-spacing-md);\n\t\t\t\tfont-weight: 500;\n\t\t\t\theight: 44px;\n\t\t\t\tline-height: 44px;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)); color: light-dark(var(--mt-color-dark), var(--mt-color-light)); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { border-left-color: var(--mt-color-blue-filled); background-color: var(--mt-color-blue-filled); color: var(--mt-white); }\n\t\t\t\t}\n\t\t\t}\n\t\t</style> <script>\n\t\t\tdocument.addEventListener('click', (e) => {\n\t\t\t\tconst btn = e.composedPath().find((n) => n instanceof Element && n.classList && n.classList.contains('double-navbar__main-link'));\n\t\t\t\tif (!btn) return;\n\t\t\t\tconst nav = btn.closest('.double-navbar');\n\t\t\t\tconst title = nav && nav.querySelector('.double-navbar__title');\n\t\t\t\tif (title) title.textContent = btn.getAttribute('data-active-item');\n\t\t\t});\n\t\t</script>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.double-navbar {\n\t\t\t\tbackground-color: light-dark(var(--mt-white), var(--mt-color-dark-6));\n\t\t\t\theight: 750px;\n\t\t\t\twidth: 300px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));\n\t\t\t}\n\t\t\t.double-navbar__wrapper { display: flex; flex: 1; }\n\t\t\t.double-navbar__aside {\n\t\t\t\tflex: 0 0 60px;\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tborder-right: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.double-navbar__main { flex: 1; background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }\n\t\t\t.double-navbar__main-link {\n\t\t\t\tborder: 0; background: none; padding: 0; font: inherit; cursor: pointer;\n\t\t\t\twidth: 44px;\n\t\t\t\theight: 44px;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5)); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { background-color: var(--mt-color-blue-light); color: var(--mt-color-blue-light-color); }\n\t\t\t\t}\n\t\t\t}\n\t\t\t.double-navbar__title {\n\t\t\t\tfont-family: var(--mt-font-family);\n\t\t\t\tmargin: 0 0 var(--mt-spacing-xl);\n\t\t\t\tbackground-color: var(--mt-color-body);\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tfont-weight: 500;\n\t\t\t\tpadding-top: 18px;\n\t\t\t\theight: 60px;\n\t\t\t\tborder-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t}\n\t\t\t.double-navbar__logo {\n\t\t\t\twidth: 100%;\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\theight: 60px;\n\t\t\t\tpadding-top: var(--mt-spacing-md);\n\t\t\t\tborder-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-7));\n\t\t\t\tmargin-bottom: var(--mt-spacing-xl);\n\t\t\t}\n\t\t\t.double-navbar__link {\n\t\t\t\tdisplay: block;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tborder-top-right-radius: var(--mt-radius-md);\n\t\t\t\tborder-bottom-right-radius: var(--mt-radius-md);\n\t\t\t\tcolor: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));\n\t\t\t\tpadding: 0 var(--mt-spacing-md);\n\t\t\t\tfont-size: var(--mt-font-size-sm);\n\t\t\t\tmargin-right: var(--mt-spacing-md);\n\t\t\t\tfont-weight: 500;\n\t\t\t\theight: 44px;\n\t\t\t\tline-height: 44px;\n\t\t\t\t&:hover { background-color: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5)); color: light-dark(var(--mt-color-dark), var(--mt-color-light)); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { border-left-color: var(--mt-color-blue-filled); background-color: var(--mt-color-blue-filled); color: var(--mt-white); }\n\t\t\t\t}\n\t\t\t}\n\t\t</style> <script>\n\t\t\tdocument.addEventListener('click', (e) => {\n\t\t\t\tconst btn = e.composedPath().find((n) => n instanceof Element && n.classList && n.classList.contains('double-navbar__main-link'));\n\t\t\t\tif (!btn) return;\n\t\t\t\tconst nav = btn.closest('.double-navbar');\n\t\t\t\tconst title = nav && nav.querySelector('.double-navbar__title');\n\t\t\t\tif (title) title.textContent = btn.getAttribute('data-active-item');\n\t\t\t});\n\t\t</script>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -87,7 +87,7 @@ func DoubleNavbar() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = blocks.Logo(30).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = blocks.LogoMark(30).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -115,7 +115,7 @@ func DoubleNavbar() templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templruntime.NewAttributeExpression(l.Label).Resolve(ctx)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 124, Col: 87}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 125, Col: 87}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 				if templ_7745c5c3_Err != nil {
@@ -138,7 +138,7 @@ func DoubleNavbar() templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templruntime.NewAttributeExpression(l.Label).Resolve(ctx)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 124, Col: 134}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 125, Col: 134}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 				if templ_7745c5c3_Err != nil {
@@ -175,7 +175,7 @@ func DoubleNavbar() templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templruntime.NewAttributeExpression(l).Resolve(ctx)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 134, Col: 57}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 135, Col: 57}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 			if templ_7745c5c3_Err != nil {
@@ -198,7 +198,7 @@ func DoubleNavbar() templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(l)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 134, Col: 96}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `examples/ui/navbars/double_navbar.templ`, Line: 135, Col: 96}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {

@@ -33,6 +33,8 @@ type TextInputProps struct {
 	MaxLength    int
 	LeftSection  templ.Component
 	RightSection templ.Component
+	// LeftSectionWidth / RightSectionWidth override the section width (default: input height).
+	LeftSectionWidth, RightSectionWidth string
 }
 
 func TextInput(p TextInputProps) templ.Component {
@@ -67,6 +69,7 @@ func TextInput(p TextInputProps) templ.Component {
 				"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
 				"autocomplete", p.AutoComplete, "inputmode", p.InputMode, "pattern", p.Pattern,
 				"minlength", p.MinLength, "maxlength", p.MaxLength,
+				"left-section-width", p.LeftSectionWidth, "right-section-width", p.RightSectionWidth,
 			))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

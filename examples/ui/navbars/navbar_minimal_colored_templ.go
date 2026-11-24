@@ -49,7 +49,7 @@ func NavbarMinimalColored() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.navbar-minimal-colored {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 750px;\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tbackground-color: var(--mt-color-blue-filled);\n\t\t\t}\n\t\t\t.navbar-minimal-colored__main { flex: 1; margin-top: 50px; }\n\t\t\t.navbar-minimal-colored__link {\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\t&:hover { background-color: var(--mt-color-blue-7); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { box-shadow: var(--mt-shadow-sm); background-color: var(--mt-white); color: var(--mt-color-blue-6); }\n\t\t\t\t}\n\t\t\t}\n\t\t\t.navbar-minimal-colored__logo svg circle:first-of-type { fill: var(--mt-white); }\n\t\t\t.navbar-minimal-colored__logo svg path { fill: var(--mt-color-blue-filled); }\n\t\t\t.navbar-minimal-colored__logo svg circle:last-of-type { fill: var(--mt-white); }\n\t\t\t.navbar-minimal-colored__logo span:last-child { color: var(--mt-white) !important; }\n\t\t</style>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t\t.navbar-minimal-colored {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 750px;\n\t\t\t\tpadding: var(--mt-spacing-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tbackground-color: var(--mt-color-blue-filled);\n\t\t\t}\n\t\t\t.navbar-minimal-colored__main { flex: 1; margin-top: 50px; }\n\t\t\t.navbar-minimal-colored__link {\n\t\t\t\tborder: 0; background: none; padding: 0; font: inherit; cursor: pointer;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tborder-radius: var(--mt-radius-md);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: var(--mt-white);\n\t\t\t\t&:hover { background-color: var(--mt-color-blue-7); }\n\t\t\t\t&[data-active] {\n\t\t\t\t\t&, &:hover { box-shadow: var(--mt-shadow-sm); background-color: var(--mt-white); color: var(--mt-color-blue-6); }\n\t\t\t\t}\n\t\t\t}\n\t\t\t.navbar-minimal-colored__logo svg circle:first-of-type { fill: var(--mt-white); }\n\t\t\t.navbar-minimal-colored__logo svg path { fill: var(--mt-color-blue-filled); }\n\t\t\t.navbar-minimal-colored__logo svg circle:last-of-type { fill: var(--mt-white); }\n\t\t</style>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -79,7 +79,7 @@ func NavbarMinimalColored() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = blocks.Logo(30).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = blocks.LogoMark(30).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

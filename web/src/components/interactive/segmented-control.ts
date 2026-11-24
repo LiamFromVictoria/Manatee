@@ -19,7 +19,7 @@ const styles = css`
     display: inline-flex;
     gap: 0.125rem;
     padding: 0.25rem;
-    background: var(--mt-color-hover);
+    background: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-8));
     border-radius: var(--_radius, var(--mt-radius-default));
   }
   :host([full-width]) .root { display: flex; width: 100%; }
@@ -31,7 +31,7 @@ const styles = css`
     top: 0;
     left: 0;
     z-index: 0;
-    background: var(--mt-color-body);
+    background: light-dark(var(--mt-white), var(--mt-color-dark-5));
     border-radius: calc(var(--_radius, var(--mt-radius-default)) - 0.125rem);
     box-shadow: var(--mt-shadow-xs);
     opacity: 0;
@@ -57,15 +57,16 @@ const styles = css`
     padding: var(--_pad-y) var(--_pad-x);
     font-size: var(--_fz);
     line-height: 1.2;
-    color: var(--mt-color-dimmed);
+    font-weight: 500;
+    color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));
     border-radius: calc(var(--_radius, var(--mt-radius-default)) - 0.125rem);
     white-space: nowrap;
     user-select: none;
     cursor: pointer;
     transition: color 150ms ease;
   }
-  .label:hover { color: var(--mt-color-text); }
-  .radio:checked + .label { color: var(--mt-color-text); }
+  .label:hover { color: light-dark(var(--mt-black), var(--mt-white)); }
+  .radio:checked + .label { color: light-dark(var(--mt-black), var(--mt-white)); }
   :host([data-color]) .radio:checked + .label { color: var(--mt-white); }
   .radio:disabled + .label { color: var(--mt-color-disabled-color); cursor: not-allowed; }
   .radio:disabled + .label:hover { color: var(--mt-color-disabled-color); }

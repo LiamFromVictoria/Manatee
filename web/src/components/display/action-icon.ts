@@ -1,4 +1,4 @@
-import { css, define, html, MtElement, type Props } from '../../core';
+import { css, define, html, MtElement, rem, type Props } from '../../core';
 
 const styles = css`
   :host {
@@ -161,6 +161,12 @@ export class MtActionIcon extends MtElement {
     root.toggleAttribute('aria-busy', this.loading);
     if (this.ariaLabel) root.setAttribute('aria-label', this.ariaLabel);
     else root.removeAttribute('aria-label');
+    if (changed.has('size')) {
+      // Mantine accepts numeric sizes (px) besides xs..xl / input-*.
+      const size = this.getAttribute('size');
+      if (size && /^\d+(\.\d+)?$/.test(size)) this.style.setProperty('--_size', rem(parseFloat(size)));
+      else this.style.removeProperty('--_size');
+    }
   }
 
   /** Swap the inner root between <button> and <a> depending on href. */

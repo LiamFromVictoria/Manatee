@@ -53,6 +53,7 @@ templ DoubleNavbar() {
 			}
 			.double-navbar__main { flex: 1; background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
 			.double-navbar__main-link {
+				border: 0; background: none; padding: 0; font: inherit; cursor: pointer;
 				width: 44px;
 				height: 44px;
 				border-radius: var(--mt-radius-md);
@@ -67,7 +68,7 @@ templ DoubleNavbar() {
 			}
 			.double-navbar__title {
 				font-family: var(--mt-font-family);
-				margin-bottom: var(--mt-spacing-xl);
+				margin: 0 0 var(--mt-spacing-xl);
 				background-color: var(--mt-color-body);
 				padding: var(--mt-spacing-md);
 				font-weight: 500;
@@ -117,7 +118,7 @@ templ DoubleNavbar() {
 		<div class="double-navbar__wrapper">
 			<div class="double-navbar__aside" data-active-group="main">
 				<div class="double-navbar__logo">
-					@blocks.Logo(30)
+					@blocks.LogoMark(30)
 				</div>
 				for i, l := range doubleNavbarMainLinks {
 					@mt.Tooltip(mt.TooltipProps{Label: l.Label, Position: "right", WithArrow: true}) {
