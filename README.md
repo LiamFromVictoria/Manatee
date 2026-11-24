@@ -18,25 +18,44 @@ Mantine-style UI components for Go web apps, built as zero-dependency web compon
 ## Quick start
 
 ```go
+package main
+
 import (
-	"github.com/you/manatee"
-	"github.com/you/manatee/mt"
+    "net/http"
+
+    "github.com/a-h/templ"
+    "github.com/you/manatee"
 )
 
-mux.Handle(manatee.Prefix, manatee.Handler()) // serves /_manatee/manatee.{js,css}
+func main() {
+    mux := http.NewServeMux()
+    mux.Handle(manatee.Prefix, manatee.Handler()) // serves /_manatee/manatee.{js,css}
+    mux.Handle("/", templ.Handler(Page()))
+    http.ListenAndServe(":8080", mux)
+}
 ```
 
 ```templ
+package main
+
+import "github.com/you/manatee/mt"
+
 templ Page() {
-	<html>
-		<head>@mt.Head(mt.HeadProps{})</head>
-		<body>
-			@mt.Stack(mt.StackProps{Gap: mt.MD}) {
-				@mt.TextInput(mt.TextInputProps{Name: "email", Label: "Email", Required: true})
-				@mt.Button(mt.ButtonProps{Type: "submit"}) { Subscribe }
-			}
-		</body>
-	</html>
+    <html>
+        <head>
+            @mt.Head(mt.HeadProps{})
+        </head>
+        <body>
+            <form method="post" action="/subscribe">
+                @mt.Stack(mt.StackProps{Gap: mt.MD}) {
+                    @mt.TextInput(mt.TextInputProps{Name: "email", Label: "Email", Required: true})
+                    @mt.Button(mt.ButtonProps{Type: "submit"}) {
+                        Subscribe
+                    }
+                }
+            </form>
+        </body>
+    </html>
 }
 ```
 
