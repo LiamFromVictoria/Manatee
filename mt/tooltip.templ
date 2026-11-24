@@ -1,0 +1,33 @@
+package mt
+
+// TooltipProps mirrors Mantine's Tooltip. Wraps a single child (the target).
+type TooltipProps struct {
+	Base
+	Label      string
+	LabelSlot  templ.Component // overrides Label; renders into slot="label"
+	Position   string          // top (default) | bottom | left | right, each with -start/-end
+	Offset     int             // default 5
+	WithArrow  bool
+	ArrowSize  int // default 4
+	Color      string
+	Multiline  bool
+	W          string // max-width when Multiline
+	OpenDelay  int
+	CloseDelay int
+	Disabled   bool
+	Opened     bool // controlled mode
+}
+
+// Tooltip renders the <mt-tooltip> host around its single child target.
+templ Tooltip(p TooltipProps) {
+	<mt-tooltip
+		{ attrs(p.Base,
+			"label", p.Label, "position", p.Position, "offset", p.Offset, "with-arrow", p.WithArrow,
+			"arrow-size", p.ArrowSize, "color", p.Color, "multiline", p.Multiline, "w", p.W,
+			"open-delay", p.OpenDelay, "close-delay", p.CloseDelay, "disabled", p.Disabled, "opened", p.Opened,
+		)... }
+	>
+		@slot("label", p.LabelSlot)
+		{ children... }
+	</mt-tooltip>
+}

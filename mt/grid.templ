@@ -1,0 +1,44 @@
+package mt
+
+// GridProps mirrors Mantine's Grid.
+type GridProps struct {
+	Base
+	Columns int    // default 12
+	Gutter  string // xs..xl (default md) or a raw value
+	Justify string // CSS justify-content, default flex-start
+	Align   string // CSS align-items, default stretch
+	Grow    bool
+}
+
+templ Grid(p GridProps) {
+	<mt-grid
+		{ attrs(p.Base,
+			"columns", p.Columns, "gutter", p.Gutter, "justify", p.Justify, "align", p.Align, "grow", p.Grow,
+		)... }
+	>
+		{ children... }
+	</mt-grid>
+}
+
+// GridColProps mirrors Mantine's Grid.Col.
+type GridColProps struct {
+	Base
+	Span   string // number (default 12) | "auto" | "content"
+	Offset int
+	Order  int
+	SpanXs, SpanSm, SpanMd, SpanLg, SpanXl         int
+	OffsetXs, OffsetSm, OffsetMd, OffsetLg, OffsetXl int
+}
+
+templ GridCol(p GridColProps) {
+	<mt-grid-col
+		{ attrs(p.Base,
+			"span", p.Span, "offset", p.Offset, "order", p.Order,
+			"span-xs", p.SpanXs, "span-sm", p.SpanSm, "span-md", p.SpanMd, "span-lg", p.SpanLg, "span-xl", p.SpanXl,
+			"offset-xs", p.OffsetXs, "offset-sm", p.OffsetSm, "offset-md", p.OffsetMd,
+			"offset-lg", p.OffsetLg, "offset-xl", p.OffsetXl,
+		)... }
+	>
+		{ children... }
+	</mt-grid-col>
+}

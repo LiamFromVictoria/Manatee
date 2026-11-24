@@ -1,0 +1,55 @@
+package mt
+
+// RadioProps mirrors Mantine's Radio.
+type RadioProps struct {
+	Base
+	Name          string
+	Value         string
+	Checked       bool
+	Label         string
+	Description   string
+	Error         string
+	Required      bool
+	Disabled      bool
+	Color         string
+	Size          string
+	LabelPosition string // right (default) | left
+	IconColor     string
+}
+
+templ Radio(p RadioProps) {
+	<mt-radio
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "checked", p.Checked,
+			"label", p.Label, "description", p.Description, "error", p.Error,
+			"required", p.Required, "disabled", p.Disabled, "color", p.Color, "size", p.Size,
+			"label-position", p.LabelPosition, "icon-color", p.IconColor,
+		)... }
+	>
+		{ children... }
+	</mt-radio>
+}
+
+// RadioGroupProps mirrors Mantine's Radio.Group.
+type RadioGroupProps struct {
+	Base
+	Name        string
+	Value       string
+	Label       string
+	Description string
+	Error       string
+	Required    bool
+	Disabled    bool
+	Size        string
+}
+
+templ RadioGroup(p RadioGroupProps) {
+	<mt-radio-group
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "label", p.Label, "description", p.Description,
+			"error", p.Error, "required", p.Required, "disabled", p.Disabled, "size", p.Size,
+		)... }
+	>
+		{ children... }
+	</mt-radio-group>
+}

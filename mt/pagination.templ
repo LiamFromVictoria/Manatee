@@ -1,0 +1,28 @@
+package mt
+
+// PaginationProps mirrors Mantine's Pagination.
+type PaginationProps struct {
+	Base
+	Total        int
+	Value        int
+	Siblings     int
+	Boundaries   int
+	WithEdges    bool
+	WithControls *bool // defaults to true; pass new(false) to hide prev/next
+	Size         string
+	Radius       string
+	Color        string
+	Gap          string
+	Disabled     bool
+	HrefTemplate string // e.g. "/items?page={page}"; renders anchors for server-side paging
+}
+
+templ Pagination(p PaginationProps) {
+	<mt-pagination
+		{ attrs(p.Base,
+			"total", p.Total, "value", p.Value, "siblings", p.Siblings, "boundaries", p.Boundaries,
+			"with-edges", p.WithEdges, "with-controls", p.WithControls, "size", p.Size, "radius", p.Radius,
+			"color", p.Color, "gap", p.Gap, "disabled", p.Disabled, "href-template", p.HrefTemplate,
+		)... }
+	></mt-pagination>
+}

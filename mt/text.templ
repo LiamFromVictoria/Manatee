@@ -1,0 +1,33 @@
+package mt
+
+// TextProps mirrors Mantine's Text.
+type TextProps struct {
+	Base
+	Size         string
+	C            string // color: palette name/shade, "dimmed", "bright" or a CSS color
+	Fw           int    // font-weight
+	Fs           string // font-style
+	Td           string // text-decoration
+	Tt           string // text-transform
+	Ta           string // text-align
+	Truncate     string // "end" (default when set) | "start"
+	LineClamp    int
+	Inherit      bool
+	Span         bool
+	Variant      string // "gradient"
+	GradientFrom string
+	GradientTo   string
+	GradientDeg  int
+}
+
+templ Text(p TextProps) {
+	<mt-text
+		{ attrs(p.Base,
+			"size", p.Size, "c", p.C, "fw", p.Fw, "fs", p.Fs, "td", p.Td, "tt", p.Tt, "ta", p.Ta,
+			"truncate", p.Truncate, "line-clamp", p.LineClamp, "inherit", p.Inherit, "span", p.Span,
+			"variant", p.Variant, "gradient-from", p.GradientFrom, "gradient-to", p.GradientTo, "gradient-deg", p.GradientDeg,
+		)... }
+	>
+		{ children... }
+	</mt-text>
+}

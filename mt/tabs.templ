@@ -1,0 +1,78 @@
+package mt
+
+// TabsProps mirrors Mantine's Tabs.
+type TabsProps struct {
+	Base
+	Value                   string
+	Variant                 string // default (underline, default) | outline | pills
+	Orientation             string // horizontal (default) | vertical
+	Placement               string // left (default) | right, vertical only
+	Color                   string
+	Radius                  string
+	Inverted                bool
+	KeepMounted             *bool // defaults to true; pass new(false) to unmount inactive panels
+	ActivateTabWithKeyboard *bool // defaults to true; pass new(false) to require Enter/Space
+	AllowTabDeactivation    bool
+}
+
+templ Tabs(p TabsProps) {
+	<mt-tabs
+		{ attrs(p.Base,
+			"value", p.Value, "variant", p.Variant, "orientation", p.Orientation, "placement", p.Placement,
+			"color", p.Color, "radius", p.Radius, "inverted", p.Inverted,
+			"keep-mounted", p.KeepMounted, "activate-tab-with-keyboard", p.ActivateTabWithKeyboard,
+			"allow-tab-deactivation", p.AllowTabDeactivation,
+		)... }
+	>
+		{ children... }
+	</mt-tabs>
+}
+
+// TabsListProps mirrors Mantine's Tabs.List.
+type TabsListProps struct {
+	Base
+	Grow    bool
+	Justify string // CSS justify-content
+}
+
+templ TabsList(p TabsListProps) {
+	<mt-tabs-list { attrs(p.Base, "grow", p.Grow, "justify", p.Justify)... }>
+		{ children... }
+	</mt-tabs-list>
+}
+
+// TabProps mirrors Mantine's Tabs.Tab.
+type TabProps struct {
+	Base
+	Value        string
+	Disabled     bool
+	Color        string
+	Href         string // if set, the tab navigates instead of switching
+	Target       string
+	LeftSection  templ.Component
+	RightSection templ.Component
+}
+
+templ Tab(p TabProps) {
+	<mt-tab
+		{ attrs(p.Base,
+			"value", p.Value, "disabled", p.Disabled, "color", p.Color, "href", p.Href, "target", p.Target,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		{ children... }
+		@slot("right-section", p.RightSection)
+	</mt-tab>
+}
+
+// TabsPanelProps mirrors Mantine's Tabs.Panel.
+type TabsPanelProps struct {
+	Base
+	Value string
+}
+
+templ TabsPanel(p TabsPanelProps) {
+	<mt-tabs-panel { attrs(p.Base, "value", p.Value)... }>
+		{ children... }
+	</mt-tabs-panel>
+}

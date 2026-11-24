@@ -1,0 +1,136 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+templ CheckboxPage() {
+	@Demo("Usage", `@mt.Checkbox(mt.CheckboxProps{Label: "I agree to sell my soul"})`) {
+		@mt.Checkbox(mt.CheckboxProps{Label: "I agree to sell my soul"})
+	}
+	@Demo("Sizes", `@mt.Checkbox(mt.CheckboxProps{Size: mt.LG, Label: "Large"})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Checkbox(mt.CheckboxProps{Size: s, Label: "Size " + s})
+			}
+		}
+	}
+	@Demo("Colors", `@mt.Checkbox(mt.CheckboxProps{Color: mt.Teal, Checked: true})`) {
+		@Row() {
+			for _, c := range []string{mt.Blue, mt.Red, mt.Green, mt.Teal, mt.Grape, mt.Orange} {
+				@mt.Checkbox(mt.CheckboxProps{Color: c, Checked: true, Label: c})
+			}
+		}
+	}
+	@Demo("States", `@mt.Checkbox(mt.CheckboxProps{Indeterminate: true, Label: "Indeterminate"})`) {
+		@Row() {
+			@mt.Checkbox(mt.CheckboxProps{Label: "Unchecked"})
+			@mt.Checkbox(mt.CheckboxProps{Checked: true, Label: "Checked"})
+			@mt.Checkbox(mt.CheckboxProps{Indeterminate: true, Label: "Indeterminate"})
+			@mt.Checkbox(mt.CheckboxProps{Disabled: true, Label: "Disabled"})
+			@mt.Checkbox(mt.CheckboxProps{Disabled: true, Checked: true, Label: "Disabled checked"})
+			@mt.Checkbox(mt.CheckboxProps{Error: "Required", Label: "With error"})
+		}
+	}
+	@Demo("Label position and description", `@mt.Checkbox(mt.CheckboxProps{LabelPosition: "left", Label: "Notifications", Description: "Send me notifications"})`) {
+		@mt.Checkbox(mt.CheckboxProps{LabelPosition: "left", Label: "Notifications", Description: "Send me notifications", Base: mt.Base{Mb: mt.SM}})
+		@mt.Checkbox(mt.CheckboxProps{Label: "Notifications", Description: "Send me notifications"})
+	}
+	@Demo("Checkbox.Group", `@mt.CheckboxGroup(mt.CheckboxGroupProps{Label: "Select frameworks", Value: []string{"react"}}) { @mt.Checkbox(mt.CheckboxProps{Value: "react", Label: "React"}) ... }`) {
+		@mt.CheckboxGroup(mt.CheckboxGroupProps{Label: "Select your favorite frameworks", Description: "Choose as many as you like", Value: []string{"react", "svelte"}}) {
+			@mt.Checkbox(mt.CheckboxProps{Value: "react", Label: "React"})
+			@mt.Checkbox(mt.CheckboxProps{Value: "svelte", Label: "Svelte"})
+			@mt.Checkbox(mt.CheckboxProps{Value: "vue", Label: "Vue"})
+			@mt.Checkbox(mt.CheckboxProps{Value: "ng", Label: "Angular"})
+		}
+	}
+}
+
+templ SwitchPage() {
+	@Demo("Usage", `@mt.Switch(mt.SwitchProps{Label: "Enabled"})`) {
+		@mt.Switch(mt.SwitchProps{Label: "Enabled"})
+	}
+	@Demo("Sizes", `@mt.Switch(mt.SwitchProps{Size: mt.LG, Label: "Large"})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Switch(mt.SwitchProps{Size: s, Label: "Size " + s, Checked: true})
+			}
+		}
+	}
+	@Demo("Colors", `@mt.Switch(mt.SwitchProps{Color: mt.Teal, Checked: true})`) {
+		@Row() {
+			for _, c := range []string{mt.Blue, mt.Red, mt.Green, mt.Teal, mt.Grape, mt.Orange} {
+				@mt.Switch(mt.SwitchProps{Color: c, Checked: true, Label: c})
+			}
+		}
+	}
+	@Demo("On/off labels", `@mt.Switch(mt.SwitchProps{OnLabel: "ON", OffLabel: "OFF", Size: mt.LG})`) {
+		@mt.Switch(mt.SwitchProps{OnLabel: "ON", OffLabel: "OFF", Size: mt.LG, Checked: true})
+	}
+	@Demo("States", `@mt.Switch(mt.SwitchProps{Disabled: true, Checked: true})`) {
+		@Row() {
+			@mt.Switch(mt.SwitchProps{Label: "Off"})
+			@mt.Switch(mt.SwitchProps{Checked: true, Label: "On"})
+			@mt.Switch(mt.SwitchProps{Disabled: true, Label: "Disabled"})
+			@mt.Switch(mt.SwitchProps{Disabled: true, Checked: true, Label: "Disabled on"})
+		}
+	}
+}
+
+templ RadioPage() {
+	@Demo("Usage (standalone, shared name)", `@mt.Radio(mt.RadioProps{Name: "color", Value: "red", Label: "Red"})`) {
+		@Row() {
+			@mt.Radio(mt.RadioProps{Name: "standalone-color", Value: "red", Label: "Red", Checked: true})
+			@mt.Radio(mt.RadioProps{Name: "standalone-color", Value: "green", Label: "Green"})
+			@mt.Radio(mt.RadioProps{Name: "standalone-color", Value: "blue", Label: "Blue"})
+		}
+	}
+	@Demo("Sizes", `@mt.Radio(mt.RadioProps{Size: mt.LG, Label: "Large", Checked: true})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Radio(mt.RadioProps{Name: "size-" + s, Size: s, Label: "Size " + s, Checked: true})
+			}
+		}
+	}
+	@Demo("Colors", `@mt.Radio(mt.RadioProps{Color: mt.Teal, Checked: true})`) {
+		@Row() {
+			for _, c := range []string{mt.Blue, mt.Red, mt.Green, mt.Teal, mt.Grape, mt.Orange} {
+				@mt.Radio(mt.RadioProps{Name: "color-" + c, Color: c, Checked: true, Label: c})
+			}
+		}
+	}
+	@Demo("States", `@mt.Radio(mt.RadioProps{Disabled: true, Checked: true})`) {
+		@Row() {
+			@mt.Radio(mt.RadioProps{Name: "states", Label: "Unchecked"})
+			@mt.Radio(mt.RadioProps{Name: "states-2", Checked: true, Label: "Checked"})
+			@mt.Radio(mt.RadioProps{Name: "states-3", Disabled: true, Label: "Disabled"})
+			@mt.Radio(mt.RadioProps{Name: "states-4", Disabled: true, Checked: true, Label: "Disabled checked"})
+		}
+	}
+	@Demo("Radio.Group", `@mt.RadioGroup(mt.RadioGroupProps{Label: "Select a plan", Value: "pro", Required: true}) { @mt.Radio(mt.RadioProps{Value: "free", Label: "Free"}) ... }`) {
+		@mt.RadioGroup(mt.RadioGroupProps{Label: "Select your plan", Description: "You can change this later", Required: true, Value: "pro"}) {
+			@mt.Radio(mt.RadioProps{Value: "free", Label: "Free", Base: mt.Base{Mb: mt.XS}})
+			@mt.Radio(mt.RadioProps{Value: "pro", Label: "Pro", Base: mt.Base{Mb: mt.XS}})
+			@mt.Radio(mt.RadioProps{Value: "enterprise", Label: "Enterprise"})
+		}
+	}
+}
+
+templ ChoiceFormPage() {
+	@Demo("Form submission", `<form method="post" action="/echo" target="_blank">… checkbox, switch, radio group …</form>`) {
+		<form method="post" action="/echo" target="_blank">
+			@mt.Checkbox(mt.CheckboxProps{Name: "terms", Label: "I accept the terms and conditions", Required: true, Base: mt.Base{Mb: mt.MD}})
+			@mt.Switch(mt.SwitchProps{Name: "newsletter", Label: "Subscribe to the newsletter", OnLabel: "ON", OffLabel: "OFF", Base: mt.Base{Mb: mt.MD}})
+			@mt.CheckboxGroup(mt.CheckboxGroupProps{Name: "interests", Label: "Interests", Value: []string{"go"}, Base: mt.Base{Mb: mt.MD}}) {
+				@mt.Checkbox(mt.CheckboxProps{Value: "go", Label: "Go"})
+				@mt.Checkbox(mt.CheckboxProps{Value: "ts", Label: "TypeScript"})
+				@mt.Checkbox(mt.CheckboxProps{Value: "rust", Label: "Rust"})
+			}
+			@mt.RadioGroup(mt.RadioGroupProps{Name: "plan", Label: "Plan", Required: true, Value: "free", Base: mt.Base{Mb: mt.MD}}) {
+				@mt.Radio(mt.RadioProps{Value: "free", Label: "Free", Base: mt.Base{Mb: mt.XS}})
+				@mt.Radio(mt.RadioProps{Value: "pro", Label: "Pro"})
+			}
+			@mt.Button(mt.ButtonProps{Type: "submit"}) {
+				Submit
+			}
+		</form>
+	}
+}

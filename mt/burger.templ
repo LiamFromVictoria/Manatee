@@ -1,0 +1,23 @@
+package mt
+
+// BurgerProps mirrors Mantine's Burger.
+type BurgerProps struct {
+	Base
+	Opened             bool
+	Size               string // xs..xl (default md)
+	Color              string
+	LineSize           string
+	TransitionDuration int
+	AriaLabel          string // default "Toggle navigation"
+}
+
+// Burger renders a <mt-burger> hamburger toggle. It flips its own `opened`
+// state on click and emits a bubbling `toggle` event with { opened }.
+templ Burger(p BurgerProps) {
+	<mt-burger
+		{ attrs(p.Base,
+			"opened", p.Opened, "size", p.Size, "color", p.Color, "line-size", p.LineSize,
+			"transition-duration", p.TransitionDuration, "aria-label", p.AriaLabel,
+		)... }
+	></mt-burger>
+}

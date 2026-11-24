@@ -1,0 +1,14 @@
+package mt
+
+// BreadcrumbsProps mirrors Mantine's Breadcrumbs.
+type BreadcrumbsProps struct {
+	Base
+	Separator       string // default "/"
+	SeparatorMargin string // default xs
+}
+
+templ Breadcrumbs(p BreadcrumbsProps) {
+	<mt-breadcrumbs { attrs(p.Base, "separator", p.Separator, "separator-margin", p.SeparatorMargin)... }>
+		{ children... }
+	</mt-breadcrumbs>
+}

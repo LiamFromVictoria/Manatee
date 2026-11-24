@@ -1,0 +1,93 @@
+package mt
+
+// AppShellProps mirrors Mantine's AppShell.
+type AppShellProps struct {
+	Base
+	HeaderHeight           string
+	NavbarWidth            string
+	NavbarBreakpoint       string // default "sm"
+	NavbarCollapsedMobile  *bool  // default true: navbar becomes a hidden overlay below the breakpoint
+	NavbarCollapsedDesktop bool
+	AsideWidth             string
+	AsideBreakpoint        string // default "md"
+	AsideCollapsedMobile   *bool  // default true
+	AsideCollapsedDesktop  bool
+	FooterHeight           string
+	Padding                string // spacing token applied to AppShellMain, default "md"
+	Layout                 string // default (default) | alt
+	WithBorder             *bool  // default true
+	ZIndex                 int
+	NavbarOpened           bool // mobile drawer open state; also toggled by any descendant mt-burger
+}
+
+// AppShell renders the <mt-app-shell> host. Children are the compound parts:
+// AppShellHeader, AppShellNavbar, AppShellAside, AppShellMain, AppShellFooter.
+templ AppShell(p AppShellProps) {
+	<mt-app-shell
+		{ attrs(p.Base,
+			"header-height", p.HeaderHeight, "navbar-width", p.NavbarWidth, "navbar-breakpoint", p.NavbarBreakpoint,
+			"navbar-collapsed-mobile", p.NavbarCollapsedMobile, "navbar-collapsed-desktop", p.NavbarCollapsedDesktop,
+			"aside-width", p.AsideWidth, "aside-breakpoint", p.AsideBreakpoint,
+			"aside-collapsed-mobile", p.AsideCollapsedMobile, "aside-collapsed-desktop", p.AsideCollapsedDesktop,
+			"footer-height", p.FooterHeight, "padding", p.Padding, "layout", p.Layout,
+			"with-border", p.WithBorder, "z-index", p.ZIndex, "navbar-opened", p.NavbarOpened,
+		)... }
+	>
+		{ children... }
+	</mt-app-shell>
+}
+
+// AppShellHeaderProps mirrors Mantine's AppShell.Header.
+type AppShellHeaderProps struct {
+	Base
+}
+
+templ AppShellHeader(p AppShellHeaderProps) {
+	<mt-app-shell-header { attrs(p.Base)... }>
+		{ children... }
+	</mt-app-shell-header>
+}
+
+// AppShellNavbarProps mirrors Mantine's AppShell.Navbar.
+type AppShellNavbarProps struct {
+	Base
+}
+
+templ AppShellNavbar(p AppShellNavbarProps) {
+	<mt-app-shell-navbar { attrs(p.Base)... }>
+		{ children... }
+	</mt-app-shell-navbar>
+}
+
+// AppShellAsideProps mirrors Mantine's AppShell.Aside.
+type AppShellAsideProps struct {
+	Base
+}
+
+templ AppShellAside(p AppShellAsideProps) {
+	<mt-app-shell-aside { attrs(p.Base)... }>
+		{ children... }
+	</mt-app-shell-aside>
+}
+
+// AppShellMainProps mirrors Mantine's AppShell.Main.
+type AppShellMainProps struct {
+	Base
+}
+
+templ AppShellMain(p AppShellMainProps) {
+	<mt-app-shell-main { attrs(p.Base)... }>
+		{ children... }
+	</mt-app-shell-main>
+}
+
+// AppShellFooterProps mirrors Mantine's AppShell.Footer.
+type AppShellFooterProps struct {
+	Base
+}
+
+templ AppShellFooter(p AppShellFooterProps) {
+	<mt-app-shell-footer { attrs(p.Base)... }>
+		{ children... }
+	</mt-app-shell-footer>
+}

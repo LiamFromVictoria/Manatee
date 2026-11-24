@@ -1,0 +1,23 @@
+package mt
+
+// GroupProps mirrors Mantine's Group.
+type GroupProps struct {
+	Base
+	Gap                 string // xs..xl (default md) or a raw value
+	Justify             string // CSS justify-content, default flex-start
+	Align               string // CSS align-items, default center
+	Wrap                string // wrap (default) | nowrap
+	Grow                bool
+	PreventGrowOverflow *bool // defaults to true; pass new(false) to allow overflow
+}
+
+templ Group(p GroupProps) {
+	<mt-group
+		{ attrs(p.Base,
+			"gap", p.Gap, "justify", p.Justify, "align", p.Align, "wrap", p.Wrap,
+			"grow", p.Grow, "prevent-grow-overflow", p.PreventGrowOverflow,
+		)... }
+	>
+		{ children... }
+	</mt-group>
+}

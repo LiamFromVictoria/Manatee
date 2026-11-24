@@ -1,0 +1,17 @@
+package mt
+
+// StackProps mirrors Mantine's Stack.
+type StackProps struct {
+	Base
+	Gap     string // xs..xl (default md) or a raw value
+	Align   string // CSS align-items, default stretch
+	Justify string // CSS justify-content, default flex-start
+}
+
+templ Stack(p StackProps) {
+	<mt-stack
+		{ attrs(p.Base, "gap", p.Gap, "align", p.Align, "justify", p.Justify)... }
+	>
+		{ children... }
+	</mt-stack>
+}

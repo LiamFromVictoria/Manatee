@@ -3,6 +3,7 @@
  * Importing this module registers every <mt-*> element.
  */
 import { getColorScheme, resolvedColorScheme, setColorScheme, toggleColorScheme } from './core';
+import { notifications } from './components/overlays';
 
 import './components/layout';
 import './components/display';
@@ -10,8 +11,10 @@ import './components/inputs';
 import './components/choice';
 import './components/overlays';
 import './components/navigation';
+import './components/structure';
 
 export * from './core';
+export { notifications, type NotifyOptions } from './components/overlays';
 
 declare global {
   interface Window {
@@ -20,8 +23,9 @@ declare global {
       getColorScheme: typeof getColorScheme;
       resolvedColorScheme: typeof resolvedColorScheme;
       toggleColorScheme: typeof toggleColorScheme;
+      notifications: typeof notifications;
     };
   }
 }
 
-window.manatee = { setColorScheme, getColorScheme, resolvedColorScheme, toggleColorScheme };
+window.manatee = { setColorScheme, getColorScheme, resolvedColorScheme, toggleColorScheme, notifications };

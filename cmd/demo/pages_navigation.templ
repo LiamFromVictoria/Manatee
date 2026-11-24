@@ -1,0 +1,165 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+templ TabsPage() {
+	@Demo("Variants", `@mt.Tabs(mt.TabsProps{Variant: "pills", Value: "gallery"}) { ... }`) {
+		for _, v := range []string{"default", "outline", "pills"} {
+			@mt.Tabs(mt.TabsProps{Variant: v, Value: "gallery", Base: mt.Base{Mb: mt.LG}}) {
+				@mt.TabsList(mt.TabsListProps{}) {
+					@mt.Tab(mt.TabProps{Value: "gallery"}) {
+						Gallery
+					}
+					@mt.Tab(mt.TabProps{Value: "messages"}) {
+						Messages
+					}
+					@mt.Tab(mt.TabProps{Value: "settings", Disabled: true}) {
+						Settings
+					}
+				}
+				@mt.TabsPanel(mt.TabsPanelProps{Value: "gallery"}) {
+					Gallery tab content
+				}
+				@mt.TabsPanel(mt.TabsPanelProps{Value: "messages"}) {
+					Messages tab content
+				}
+				@mt.TabsPanel(mt.TabsPanelProps{Value: "settings"}) {
+					Settings tab content
+				}
+			}
+		}
+	}
+	@Demo("Vertical", `@mt.Tabs(mt.TabsProps{Orientation: "vertical"}) { ... }`) {
+		@mt.Tabs(mt.TabsProps{Orientation: "vertical", Value: "gallery"}) {
+			@mt.TabsList(mt.TabsListProps{}) {
+				@mt.Tab(mt.TabProps{Value: "gallery"}) {
+					Gallery
+				}
+				@mt.Tab(mt.TabProps{Value: "messages"}) {
+					Messages
+				}
+				@mt.Tab(mt.TabProps{Value: "settings"}) {
+					Settings
+				}
+			}
+			@mt.TabsPanel(mt.TabsPanelProps{Value: "gallery", Base: mt.Base{Pl: mt.MD}}) {
+				Gallery tab content
+			}
+			@mt.TabsPanel(mt.TabsPanelProps{Value: "messages", Base: mt.Base{Pl: mt.MD}}) {
+				Messages tab content
+			}
+			@mt.TabsPanel(mt.TabsPanelProps{Value: "settings", Base: mt.Base{Pl: mt.MD}}) {
+				Settings tab content
+			}
+		}
+	}
+}
+
+templ AccordionPage() {
+	for _, v := range []string{"default", "contained", "filled", "separated"} {
+		@Demo("Variant: "+v, `@mt.Accordion(mt.AccordionProps{Variant: "`+v+`"}) { ... }`) {
+			@mt.Accordion(mt.AccordionProps{Variant: v, Value: "first"}) {
+				@mt.AccordionItem(mt.AccordionItemProps{Value: "first"}) {
+					@mt.AccordionControl(mt.AccordionControlProps{}) {
+						First item
+					}
+					@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+						First item content, revealed when the accordion item is open.
+					}
+				}
+				@mt.AccordionItem(mt.AccordionItemProps{Value: "second"}) {
+					@mt.AccordionControl(mt.AccordionControlProps{}) {
+						Second item
+					}
+					@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+						Second item content.
+					}
+				}
+				@mt.AccordionItem(mt.AccordionItemProps{Value: "third", Disabled: true}) {
+					@mt.AccordionControl(mt.AccordionControlProps{}) {
+						Disabled item
+					}
+					@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+						Not reachable while disabled.
+					}
+				}
+			}
+		}
+	}
+	@Demo("Multiple, chevron left", `@mt.Accordion(mt.AccordionProps{Multiple: true, ChevronPosition: "left"}) { ... }`) {
+		@mt.Accordion(mt.AccordionProps{Multiple: true, ChevronPosition: "left", Value: "first,second"}) {
+			@mt.AccordionItem(mt.AccordionItemProps{Value: "first"}) {
+				@mt.AccordionControl(mt.AccordionControlProps{}) {
+					First item
+				}
+				@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+					Multiple items can be open at once.
+				}
+			}
+			@mt.AccordionItem(mt.AccordionItemProps{Value: "second"}) {
+				@mt.AccordionControl(mt.AccordionControlProps{}) {
+					Second item
+				}
+				@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+					Second item content.
+				}
+			}
+		}
+	}
+}
+
+const iconHome = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>`
+
+templ NavLinkPage() {
+	@Demo("Nested, sections, active state", `@mt.NavLink(mt.NavLinkProps{Label: "...", Active: true, LeftSection: mt.Raw(iconSVG)})`) {
+		<div style="max-width:20rem">
+			@mt.NavLink(mt.NavLinkProps{Label: "With icon", Active: true, LeftSection: mt.Raw(iconHome)})
+			@mt.NavLink(mt.NavLinkProps{Label: "Disabled", Disabled: true, LeftSection: mt.Raw(iconHome)})
+			@mt.NavLink(mt.NavLinkProps{Label: "With description", Description: "Additional information"})
+			@mt.NavLink(mt.NavLinkProps{Label: "Nested parent", Variant: "filled"}) {
+				@mt.NavLink(mt.NavLinkProps{Label: "First child"})
+				@mt.NavLink(mt.NavLinkProps{Label: "Second child"})
+				@mt.NavLink(mt.NavLinkProps{Label: "Nested again"}) {
+					@mt.NavLink(mt.NavLinkProps{Label: "Grandchild"})
+				}
+			}
+		</div>
+	}
+}
+
+templ BreadcrumbsPage() {
+	@Demo("Basic", `@mt.Breadcrumbs(mt.BreadcrumbsProps{}) { <a href="...">Home</a> ... }`) {
+		@mt.Breadcrumbs(mt.BreadcrumbsProps{}) {
+			<a href="#">Home</a>
+			<a href="#">Library</a>
+			<a href="#">Data</a>
+			<span>Current page</span>
+		}
+	}
+	@Demo("Custom separator", `@mt.Breadcrumbs(mt.BreadcrumbsProps{Separator: "→"}) { ... }`) {
+		@mt.Breadcrumbs(mt.BreadcrumbsProps{Separator: "\u2192"}) {
+			<a href="#">Home</a>
+			<a href="#">Settings</a>
+			<span>Profile</span>
+		}
+	}
+}
+
+templ PaginationPage() {
+	@Demo("Basic", `@mt.Pagination(mt.PaginationProps{Total: 10, Value: 4})`) {
+		@mt.Pagination(mt.PaginationProps{Total: 10, Value: 4})
+	}
+	@Demo("Siblings, boundaries, edges", `@mt.Pagination(mt.PaginationProps{Total: 20, Value: 10, Siblings: 2, Boundaries: 2, WithEdges: true})`) {
+		@mt.Pagination(mt.PaginationProps{Total: 20, Value: 10, Siblings: 2, Boundaries: 2, WithEdges: true})
+	}
+	@Demo("Sizes", `@mt.Pagination(mt.PaginationProps{Total: 10, Value: 3, Size: mt.LG})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Pagination(mt.PaginationProps{Total: 10, Value: 3, Size: s})
+			}
+		}
+	}
+	@Demo("href-template (server-side paging)", `@mt.Pagination(mt.PaginationProps{Total: 10, Value: 4, HrefTemplate: "/components/pagination?page={page}"})`) {
+		@mt.Pagination(mt.PaginationProps{Total: 10, Value: 4, HrefTemplate: "/components/pagination?page={page}"})
+	}
+}

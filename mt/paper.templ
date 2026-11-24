@@ -1,0 +1,15 @@
+package mt
+
+// PaperProps mirrors Mantine's Paper.
+type PaperProps struct {
+	Base
+	Shadow     string
+	Radius     string
+	WithBorder bool
+}
+
+templ Paper(p PaperProps) {
+	<mt-paper { attrs(p.Base, "shadow", p.Shadow, "radius", p.Radius, "with-border", p.WithBorder)... }>
+		{ children... }
+	</mt-paper>
+}

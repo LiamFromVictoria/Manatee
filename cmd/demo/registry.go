@@ -17,7 +17,7 @@ type Page struct {
 	Body        templ.Component
 }
 
-var groupOrder = []string{"Layout", "Buttons", "Data display", "Inputs", "Overlays", "Navigation", "Feedback"}
+var groupOrder = []string{"Layout", "Typography", "Buttons", "Data display", "Inputs", "Overlays", "Navigation", "Feedback"}
 
 var pages []Page
 

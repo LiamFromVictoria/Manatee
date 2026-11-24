@@ -1,0 +1,12 @@
+package mt
+
+// SpaceProps mirrors Mantine's Space.
+type SpaceProps struct {
+	Base
+	W string // spacing scale (xs..xl) or a raw px/rem value
+	H string // spacing scale (xs..xl) or a raw px/rem value
+}
+
+templ Space(p SpaceProps) {
+	<mt-space { attrs(p.Base, "w", p.W, "h", p.H)... }/>
+}

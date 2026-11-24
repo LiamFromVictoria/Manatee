@@ -1,0 +1,13 @@
+package mt
+
+// LoaderProps mirrors Mantine's Loader.
+type LoaderProps struct {
+	Base
+	Type  string // oval (default) | bars | dots
+	Color string
+	Size  string // xs..xl
+}
+
+templ Loader(p LoaderProps) {
+	<mt-loader { attrs(p.Base, "type", p.Type, "color", p.Color, "size", p.Size)... }/>
+}

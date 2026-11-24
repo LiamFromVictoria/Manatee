@@ -1,0 +1,34 @@
+package mt
+
+// NavLinkProps mirrors Mantine's NavLink.
+type NavLinkProps struct {
+	Base
+	Label          string
+	Description    string
+	Active         bool
+	Variant        string // light (default) | filled | subtle
+	Color          string
+	Href           string
+	Target         string
+	Disabled       bool
+	NoWrap         bool
+	Opened         bool
+	ChildrenOffset string
+	LeftSection    templ.Component
+	RightSection   templ.Component
+}
+
+// NavLink children should be nested mt.NavLink calls, rendered when Opened.
+templ NavLink(p NavLinkProps) {
+	<mt-nav-link
+		{ attrs(p.Base,
+			"label", p.Label, "description", p.Description, "active", p.Active, "variant", p.Variant,
+			"color", p.Color, "href", p.Href, "target", p.Target, "disabled", p.Disabled, "no-wrap", p.NoWrap,
+			"opened", p.Opened, "children-offset", p.ChildrenOffset,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		@slot("right-section", p.RightSection)
+		{ children... }
+	</mt-nav-link>
+}

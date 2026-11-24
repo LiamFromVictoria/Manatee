@@ -142,6 +142,14 @@ export class MtElement extends HTMLElement {
     if (!this.#initialized) {
       this.#initialized = true;
       const ctor = this.constructor as typeof MtElement;
+      // Properties set before the element was defined become own properties
+      // that shadow the prototype accessors; remove and re-apply them.
+      for (const k of Object.keys(ctor.props)) {
+        if (!Object.prototype.hasOwnProperty.call(this, k)) continue;
+        const v = (this as Record<string, unknown>)[k];
+        delete (this as Record<string, unknown>)[k];
+        (this as Record<string, unknown>)[k] = v;
+      }
       for (const k of Object.keys(ctor.props)) this.#pending.add(k);
       for (const k of Object.keys(STYLE_PROPS)) if (this.hasAttribute(k)) this.#pending.add(k);
       this.setup();

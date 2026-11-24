@@ -1,0 +1,66 @@
+package mt
+
+// SelectItem is one Select option.
+type SelectItem struct {
+	Value    string
+	Label    string
+	Disabled bool
+}
+
+// SelectGroup is a labeled group of Select options, rendered as <optgroup>.
+type SelectGroup struct {
+	Label string
+	Items []SelectItem
+}
+
+// SelectProps mirrors Mantine's Select. Data/Groups become the light-DOM
+// <option>/<optgroup> children the element reads its choices from.
+type SelectProps struct {
+	Base
+	Name              string
+	Value             string
+	Label             string
+	Description       string
+	Error             string
+	Placeholder       string
+	Variant           string // default | filled | unstyled
+	Size              string
+	Radius            string
+	Required          bool
+	Disabled          bool
+	ReadOnly          bool
+	AutoFocus         bool
+	Searchable        bool
+	Clearable         bool
+	NothingFound      string
+	AllowDeselect     *bool
+	MaxDropdownHeight string
+	Data              []SelectItem
+	Groups            []SelectGroup
+	LeftSection       templ.Component
+}
+
+templ Select(p SelectProps) {
+	<mt-select
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "label", p.Label, "description", p.Description, "error", p.Error,
+			"placeholder", p.Placeholder, "variant", p.Variant, "size", p.Size, "radius", p.Radius,
+			"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
+			"searchable", p.Searchable, "clearable", p.Clearable, "nothing-found", p.NothingFound,
+			"allow-deselect", p.AllowDeselect, "max-dropdown-height", p.MaxDropdownHeight,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		for _, it := range p.Data {
+			<option value={ it.Value } disabled?={ it.Disabled }>{ it.Label }</option>
+		}
+		for _, g := range p.Groups {
+			<optgroup label={ g.Label }>
+				for _, it := range g.Items {
+					<option value={ it.Value } disabled?={ it.Disabled }>{ it.Label }</option>
+				}
+			</optgroup>
+		}
+		{ children... }
+	</mt-select>
+}

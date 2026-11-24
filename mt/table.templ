@@ -1,0 +1,103 @@
+package mt
+
+// TableProps mirrors Mantine's Table.
+type TableProps struct {
+	Base
+	Striped               string // "" | "odd" | "even"
+	HighlightOnHover      bool
+	WithTableBorder       bool
+	WithColumnBorders     bool
+	WithRowBorders        *bool // default true
+	VerticalSpacing       string
+	HorizontalSpacing     string
+	CaptionSide           string // bottom (default) | top
+	StickyHeader          bool
+	StickyHeaderOffset    string
+	Layout                string // auto (default) | fixed
+	StripedColor          string
+	HighlightOnHoverColor string
+	BorderColor           string
+	// Data, when non-empty, renders thead/tbody/tfoot/caption instead of
+	// children. Leave it zero and supply raw <thead>/<tbody>/... as children.
+	Data TableData
+}
+
+// TableData renders a plain table body from strings.
+type TableData struct {
+	Caption string
+	Head    []string
+	Body    [][]string
+	Foot    []string
+}
+
+func (d TableData) empty() bool {
+	return d.Caption == "" && d.Head == nil && d.Body == nil && d.Foot == nil
+}
+
+// Table renders a <mt-table>, wrapping the user's thead/tbody/tfoot/caption
+// (as children, or generated from Data) in a native <table>.
+templ Table(p TableProps) {
+	<mt-table
+		{ attrs(p.Base,
+			"striped", p.Striped, "highlight-on-hover", p.HighlightOnHover,
+			"with-table-border", p.WithTableBorder, "with-column-borders", p.WithColumnBorders,
+			"with-row-borders", p.WithRowBorders,
+			"vertical-spacing", p.VerticalSpacing, "horizontal-spacing", p.HorizontalSpacing,
+			"caption-side", p.CaptionSide, "sticky-header", p.StickyHeader, "sticky-header-offset", p.StickyHeaderOffset,
+			"layout", p.Layout, "striped-color", p.StripedColor, "highlight-on-hover-color", p.HighlightOnHoverColor,
+			"border-color", p.BorderColor,
+		)... }
+	>
+		<table>
+			if !p.Data.empty() {
+				if p.Data.Caption != "" {
+					<caption>{ p.Data.Caption }</caption>
+				}
+				if len(p.Data.Head) > 0 {
+					<thead>
+						<tr>
+							for _, h := range p.Data.Head {
+								<th>{ h }</th>
+							}
+						</tr>
+					</thead>
+				}
+				if len(p.Data.Body) > 0 {
+					<tbody>
+						for _, row := range p.Data.Body {
+							<tr>
+								for _, cell := range row {
+									<td>{ cell }</td>
+								}
+							</tr>
+						}
+					</tbody>
+				}
+				if len(p.Data.Foot) > 0 {
+					<tfoot>
+						<tr>
+							for _, f := range p.Data.Foot {
+								<th>{ f }</th>
+							}
+						</tr>
+					</tfoot>
+				}
+			} else {
+				{ children... }
+			}
+		</table>
+	</mt-table>
+}
+
+// TableScrollContainerProps mirrors Mantine's Table.ScrollContainer.
+type TableScrollContainerProps struct {
+	Base
+	MinWidth  string
+	MaxHeight string
+}
+
+templ TableScrollContainer(p TableScrollContainerProps) {
+	<mt-table-scroll-container { attrs(p.Base, "min-width", p.MinWidth, "max-height", p.MaxHeight)... }>
+		{ children... }
+	</mt-table-scroll-container>
+}

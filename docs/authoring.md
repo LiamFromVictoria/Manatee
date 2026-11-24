@@ -21,6 +21,9 @@ Reference implementations: `web/src/components/display/button.ts` + `mt/button.t
   `highlightOnHover` → `highlight-on-hover`, `closeOnEscape` → `close-on-escape`).
 - Mantine `title` becomes attribute `heading`, because `title` shows a native tooltip.
   The Go field is still `Title`.
+- Attribute names MUST NOT start with `on`. templ treats them as event handlers and
+  replaces string values with a sanitization comment. Mantine's `onLabel`/`offLabel`
+  become `label-on`/`label-off`.
 - Mantine `opened` stays `opened` (attribute and Go field `Opened`).
 - Go: one `XxxProps` struct per element with `Base` embedded, plus `templ Xxx(p XxxProps)`.
   Compound parts are their own functions (`mt.Tabs`, `mt.TabsList`, `mt.Tab`, `mt.TabsPanel`).

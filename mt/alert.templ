@@ -1,0 +1,24 @@
+package mt
+
+// AlertProps mirrors Mantine's Alert.
+type AlertProps struct {
+	Base
+	Variant          string // light (default) | filled | outline | default | transparent | white
+	Color            string
+	Title            string // Go field Title; attribute "heading" (Mantine title shows a native tooltip otherwise)
+	WithCloseButton  bool
+	CloseButtonLabel string
+	Icon             templ.Component
+}
+
+templ Alert(p AlertProps) {
+	<mt-alert
+		{ attrs(p.Base,
+			"variant", p.Variant, "color", p.Color, "heading", p.Title,
+			"with-close-button", p.WithCloseButton, "close-button-label", p.CloseButtonLabel,
+		)... }
+	>
+		@slot("icon", p.Icon)
+		{ children... }
+	</mt-alert>
+}

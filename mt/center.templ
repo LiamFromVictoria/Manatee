@@ -1,0 +1,13 @@
+package mt
+
+// CenterProps mirrors Mantine's Center.
+type CenterProps struct {
+	Base
+	Inline bool
+}
+
+templ Center(p CenterProps) {
+	<mt-center { attrs(p.Base, "inline", p.Inline)... }>
+		{ children... }
+	</mt-center>
+}

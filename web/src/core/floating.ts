@@ -36,10 +36,27 @@ export const floatingStyles = css`
 const OPPOSITE: Record<Side, Side> = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
 const EDGE = 4;
 
+/**
+ * Layout box of `el`. Elements with `display: contents` (slot wrappers such as
+ * `<span slot="target" style="display:contents">`, or <slot> itself) have no
+ * box, so use the union of their rendered children instead.
+ */
+function boxOf(el: Element): DOMRect {
+  if (getComputedStyle(el).display !== 'contents') return el.getBoundingClientRect();
+  const children = el instanceof HTMLSlotElement ? el.assignedElements({ flatten: true }) : [...el.children];
+  const rects = children.map(boxOf).filter((r) => r.width || r.height);
+  if (rects.length === 0) return el.getBoundingClientRect();
+  const left = Math.min(...rects.map((r) => r.left));
+  const top = Math.min(...rects.map((r) => r.top));
+  const right = Math.max(...rects.map((r) => r.right));
+  const bottom = Math.max(...rects.map((r) => r.bottom));
+  return new DOMRect(left, top, right - left, bottom - top);
+}
+
 /** Position `floating` relative to `reference` once. Sets left/top and data-placement. */
 export function position(reference: Element, floating: HTMLElement, opts: FloatingOptions = {}): void {
   const { placement = 'bottom', offset = 8, flip = true, matchWidth = false } = opts;
-  const r = reference.getBoundingClientRect();
+  const r = boxOf(reference);
   if (matchWidth) floating.style.width = `${r.width}px`;
   const f = floating.getBoundingClientRect();
   const vw = document.documentElement.clientWidth;

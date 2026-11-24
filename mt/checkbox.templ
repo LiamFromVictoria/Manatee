@@ -1,0 +1,59 @@
+package mt
+
+import "strings"
+
+// CheckboxProps mirrors Mantine's Checkbox.
+type CheckboxProps struct {
+	Base
+	Name          string
+	Value         string
+	Checked       bool
+	Indeterminate bool
+	Label         string
+	Description   string
+	Error         string
+	Required      bool
+	Disabled      bool
+	Color         string
+	Size          string
+	Radius        string
+	LabelPosition string // right (default) | left
+	IconColor     string
+}
+
+templ Checkbox(p CheckboxProps) {
+	<mt-checkbox
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "checked", p.Checked, "indeterminate", p.Indeterminate,
+			"label", p.Label, "description", p.Description, "error", p.Error,
+			"required", p.Required, "disabled", p.Disabled, "color", p.Color, "size", p.Size, "radius", p.Radius,
+			"label-position", p.LabelPosition, "icon-color", p.IconColor,
+		)... }
+	>
+		{ children... }
+	</mt-checkbox>
+}
+
+// CheckboxGroupProps mirrors Mantine's Checkbox.Group.
+type CheckboxGroupProps struct {
+	Base
+	Name        string
+	Value       []string
+	Label       string
+	Description string
+	Error       string
+	Required    bool
+	Disabled    bool
+	Size        string
+}
+
+templ CheckboxGroup(p CheckboxGroupProps) {
+	<mt-checkbox-group
+		{ attrs(p.Base,
+			"name", p.Name, "value", strings.Join(p.Value, ","), "label", p.Label, "description", p.Description,
+			"error", p.Error, "required", p.Required, "disabled", p.Disabled, "size", p.Size,
+		)... }
+	>
+		{ children... }
+	</mt-checkbox-group>
+}

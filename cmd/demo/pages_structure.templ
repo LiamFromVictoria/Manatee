@@ -1,0 +1,172 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+templ AppShellPage() {
+	@Demo("Header, navbar and burger", `@mt.AppShell(mt.AppShellProps{HeaderHeight: "60", NavbarWidth: "220"}) { @mt.AppShellHeader(...) { @mt.Burger(...) } @mt.AppShellNavbar(...) {...} @mt.AppShellMain(...) {...} }`) {
+		<div style="position:relative;height:22rem;border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md);overflow:hidden;contain:layout;">
+			@mt.AppShell(mt.AppShellProps{HeaderHeight: "60", NavbarWidth: "220", Padding: mt.MD}) {
+				@mt.AppShellHeader(mt.AppShellHeaderProps{}) {
+					@mt.Burger(mt.BurgerProps{Size: mt.SM})
+					<strong>Demo app</strong>
+				}
+				@mt.AppShellNavbar(mt.AppShellNavbarProps{}) {
+					<p>Navbar link one</p>
+					<p>Navbar link two</p>
+					<p>Navbar link three</p>
+				}
+				@mt.AppShellMain(mt.AppShellMainProps{}) {
+					<p>Main content, offset by the header height and navbar width. Shrink this box (or the window) below the sm breakpoint to see the navbar collapse into a burger-toggled overlay drawer.</p>
+				}
+			}
+		</div>
+	}
+	@Demo("Header, navbar, aside and footer", `@mt.AppShell(mt.AppShellProps{HeaderHeight: "56", NavbarWidth: "200", AsideWidth: "200", FooterHeight: "40"}) { ... }`) {
+		<div style="position:relative;height:24rem;border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md);overflow:hidden;contain:layout;">
+			@mt.AppShell(mt.AppShellProps{HeaderHeight: "56", NavbarWidth: "200", AsideWidth: "200", FooterHeight: "40", Padding: mt.MD}) {
+				@mt.AppShellHeader(mt.AppShellHeaderProps{}) {
+					<strong>Header</strong>
+				}
+				@mt.AppShellNavbar(mt.AppShellNavbarProps{}) {
+					<p>Navbar</p>
+				}
+				@mt.AppShellAside(mt.AppShellAsideProps{}) {
+					<p>Aside</p>
+				}
+				@mt.AppShellMain(mt.AppShellMainProps{}) {
+					<p>Main</p>
+				}
+				@mt.AppShellFooter(mt.AppShellFooterProps{}) {
+					<small>Footer</small>
+				}
+			}
+		</div>
+	}
+	@Demo("Attributes", `header-height, navbar-width, navbar-breakpoint, navbar-collapsed-mobile/-desktop, aside-width, aside-breakpoint, aside-collapsed-mobile/-desktop, footer-height, padding, layout="default|alt", with-border, z-index, navbar-opened`) {
+		<p>
+			mt-app-shell's children are matched by tag (mt-app-shell-header, -navbar, -aside, -main, -footer);
+			any mt-burger anywhere inside it toggles the mobile navbar drawer via its `toggle` event, and is
+			kept in sync with the shell's navbar-opened state. Sizes accept any CSS length (bare numbers are px).
+			Set layout="alt" to let the navbar/aside span the full height, insetting the header and footer instead.
+		</p>
+	}
+}
+
+templ BurgerPage() {
+	@Demo("Sizes", `@mt.Burger(mt.BurgerProps{Size: mt.LG})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Burger(mt.BurgerProps{Size: s})
+			}
+		}
+	}
+	@Demo("Colors", `@mt.Burger(mt.BurgerProps{Color: mt.Red})`) {
+		@Row() {
+			for _, c := range []string{mt.Dark, mt.Red, mt.Teal, mt.Violet, mt.Orange} {
+				@mt.Burger(mt.BurgerProps{Color: c})
+			}
+		}
+	}
+	@Demo("Opened state", `@mt.Burger(mt.BurgerProps{Opened: true})`) {
+		@Row() {
+			@mt.Burger(mt.BurgerProps{})
+			@mt.Burger(mt.BurgerProps{Opened: true})
+		}
+	}
+}
+
+templ TablePage() {
+	@Demo("Basic", `@mt.Table(mt.TableProps{Data: mt.TableData{Head: []string{"Name", "Position", "Age"}, Body: [][]string{{"Alice", "Engineer", "28"}}}})`) {
+		@mt.Table(mt.TableProps{
+			Data: mt.TableData{
+				Head: []string{"Name", "Position", "Age"},
+				Body: [][]string{
+					{"Alice", "Engineer", "28"},
+					{"Bob", "Designer", "34"},
+					{"Carol", "Manager", "41"},
+				},
+			},
+		})
+	}
+	@Demo("Striped, hover, borders", `@mt.Table(mt.TableProps{Striped: "odd", HighlightOnHover: true, WithTableBorder: true, WithColumnBorders: true})`) {
+		@mt.Table(mt.TableProps{
+			Striped: "odd", HighlightOnHover: true, WithTableBorder: true, WithColumnBorders: true,
+			Data: mt.TableData{
+				Head: []string{"Name", "Position", "Age"},
+				Body: [][]string{
+					{"Alice", "Engineer", "28"},
+					{"Bob", "Designer", "34"},
+					{"Carol", "Manager", "41"},
+					{"Dave", "Analyst", "25"},
+				},
+			},
+		})
+	}
+	@Demo("No row borders and a caption", `@mt.Table(mt.TableProps{WithRowBorders: new(false), Data: mt.TableData{Caption: "..."}})`) {
+		@mt.Table(mt.TableProps{
+			WithRowBorders: new(false),
+			Data: mt.TableData{
+				Caption: "Team roster",
+				Head:    []string{"Name", "Position"},
+				Body: [][]string{
+					{"Alice", "Engineer"},
+					{"Bob", "Designer"},
+				},
+			},
+		})
+	}
+	@Demo("Scroll container with a sticky header", `@mt.TableScrollContainer(mt.TableScrollContainerProps{MaxHeight: "200"}) { @mt.Table(mt.TableProps{StickyHeader: true, ...}) }`) {
+		@mt.TableScrollContainer(mt.TableScrollContainerProps{MaxHeight: "200"}) {
+			@mt.Table(mt.TableProps{
+				StickyHeader: true,
+				Data: mt.TableData{
+					Head: []string{"Name", "Position"},
+					Body: [][]string{
+						{"Alice", "Engineer"},
+						{"Bob", "Designer"},
+						{"Carol", "Manager"},
+						{"Dave", "Analyst"},
+						{"Eve", "Director"},
+						{"Frank", "Intern"},
+					},
+				},
+			})
+		}
+	}
+}
+
+templ ProgressPage() {
+	@Demo("Sizes", `@mt.Progress(mt.ProgressProps{Value: 65, Size: mt.LG})`) {
+		for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+			<div style="margin-bottom:0.5rem">
+				@mt.Progress(mt.ProgressProps{Value: 65, Size: s})
+			</div>
+		}
+	}
+	@Demo("Colors", `@mt.Progress(mt.ProgressProps{Value: 80, Color: mt.Teal})`) {
+		for _, c := range []string{mt.Blue, mt.Teal, mt.Red, mt.Violet, mt.Orange} {
+			<div style="margin-bottom:0.5rem">
+				@mt.Progress(mt.ProgressProps{Value: 70, Color: c})
+			</div>
+		}
+	}
+	@Demo("Striped and animated", `@mt.Progress(mt.ProgressProps{Value: 50, Striped: true, Animated: true})`) {
+		<div style="margin-bottom:0.5rem">
+			@mt.Progress(mt.ProgressProps{Value: 50, Striped: true})
+		</div>
+		@mt.Progress(mt.ProgressProps{Value: 65, Striped: true, Animated: true, Color: mt.Orange})
+	}
+	@Demo("Multi-section", `@mt.ProgressRoot(mt.ProgressRootProps{}) { @mt.ProgressSection(mt.ProgressSectionProps{Value: 40, Color: mt.Teal}) { 40% } ... }`) {
+		@mt.ProgressRoot(mt.ProgressRootProps{Size: mt.XL}) {
+			@mt.ProgressSection(mt.ProgressSectionProps{Value: 40, Color: mt.Teal}) {
+				40%
+			}
+			@mt.ProgressSection(mt.ProgressSectionProps{Value: 20, Color: mt.Yellow, Striped: true, Animated: true}) {
+				20%
+			}
+			@mt.ProgressSection(mt.ProgressSectionProps{Value: 15, Color: mt.Red}) {
+				15%
+			}
+		}
+	}
+}

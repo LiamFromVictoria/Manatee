@@ -1,0 +1,189 @@
+package main
+
+import "github.com/you/manatee/mt"
+
+const iconSettings = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`
+
+// demoTarget is a trigger button used as the Target of Popover/Menu demos.
+templ demoTarget(label string) {
+	@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+		{ label }
+	}
+}
+
+templ ModalPage() {
+	@Demo("Basic modal", `@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-modal"}}}) { Open modal }
+@mt.Modal(mt.ModalProps{Base: mt.Base{ID: "demo-modal"}, Heading: "Settings"}) { ... }`) {
+		@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-modal"}}}) {
+			Open modal
+		}
+		@mt.Modal(mt.ModalProps{Base: mt.Base{ID: "demo-modal"}, Heading: "Settings"}) {
+			<p>Modal content goes here. Press Escape, click outside, or the close button to dismiss.</p>
+		}
+	}
+	@Demo("Sizes", `@mt.Modal(mt.ModalProps{Size: mt.LG, ...})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-modal-" + s}}}) {
+					{ s }
+				}
+				@mt.Modal(mt.ModalProps{Base: mt.Base{ID: "demo-modal-" + s}, Heading: "Size " + s, Size: s}) {
+					<p>This modal uses size="{ s }".</p>
+				}
+			}
+		}
+	}
+	@Demo("Centered, full-screen, no close button", `@mt.Modal(mt.ModalProps{Centered: true})`) {
+		@Row() {
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-modal-centered"}}}) {
+				Centered
+			}
+			@mt.Modal(mt.ModalProps{Base: mt.Base{ID: "demo-modal-centered"}, Heading: "Centered", Centered: true}) {
+				<p>Vertically centered in the viewport.</p>
+			}
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-modal-full"}}}) {
+				Full screen
+			}
+			@mt.Modal(mt.ModalProps{Base: mt.Base{ID: "demo-modal-full"}, Heading: "Full screen", FullScreen: true}) {
+				<p>Fills the viewport.</p>
+			}
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-modal-noclose"}}}) {
+				No close button
+			}
+			@mt.Modal(mt.ModalProps{Base: mt.Base{ID: "demo-modal-noclose"}, Heading: "Confirm", WithCloseButton: new(false)}) {
+				<p>Must be dismissed via its own buttons.</p>
+				@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-close": "demo-modal-noclose"}}}) {
+					Done
+				}
+			}
+		}
+	}
+}
+
+templ DrawerPage() {
+	@Demo("Positions", `@mt.Drawer(mt.DrawerProps{Position: "right", ...})`) {
+		@Row() {
+			for _, pos := range []string{"left", "right", "top", "bottom"} {
+				@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-open": "demo-drawer-" + pos}}}) {
+					{ pos }
+				}
+				@mt.Drawer(mt.DrawerProps{Base: mt.Base{ID: "demo-drawer-" + pos}, Heading: "From " + pos, Position: pos}) {
+					<p>This drawer slides in from the { pos } edge.</p>
+				}
+			}
+		}
+	}
+}
+
+templ TooltipPage() {
+	@Demo("Positions", `@mt.Tooltip(mt.TooltipProps{Label: "Tooltip", Position: "right"}) { @mt.Button(...) { Hover me } }`) {
+		@Row() {
+			for _, pos := range []string{"top", "right", "bottom", "left"} {
+				@mt.Tooltip(mt.TooltipProps{Label: pos, Position: pos}) {
+					@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+						{ pos }
+					}
+				}
+			}
+		}
+	}
+	@Demo("With arrow and color", `@mt.Tooltip(mt.TooltipProps{Label: "Tip", WithArrow: true, Color: mt.Teal})`) {
+		@Row() {
+			@mt.Tooltip(mt.TooltipProps{Label: "With arrow", WithArrow: true}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+					With arrow
+				}
+			}
+			@mt.Tooltip(mt.TooltipProps{Label: "Colored tooltip", Color: mt.Teal, WithArrow: true}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+					Colored
+				}
+			}
+			@mt.Tooltip(mt.TooltipProps{Label: "This tooltip wraps onto multiple lines when the text is long", Multiline: true, W: "220"}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.Default}) {
+					Multiline
+				}
+			}
+		}
+	}
+}
+
+templ PopoverPage() {
+	@Demo("Basic popover", `@mt.Popover(mt.PopoverProps{Target: ...}) { @mt.PopoverDropdown(...) { ... } }`) {
+		@mt.Popover(mt.PopoverProps{Target: demoTarget("Toggle popover"), WithArrow: true}) {
+			@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
+				<p>Popover content. Click outside or press Escape to close.</p>
+			}
+		}
+	}
+	@Demo("Match target width", `@mt.Popover(mt.PopoverProps{Width: "target", ...})`) {
+		@mt.Popover(mt.PopoverProps{Target: demoTarget("Match width"), Width: "target"}) {
+			@mt.PopoverDropdown(mt.PopoverDropdownProps{}) {
+				<p>This dropdown matches the target's width.</p>
+			}
+		}
+	}
+}
+
+templ MenuPage() {
+	@Demo("Basic menu", `@mt.Menu(mt.MenuProps{Target: ...}) { @mt.MenuDropdown(...) { @mt.MenuItem(...) { ... } } }`) {
+		@mt.Menu(mt.MenuProps{Target: demoTarget("Toggle menu")}) {
+			@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+				@mt.MenuLabel(mt.MenuLabelProps{}) {
+					Application
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: mt.Raw(iconSettings)}) {
+					Settings
+				}
+				@mt.MenuItem(mt.MenuItemProps{}) {
+					Messages
+				}
+				@mt.MenuItem(mt.MenuItemProps{Disabled: true}) {
+					Disabled item
+				}
+				@mt.MenuDivider(mt.MenuDividerProps{})
+				@mt.MenuItem(mt.MenuItemProps{Color: mt.Red, LeftSection: mt.Raw(iconTrash)}) {
+					Delete account
+				}
+			}
+		}
+	}
+	@Demo("Hover trigger", `@mt.Menu(mt.MenuProps{Trigger: "hover", ...})`) {
+		@mt.Menu(mt.MenuProps{Target: demoTarget("Hover me"), Trigger: "hover"}) {
+			@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+				@mt.MenuItem(mt.MenuItemProps{}) {
+					First action
+				}
+				@mt.MenuItem(mt.MenuItemProps{}) {
+					Second action
+				}
+			}
+		}
+	}
+}
+
+templ NotificationsPage() {
+	@Demo("Static notification", `@mt.Notification(mt.NotificationProps{Heading: "Success", Color: mt.Teal}) { Your changes have been saved. }`) {
+		@Row() {
+			@mt.Notification(mt.NotificationProps{Heading: "Success", Color: mt.Teal, Base: mt.Base{W: "22rem"}}) {
+				Your changes have been saved.
+			}
+			@mt.Notification(mt.NotificationProps{Heading: "Uploading", Color: mt.Blue, Loading: true, Base: mt.Base{W: "22rem"}}) {
+				Please wait while your file uploads.
+			}
+		}
+	}
+	@Demo("Toast via JS API", `window.manatee.notifications.show({ title: "Saved", message: "...", color: "teal" })`) {
+		@Row() {
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.show({title:'Saved',message:'Your changes have been saved.',color:'teal'})"}}}) {
+				Show toast
+			}
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.show({title:'Error',message:'Something went wrong.',color:'red',autoClose:false})"}}}) {
+				Show sticky error
+			}
+			@mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.clean()"}}}) {
+				Clear all
+			}
+		}
+	}
+}

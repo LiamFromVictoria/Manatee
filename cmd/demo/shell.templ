@@ -1,6 +1,10 @@
 package main
 
-import "github.com/you/manatee/mt"
+import (
+	"strconv"
+
+	"github.com/you/manatee/mt"
+)
 
 templ Shell(all []Page, current *Page) {
 	<!DOCTYPE html>
@@ -17,59 +21,63 @@ templ Shell(all []Page, current *Page) {
 			</title>
 			@mt.Head(mt.HeadProps{})
 			<style>
-				.docs { display: grid; grid-template-columns: 15rem 1fr; grid-template-rows: 3.75rem 1fr; min-height: 100vh; }
-				.docs-header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--mt-spacing-md); border-bottom: 1px solid var(--mt-color-border); position: sticky; top: 0; background: var(--mt-color-body); z-index: 10; }
-				.docs-brand { font-weight: 700; font-size: var(--mt-font-size-lg); color: var(--mt-color-text); text-decoration: none; }
-				.docs-nav { border-right: 1px solid var(--mt-color-border); padding: var(--mt-spacing-md); overflow-y: auto; position: sticky; top: 3.75rem; height: calc(100vh - 3.75rem); }
-				.docs-nav h4 { margin: var(--mt-spacing-md) 0 var(--mt-spacing-xs); font-size: var(--mt-font-size-xs); text-transform: uppercase; letter-spacing: 0.04em; color: var(--mt-color-dimmed); }
-				.docs-nav a { display: block; padding: 0.3rem 0.6rem; border-radius: var(--mt-radius-sm); color: var(--mt-color-text); text-decoration: none; font-size: var(--mt-font-size-sm); }
-				.docs-nav a:hover { background: var(--mt-color-hover); }
-				.docs-nav a[aria-current] { background: var(--mt-color-primary-light); color: var(--mt-color-primary-light-color); font-weight: 600; }
-				.docs-main { padding: var(--mt-spacing-xl); max-width: 64rem; min-width: 0; }
-				.docs-main > h1 { margin: 0 0 var(--mt-spacing-xs); font-size: var(--mt-h1-font-size); }
-				.docs-lead { color: var(--mt-color-dimmed); margin: 0 0 var(--mt-spacing-xl); }
+				.docs-header { display: flex; flex: 1; width: 100%; align-items: center; justify-content: space-between; gap: var(--mt-spacing-sm); height: 100%; padding: 0 var(--mt-spacing-md); }
+				.docs-brand { font-weight: 700; font-size: var(--mt-font-size-lg); color: var(--mt-color-text); text-decoration: none; margin-right: auto; }
+				.docs-group { margin: var(--mt-spacing-md) 0 var(--mt-spacing-xs); padding-left: 0.75rem; font-size: var(--mt-font-size-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--mt-color-dimmed); }
+				.docs-main { max-width: 64rem; min-width: 0; padding: var(--mt-spacing-md); }
+				@media (min-width: 48em) { .docs-burger { display: none; } }
 				.demo { margin-bottom: var(--mt-spacing-xl); }
 				.demo h2 { font-size: var(--mt-h3-font-size); margin: 0 0 var(--mt-spacing-sm); }
 				.demo-preview { padding: var(--mt-spacing-lg); border: 1px solid var(--mt-color-border); border-radius: var(--mt-radius-md) var(--mt-radius-md) 0 0; }
 				.demo-code { margin: 0; padding: var(--mt-spacing-md); background: var(--mt-color-code-bg); border: 1px solid var(--mt-color-border); border-top: 0; border-radius: 0 0 var(--mt-radius-md) var(--mt-radius-md); overflow-x: auto; font-family: var(--mt-font-family-monospace); font-size: var(--mt-font-size-xs); line-height: 1.6; }
 				.demo-row { display: flex; flex-wrap: wrap; gap: var(--mt-spacing-md); align-items: center; }
-				.home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: var(--mt-spacing-sm); }
-				.home-grid a { padding: var(--mt-spacing-sm) var(--mt-spacing-md); border: 1px solid var(--mt-color-border); border-radius: var(--mt-radius-md); color: var(--mt-color-text); text-decoration: none; }
-				.home-grid a:hover { background: var(--mt-color-hover); }
 			</style>
 		</head>
 		<body>
-			<div class="docs">
-				<header class="docs-header">
-					<a class="docs-brand" href="/">Manatee</a>
-					@mt.Button(mt.ButtonProps{Variant: mt.Default, Size: "compact-sm", Base: mt.Base{Attrs: templ.Attributes{"onclick": "manatee.toggleColorScheme()"}}}) {
-						Toggle color scheme
-					}
-				</header>
-				<nav class="docs-nav">
+			@mt.AppShell(mt.AppShellProps{HeaderHeight: "60", NavbarWidth: "240", NavbarBreakpoint: mt.SM}) {
+				@mt.AppShellHeader(mt.AppShellHeaderProps{}) {
+					<div class="docs-header">
+						@mt.Burger(mt.BurgerProps{Size: mt.SM, Base: mt.Base{Class: "docs-burger"}})
+						<a class="docs-brand" href="/">Manatee</a>
+						@mt.Button(mt.ButtonProps{Variant: mt.Default, Size: "compact-sm", Base: mt.Base{Attrs: templ.Attributes{"onclick": "manatee.toggleColorScheme()"}}}) {
+							Toggle color scheme
+						}
+					</div>
+				}
+				@mt.AppShellNavbar(mt.AppShellNavbarProps{Base: mt.Base{P: mt.SM, Style: "overflow-y:auto"}}) {
 					for i, p := range all {
 						if i == 0 || all[i-1].Group != p.Group {
-							<h4>{ p.Group }</h4>
+							<div class="docs-group">{ p.Group }</div>
 						}
-						<a href={ templ.SafeURL("/components/" + p.Slug) } aria-current?={ current != nil && current.Slug == p.Slug }>{ p.Title }</a>
+						@mt.NavLink(mt.NavLinkProps{Label: p.Title, Href: "/components/" + p.Slug, Active: current != nil && current.Slug == p.Slug})
 					}
-				</nav>
-				<main class="docs-main">
-					if current != nil {
-						<h1>{ current.Title }</h1>
-						<p class="docs-lead">{ current.Description }</p>
-						@current.Body
-					} else {
-						<h1>Manatee</h1>
-						<p class="docs-lead">Mantine-style web components for Go. { len(all) } components.</p>
-						<div class="home-grid">
-							for _, p := range all {
-								<a href={ templ.SafeURL("/components/" + p.Slug) }>{ p.Title }</a>
+				}
+				@mt.AppShellMain(mt.AppShellMainProps{}) {
+					<div class="docs-main">
+						if current != nil {
+							@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Mb: mt.XS}}) {
+								{ current.Title }
 							}
-						</div>
-					}
-				</main>
-			</div>
+							@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mb: mt.XL}}) {
+								{ current.Description }
+							}
+							@current.Body
+						} else {
+							@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Mb: mt.XS}}) {
+								Manatee
+							}
+							@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mb: mt.XL}}) {
+								Mantine-style web components for Go. { strconv.Itoa(len(all)) } documented components.
+							}
+							@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, ColsMd: 4, Spacing: mt.SM}) {
+								for _, p := range all {
+									@mt.NavLink(mt.NavLinkProps{Label: p.Title, Description: p.Group, Href: "/components/" + p.Slug, Base: mt.Base{Style: "border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md)"}})
+								}
+							}
+						}
+					</div>
+				}
+			}
 		</body>
 	</html>
 }

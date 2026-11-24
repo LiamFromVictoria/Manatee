@@ -1,0 +1,31 @@
+package mt
+
+// BadgeProps mirrors Mantine's Badge.
+type BadgeProps struct {
+	Base
+	Variant      string // filled (default) | light | outline | dot | transparent | white | default | gradient
+	Color        string
+	Size         string // xs..xl
+	Radius       string
+	FullWidth    bool
+	Circle       bool
+	GradientFrom string
+	GradientTo   string
+	GradientDeg  int
+	LeftSection  templ.Component
+	RightSection templ.Component
+}
+
+templ Badge(p BadgeProps) {
+	<mt-badge
+		{ attrs(p.Base,
+			"variant", p.Variant, "color", p.Color, "size", p.Size, "radius", p.Radius,
+			"full-width", p.FullWidth, "circle", p.Circle,
+			"gradient-from", p.GradientFrom, "gradient-to", p.GradientTo, "gradient-deg", p.GradientDeg,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		{ children... }
+		@slot("right-section", p.RightSection)
+	</mt-badge>
+}

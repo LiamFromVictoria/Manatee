@@ -1,0 +1,100 @@
+package mt
+
+// MenuProps mirrors Mantine's Menu.
+type MenuProps struct {
+	Base
+	Target          templ.Component // required; renders into slot="target"
+	Trigger         string          // click (default) | hover | click-hover
+	Position        string          // bottom (default) | top | left | right, each with -start/-end
+	Offset          int             // default 8
+	Width           string          // "target" to match the trigger's width, or raw CSS
+	Disabled        bool
+	Opened          bool
+	CloseOnItemClick *bool // default true
+	Loop            *bool // default true
+}
+
+// Menu renders the <mt-menu> host. Children render the dropdown (usually a
+// single MenuDropdown holding MenuItem/MenuLabel/MenuDivider).
+templ Menu(p MenuProps) {
+	<mt-menu
+		{ attrs(p.Base,
+			"trigger", p.Trigger, "position", p.Position, "offset", p.Offset, "width", p.Width,
+			"disabled", p.Disabled, "opened", p.Opened,
+			"close-on-item-click", p.CloseOnItemClick, "loop", p.Loop,
+		)... }
+	>
+		<span slot="target" style="display:contents">
+			@p.Target
+		</span>
+		{ children... }
+	</mt-menu>
+}
+
+// MenuTargetProps mirrors Mantine's Menu.Target: wraps a child that isn't a
+// single focusable element (Menu otherwise prefers slot="target" directly).
+type MenuTargetProps struct {
+	Base
+}
+
+templ MenuTarget(p MenuTargetProps) {
+	<mt-menu-target { attrs(p.Base)... }>
+		{ children... }
+	</mt-menu-target>
+}
+
+// MenuDropdownProps mirrors Mantine's Menu.Dropdown.
+type MenuDropdownProps struct {
+	Base
+}
+
+templ MenuDropdown(p MenuDropdownProps) {
+	<mt-menu-dropdown { attrs(p.Base)... }>
+		{ children... }
+	</mt-menu-dropdown>
+}
+
+// MenuItemProps mirrors Mantine's Menu.Item.
+type MenuItemProps struct {
+	Base
+	Color            string
+	Disabled         bool
+	Href             string
+	Target           string
+	CloseMenuOnClick *bool // unset defers to the Menu's CloseOnItemClick
+	LeftSection      templ.Component
+	RightSection     templ.Component
+}
+
+templ MenuItem(p MenuItemProps) {
+	<mt-menu-item
+		{ attrs(p.Base,
+			"color", p.Color, "disabled", p.Disabled, "href", p.Href, "target", p.Target,
+			"close-menu-on-click", p.CloseMenuOnClick,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		{ children... }
+		@slot("right-section", p.RightSection)
+	</mt-menu-item>
+}
+
+// MenuLabelProps mirrors Mantine's Menu.Label.
+type MenuLabelProps struct {
+	Base
+}
+
+templ MenuLabel(p MenuLabelProps) {
+	<mt-menu-label { attrs(p.Base)... }>
+		{ children... }
+	</mt-menu-label>
+}
+
+// MenuDividerProps mirrors Mantine's Menu.Divider.
+type MenuDividerProps struct {
+	Base
+}
+
+templ MenuDivider(p MenuDividerProps) {
+	<mt-menu-divider { attrs(p.Base)... }/>
+}

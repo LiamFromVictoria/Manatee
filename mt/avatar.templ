@@ -1,0 +1,41 @@
+package mt
+
+// AvatarProps mirrors Mantine's Avatar.
+type AvatarProps struct {
+	Base
+	Src          string
+	Alt          string
+	Name         string // used to derive initials when Src is empty or fails to load
+	Color        string
+	Variant      string // light (default) | filled | outline | transparent | white | gradient
+	Size         string // xs..xl or a raw CSS length
+	Radius       string // default 1000px (circle)
+	GradientFrom string
+	GradientTo   string
+	GradientDeg  int
+	Placeholder  templ.Component
+}
+
+templ Avatar(p AvatarProps) {
+	<mt-avatar
+		{ attrs(p.Base,
+			"src", p.Src, "alt", p.Alt, "name", p.Name, "color", p.Color, "variant", p.Variant,
+			"size", p.Size, "radius", p.Radius,
+			"gradient-from", p.GradientFrom, "gradient-to", p.GradientTo, "gradient-deg", p.GradientDeg,
+		)... }
+	>
+		@slot("placeholder", p.Placeholder)
+	</mt-avatar>
+}
+
+// AvatarGroupProps mirrors Mantine's Avatar.Group.
+type AvatarGroupProps struct {
+	Base
+	Spacing string // overlap amount, default sm
+}
+
+templ AvatarGroup(p AvatarGroupProps) {
+	<mt-avatar-group { attrs(p.Base, "spacing", p.Spacing)... }>
+		{ children... }
+	</mt-avatar-group>
+}

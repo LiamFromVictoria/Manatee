@@ -1,8 +1,17 @@
 package main
 
-import "github.com/you/manatee/mt"
+import (
+	"strconv"
+
+	"github.com/you/manatee/mt"
+)
 
 const iconPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`
+const iconHeart = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6.7-4.3-9.3-8.1C.7 10 1.4 6.4 4.3 4.9c2.3-1.2 5-.5 6.6 1.4l1.1 1.3 1.1-1.3c1.6-1.9 4.3-2.6 6.6-1.4 2.9 1.5 3.6 5.1 1.6 8-2.6 3.8-9.3 8.1-9.3 8.1Z"/></svg>`
+const iconInfo = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r="0.1" fill="currentColor" stroke-width="2.5"/></svg>`
+const iconAlertTriangle = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>`
+const iconTrash = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>`
+const iconBell = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`
 
 templ ButtonPage() {
 	@Demo("Variants", `@mt.Button(mt.ButtonProps{Variant: mt.Light}) { Light }`) {
@@ -77,5 +86,297 @@ templ ButtonPage() {
 				Submit
 			}
 		</form>
+	}
+}
+
+templ ActionIconPage() {
+	@Demo("Variants", `@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Light, AriaLabel: "Like"}) { mt.Raw(iconHeart) }`) {
+		@Row() {
+			for _, v := range []string{mt.Filled, mt.Light, mt.Outline, mt.Subtle, mt.Default, mt.Transparent, mt.White, mt.Gradient} {
+				@mt.ActionIcon(mt.ActionIconProps{Variant: v, AriaLabel: v}) {
+					@mt.Raw(iconHeart)
+				}
+			}
+		}
+	}
+	@Demo("Colors", `@mt.ActionIcon(mt.ActionIconProps{Color: mt.Teal, AriaLabel: "Add"}) { mt.Raw(iconPlus) }`) {
+		@Row() {
+			for _, c := range []string{mt.Dark, mt.Gray, mt.Red, mt.Pink, mt.Grape, mt.Violet, mt.Indigo, mt.Blue, mt.Cyan, mt.Teal, mt.Green, mt.Lime, mt.Yellow, mt.Orange} {
+				@mt.ActionIcon(mt.ActionIconProps{Color: c, AriaLabel: c}) {
+					@mt.Raw(iconPlus)
+				}
+			}
+		}
+	}
+	@Demo("Sizes", `@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, AriaLabel: "Add"}) { mt.Raw(iconPlus) }`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.ActionIcon(mt.ActionIconProps{Size: s, AriaLabel: s}) {
+					@mt.Raw(iconPlus)
+				}
+			}
+		}
+	}
+	@Demo("Matching input sizes", `@mt.ActionIcon(mt.ActionIconProps{Size: "input-sm", Variant: mt.Default, AriaLabel: "Add"})`) {
+		@Row() {
+			for _, s := range []string{"input-xs", "input-sm", "input-md", "input-lg", "input-xl"} {
+				@mt.ActionIcon(mt.ActionIconProps{Size: s, Variant: mt.Default, AriaLabel: s}) {
+					@mt.Raw(iconPlus)
+				}
+			}
+		}
+	}
+	@Demo("Loading, disabled, link, group", `@mt.ActionIconGroup(mt.ActionIconGroupProps{}) { @mt.ActionIcon(...) ... }`) {
+		@Row() {
+			@mt.ActionIcon(mt.ActionIconProps{Loading: true, AriaLabel: "Loading"}) {
+				@mt.Raw(iconPlus)
+			}
+			@mt.ActionIcon(mt.ActionIconProps{Disabled: true, AriaLabel: "Disabled"}) {
+				@mt.Raw(iconTrash)
+			}
+			@mt.ActionIcon(mt.ActionIconProps{Href: "#", Variant: mt.Outline, AriaLabel: "Link"}) {
+				@mt.Raw(iconBell)
+			}
+			@mt.ActionIconGroup(mt.ActionIconGroupProps{}) {
+				@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Default, AriaLabel: "First"}) {
+					@mt.Raw(iconPlus)
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Default, AriaLabel: "Second"}) {
+					@mt.Raw(iconHeart)
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Default, AriaLabel: "Third"}) {
+					@mt.Raw(iconBell)
+				}
+			}
+		}
+	}
+}
+
+templ BadgePage() {
+	@Demo("Variants", `@mt.Badge(mt.BadgeProps{Variant: mt.Light}) { Light }`) {
+		@Row() {
+			for _, v := range []string{mt.Filled, mt.Light, mt.Outline, mt.Dot, mt.Transparent, mt.White, mt.Default, mt.Gradient} {
+				@mt.Badge(mt.BadgeProps{Variant: v}) {
+					{ v }
+				}
+			}
+		}
+	}
+	@Demo("Colors", `@mt.Badge(mt.BadgeProps{Color: mt.Teal}) { Teal }`) {
+		@Row() {
+			for _, c := range []string{mt.Dark, mt.Gray, mt.Red, mt.Pink, mt.Grape, mt.Violet, mt.Indigo, mt.Blue, mt.Cyan, mt.Teal, mt.Green, mt.Lime, mt.Yellow, mt.Orange} {
+				@mt.Badge(mt.BadgeProps{Color: c}) {
+					{ c }
+				}
+			}
+		}
+	}
+	@Demo("Sizes", `@mt.Badge(mt.BadgeProps{Size: mt.LG}) { Large }`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Badge(mt.BadgeProps{Size: s}) {
+					{ s }
+				}
+			}
+		}
+	}
+	@Demo("Sections, full width, circle", `@mt.Badge(mt.BadgeProps{LeftSection: mt.Raw(iconPlus)}) { New }`) {
+		@mt.Badge(mt.BadgeProps{LeftSection: mt.Raw(iconPlus), Base: mt.Base{Mb: mt.SM}}) {
+			New
+		}
+		@mt.Badge(mt.BadgeProps{FullWidth: true, Variant: mt.Outline, Base: mt.Base{Mb: mt.SM}}) {
+			Full width badge
+		}
+		@mt.Badge(mt.BadgeProps{Circle: true}) {
+			9
+		}
+	}
+}
+
+templ CardPage() {
+	@Demo("Usage", `@mt.Card(mt.CardProps{Shadow: mt.SM, Padding: mt.LG, Radius: mt.MD, WithBorder: true}) { @mt.CardSection(...) ... }`) {
+		@mt.Card(mt.CardProps{Shadow: mt.SM, Padding: mt.LG, Radius: mt.MD, WithBorder: true, Base: mt.Base{Maw: "320"}}) {
+			@mt.CardSection(mt.CardSectionProps{}) {
+				<div style="height:160px;background:linear-gradient(135deg,var(--mt-color-cyan-6),var(--mt-color-indigo-7))"></div>
+			}
+			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.MD, Mb: mt.XS}}) {
+				@mt.Text(mt.TextProps{Fw: 500}) {
+					Norway Fjord Adventures
+				}
+				@mt.Badge(mt.BadgeProps{Color: mt.Pink}) {
+					On sale
+				}
+			}
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+				With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway.
+			}
+			@mt.Button(mt.ButtonProps{Variant: mt.Light, Color: mt.Blue, FullWidth: true, Base: mt.Base{Mt: mt.MD}}) {
+				Book classic tour now
+			}
+		}
+	}
+	@Demo("Sections with border and inherited padding", `@mt.CardSection(mt.CardSectionProps{WithBorder: true, InheritPadding: true})`) {
+		@mt.Card(mt.CardProps{Padding: mt.MD, WithBorder: true, Base: mt.Base{Maw: "320"}}) {
+			@mt.CardSection(mt.CardSectionProps{}) {
+				Top section, edge to edge
+			}
+			@mt.CardSection(mt.CardSectionProps{WithBorder: true, InheritPadding: true}) {
+				Middle section with border, padding inherited
+			}
+			@mt.CardSection(mt.CardSectionProps{}) {
+				Bottom section
+			}
+		}
+	}
+}
+
+templ PaperPage() {
+	@Demo("Shadow, radius, border", `@mt.Paper(mt.PaperProps{Shadow: mt.MD, Radius: mt.MD, WithBorder: true, Base: mt.Base{P: mt.LG}})`) {
+		@Row() {
+			@mt.Paper(mt.PaperProps{Shadow: mt.XS, Base: mt.Base{P: mt.MD}}) {
+				{ "Shadow xs" }
+			}
+			@mt.Paper(mt.PaperProps{Shadow: mt.MD, Radius: mt.MD, Base: mt.Base{P: mt.MD}}) {
+				{ "Shadow md, radius md" }
+			}
+			@mt.Paper(mt.PaperProps{WithBorder: true, Base: mt.Base{P: mt.MD}}) {
+				{ "With border" }
+			}
+		}
+	}
+}
+
+templ AvatarPage() {
+	@Demo("Source, initials, placeholder", `@mt.Avatar(mt.AvatarProps{Name: "Jane Doe", Color: mt.Blue})`) {
+		@Row() {
+			@mt.Avatar(mt.AvatarProps{Src: "https://i.pravatar.cc/80?img=12", Alt: "Random user"})
+			@mt.Avatar(mt.AvatarProps{Name: "Jane Doe", Color: mt.Blue})
+			@mt.Avatar(mt.AvatarProps{Name: "Allen"})
+			@mt.Avatar(mt.AvatarProps{})
+		}
+	}
+	@Demo("Variants and colors", `@mt.Avatar(mt.AvatarProps{Variant: mt.Filled, Color: mt.Teal, Name: "Teal"})`) {
+		@Row() {
+			for _, v := range []string{mt.Light, mt.Filled, mt.Outline, mt.Transparent, mt.White, mt.Gradient} {
+				@mt.Avatar(mt.AvatarProps{Variant: v, Name: v})
+			}
+		}
+	}
+	@Demo("Sizes", `@mt.Avatar(mt.AvatarProps{Size: mt.LG, Name: "Large"})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Avatar(mt.AvatarProps{Size: s, Name: s})
+			}
+		}
+	}
+	@Demo("Square radius and group overlap", `@mt.AvatarGroup(mt.AvatarGroupProps{}) { @mt.Avatar(...) ... }`) {
+		@mt.Avatar(mt.AvatarProps{Radius: mt.MD, Name: "Square", Base: mt.Base{Mb: mt.SM}})
+		@mt.AvatarGroup(mt.AvatarGroupProps{}) {
+			@mt.Avatar(mt.AvatarProps{Src: "https://i.pravatar.cc/80?img=1", Color: mt.Blue})
+			@mt.Avatar(mt.AvatarProps{Src: "https://i.pravatar.cc/80?img=2", Color: mt.Red})
+			@mt.Avatar(mt.AvatarProps{Name: "Jane Doe", Color: mt.Teal})
+			@mt.Avatar(mt.AvatarProps{Name: "+5", Color: mt.Gray})
+		}
+	}
+}
+
+templ TextPage() {
+	@Demo("Sizes", `@mt.Text(mt.TextProps{Size: mt.LG}) { Large text }`) {
+		for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+			@mt.Text(mt.TextProps{Size: s}) {
+				{ "Size " + s + ": the quick brown fox jumps over the lazy dog" }
+			}
+		}
+	}
+	@Demo("Color, weight, style", `@mt.Text(mt.TextProps{C: mt.Dimmed, Fw: 700, Ta: "center"}) { Dimmed bold text }`) {
+		@mt.Text(mt.TextProps{C: mt.Teal, Fw: 700}) {
+			Colored, bold text
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed}) {
+			Dimmed text
+		}
+		@mt.Text(mt.TextProps{Tt: "uppercase", Fs: "italic"}) {
+			Uppercase italic text
+		}
+		@mt.Text(mt.TextProps{Td: "underline"}) {
+			Underlined text
+		}
+	}
+	@Demo("Truncate and line clamp", `@mt.Text(mt.TextProps{Truncate: "end", Base: mt.Base{Maw: "200"}})`) {
+		@mt.Text(mt.TextProps{Truncate: "end", Base: mt.Base{Maw: "220", Mb: mt.SM}}) {
+			This very long line of text will be truncated with an ellipsis at the end
+		}
+		@mt.Text(mt.TextProps{LineClamp: 2, Base: mt.Base{Maw: "220"}}) {
+			This text spans multiple lines and will be clamped to a maximum of two lines, hiding any overflow content that follows past that point.
+		}
+	}
+	@Demo("Gradient and inline span", `@mt.Text(mt.TextProps{Variant: "gradient", GradientFrom: mt.Violet, GradientTo: mt.Pink})`) {
+		@mt.Text(mt.TextProps{Variant: "gradient", GradientFrom: mt.Violet, GradientTo: mt.Pink, Fw: 700, Base: mt.Base{Mb: mt.SM}}) {
+			Gradient heading text
+		}
+		@mt.Text(mt.TextProps{}) {
+			Regular text with an{ " " }
+			@mt.Text(mt.TextProps{Span: true, C: mt.Blue, Fw: 700}) {
+				inline highlighted span
+			}
+			{ " " }inside it.
+		}
+	}
+}
+
+templ TitlePage() {
+	@Demo("Orders", `@mt.Title(mt.TitleProps{Order: 2}) { Heading 2 }`) {
+		for o := 1; o <= 6; o++ {
+			@mt.Title(mt.TitleProps{Order: o}) {
+				{ "Heading level " + strconv.Itoa(o) }
+			}
+		}
+	}
+	@Demo("Size override and color", `@mt.Title(mt.TitleProps{Order: 4, Size: "h1", C: mt.Teal}) { Big h4 }`) {
+		@mt.Title(mt.TitleProps{Order: 4, Size: "h1", C: mt.Teal}) {
+			Order 4, sized like h1
+		}
+	}
+	@Demo("Line clamp", `@mt.Title(mt.TitleProps{Order: 3, LineClamp: 1, Base: mt.Base{Maw: "260"}})`) {
+		@mt.Title(mt.TitleProps{Order: 3, LineClamp: 1, Base: mt.Base{Maw: "260"}}) {
+			This is a very long heading that will be clamped to a single line
+		}
+	}
+}
+
+templ LoaderPage() {
+	@Demo("Types", `@mt.Loader(mt.LoaderProps{Type: "bars"})`) {
+		@Row() {
+			for _, t := range []string{"oval", "bars", "dots"} {
+				@mt.Loader(mt.LoaderProps{Type: t})
+			}
+		}
+	}
+	@Demo("Colors and sizes", `@mt.Loader(mt.LoaderProps{Color: mt.Teal, Size: mt.LG})`) {
+		@Row() {
+			for _, c := range []string{mt.Blue, mt.Teal, mt.Red, mt.Grape} {
+				@mt.Loader(mt.LoaderProps{Color: c})
+			}
+		}
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Loader(mt.LoaderProps{Size: s})
+			}
+		}
+	}
+}
+
+templ AlertPage() {
+	@Demo("Variants", `@mt.Alert(mt.AlertProps{Variant: mt.Light, Title: "Heads up", Icon: mt.Raw(iconInfo)}) { Message text }`) {
+		for _, v := range []string{mt.Light, mt.Filled, mt.Outline, mt.Default, mt.Transparent, mt.White} {
+			@mt.Alert(mt.AlertProps{Variant: v, Title: "Variant: " + v, Icon: mt.Raw(iconInfo), Base: mt.Base{Mb: mt.SM}}) {
+				Some alert message that explains the context to the user in more detail.
+			}
+		}
+	}
+	@Demo("Colors, close button", `@mt.Alert(mt.AlertProps{Color: mt.Red, WithCloseButton: true, Icon: mt.Raw(iconAlertTriangle)})`) {
+		@mt.Alert(mt.AlertProps{Color: mt.Red, Title: "Something went wrong", WithCloseButton: true, Icon: mt.Raw(iconAlertTriangle), CloseButtonLabel: "Dismiss error"}) {
+			Could not save your changes, please try again later.
+		}
 	}
 }

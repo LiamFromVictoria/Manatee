@@ -1,0 +1,63 @@
+package mt
+
+// AccordionProps mirrors Mantine's Accordion.
+type AccordionProps struct {
+	Base
+	Value                   string // comma-separated when Multiple
+	Multiple                bool
+	Variant                 string // default | contained | filled | separated
+	ChevronPosition         string // left | right (default)
+	DisableChevronRotation  bool
+	Radius                  string
+	TransitionDuration      int // ms, default 200
+}
+
+templ Accordion(p AccordionProps) {
+	<mt-accordion
+		{ attrs(p.Base,
+			"value", p.Value, "multiple", p.Multiple, "variant", p.Variant, "chevron-position", p.ChevronPosition,
+			"disable-chevron-rotation", p.DisableChevronRotation, "radius", p.Radius,
+			"transition-duration", p.TransitionDuration,
+		)... }
+	>
+		{ children... }
+	</mt-accordion>
+}
+
+// AccordionItemProps mirrors Mantine's Accordion.Item.
+type AccordionItemProps struct {
+	Base
+	Value    string
+	Disabled bool
+}
+
+templ AccordionItem(p AccordionItemProps) {
+	<mt-accordion-item { attrs(p.Base, "value", p.Value, "disabled", p.Disabled)... }>
+		{ children... }
+	</mt-accordion-item>
+}
+
+// AccordionControlProps mirrors Mantine's Accordion.Control.
+type AccordionControlProps struct {
+	Base
+	Disabled bool
+	Icon     templ.Component
+}
+
+templ AccordionControl(p AccordionControlProps) {
+	<mt-accordion-control { attrs(p.Base, "disabled", p.Disabled)... }>
+		@slot("icon", p.Icon)
+		{ children... }
+	</mt-accordion-control>
+}
+
+// AccordionPanelProps mirrors Mantine's Accordion.Panel.
+type AccordionPanelProps struct {
+	Base
+}
+
+templ AccordionPanel(p AccordionPanelProps) {
+	<mt-accordion-panel { attrs(p.Base)... }>
+		{ children... }
+	</mt-accordion-panel>
+}

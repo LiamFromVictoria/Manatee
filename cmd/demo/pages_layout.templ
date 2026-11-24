@@ -1,0 +1,247 @@
+package main
+
+import (
+	"fmt"
+
+	"github.com/you/manatee/mt"
+)
+
+// swatch renders a colored placeholder box used by layout demos.
+templ swatch(h string, label string) {
+	<div style={ fmt.Sprintf("height:%s;min-width:2.5rem;padding:0 var(--mt-spacing-md);background:var(--mt-color-blue-light);border-radius:var(--mt-radius-sm);display:flex;align-items:center;justify-content:center;font-size:var(--mt-font-size-xs);color:var(--mt-color-blue-light-color);", h) }>
+		{ label }
+	</div>
+}
+
+templ ContainerPage() {
+	@Demo("Sizes", `@mt.Container(mt.ContainerProps{Size: mt.MD, Base: mt.Base{Style: "border:1px dashed var(--mt-color-border)"}}) { ... }`) {
+		for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+			@mt.Container(mt.ContainerProps{Size: s, Base: mt.Base{Style: "border:1px dashed var(--mt-color-border); margin-bottom: var(--mt-spacing-xs)"}}) {
+				@swatch("2.5rem", "size="+s)
+			}
+		}
+	}
+	@Demo("Fluid", `@mt.Container(mt.ContainerProps{Fluid: true}) { ... }`) {
+		@mt.Container(mt.ContainerProps{Fluid: true, Base: mt.Base{Style: "border:1px dashed var(--mt-color-border)"}}) {
+			@swatch("2.5rem", "fluid")
+		}
+	}
+	@Demo("Not centered", `@mt.Container(mt.ContainerProps{Size: mt.XS, Centered: new(false)})`) {
+		@mt.Container(mt.ContainerProps{Size: mt.XS, Centered: new(false), Base: mt.Base{Style: "border:1px dashed var(--mt-color-border)"}}) {
+			@swatch("2.5rem", "left-aligned")
+		}
+	}
+}
+
+templ GroupPage() {
+	@Demo("Basic", `@mt.Group(mt.GroupProps{}) { ... }`) {
+		@mt.Group(mt.GroupProps{}) {
+			@swatch("3rem", "1")
+			@swatch("3rem", "2")
+			@swatch("3rem", "3")
+		}
+	}
+	@Demo("Justify and align", `@mt.Group(mt.GroupProps{Justify: "space-between"}) { ... }`) {
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Style: "border:1px dashed var(--mt-color-border)"}}) {
+			@swatch("2rem", "a")
+			@swatch("3.5rem", "b")
+			@swatch("2.5rem", "c")
+		}
+	}
+	@Demo("Grow", `@mt.Group(mt.GroupProps{Grow: true}) { ... }`) {
+		@mt.Group(mt.GroupProps{Grow: true}) {
+			@swatch("3rem", "grow")
+			@swatch("3rem", "grow")
+			@swatch("3rem", "grow")
+		}
+	}
+	@Demo("No wrap", `@mt.Group(mt.GroupProps{Wrap: "nowrap"}) { ... }`) {
+		@mt.Group(mt.GroupProps{Wrap: "nowrap", Base: mt.Base{Style: "max-width:12rem; overflow-x:auto"}}) {
+			@swatch("3rem", "1")
+			@swatch("3rem", "2")
+			@swatch("3rem", "3")
+			@swatch("3rem", "4")
+		}
+	}
+}
+
+templ StackPage() {
+	@Demo("Basic", `@mt.Stack(mt.StackProps{}) { ... }`) {
+		@mt.Stack(mt.StackProps{}) {
+			@swatch("3rem", "1")
+			@swatch("3rem", "2")
+			@swatch("3rem", "3")
+		}
+	}
+	@Demo("Align and gap", `@mt.Stack(mt.StackProps{Align: "flex-start", Gap: mt.XS}) { ... }`) {
+		@mt.Stack(mt.StackProps{Align: "flex-start", Gap: mt.XS}) {
+			<div style="width:6rem">
+				@swatch("2rem", "a")
+			</div>
+			<div style="width:10rem">
+				@swatch("2rem", "b")
+			</div>
+			<div style="width:4rem">
+				@swatch("2rem", "c")
+			</div>
+		}
+	}
+}
+
+templ GridPage() {
+	@Demo("Basic columns", `@mt.Grid(mt.GridProps{}) { @mt.GridCol(mt.GridColProps{Span: "4"}) { ... } }`) {
+		@mt.Grid(mt.GridProps{}) {
+			@mt.GridCol(mt.GridColProps{Span: "4"}) {
+				@swatch("3rem", "span 4")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "4"}) {
+				@swatch("3rem", "span 4")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "4"}) {
+				@swatch("3rem", "span 4")
+			}
+		}
+	}
+	@Demo("Variable widths, offset", `@mt.GridCol(mt.GridColProps{Span: "6", Offset: 3}) { ... }`) {
+		@mt.Grid(mt.GridProps{}) {
+			@mt.GridCol(mt.GridColProps{Span: "3"}) {
+				@swatch("3rem", "3")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "6", Offset: 3}) {
+				@swatch("3rem", "6, offset 3")
+			}
+		}
+	}
+	@Demo("Auto / content width", `@mt.GridCol(mt.GridColProps{Span: "auto"})`) {
+		@mt.Grid(mt.GridProps{}) {
+			@mt.GridCol(mt.GridColProps{Span: "content"}) {
+				@swatch("3rem", "content")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "auto"}) {
+				@swatch("3rem", "auto (fills rest)")
+			}
+		}
+	}
+	@Demo("Responsive span", `@mt.GridCol(mt.GridColProps{Span: "12", SpanSm: 6, SpanMd: 4})`) {
+		@mt.Grid(mt.GridProps{}) {
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanSm: 6, SpanMd: 4}) {
+				@swatch("3rem", "12 / sm:6 / md:4")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanSm: 6, SpanMd: 4}) {
+				@swatch("3rem", "12 / sm:6 / md:4")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanSm: 12, SpanMd: 4}) {
+				@swatch("3rem", "12 / sm:12 / md:4")
+			}
+		}
+	}
+	@Demo("Grow", `@mt.Grid(mt.GridProps{Grow: true}) { @mt.GridCol(mt.GridColProps{Span: "3"}) { ... } }`) {
+		@mt.Grid(mt.GridProps{Grow: true}) {
+			@mt.GridCol(mt.GridColProps{Span: "3"}) {
+				@swatch("3rem", "grow")
+			}
+			@mt.GridCol(mt.GridColProps{Span: "3"}) {
+				@swatch("3rem", "grow")
+			}
+		}
+	}
+}
+
+templ SimpleGridPage() {
+	@Demo("Basic", `@mt.SimpleGrid(mt.SimpleGridProps{Cols: 3}) { ... }`) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 3}) {
+			@swatch("3rem", "1")
+			@swatch("3rem", "2")
+			@swatch("3rem", "3")
+			@swatch("3rem", "4")
+			@swatch("3rem", "5")
+			@swatch("3rem", "6")
+		}
+	}
+	@Demo("Responsive cols", `@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, ColsMd: 3})`) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, ColsMd: 3}) {
+			@swatch("3rem", "1")
+			@swatch("3rem", "2")
+			@swatch("3rem", "3")
+		}
+	}
+	@Demo("Different horizontal / vertical spacing", `@mt.SimpleGrid(mt.SimpleGridProps{Cols: 3, Spacing: mt.XL, VerticalSpacing: mt.XS})`) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 3, Spacing: mt.XL, VerticalSpacing: mt.XS}) {
+			@swatch("3rem", "1")
+			@swatch("3rem", "2")
+			@swatch("3rem", "3")
+			@swatch("3rem", "4")
+		}
+	}
+}
+
+templ CenterPage() {
+	@Demo("Basic", `@mt.Center(mt.CenterProps{Base: mt.Base{H: "8rem"}}) { ... }`) {
+		@mt.Center(mt.CenterProps{Base: mt.Base{H: "8rem", Style: "border:1px dashed var(--mt-color-border)"}}) {
+			<div style="width:8rem">
+				@swatch("3rem", "centered")
+			</div>
+		}
+	}
+	@Demo("Inline", `@mt.Center(mt.CenterProps{Inline: true})`) {
+		@mt.Center(mt.CenterProps{Inline: true}) {
+			@swatch("2rem", "inline")
+		}
+	}
+}
+
+templ SpacePage() {
+	@Demo("Horizontal space", `@mt.Button(...) @mt.Space(mt.SpaceProps{W: mt.XL}) @mt.Button(...)`) {
+		@mt.Group(mt.GroupProps{Gap: "0"}) {
+			@mt.Button(mt.ButtonProps{}) {
+				First
+			}
+			@mt.Space(mt.SpaceProps{W: mt.XL})
+			@mt.Button(mt.ButtonProps{}) {
+				Second
+			}
+		}
+	}
+	@Demo("Vertical space", `@mt.Button(...) @mt.Space(mt.SpaceProps{H: mt.MD}) @mt.Button(...)`) {
+		<div>
+			@mt.Button(mt.ButtonProps{}) {
+				Top
+			}
+			@mt.Space(mt.SpaceProps{H: mt.MD})
+			@mt.Button(mt.ButtonProps{}) {
+				Bottom
+			}
+		</div>
+	}
+}
+
+templ DividerPage() {
+	@Demo("Variants", `@mt.Divider(mt.DividerProps{Variant: "dashed"})`) {
+		@mt.Stack(mt.StackProps{}) {
+			@mt.Divider(mt.DividerProps{})
+			@mt.Divider(mt.DividerProps{Variant: "dashed"})
+			@mt.Divider(mt.DividerProps{Variant: "dotted"})
+		}
+	}
+	@Demo("Sizes", `@mt.Divider(mt.DividerProps{Size: mt.XL})`) {
+		@mt.Stack(mt.StackProps{}) {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.Divider(mt.DividerProps{Size: s})
+			}
+		}
+	}
+	@Demo("Label", `@mt.Divider(mt.DividerProps{Label: "Or continue with", LabelPosition: "center"})`) {
+		@mt.Stack(mt.StackProps{}) {
+			@mt.Divider(mt.DividerProps{Label: "Left", LabelPosition: "left"})
+			@mt.Divider(mt.DividerProps{Label: "Center"})
+			@mt.Divider(mt.DividerProps{Label: "Right", LabelPosition: "right"})
+		}
+	}
+	@Demo("Vertical", `@mt.Divider(mt.DividerProps{Orientation: "vertical"})`) {
+		@mt.Group(mt.GroupProps{}) {
+			<span>Left</span>
+			@mt.Divider(mt.DividerProps{Orientation: "vertical", Base: mt.Base{H: "1.5rem"}})
+			<span>Right</span>
+		}
+	}
+}

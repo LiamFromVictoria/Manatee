@@ -1,0 +1,43 @@
+package mt
+
+// PopoverProps mirrors Mantine's Popover.
+type PopoverProps struct {
+	Base
+	Target              templ.Component // required; renders into slot="target"
+	Position            string          // bottom (default) | top | left | right, each with -start/-end
+	Offset              int             // default 8
+	WithArrow           bool
+	Width               string // "target" to match the trigger's width, or raw CSS
+	Disabled            bool
+	Opened              bool
+	CloseOnClickOutside *bool // default true
+	CloseOnEscape       *bool // default true
+}
+
+// Popover renders the <mt-popover> host. Children render the dropdown
+// (usually a single PopoverDropdown).
+templ Popover(p PopoverProps) {
+	<mt-popover
+		{ attrs(p.Base,
+			"position", p.Position, "offset", p.Offset, "with-arrow", p.WithArrow, "width", p.Width,
+			"disabled", p.Disabled, "opened", p.Opened,
+			"close-on-click-outside", p.CloseOnClickOutside, "close-on-escape", p.CloseOnEscape,
+		)... }
+	>
+		<span slot="target" style="display:contents">
+			@p.Target
+		</span>
+		{ children... }
+	</mt-popover>
+}
+
+// PopoverDropdownProps mirrors Mantine's Popover.Dropdown.
+type PopoverDropdownProps struct {
+	Base
+}
+
+templ PopoverDropdown(p PopoverDropdownProps) {
+	<mt-popover-dropdown { attrs(p.Base)... }>
+		{ children... }
+	</mt-popover-dropdown>
+}

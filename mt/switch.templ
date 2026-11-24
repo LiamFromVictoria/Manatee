@@ -1,0 +1,33 @@
+package mt
+
+// SwitchProps mirrors Mantine's Switch.
+type SwitchProps struct {
+	Base
+	Name          string
+	Value         string
+	Checked       bool
+	Label         string
+	Description   string
+	Error         string
+	Required      bool
+	Disabled      bool
+	Color         string
+	Size          string
+	Radius        string // default xl (pill)
+	LabelPosition string // right (default) | left
+	OnLabel       string // rendered as label-on (templ rejects plain strings in on* attributes)
+	OffLabel      string // rendered as label-off
+}
+
+templ Switch(p SwitchProps) {
+	<mt-switch
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "checked", p.Checked,
+			"label", p.Label, "description", p.Description, "error", p.Error,
+			"required", p.Required, "disabled", p.Disabled, "color", p.Color, "size", p.Size, "radius", p.Radius,
+			"label-position", p.LabelPosition, "label-on", p.OnLabel, "label-off", p.OffLabel,
+		)... }
+	>
+		{ children... }
+	</mt-switch>
+}

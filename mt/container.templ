@@ -1,0 +1,17 @@
+package mt
+
+// ContainerProps mirrors Mantine's Container.
+type ContainerProps struct {
+	Base
+	Size     string // xs | sm | md (default) | lg | xl, or a raw px/rem value
+	Fluid    bool
+	Centered *bool // defaults to true; pass new(false) to left-align
+}
+
+templ Container(p ContainerProps) {
+	<mt-container
+		{ attrs(p.Base, "size", p.Size, "fluid", p.Fluid, "centered", p.Centered)... }
+	>
+		{ children... }
+	</mt-container>
+}

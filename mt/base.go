@@ -71,7 +71,8 @@ type Base struct {
 
 // attrs builds the host attribute list from Base plus key/value pairs.
 // Empty strings, false, zero numbers and nil pointers are omitted; named
-// string types are converted to string.
+// string types are converted to string. A non-nil *bool renders as a bare
+// attribute when true and attr="false" when false (opt-out of default-true props).
 func attrs(b Base, kv ...any) templ.OrderedAttributes {
 	out := make(templ.OrderedAttributes, 0, len(kv)/2+4)
 	add := func(k string, v any) {
@@ -127,6 +128,17 @@ func normalize(v any) any {
 			return nil
 		}
 		return x
+	case *bool:
+		// Opt-out for props that default to true: nil = element default,
+		// new(false) renders attr="false".
+		switch {
+		case x == nil:
+			return nil
+		case *x:
+			return true
+		default:
+			return "false"
+		}
 	}
 	rv := reflect.ValueOf(v)
 	switch rv.Kind() {

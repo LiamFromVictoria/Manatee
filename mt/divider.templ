@@ -1,0 +1,21 @@
+package mt
+
+// DividerProps mirrors Mantine's Divider.
+type DividerProps struct {
+	Base
+	Orientation   string // horizontal (default) | vertical
+	Size          string // xs..xl (default xs)
+	Color         string
+	Variant       string // solid (default) | dashed | dotted
+	Label         string
+	LabelPosition string // left | center (default) | right
+}
+
+templ Divider(p DividerProps) {
+	<mt-divider
+		{ attrs(p.Base,
+			"orientation", p.Orientation, "size", p.Size, "color", p.Color, "variant", p.Variant,
+			"label", p.Label, "label-position", p.LabelPosition,
+		)... }
+	/>
+}

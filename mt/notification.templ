@@ -1,0 +1,45 @@
+package mt
+
+// NotificationProps mirrors Mantine's Notification.
+type NotificationProps struct {
+	Base
+	Color           string
+	Heading         string
+	Loading         bool
+	WithCloseButton *bool // default true
+	WithBorder      bool
+	Radius          string
+	Icon            templ.Component // renders into slot="icon"
+}
+
+// Notification renders a standalone <mt-notification>. For toasts managed
+// by the notifications API/container, use Notify (mt/notifications.go) to
+// trigger them from the server instead.
+templ Notification(p NotificationProps) {
+	<mt-notification
+		{ attrs(p.Base,
+			"color", p.Color, "heading", p.Heading, "loading", p.Loading,
+			"with-close-button", p.WithCloseButton, "with-border", p.WithBorder, "radius", p.Radius,
+		)... }
+	>
+		@slot("icon", p.Icon)
+		{ children... }
+	</mt-notification>
+}
+
+// NotificationsProps mirrors Mantine's Notifications (the toast container).
+type NotificationsProps struct {
+	Base
+	Position string // bottom-right (default) | bottom-left | bottom-center | top-right | top-left | top-center
+	Limit    int    // default 5
+}
+
+// Notifications renders the <mt-notifications> stacking container. Usually
+// rendered once (e.g. in the app shell); the `notifications` JS API and
+// Notify (server-triggered via HX-Trigger) create one automatically if
+// absent, so this is only needed to control position/limit explicitly.
+templ Notifications(p NotificationsProps) {
+	<mt-notifications { attrs(p.Base, "position", p.Position, "limit", p.Limit)... }>
+		{ children... }
+	</mt-notifications>
+}

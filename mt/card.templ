@@ -1,0 +1,31 @@
+package mt
+
+// CardProps mirrors Mantine's Card.
+type CardProps struct {
+	Base
+	Padding    string // default md
+	Shadow     string
+	Radius     string
+	WithBorder bool
+}
+
+templ Card(p CardProps) {
+	<mt-card
+		{ attrs(p.Base, "padding", p.Padding, "shadow", p.Shadow, "radius", p.Radius, "with-border", p.WithBorder)... }
+	>
+		{ children... }
+	</mt-card>
+}
+
+// CardSectionProps mirrors Mantine's Card.Section.
+type CardSectionProps struct {
+	Base
+	WithBorder     bool
+	InheritPadding bool
+}
+
+templ CardSection(p CardSectionProps) {
+	<mt-card-section { attrs(p.Base, "with-border", p.WithBorder, "inherit-padding", p.InheritPadding)... }>
+		{ children... }
+	</mt-card-section>
+}

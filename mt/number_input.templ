@@ -1,0 +1,50 @@
+package mt
+
+// NumberInputProps mirrors Mantine's NumberInput. Min/Max/Value/AllowDecimal/
+// AllowNegative/DecimalScale are pointers so an explicit zero/false is rendered
+// rather than treated as "unset".
+type NumberInputProps struct {
+	Base
+	Name              string
+	Value             *float64
+	Label             string
+	Description       string
+	Error             string
+	Placeholder       string
+	Variant           string // default | filled | unstyled
+	Size              string
+	Radius            string
+	Required          bool
+	Disabled          bool
+	ReadOnly          bool
+	AutoFocus         bool
+	Min               *float64
+	Max               *float64
+	Step              float64
+	ClampBehavior     string // blur (default) | strict | none
+	AllowDecimal      *bool
+	DecimalScale      *int
+	AllowNegative     *bool
+	Prefix            string
+	Suffix            string
+	ThousandSeparator string
+	HideControls      bool
+	LeftSection       templ.Component
+}
+
+templ NumberInput(p NumberInputProps) {
+	<mt-number-input
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "label", p.Label, "description", p.Description, "error", p.Error,
+			"placeholder", p.Placeholder, "variant", p.Variant, "size", p.Size, "radius", p.Radius,
+			"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
+			"min", p.Min, "max", p.Max, "step", p.Step, "clamp-behavior", p.ClampBehavior,
+			"allow-decimal", p.AllowDecimal, "decimal-scale", p.DecimalScale, "allow-negative", p.AllowNegative,
+			"prefix", p.Prefix, "suffix", p.Suffix, "thousand-separator", p.ThousandSeparator,
+			"hide-controls", p.HideControls,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		{ children... }
+	</mt-number-input>
+}

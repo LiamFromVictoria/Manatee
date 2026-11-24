@@ -1,1 +1,10 @@
+import './action-icon';
+import './alert';
+import './avatar';
+import './badge';
 import './button';
+import './card';
+import './loader';
+import './paper';
+import './text';
+import './title';
