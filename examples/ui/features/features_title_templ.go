@@ -26,12 +26,12 @@ var featuresTitleData = []featuresTitleItem{
 	{
 		Icon:        icons.IconReceiptOff(icons.Props{Size: 26, Stroke: 1.5}),
 		Title:       "Free and open source",
-		Description: "All packages are published under MIT license, you can use Mantine in any project",
+		Description: "Published under MIT license, you can use Manatee in any project",
 	},
 	{
 		Icon:        icons.IconFileCode(icons.Props{Size: 26, Stroke: 1.5}),
-		Title:       "TypeScript based",
-		Description: "Build type safe applications, all components and hooks export types",
+		Title:       "Typed templ API",
+		Description: "Build type safe pages, every component has typed Go props",
 	},
 	{
 		Icon:  icons.IconCircleDotted(icons.Props{Size: 26, Stroke: 1.5}),
@@ -128,7 +128,7 @@ func FeaturesTitle() templ.Component {
 						}()
 					}
 					ctx = templ.InitializeContext(ctx)
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "A fully featured React components library for your next project")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "A fully featured Go components library for your next project")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -150,7 +150,7 @@ func FeaturesTitle() templ.Component {
 						}()
 					}
 					ctx = templ.InitializeContext(ctx)
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "Build fully functional accessible web applications faster than ever – Mantine includes more than 120 customizable components and hooks to cover you in any situation")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "Build fully functional accessible web applications faster than ever – Manatee includes more than 70 customizable components to cover you in any situation")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

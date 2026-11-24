@@ -17,12 +17,12 @@ var featuresTitleData = []featuresTitleItem{
 	{
 		Icon:        icons.IconReceiptOff(icons.Props{Size: 26, Stroke: 1.5}),
 		Title:       "Free and open source",
-		Description: "All packages are published under MIT license, you can use Mantine in any project",
+		Description: "Published under MIT license, you can use Manatee in any project",
 	},
 	{
 		Icon:        icons.IconFileCode(icons.Props{Size: 26, Stroke: 1.5}),
-		Title:       "TypeScript based",
-		Description: "Build type safe applications, all components and hooks export types",
+		Title:       "Typed templ API",
+		Description: "Build type safe pages, every component has typed Go props",
 	},
 	{
 		Icon:  icons.IconCircleDotted(icons.Props{Size: 26, Stroke: 1.5}),
@@ -60,10 +60,10 @@ templ FeaturesTitle() {
 		@mt.Grid(mt.GridProps{Gutter: "80"}) {
 			@mt.GridCol(mt.GridColProps{Span: "12", SpanMd: 5}) {
 				@mt.Title(mt.TitleProps{Order: 2, Base: mt.Base{Class: "features-title__title"}}) {
-					A fully featured React components library for your next project
+					A fully featured Go components library for your next project
 				}
 				@mt.Text(mt.TextProps{C: mt.Dimmed}) {
-					Build fully functional accessible web applications faster than ever – Mantine includes more than 120 customizable components and hooks to cover you in any situation
+					Build fully functional accessible web applications faster than ever – Manatee includes more than 70 customizable components to cover you in any situation
 				}
 				@mt.Button(mt.ButtonProps{
 					Variant: mt.Gradient, GradientFrom: mt.Blue, GradientTo: mt.Cyan, GradientDeg: 133,

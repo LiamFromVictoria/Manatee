@@ -117,7 +117,7 @@ func HeroTitle() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, " React components and hooks library</h1>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, " Go web components library</h1>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -133,7 +133,7 @@ func HeroTitle() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "Build fully functional accessible web applications with ease – Mantine includes more than 100 customizable components and hooks to cover you in any situation")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "Build fully functional accessible web applications with ease – Manatee includes more than 70 customizable components to cover you in any situation")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
