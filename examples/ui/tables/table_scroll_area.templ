@@ -1,0 +1,100 @@
+package tables
+
+import "github.com/you/manatee/mt"
+
+type tableScrollAreaRow struct {
+	Name, Company, Email string
+}
+
+var tableScrollAreaData = []tableScrollAreaRow{
+	{"Athena Weissnat", "Little - Rippin", "Elouise.Prohaska@yahoo.com"},
+	{"Deangelo Runolfsson", "Greenfelder - Krajcik", "Kadin_Trantow87@yahoo.com"},
+	{"Danny Carter", "Kohler and Sons", "Marina3@hotmail.com"},
+	{"Trace Tremblay PhD", "Crona, Aufderhar and Senger", "Antonina.Pouros@yahoo.com"},
+	{"Derek Dibbert", "Gottlieb LLC", "Abagail29@hotmail.com"},
+	{"Viola Bernhard", "Funk, Rohan and Kreiger", "Jamie23@hotmail.com"},
+	{"Austin Jacobi", "Botsford - Corwin", "Genesis42@yahoo.com"},
+	{"Hershel Mosciski", "Okuneva, Farrell and Kilback", "Idella.Stehr28@yahoo.com"},
+	{"Mylene Ebert", "Kirlin and Sons", "Hildegard17@hotmail.com"},
+	{"Lou Trantow", "Parisian - Lemke", "Hillard.Barrows1@hotmail.com"},
+	{"Dariana Weimann", "Schowalter - Donnelly", "Colleen80@gmail.com"},
+	{"Dr. Christy Herman", "VonRueden - Labadie", "Lilyan98@gmail.com"},
+	{"Katelin Schuster", "Jacobson - Smitham", "Erich_Brekke76@gmail.com"},
+	{"Melyna Macejkovic", "Schuster LLC", "Kylee4@yahoo.com"},
+	{"Pinkie Rice", "Wolf, Trantow and Zulauf", "Fiona.Kutch@hotmail.com"},
+	{"Brain Kreiger", "Lueilwitz Group", "Rico98@hotmail.com"},
+	{"Myrtice McGlynn", "Feest, Beahan and Johnston", "Julius_Tremblay29@hotmail.com"},
+	{"Chester Carter PhD", "Gaylord - Labadie", "Jensen_McKenzie@hotmail.com"},
+	{"Mrs. Ericka Bahringer", "Conn and Sons", "Lisandro56@hotmail.com"},
+	{"Korbin Buckridge Sr.", "Mraz, Rolfson and Predovic", "Leatha9@yahoo.com"},
+	{"Dr. Daisy Becker", "Carter - Mueller", "Keaton_Sanford27@gmail.com"},
+	{"Derrick Buckridge Sr.", "O'Reilly LLC", "Kay83@yahoo.com"},
+	{"Ernie Hickle", "Terry, O'Reilly and Farrell", "Americo.Leffler89@gmail.com"},
+	{"Jewell Littel", "O'Connell Group", "Hester.Hettinger9@hotmail.com"},
+	{"Cyrus Howell", "Windler, Yost and Fadel", "Rick0@gmail.com"},
+	{"Dr. Orie Jast", "Hilll - Pacocha", "Anna56@hotmail.com"},
+	{"Luisa Murphy", "Turner and Sons", "Christine32@yahoo.com"},
+	{"Lea Witting", "Hodkiewicz Inc", "Ford_Kovacek4@yahoo.com"},
+	{"Kelli Runolfsson", "Feest - O'Hara", "Dimitri87@yahoo.com"},
+	{"Brook Gaylord", "Conn, Huel and Nader", "Immanuel77@gmail.com"},
+}
+
+var tableScrollAreaCSS = templ.NewOnceHandle()
+
+// TableScrollArea ports ui.mantine.dev TableScrollArea: a fixed-height
+// ScrollArea with a sticky table header that grows a shadow once the user
+// scrolls past the top. React's onScrollPositionChange state is replaced by a
+// delegated `scroll-position-change` listener scoped to the block root,
+// toggling a class on the header instead of re-rendering.
+templ TableScrollArea() {
+	@tableScrollAreaCSS.Once() {
+		<style>
+			.table-scroll-area__header {
+				position: sticky;
+				top: 0;
+				background-color: var(--mt-color-body);
+				transition: box-shadow 150ms ease;
+				&::after {
+					content: '';
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					border-bottom: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-3));
+				}
+			}
+			.table-scroll-area__header--scrolled {
+				box-shadow: var(--mt-shadow-sm);
+			}
+		</style>
+		<script>
+			document.addEventListener('scroll-position-change', (e) => {
+				const root = e.target.closest && e.target.closest('.table-scroll-area');
+				if (!root) return;
+				const header = root.querySelector('.table-scroll-area__header');
+				if (!header) return;
+				header.classList.toggle('table-scroll-area__header--scrolled', e.detail.y !== 0);
+			});
+		</script>
+	}
+	@mt.ScrollArea(mt.ScrollAreaProps{Base: mt.Base{Class: "table-scroll-area", H: "300px"}}) {
+		@mt.Table(mt.TableProps{Base: mt.Base{Miw: "700px"}}) {
+			<thead class="table-scroll-area__header">
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Company</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, row := range tableScrollAreaData {
+					<tr>
+						<td>{ row.Name }</td>
+						<td>{ row.Email }</td>
+						<td>{ row.Company }</td>
+					</tr>
+				}
+			</tbody>
+		}
+	}
+}

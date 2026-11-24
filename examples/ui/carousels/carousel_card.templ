@@ -1,0 +1,87 @@
+package carousels
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var carouselCardImages = []string{
+	"https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+	"https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+	"https://images.unsplash.com/photo-1605774337664-7a846e9cdf17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+	"https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+	"https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+}
+
+var carouselCardCSS = templ.NewOnceHandle()
+
+// CarouselCard ports ui.mantine.dev CarouselCard: a listing card whose cover
+// image carousel loops, shows indicators, and reveals its prev/next controls
+// on hover.
+templ CarouselCard() {
+	@carouselCardCSS.Once() {
+		<style>
+			.carousel-card__price {
+				color: var(--mt-color-bright);
+			}
+			.carousel-card__carousel::part(control-prev),
+			.carousel-card__carousel::part(control-next) {
+				transition: opacity 150ms ease;
+				opacity: 0;
+			}
+			.carousel-card__carousel:hover::part(control-prev),
+			.carousel-card__carousel:hover::part(control-next) {
+				opacity: 1;
+			}
+			.carousel-card__carousel::part(indicator) {
+				width: 4px;
+				height: 4px;
+				transition: width 250ms ease;
+			}
+			.carousel-card__carousel::part(indicator-active) {
+				width: 16px;
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{Radius: "md", WithBorder: true, Base: mt.Base{P: "xl"}}) {
+		@mt.CardSection(mt.CardSectionProps{}) {
+			@mt.Carousel(mt.CarouselProps{WithIndicators: true, Loop: true, Base: mt.Base{Class: "carousel-card__carousel"}}) {
+				for i, image := range carouselCardImages {
+					@mt.CarouselSlide(mt.CarouselSlideProps{}) {
+						@mt.Image(mt.ImageProps{Src: image, Alt: "Slide " + strconv.Itoa(i+1), Base: mt.Base{H: "220px"}})
+					}
+				}
+			}
+		}
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: "lg"}}) {
+			@mt.Text(mt.TextProps{Fw: 500, Size: "lg"}) {
+				Forde, Norway
+			}
+			@mt.Group(mt.GroupProps{Gap: "5"}) {
+				@icons.IconStarFilled(icons.Props{Size: 16, Color: "var(--mt-color-yellow-6)"})
+				@mt.Text(mt.TextProps{Size: "sm", Fw: 600}) {
+					4.78
+				}
+			}
+		}
+		@mt.Text(mt.TextProps{Size: "sm", C: mt.Dimmed, Base: mt.Base{Mt: "sm"}}) {
+			Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel close to nature in
+			ultimate comfort. Enjoy the view of the epic mountain range of Blegja and the Førdefjord.
+		}
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: "md"}}) {
+			<div>
+				@mt.Text(mt.TextProps{Size: "xl", Span: true, Fw: 500, Base: mt.Base{Class: "carousel-card__price"}}) {
+					397$
+				}
+				@mt.Text(mt.TextProps{Span: true, Size: "sm", C: mt.Dimmed}) {
+					&#32;/ night
+				}
+			</div>
+			@mt.Button(mt.ButtonProps{Radius: "md"}) {
+				Book now
+			}
+		}
+	}
+}

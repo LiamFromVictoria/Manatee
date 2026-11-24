@@ -39,6 +39,19 @@ templ SliderPage() {
 			Base: mt.Base{Maw: "400", Mb: "xl"},
 		})
 	}
+	@Demo("Rich mark labels", `@mt.Slider(mt.SliderProps{Marks: []mt.SliderMark{{Value: 25, LabelContent: icons.IconPoint(...)}, ...}})`) {
+		@mt.Slider(mt.SliderProps{
+			Value: new(50.0),
+			Marks: []mt.SliderMark{
+				{Value: 0, Label: "0%"},
+				{Value: 25, LabelContent: icons.IconPoint(icons.Props{Size: 10})},
+				{Value: 50, Label: "50%"},
+				{Value: 75, LabelContent: icons.IconPoint(icons.Props{Size: 10})},
+				{Value: 100, Label: "100%"},
+			},
+			Base: mt.Base{Maw: "400", Mb: "xl"},
+		})
+	}
 	@Demo("Label format, always on, thumb icon", `@mt.Slider(mt.SliderProps{LabelFormat: "{value}°C", LabelAlwaysOn: true, ThumbChildren: icons.IconGripVertical(...)})`) {
 		@mt.Stack(mt.StackProps{Base: mt.Base{Maw: "400"}}) {
 			@mt.Slider(mt.SliderProps{LabelFormat: "{value}°C", LabelAlwaysOn: true, Value: new(60.0), Color: mt.Red})
@@ -85,6 +98,28 @@ templ RangeSliderPage() {
 	}
 	@Demo("Size, color, label always on", `@mt.RangeSlider(mt.RangeSliderProps{Size: mt.LG, LabelAlwaysOn: true})`) {
 		@mt.RangeSlider(mt.RangeSliderProps{From: new(10.0), To: new(90.0), Size: mt.LG, Color: mt.Pink, LabelAlwaysOn: true, Base: mt.Base{Maw: "400", Mb: "xl"}})
+	}
+	@Demo("Per-thumb content and aria labels", `@mt.RangeSlider(mt.RangeSliderProps{ThumbFromChildren: icons.IconArrowLeft(...), ThumbToChildren: icons.IconArrowRight(...), ThumbFromLabel: "Minimum price", ThumbToLabel: "Maximum price"})`) {
+		@mt.RangeSlider(mt.RangeSliderProps{
+			From:              new(20.0),
+			To:                new(80.0),
+			ThumbSize:         20,
+			ThumbFromChildren: icons.IconArrowLeft(icons.Props{Size: 12}),
+			ThumbToChildren:   icons.IconArrowRight(icons.Props{Size: 12}),
+			ThumbFromLabel:    "Minimum price",
+			ThumbToLabel:      "Maximum price",
+			Base:              mt.Base{Maw: "400", Mb: "xl"},
+		})
+	}
+	@Demo("Shared thumb content (both thumbs fall back to thumbChildren)", `@mt.RangeSlider(mt.RangeSliderProps{ThumbChildren: icons.IconGripVertical(...), ThumbLabel: "Range"})`) {
+		@mt.RangeSlider(mt.RangeSliderProps{
+			From:          new(20.0),
+			To:            new(80.0),
+			ThumbSize:     20,
+			ThumbChildren: icons.IconGripVertical(icons.Props{Size: 12}),
+			ThumbLabel:    "Range",
+			Base:          mt.Base{Maw: "400"},
+		})
 	}
 	@Demo("Disabled, in a form (submits two entries)", `@mt.RangeSlider(mt.RangeSliderProps{Name: "price"})`) {
 		<form method="post" action="/echo">

@@ -1,0 +1,63 @@
+package errorpages
+
+import "github.com/you/manatee/mt"
+
+var serverErrorCSS = templ.NewOnceHandle()
+
+// ServerError ports ui.mantine.dev ServerError: a filled-blue 500 page.
+templ ServerError() {
+	@serverErrorCSS.Once() {
+		<style>
+			.server-error {
+				padding-top: 80px;
+				padding-bottom: 120px;
+				background-color: var(--mt-color-blue-filled);
+			}
+			.server-error__label {
+				text-align: center;
+				font-weight: 500;
+				font-size: 220px;
+				line-height: 1;
+				margin-bottom: calc(var(--mt-spacing-xl) * 1.5);
+				color: var(--mt-color-blue-3);
+				@media (max-width: 48em) {
+					font-size: 120px;
+				}
+			}
+			.server-error__title {
+				font-family: Outfit, var(--mt-font-family);
+				text-align: center;
+				font-weight: 500;
+				font-size: 38px;
+				color: var(--mt-white);
+				@media (max-width: 48em) {
+					font-size: 32px;
+				}
+			}
+			.server-error__description {
+				max-width: 540px;
+				margin: auto;
+				margin-top: var(--mt-spacing-xl);
+				margin-bottom: calc(var(--mt-spacing-xl) * 1.5);
+				color: var(--mt-color-blue-1);
+			}
+		</style>
+	}
+	<div class="server-error">
+		@mt.Container(mt.ContainerProps{}) {
+			<div class="server-error__label">500</div>
+			@mt.Title(mt.TitleProps{Base: mt.Base{Class: "server-error__title"}}) {
+				Something bad just happened...
+			}
+			@mt.Text(mt.TextProps{Size: mt.LG, Ta: "center", Base: mt.Base{Class: "server-error__description"}}) {
+				Our servers could not handle your request. Don't worry, our development team was
+				already notified. Try refreshing the page.
+			}
+			@mt.Group(mt.GroupProps{Justify: "center"}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.White, Size: mt.MD}) {
+					Refresh the page
+				}
+			}
+		}
+	</div>
+}

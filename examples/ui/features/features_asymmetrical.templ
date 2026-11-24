@@ -1,0 +1,86 @@
+package features
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var featuresAsymmetricalCSS = templ.NewOnceHandle()
+
+type featuresAsymmetricalItem struct {
+	Icon        templ.Component
+	Title       string
+	Description string
+}
+
+var featuresAsymmetricalData = []featuresAsymmetricalItem{
+	{
+		Icon:  icons.IconTruck(icons.Props{Size: 38, Stroke: 1.5, Class: "features-asymmetrical__icon"}),
+		Title: "Free Worldwide shipping",
+		Description: "As electricity builds up inside its body, it becomes more aggressive. " +
+			"One theory is that the electricity.",
+	},
+	{
+		Icon:  icons.IconCertificate(icons.Props{Size: 38, Stroke: 1.5, Class: "features-asymmetrical__icon"}),
+		Title: "Best Quality Product",
+		Description: "Slakoth's heart beats just once a minute. Whatever happens, it is content " +
+			"to loaf around motionless.",
+	},
+	{
+		Icon:  icons.IconCoin(icons.Props{Size: 38, Stroke: 1.5, Class: "features-asymmetrical__icon"}),
+		Title: "Very Affordable Pricing",
+		Description: "Thought to have gone extinct, Relicanth was given a name that is a variation " +
+			"of the name of the person who discovered.",
+	},
+}
+
+// FeaturesAsymmetrical ports ui.mantine.dev FeaturesAsymmetrical: three cards
+// with a colored overlay block behind each icon.
+templ FeaturesAsymmetrical() {
+	@featuresAsymmetricalCSS.Once() {
+		<style>
+			.features-asymmetrical__feature {
+				position: relative;
+				padding-top: var(--mt-spacing-xl);
+				padding-left: var(--mt-spacing-xl);
+			}
+			.features-asymmetrical__overlay {
+				position: absolute;
+				height: 100px;
+				width: 160px;
+				top: 0;
+				left: 0;
+				background-color: var(--mt-color-blue-light);
+				z-index: 1;
+			}
+			.features-asymmetrical__content {
+				position: relative;
+				z-index: 2;
+			}
+			.features-asymmetrical__icon {
+				color: var(--mt-color-blue-filled);
+			}
+			.features-asymmetrical__title {
+				color: light-dark(var(--mt-black), var(--mt-white));
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: mt.LG, Base: mt.Base{Mt: "30", Mb: "30"}}) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 3, Spacing: "50"}) {
+			for _, item := range featuresAsymmetricalData {
+				<div class="features-asymmetrical__feature">
+					<div class="features-asymmetrical__overlay"></div>
+					<div class="features-asymmetrical__content">
+						@item.Icon
+						@mt.Text(mt.TextProps{Fw: 700, Size: mt.LG, Base: mt.Base{Class: "features-asymmetrical__title", Mb: mt.XS, Mt: "5"}}) {
+							{ item.Title }
+						}
+						@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+							{ item.Description }
+						}
+					</div>
+				</div>
+			}
+		}
+	}
+}

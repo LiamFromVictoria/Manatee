@@ -1,0 +1,124 @@
+package inputs
+
+import (
+	_ "embed"
+	"encoding/base64"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+//go:embed images/english.png
+var languagePickerEnglishPNG []byte
+
+//go:embed images/german.png
+var languagePickerGermanPNG []byte
+
+//go:embed images/italian.png
+var languagePickerItalianPNG []byte
+
+//go:embed images/french.png
+var languagePickerFrenchPNG []byte
+
+//go:embed images/polish.png
+var languagePickerPolishPNG []byte
+
+func languagePickerDataURL(b []byte) string {
+	return "data:image/png;base64," + base64.StdEncoding.EncodeToString(b)
+}
+
+type languagePickerItem struct{ Label, Image string }
+
+var languagePickerData = []languagePickerItem{
+	{"English", languagePickerDataURL(languagePickerEnglishPNG)},
+	{"German", languagePickerDataURL(languagePickerGermanPNG)},
+	{"Italian", languagePickerDataURL(languagePickerItalianPNG)},
+	{"French", languagePickerDataURL(languagePickerFrenchPNG)},
+	{"Polish", languagePickerDataURL(languagePickerPolishPNG)},
+}
+
+var languagePickerCSS = templ.NewOnceHandle()
+
+// LanguagePicker ports ui.mantine.dev LanguagePicker: a flag+label button
+// that opens a Menu of language options; selecting one updates the control's
+// flag/label via a small delegated script (Menu has no built-in "copy the
+// clicked item back to the target" behavior).
+templ LanguagePicker() {
+	@languagePickerCSS.Once() {
+		<style>
+			.language-picker__control {
+				width: 200px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: var(--mt-spacing-xs) var(--mt-spacing-md);
+				border-radius: var(--mt-radius-md);
+				border: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-6));
+				transition: background-color 150ms ease;
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-6));
+				&:hover {
+					background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5));
+				}
+			}
+			.language-picker[opened] .language-picker__control {
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5));
+			}
+			.language-picker__label {
+				font-weight: 500;
+				font-size: var(--mt-font-size-sm);
+			}
+			.language-picker__flag::part(root) {
+				border-radius: 50%;
+			}
+			.language-picker__icon {
+				transition: transform 150ms ease;
+				transform: rotate(0deg);
+			}
+			.language-picker[opened] .language-picker__icon {
+				transform: rotate(180deg);
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const item = e.composedPath().find((n) => n instanceof Element && n.tagName === 'MT-MENU-ITEM' && n.hasAttribute('data-value'));
+				if (!item) return;
+				const picker = item.closest('.language-picker');
+				if (!picker) return;
+				const flag = picker.querySelector('.language-picker__flag');
+				const label = picker.querySelector('.language-picker__label');
+				if (flag) flag.src = item.getAttribute('data-value');
+				if (label) label.textContent = item.getAttribute('data-label');
+			});
+		</script>
+	}
+	@mt.Menu(mt.MenuProps{
+		Width:  "target",
+		Target: languagePickerControl(),
+		Base:   mt.Base{Class: "language-picker"},
+	}) {
+		@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+			for _, it := range languagePickerData {
+				@mt.MenuItem(mt.MenuItemProps{
+					LeftSection: languagePickerFlag(it.Image),
+					Base:        mt.Base{Attrs: templ.Attributes{"data-value": it.Image, "data-label": it.Label}},
+				}) {
+					{ it.Label }
+				}
+			}
+		}
+	}
+}
+
+templ languagePickerControl() {
+	@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "language-picker__control"}}) {
+		@mt.Group(mt.GroupProps{Gap: mt.XS}) {
+			@mt.Image(mt.ImageProps{Src: languagePickerData[0].Image, Alt: "", Base: mt.Base{W: "22px", H: "22px", Class: "language-picker__flag"}})
+			<span class="language-picker__label">{ languagePickerData[0].Label }</span>
+		}
+		@icons.IconChevronDown(icons.Props{Size: 16, Stroke: 1.5, Class: "language-picker__icon"})
+	}
+}
+
+templ languagePickerFlag(src string) {
+	@mt.Image(mt.ImageProps{Src: src, Alt: "", Base: mt.Base{W: "18px", H: "18px"}})
+}

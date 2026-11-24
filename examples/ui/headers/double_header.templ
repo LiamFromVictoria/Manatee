@@ -1,0 +1,116 @@
+package headers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/mt"
+)
+
+var doubleHeaderMainLinks = []headerLink{
+	{"/demo", "Book a demo"},
+	{"/documentation", "Documentation"},
+	{"/community", "Community"},
+	{"/academy", "Academy"},
+	{"/forums", "Forums"},
+}
+
+var doubleHeaderUserLinks = []headerLink{
+	{"/privacy", "Privacy & Security"},
+	{"/account", "Account settings"},
+	{"/support", "Support options"},
+}
+
+var doubleHeaderCSS = templ.NewOnceHandle()
+
+// DoubleHeader ports ui.mantine.dev DoubleHeader: a logo plus two stacked
+// link rows (secondary + uppercase main nav), collapsing to a burger drawer.
+templ DoubleHeader() {
+	@doubleHeaderCSS.Once() {
+		<style>
+			.double-header {
+				height: 84px;
+				margin-bottom: 120px;
+				background-color: var(--mt-color-body);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+			}
+			.double-header__inner {
+				height: 84px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.double-header__links {
+				padding-top: var(--mt-spacing-lg);
+				height: 84px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+			.double-header__main-links { margin-right: calc(var(--mt-spacing-sm) * -1); }
+			.double-header__main-link {
+				display: block;
+				text-decoration: none;
+				text-transform: uppercase;
+				font-size: var(--mt-font-size-xs);
+				color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-1));
+				padding: 7px var(--mt-spacing-sm);
+				font-weight: 700;
+				border-bottom: 2px solid transparent;
+				transition: border-color 100ms ease, color 100ms ease;
+				&:hover { color: light-dark(var(--mt-black), var(--mt-white)); text-decoration: none; }
+				&[data-active] { color: light-dark(var(--mt-black), var(--mt-white)); border-bottom-color: var(--mt-color-blue-6); }
+			}
+			.double-header__secondary-link {
+				display: block;
+				text-decoration: none;
+				color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-1));
+				font-size: var(--mt-font-size-xs);
+				text-transform: uppercase;
+				transition: color 100ms ease;
+				&:hover { color: light-dark(var(--mt-black), var(--mt-white)); text-decoration: none; }
+			}
+			.double-header__drawer-link {
+				display: block;
+				padding: var(--mt-spacing-md);
+				text-decoration: none;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				font-size: var(--mt-font-size-sm);
+				font-weight: 500;
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.double-header__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }
+		</style>
+	}
+	@blocks.Behaviors()
+	<header class="double-header">
+		@mt.Container(mt.ContainerProps{Base: mt.Base{Class: "double-header__inner"}}) {
+			@blocks.Logo(34)
+			@mt.Box(mt.BoxProps{Base: mt.Base{Class: "double-header__links", VisibleFrom: mt.SM}}) {
+				<div data-active-group>
+					@mt.Group(mt.GroupProps{Justify: "flex-end"}) {
+						for _, l := range doubleHeaderUserLinks {
+							<a href="#" class="double-header__secondary-link">{ l.Label }</a>
+						}
+					}
+					@mt.Group(mt.GroupProps{Gap: "0", Justify: "flex-end", Base: mt.Base{Class: "double-header__main-links"}}) {
+						for i, l := range doubleHeaderMainLinks {
+							<a href={ templ.SafeURL(l.Link) } class="double-header__main-link" data-active-item={ l.Link } data-active?={ i == 0 }>{ l.Label }</a>
+						}
+					}
+				</div>
+			}
+			@mt.Burger(mt.BurgerProps{Size: mt.SM, Controls: "double-header-drawer", AriaLabel: "Toggle navigation", Base: mt.Base{HiddenFrom: mt.SM}})
+		}
+	</header>
+	@mt.Drawer(mt.DrawerProps{Heading: "Navigation", Size: "100%", Base: mt.Base{ID: "double-header-drawer", HiddenFrom: mt.SM}}) {
+		<div class="double-header__drawer-scroll" data-active-group>
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			for i, l := range doubleHeaderMainLinks {
+				<a href={ templ.SafeURL(l.Link) } class="double-header__drawer-link" data-active-item={ l.Link } data-active?={ i == 0 }>{ l.Label }</a>
+			}
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			for _, l := range doubleHeaderUserLinks {
+				<a href="#" class="double-header__drawer-link">{ l.Label }</a>
+			}
+		</div>
+	}
+}

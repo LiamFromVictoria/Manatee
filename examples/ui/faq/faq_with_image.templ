@@ -1,0 +1,86 @@
+package faq
+
+import (
+	_ "embed"
+
+	"github.com/you/manatee/mt"
+)
+
+//go:embed image.svg
+var faqWithImageSVG string
+
+var faqWithImagePlaceholder = "It can't help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren't many people or Pokémon."
+
+var faqWithImageCSS = templ.NewOnceHandle()
+
+// FaqWithImage ports ui.mantine.dev FaqWithImage: an illustration beside an
+// FAQ accordion, stacking below md.
+templ FaqWithImage() {
+	@faqWithImageCSS.Once() {
+		<style>
+			.faq-with-image {
+				padding-top: calc(var(--mt-spacing-xl) * 2);
+				padding-bottom: calc(var(--mt-spacing-xl) * 2);
+			}
+			.faq-with-image__title {
+				margin-bottom: var(--mt-spacing-md);
+				padding-left: var(--mt-spacing-md);
+				color: light-dark(var(--mt-color-black), var(--mt-color-white));
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+			}
+			.faq-with-image__item {
+				font-size: var(--mt-font-size-sm);
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-1));
+			}
+		</style>
+	}
+	<div class="faq-with-image">
+		@mt.Container(mt.ContainerProps{Size: mt.LG}) {
+			@mt.Grid(mt.GridProps{Gutter: "50", Base: mt.Base{ID: "faq-grid"}}) {
+				@mt.GridCol(mt.GridColProps{Span: "12", SpanMd: 6}) {
+					@templ.Raw(faqWithImageSVG)
+				}
+				@mt.GridCol(mt.GridColProps{Span: "12", SpanMd: 6}) {
+					@mt.Title(mt.TitleProps{Order: 2, Ta: "left", Base: mt.Base{Class: "faq-with-image__title"}}) {
+						Frequently Asked Questions
+					}
+					@mt.Accordion(mt.AccordionProps{Value: "reset-password", ChevronPosition: "right", Variant: "separated"}) {
+						@mt.AccordionItem(mt.AccordionItemProps{Value: "reset-password", Base: mt.Base{Class: "faq-with-image__item"}}) {
+							@mt.AccordionControl(mt.AccordionControlProps{}) {
+								How can I reset my password?
+							}
+							@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+								{ faqWithImagePlaceholder }
+							}
+						}
+						@mt.AccordionItem(mt.AccordionItemProps{Value: "another-account", Base: mt.Base{Class: "faq-with-image__item"}}) {
+							@mt.AccordionControl(mt.AccordionControlProps{}) {
+								Can I create more that one account?
+							}
+							@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+								{ faqWithImagePlaceholder }
+							}
+						}
+						@mt.AccordionItem(mt.AccordionItemProps{Value: "newsletter", Base: mt.Base{Class: "faq-with-image__item"}}) {
+							@mt.AccordionControl(mt.AccordionControlProps{}) {
+								How can I subscribe to monthly newsletter?
+							}
+							@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+								{ faqWithImagePlaceholder }
+							}
+						}
+						@mt.AccordionItem(mt.AccordionItemProps{Value: "credit-card", Base: mt.Base{Class: "faq-with-image__item"}}) {
+							@mt.AccordionControl(mt.AccordionControlProps{}) {
+								Do you store credit card information securely?
+							}
+							@mt.AccordionPanel(mt.AccordionPanelProps{}) {
+								{ faqWithImagePlaceholder }
+							}
+						}
+					}
+				}
+			}
+		}
+	</div>
+}

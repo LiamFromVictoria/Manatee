@@ -105,7 +105,7 @@ function installTypographySheet(): void {
       font-family: var(--mt-font-family-monospace);
       font-size: 0.85em;
       padding: 0.1em 0.4em;
-      background: var(--mt-color-gray-1);
+      background: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
       border: 1px solid var(--mt-color-border);
       border-bottom-width: 2px;
       border-radius: var(--mt-radius-sm);

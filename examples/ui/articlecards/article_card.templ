@@ -1,0 +1,87 @@
+package articlecards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type articleCardData struct {
+	Image, Title, Description, AuthorName, AuthorAvatar, Rating, Link string
+}
+
+var articleCardInfo = articleCardData{
+	Image:        "https://i.imgur.com/Cij5vdL.png",
+	Title:        "Resident Evil Village review",
+	Description:  "Resident Evil Village is a direct sequel to 2017's Resident Evil 7, but takes a very different direction to its predecessor, namely the fact that this time round instead of fighting against various mutated zombies, you're now dealing with more occult enemies like werewolves and vampires.",
+	AuthorName:   "Bill Wormeater",
+	AuthorAvatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png",
+	Rating:       "outstanding",
+	Link:         "https://mantine.dev",
+}
+
+var articleCardCSS = templ.NewOnceHandle()
+
+// ArticleCard ports ui.mantine.dev ArticleCard: an image-top card with a
+// gradient rating badge, a link title, and a footer with author + actions.
+templ ArticleCard() {
+	@articleCardCSS.Once() {
+		<style>
+			.article-card { position: relative; background-color: var(--mt-color-body); overflow: visible; }
+			.article-card__image-link { display: block; }
+			.article-card__image {
+				border-top-left-radius: var(--mt-radius-md);
+				border-top-right-radius: var(--mt-radius-md);
+				margin-left: -1px;
+				margin-right: -1px;
+				margin-top: -1px;
+				width: calc(100% + 2px);
+			}
+			.article-card__rating { position: absolute; top: var(--mt-spacing-xs); right: 12px; pointer-events: none; }
+			.article-card__title {
+				display: block;
+				font-family: Outfit, var(--mt-font-family);
+				margin-top: var(--mt-spacing-md);
+				margin-bottom: 7px;
+				color: var(--mt-color-bright);
+				font-weight: 500;
+				text-decoration: none;
+			}
+			.article-card__action::part(root) { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-5)); }
+			.article-card__action::part(root):hover { background-color: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-6)); }
+			.article-card__footer { margin-top: var(--mt-spacing-md); }
+		</style>
+	}
+	@mt.Card(mt.CardProps{Radius: mt.MD, WithBorder: true, Base: mt.Base{Class: "article-card"}}) {
+		@mt.CardSection(mt.CardSectionProps{}) {
+			<a href={ templ.SafeURL(articleCardInfo.Link) } target="_blank" rel="noreferrer" class="article-card__image-link">
+				@mt.Image(mt.ImageProps{Src: articleCardInfo.Image, Alt: articleCardInfo.Title, Base: mt.Base{H: "180px", Class: "article-card__image"}})
+			</a>
+		}
+		@mt.Badge(mt.BadgeProps{Variant: mt.Gradient, GradientFrom: "indigo", GradientTo: "violet", GradientDeg: 145, Base: mt.Base{Class: "article-card__rating"}}) {
+			{ articleCardInfo.Rating }
+		}
+		<a href={ templ.SafeURL(articleCardInfo.Link) } target="_blank" rel="noreferrer" class="article-card__title">{ articleCardInfo.Title }</a>
+		@mt.Text(mt.TextProps{Size: mt.SM, LineClamp: 4, Base: mt.Base{Style: "opacity:0.9"}}) {
+			{ articleCardInfo.Description }
+		}
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Class: "article-card__footer"}}) {
+			@mt.Group(mt.GroupProps{Gap: mt.XS}) {
+				@mt.Avatar(mt.AvatarProps{Src: articleCardInfo.AuthorAvatar, Alt: articleCardInfo.AuthorName, Size: "24px"})
+				@mt.Text(mt.TextProps{Size: mt.SM}) {
+					{ articleCardInfo.AuthorName }
+				}
+			}
+			@mt.Group(mt.GroupProps{Gap: "8px"}) {
+				@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, AriaLabel: "Like", Base: mt.Base{Class: "article-card__action"}}) {
+					@icons.IconHeartFilled(icons.Props{Size: 16, Color: "var(--mt-color-red-6)"})
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, AriaLabel: "Bookmark", Base: mt.Base{Class: "article-card__action"}}) {
+					@icons.IconBookmarkFilled(icons.Props{Size: 16, Color: "var(--mt-color-yellow-7)"})
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, AriaLabel: "Share", Base: mt.Base{Class: "article-card__action"}}) {
+					@icons.IconShare2(icons.Props{Size: 16, Color: "var(--mt-color-cyan-6)"})
+				}
+			}
+		}
+	}
+}

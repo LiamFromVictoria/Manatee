@@ -1,0 +1,81 @@
+package stats
+
+import "github.com/you/manatee/mt"
+
+type statsGroupItem struct{ Title, Value, Description string }
+
+var statsGroupData = []statsGroupItem{
+	{"Page views", "456,133", "24% more than in the same month last year, 33% more that two years ago"},
+	{"New users", "2,175", "13% less compared to last month, new user engagement up by 6%"},
+	{"Completed orders", "1,994", "1994 orders were completed this month, 97% satisfaction rate"},
+}
+
+var statsGroupCSS = templ.NewOnceHandle()
+
+// StatsGroup ports ui.mantine.dev StatsGroup: a gradient panel with three
+// metrics separated by dividers (stacked on small screens).
+templ StatsGroup() {
+	@statsGroupCSS.Once() {
+		<style>
+			.stats-group {
+				display: flex;
+				background-image: linear-gradient(-60deg, var(--mt-color-blue-4) 0%, var(--mt-color-blue-7) 100%);
+				padding: calc(var(--mt-spacing-xl) * 1.5);
+				border-radius: var(--mt-radius-md);
+				@media (max-width: 48em) {
+					flex-direction: column;
+				}
+			}
+			.stats-group__title {
+				color: var(--mt-white);
+				text-transform: uppercase;
+				font-weight: 700;
+				font-size: var(--mt-font-size-sm);
+			}
+			.stats-group__count {
+				color: var(--mt-white);
+				font-size: 32px;
+				line-height: 1;
+				font-weight: 700;
+				margin-bottom: var(--mt-spacing-md);
+				font-family: Outfit, var(--mt-font-family);
+			}
+			.stats-group__description {
+				color: var(--mt-color-blue-0);
+				font-size: var(--mt-font-size-sm);
+				margin-top: 5px;
+			}
+			.stats-group__stat {
+				flex: 1;
+			}
+			.stats-group__stat + .stats-group__stat {
+				padding-left: var(--mt-spacing-xl);
+				margin-left: var(--mt-spacing-xl);
+				border-left: 1px solid var(--mt-color-blue-3);
+				@media (max-width: 48em) {
+					padding-left: 0;
+					margin-left: 0;
+					border-left: 0;
+					padding-top: var(--mt-spacing-xl);
+					margin-top: var(--mt-spacing-xl);
+					border-top: 1px solid var(--mt-color-blue-3);
+				}
+			}
+		</style>
+	}
+	<div class="stats-group">
+		for _, s := range statsGroupData {
+			<div class="stats-group__stat">
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-group__count"}}) {
+					{ s.Value }
+				}
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-group__title"}}) {
+					{ s.Title }
+				}
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-group__description"}}) {
+					{ s.Description }
+				}
+			</div>
+		}
+	</div>
+}

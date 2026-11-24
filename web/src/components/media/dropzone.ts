@@ -1,13 +1,13 @@
 import { css, define, html, MtElement, type Props } from '../../core';
 
 const styles = css`
-  :host { display: block; }
+  :host { display: block; --_radius: var(--mt-radius-md); }
   .root {
     position: relative;
     display: block;
     width: 100%;
     border: 1px dashed var(--mt-color-default-border);
-    border-radius: var(--mt-radius-default);
+    border-radius: var(--_radius);
     padding: var(--mt-spacing-md);
     cursor: pointer;
     outline: none;
@@ -85,7 +85,7 @@ function mimeMatches(type: string, pattern: string): boolean {
 }
 
 /**
- * <mt-dropzone accept max-size max-files multiple disabled loading activate-on-click name>
+ * <mt-dropzone accept max-size max-files multiple disabled loading activate-on-click radius name>
  * Slot: default (idle/accept/reject content, instructions, etc).
  * Form-associated: accepted files submit under `name` as FormData File entries.
  * Events: drop { files }, reject { files, errors }.
@@ -103,6 +103,7 @@ export class MtDropzone extends MtElement {
     disabled: { type: 'boolean' },
     loading: { type: 'boolean' },
     activateOnClick: { attr: 'activate-on-click', type: 'boolean', default: true },
+    radius: { css: '--_radius', scale: 'radius', default: 'md' },
     name: {},
   };
 

@@ -1,0 +1,101 @@
+package features
+
+import "github.com/you/manatee/mt"
+
+var featuresImagesCSS = templ.NewOnceHandle()
+
+type featuresImagesItem struct {
+	Image       string
+	Title       string
+	Description string
+}
+
+var featuresImagesData = []featuresImagesItem{
+	{Image: "accountants.svg", Title: "Pharmacists", Description: "Azurill can be seen bouncing and playing on its big, rubbery tail"},
+	{Image: "lawyers.svg", Title: "Lawyers", Description: "Fans obsess over the particular length and angle of its arms"},
+	{Image: "auditors.svg", Title: "Bank owners", Description: "They divvy up their prey evenly among the members of their pack"},
+	{Image: "others.svg", Title: "Others", Description: "Phanpy uses its long nose to shower itself"},
+}
+
+// FeaturesImages ports ui.mantine.dev FeaturesImages: centered intro over a
+// 2-column grid of icon + title + description rows.
+templ FeaturesImages() {
+	@featuresImagesCSS.Once() {
+		<style>
+			.features-images {
+				padding-top: 80px;
+				padding-bottom: 50px;
+			}
+			.features-images__item {
+				display: flex;
+			}
+			.features-images__item-icon {
+				padding: var(--mt-spacing-xs);
+				margin-right: var(--mt-spacing-md);
+			}
+			.features-images__item-icon svg {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+			.features-images__item-title {
+				margin-bottom: calc(var(--mt-spacing-xs) / 2);
+			}
+			.features-images__sup-title {
+				text-align: center;
+				text-transform: uppercase;
+				font-weight: 800;
+				font-size: var(--mt-font-size-sm);
+				color: var(--mt-color-blue-light-color);
+				letter-spacing: 0.5px;
+			}
+			.features-images__title {
+				line-height: 1;
+				text-align: center;
+				margin-top: var(--mt-spacing-xl);
+			}
+			.features-images__description {
+				text-align: center;
+				margin-top: var(--mt-spacing-xs);
+			}
+			.features-images__highlight {
+				background-color: var(--mt-color-blue-light);
+				padding: 5px;
+				padding-top: 0;
+				border-radius: var(--mt-radius-sm);
+				display: inline-block;
+				color: light-dark(inherit, var(--mt-white));
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: "700px", Base: mt.Base{Class: "features-images"}}) {
+		@mt.Text(mt.TextProps{Base: mt.Base{Class: "features-images__sup-title"}}) {
+			Use cases
+		}
+		@mt.Title(mt.TitleProps{Order: 2, Base: mt.Base{Class: "features-images__title"}}) {
+			PharmLand is <span class="features-images__highlight">not</span> just for pharmacists
+		}
+		@mt.Container(mt.ContainerProps{Size: "660px", Base: mt.Base{P: "0"}}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Class: "features-images__description"}}) {
+				Its lungs contain an organ that creates electricity. The crackling sound of electricity can be heard when it exhales. Azurill's tail is large and bouncy. It is packed full of the nutrients this Pokémon needs to grow.
+			}
+		}
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsXs: 2, Spacing: "50", Base: mt.Base{Mt: "30"}}) {
+			for _, item := range featuresImagesData {
+				<div class="features-images__item">
+					@mt.ThemeIcon(mt.ThemeIconProps{Variant: mt.Light, Size: "60", Radius: mt.MD, Base: mt.Base{Class: "features-images__item-icon"}}) {
+						@templ.Raw(featuresImagesSVG(item.Image))
+					}
+					<div>
+						@mt.Text(mt.TextProps{Fw: 700, Size: mt.LG, Base: mt.Base{Class: "features-images__item-title"}}) {
+							{ item.Title }
+						}
+						@mt.Text(mt.TextProps{C: mt.Dimmed}) {
+							{ item.Description }
+						}
+					</div>
+				</div>
+			}
+		}
+	}
+}

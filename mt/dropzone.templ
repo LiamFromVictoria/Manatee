@@ -10,6 +10,7 @@ type DropzoneProps struct {
 	Disabled        bool
 	Loading         bool
 	ActivateOnClick *bool // default true
+	Radius          string // radius scale, default md
 	Name            string
 }
 
@@ -18,7 +19,7 @@ templ Dropzone(p DropzoneProps) {
 		{ attrs(p.Base,
 			"accept", p.Accept, "max-size", p.MaxSize, "max-files", p.MaxFiles,
 			"multiple", p.Multiple, "disabled", p.Disabled, "loading", p.Loading,
-			"activate-on-click", p.ActivateOnClick, "name", p.Name,
+			"activate-on-click", p.ActivateOnClick, "radius", p.Radius, "name", p.Name,
 		)... }
 	>
 		{ children... }

@@ -1,0 +1,66 @@
+package articlecards
+
+import "github.com/you/manatee/mt"
+
+type articleCardImageData struct {
+	Category, Title, Link, Label, Image string
+}
+
+var articleCardImageInfo = articleCardImageData{
+	Category: "nature",
+	Title:    "Best forests to visit in North America",
+	Link:     "https://mantine.dev",
+	Label:    "Read article",
+	Image:    "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+}
+
+var articleCardImageCSS = templ.NewOnceHandle()
+
+// ArticleCardImage ports ui.mantine.dev ArticleCardImage: a full-bleed
+// background-image card with a category label, title and CTA button.
+templ ArticleCardImage() {
+	@articleCardImageCSS.Once() {
+		<style>
+			.article-card-image {
+				height: 440px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: flex-start;
+				background-size: cover;
+				background-position: center;
+			}
+			.article-card-image__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 600;
+				color: var(--mt-white);
+				line-height: 1.2;
+				font-size: 32px;
+				margin-top: var(--mt-spacing-xs);
+			}
+			.article-card-image__category {
+				color: var(--mt-white);
+				opacity: 0.7;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{Shadow: mt.MD, Radius: mt.MD, Base: mt.Base{
+		Class: "article-card-image",
+		P:     mt.XL,
+		Style: "background-image:url(" + articleCardImageInfo.Image + ")",
+	}}) {
+		<div>
+			@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Class: "article-card-image__category"}}) {
+				{ articleCardImageInfo.Category }
+			}
+			@mt.Title(mt.TitleProps{Order: 3, Base: mt.Base{Class: "article-card-image__title"}}) {
+				{ articleCardImageInfo.Title }
+			}
+		</div>
+		@mt.Button(mt.ButtonProps{Variant: mt.White, Color: mt.Dark}) {
+			{ articleCardImageInfo.Label }
+		}
+	}
+}

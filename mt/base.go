@@ -117,6 +117,12 @@ func normalize(v any) any {
 			return nil
 		}
 		return x
+	case templ.SafeURL, templ.SafeCSS:
+		// Already vetted by the caller; keep the type so templ doesn't re-sanitize.
+		if reflect.ValueOf(x).String() == "" {
+			return nil
+		}
+		return x
 	case bool:
 		if !x {
 			return nil

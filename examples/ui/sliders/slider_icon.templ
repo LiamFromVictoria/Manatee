@@ -1,0 +1,45 @@
+package sliders
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var sliderIconCSS = templ.NewOnceHandle()
+
+// SliderIcon ports ui.mantine.dev SliderIcon: a slider and a range slider,
+// both with heart-icon thumbs (the range slider shows a broken heart on its
+// "to" thumb).
+templ SliderIcon() {
+	@sliderIconCSS.Once() {
+		<style>
+			.slider-icon::part(thumb), .slider-icon-range::part(thumb-from), .slider-icon-range::part(thumb-to) {
+				border-width: 2px;
+				height: 26px;
+				width: 26px;
+				padding: 3px;
+			}
+		</style>
+	}
+	@mt.Slider(mt.SliderProps{
+		Color: mt.Red, Label: new(false), Value: new(40.0), ThumbLabel: "Slider with heart icon",
+		ThumbChildren: sliderIconHeart(),
+		Base:          mt.Base{Class: "slider-icon"},
+	})
+	@mt.RangeSlider(mt.RangeSliderProps{
+		Color: mt.Red, Label: new(false), From: new(20.0), To: new(60.0),
+		ThumbFromChildren: sliderIconHeart(),
+		ThumbToChildren:   sliderIconHeartBroken(),
+		ThumbFromLabel:    "Minimum range slider",
+		ThumbToLabel:      "Maximum range slider",
+		Base:              mt.Base{Class: "slider-icon-range", Mt: mt.XL},
+	})
+}
+
+templ sliderIconHeart() {
+	@icons.IconHeart(icons.Props{Size: 16, Stroke: 1.5})
+}
+
+templ sliderIconHeartBroken() {
+	@icons.IconHeartBroken(icons.Props{Size: 16, Stroke: 1.5})
+}

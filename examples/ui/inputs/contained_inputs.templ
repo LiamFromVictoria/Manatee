@@ -1,0 +1,48 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var containedInputsCSS = templ.NewOnceHandle()
+
+// ContainedInputs ports ui.mantine.dev ContainedInputs: a TextInput and a
+// Select with their label overlaid at the top of a taller field box.
+templ ContainedInputs() {
+	@containedInputsCSS.Once() {
+		<style>
+			.contained-input {
+				position: relative;
+			}
+			.contained-input::part(field) {
+				margin-top: 0;
+			}
+			.contained-input::part(input) {
+				height: 54px;
+				padding-top: 18px;
+			}
+			.contained-input::part(label) {
+				position: absolute;
+				pointer-events: none;
+				font-size: var(--mt-font-size-xs);
+				padding-left: var(--mt-spacing-sm);
+				padding-top: calc(var(--mt-spacing-sm) / 2);
+				z-index: 1;
+			}
+		</style>
+	}
+	@mt.TextInput(mt.TextInputProps{
+		Label:       "Shipping address",
+		Placeholder: "15329 Huston 21st",
+		Base:        mt.Base{Class: "contained-input"},
+	})
+	@mt.Select(mt.SelectProps{
+		Label:       "Your favorite library/framework",
+		Placeholder: "Pick one",
+		Data: []mt.SelectItem{
+			{Value: "React", Label: "React"},
+			{Value: "Angular", Label: "Angular"},
+			{Value: "Svelte", Label: "Svelte"},
+			{Value: "Vue", Label: "Vue"},
+		},
+		Base: mt.Base{Class: "contained-input", Mt: mt.MD},
+	})
+}

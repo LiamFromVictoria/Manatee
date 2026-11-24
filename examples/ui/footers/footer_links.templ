@@ -1,0 +1,121 @@
+package footers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type footerLinksItem struct{ Label, Link string }
+
+type footerLinksGroup struct {
+	Title string
+	Links []footerLinksItem
+}
+
+var footerLinksData = []footerLinksGroup{
+	{"About", []footerLinksItem{{"Features", "#"}, {"Pricing", "#"}, {"Support", "#"}, {"Forums", "#"}}},
+	{"Project", []footerLinksItem{{"Contribute", "#"}, {"Media assets", "#"}, {"Changelog", "#"}, {"Releases", "#"}}},
+	{"Community", []footerLinksItem{{"Join Discord", "#"}, {"Follow on Twitter", "#"}, {"Email newsletter", "#"}, {"GitHub discussions", "#"}}},
+}
+
+var footerLinksCSS = templ.NewOnceHandle()
+
+templ FooterLinks() {
+	@footerLinksCSS.Once() {
+		<style>
+			.footer-links {
+				margin-top: 120px;
+				padding-top: calc(var(--mt-spacing-xl) * 2);
+				padding-bottom: calc(var(--mt-spacing-xl) * 2);
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
+			}
+			.footer-links__logo {
+				max-width: 200px;
+				@media (max-width: 48em) { display: flex; flex-direction: column; align-items: center; }
+			}
+			.footer-links__description {
+				margin-top: 5px;
+				@media (max-width: 48em) { margin-top: var(--mt-spacing-xs); text-align: center; }
+			}
+			.footer-links__inner {
+				display: flex;
+				justify-content: space-between;
+				@media (max-width: 48em) { flex-direction: column; align-items: center; }
+			}
+			.footer-links__groups {
+				display: flex;
+				flex-wrap: wrap;
+				@media (max-width: 48em) { display: none; }
+			}
+			.footer-links__wrapper { width: 160px; }
+			.footer-links__link {
+				display: block;
+				color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-1));
+				font-size: var(--mt-font-size-sm);
+				padding-top: 3px;
+				padding-bottom: 3px;
+				&:hover { text-decoration: underline; }
+			}
+			.footer-links__title {
+				font-size: var(--mt-font-size-lg);
+				font-weight: 500;
+				font-family: Outfit, var(--mt-font-family);
+				margin-bottom: calc(var(--mt-spacing-xs) / 2);
+				color: light-dark(var(--mt-black), var(--mt-white));
+			}
+			.footer-links__after {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: var(--mt-spacing-xl);
+				padding-top: var(--mt-spacing-xl);
+				padding-bottom: var(--mt-spacing-xl);
+				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));
+				@media (max-width: 48em) { flex-direction: column; }
+			}
+			.footer-links__social {
+				@media (max-width: 48em) { margin-top: var(--mt-spacing-xs); }
+			}
+		</style>
+	}
+	<footer class="footer-links">
+		@mt.Container(mt.ContainerProps{Base: mt.Base{Class: "footer-links__inner"}}) {
+			<div class="footer-links__logo">
+				@blocks.Logo(30)
+				@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Class: "footer-links__description"}}) {
+					Build fully functional accessible web applications faster than ever
+				}
+			</div>
+			<div class="footer-links__groups">
+				for _, g := range footerLinksData {
+					<div class="footer-links__wrapper">
+						@mt.Text(mt.TextProps{Base: mt.Base{Class: "footer-links__title"}}) {
+							{ g.Title }
+						}
+						for _, l := range g.Links {
+							<a href={ templ.SafeURL(l.Link) } class="footer-links__link">{ l.Label }</a>
+						}
+					</div>
+				}
+			</div>
+		}
+		@mt.Container(mt.ContainerProps{Base: mt.Base{Class: "footer-links__after"}}) {
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+				© 2020 mantine.dev. All rights reserved.
+			}
+			@mt.Group(mt.GroupProps{Gap: "0", Justify: "flex-end", Wrap: "nowrap", Base: mt.Base{Class: "footer-links__social"}}) {
+				@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, Color: mt.Gray, Variant: mt.Subtle, AriaLabel: "Twitter"}) {
+					@icons.IconBrandTwitter(icons.Props{Size: 18, Stroke: 1.5})
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, Color: mt.Gray, Variant: mt.Subtle, AriaLabel: "Youtube"}) {
+					@icons.IconBrandYoutube(icons.Props{Size: 18, Stroke: 1.5})
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, Color: mt.Gray, Variant: mt.Subtle, AriaLabel: "Instagram"}) {
+					@icons.IconBrandInstagram(icons.Props{Size: 18, Stroke: 1.5})
+				}
+			}
+		}
+	</footer>
+}

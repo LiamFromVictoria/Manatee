@@ -1,9 +1,11 @@
 package mt
 
+import "strings"
+
 // ImageProps mirrors Mantine's Image.
 type ImageProps struct {
 	Base
-	Src         string
+	Src         string // URL, or a data:image/… URL (e.g. an embedded asset)
 	Alt         string
 	Fit         string // cover (default) | contain | fill | none | scale-down
 	Radius      string
@@ -14,8 +16,17 @@ type ImageProps struct {
 templ Image(p ImageProps) {
 	<mt-image
 		{ attrs(p.Base,
-			"src", p.Src, "alt", p.Alt, "fit", p.Fit, "radius", p.Radius,
-			"fallback-src", p.FallbackSrc, "loading", p.Loading,
+			"src", imageURL(p.Src), "alt", p.Alt, "fit", p.Fit, "radius", p.Radius,
+			"fallback-src", imageURL(p.FallbackSrc), "loading", p.Loading,
 		)... }
 	></mt-image>
+}
+
+// imageURL lets data:image/… URLs through templ's URL sanitizer, which
+// otherwise rewrites every data: URL. Image data cannot execute script.
+func imageURL(s string) any {
+	if strings.HasPrefix(s, "data:image/") {
+		return templ.SafeURL(s)
+	}
+	return s
 }

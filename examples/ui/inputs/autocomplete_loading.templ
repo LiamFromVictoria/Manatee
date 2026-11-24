@@ -1,0 +1,44 @@
+package inputs
+
+import "github.com/you/manatee/mt"
+
+var autocompleteLoadingCSS = templ.NewOnceHandle()
+
+// AutocompleteLoading ports ui.mantine.dev AutocompleteLoading: typing a
+// non-email value shows a loading spinner for 1s, then offers
+// `<value>@<provider>` suggestions; an "@" in the value or an empty value
+// clears the suggestions immediately.
+templ AutocompleteLoading() {
+	@autocompleteLoadingCSS.Once() {
+		<script>
+			(() => {
+				const timers = new WeakMap();
+				document.addEventListener('input', (e) => {
+					const el = e.target;
+					if (!(el instanceof HTMLElement) || !el.matches('.autocomplete-loading')) return;
+					clearTimeout(timers.get(el));
+					el.querySelectorAll('option').forEach((o) => o.remove());
+					const val = el.value.trim();
+					if (val.length === 0 || val.includes('@')) {
+						el.loading = false;
+						return;
+					}
+					el.loading = true;
+					timers.set(el, setTimeout(() => {
+						el.loading = false;
+						for (const provider of ['gmail.com', 'outlook.com', 'yahoo.com']) {
+							const opt = document.createElement('option');
+							opt.value = `${val}@${provider}`;
+							el.append(opt);
+						}
+					}, 1000));
+				});
+			})();
+		</script>
+	}
+	@mt.Autocomplete(mt.AutocompleteProps{
+		Label:       "Async Autocomplete data",
+		Placeholder: "Your email",
+		Base:        mt.Base{Class: "autocomplete-loading"},
+	})
+}

@@ -1,0 +1,47 @@
+package users
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var userInfoIconsCSS = templ.NewOnceHandle()
+
+templ UserInfoIcons() {
+	@userInfoIconsCSS.Once() {
+		<style>
+			.user-info-icons__avatar::part(root) { width: 5.875rem; height: 5.875rem; }
+			.user-info-icons__icon { color: light-dark(var(--mt-color-gray-5), var(--mt-color-dark-3)); }
+			.user-info-icons__name { font-family: Outfit, var(--mt-font-family); }
+		</style>
+	}
+	<div>
+		@mt.Group(mt.GroupProps{Wrap: "nowrap"}) {
+			@mt.Avatar(mt.AvatarProps{
+				Src: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", Alt: "Robert Glassbreaker",
+				Radius: mt.MD,
+				Base:   mt.Base{Class: "user-info-icons__avatar"},
+			})
+			<div>
+				@mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, C: mt.Dimmed}) {
+					Software engineer
+				}
+				@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "user-info-icons__name"}}) {
+					Robert Glassbreaker
+				}
+				@mt.Group(mt.GroupProps{Wrap: "nowrap", Gap: "10", Base: mt.Base{Mt: "3"}}) {
+					@icons.IconAt(icons.Props{Stroke: 1.5, Size: 16, Class: "user-info-icons__icon"})
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+						robert@glassbreaker.io
+					}
+				}
+				@mt.Group(mt.GroupProps{Wrap: "nowrap", Gap: "10", Base: mt.Base{Mt: "5"}}) {
+					@icons.IconPhoneCall(icons.Props{Stroke: 1.5, Size: 16, Class: "user-info-icons__icon"})
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+						+11 (876) 890 56 23
+					}
+				}
+			</div>
+		}
+	</div>
+}

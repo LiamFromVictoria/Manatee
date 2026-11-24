@@ -1,0 +1,86 @@
+package articlecards
+
+import "github.com/you/manatee/mt"
+
+type articlesCardsGridItem struct{ Title, Image, Date string }
+
+var articlesCardsGridItems = []articlesCardsGridItem{
+	{
+		Title: "Top 10 places to visit in Norway this summer",
+		Image: "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+		Date:  "August 18, 2022",
+	},
+	{
+		Title: "Best forests to visit in North America",
+		Image: "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+		Date:  "August 27, 2022",
+	},
+	{
+		Title: "Hawaii beaches review: better than you think",
+		Image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+		Date:  "September 9, 2022",
+	},
+	{
+		Title: "Mountains at night: 12 best locations to enjoy the view",
+		Image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+		Date:  "September 12, 2022",
+	},
+}
+
+var articlesCardsGridCSS = templ.NewOnceHandle()
+
+// ArticlesCardsGrid ports ui.mantine.dev ArticlesCardsGrid: a responsive
+// grid of linked image cards that lift on hover.
+templ ArticlesCardsGrid() {
+	@articlesCardsGridCSS.Once() {
+		<style>
+			.articles-cards-grid__card {
+				display: block;
+				padding: var(--mt-spacing-md);
+				border-radius: var(--mt-radius-md);
+				background-color: var(--mt-color-body);
+				color: inherit;
+				text-decoration: none;
+				overflow: hidden;
+				position: relative;
+				border: 1px solid transparent;
+				transition:
+					border-color 150ms ease,
+					transform 150ms ease,
+					box-shadow 150ms ease;
+			}
+			.articles-cards-grid__card:hover {
+				z-index: 1;
+				transform: scale(1.01);
+				box-shadow: var(--mt-shadow-md);
+				border-color: light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
+			}
+			.articles-cards-grid__date {
+				text-transform: uppercase;
+				font-weight: 500;
+				font-size: var(--mt-font-size-xs);
+				margin-top: var(--mt-spacing-xs);
+				opacity: 0.85;
+			}
+			.articles-cards-grid__title {
+				font-family: 'Outfit', var(--mt-font-family);
+				font-weight: 500;
+				font-size: var(--mt-font-size-lg);
+				color: var(--mt-color-bright);
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Base: mt.Base{Py: mt.XL}}) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, Spacing: "0", SpacingSm: mt.MD}) {
+			for _, a := range articlesCardsGridItems {
+				<a href="#" class="articles-cards-grid__card">
+					@mt.AspectRatio(mt.AspectRatioProps{Ratio: "1920/1080"}) {
+						@mt.Image(mt.ImageProps{Src: a.Image, Alt: a.Title, Radius: mt.MD})
+					}
+					@mt.Text(mt.TextProps{Base: mt.Base{Class: "articles-cards-grid__date"}}) { { a.Date } }
+					@mt.Text(mt.TextProps{Base: mt.Base{Class: "articles-cards-grid__title"}}) { { a.Title } }
+				</a>
+			}
+		}
+	}
+}

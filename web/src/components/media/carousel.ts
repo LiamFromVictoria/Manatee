@@ -22,13 +22,17 @@ const styles = css`
     position: relative;
     --_slide-size: 100%;
     --_slide-gap: 0px;
+    --_slides-to-scroll: 1;
     --_align: center;
     --_controls-offset: var(--mt-spacing-sm);
     --_control-size: 1.625rem;
     --_height: auto;
+    --_indicator-w: 1.875rem;
+    --_indicator-active-w: 2.5rem;
   }
   ${responsiveVars('slide-size', '--_slide-size')}
   ${responsiveVars('slide-gap', '--_slide-gap')}
+  ${responsiveVars('slides-to-scroll', '--_slides-to-scroll')}
 
   .viewport {
     position: relative;
@@ -121,7 +125,7 @@ const styles = css`
   }
   .indicator {
     pointer-events: all;
-    width: 1.875rem;
+    width: var(--_indicator-w);
     height: 0.25rem;
     padding: 0;
     border: none;
@@ -131,14 +135,14 @@ const styles = css`
     cursor: pointer;
     transition: opacity var(--mt-transition), width var(--mt-transition);
   }
-  .indicator[data-active] { opacity: 1; width: 2.5rem; }
-  :host([orientation='vertical']) .indicator { width: 0.25rem; height: 1.875rem; }
-  :host([orientation='vertical']) .indicator[data-active] { width: 0.25rem; height: 2.5rem; }
+  .indicator[data-active] { opacity: 1; --_indicator-w: var(--_indicator-active-w); }
+  :host([orientation='vertical']) .indicator { width: 0.25rem; height: var(--_indicator-w); }
 `;
 
 /**
  * <mt-carousel orientation="horizontal|vertical" slide-size slide-gap align="start|center|end"
- *              slide-size-xs..slide-size-xl slide-gap-xs..slide-gap-xl loop drag-free
+ *              slide-size-xs..slide-size-xl slide-gap-xs..slide-gap-xl
+ *              slides-to-scroll slides-to-scroll-xs..slides-to-scroll-xl loop drag-free
  *              with-controls with-indicators controls-offset control-size height initial-slide>
  * Slot: default, a run of <mt-carousel-slide> children.
  * Events: slide-change { index }.
@@ -160,6 +164,12 @@ export class MtCarousel extends MtElement {
     slideGapMd: { attr: 'slide-gap-md', css: '--_slide-gap-md', scale: 'spacing' },
     slideGapLg: { attr: 'slide-gap-lg', css: '--_slide-gap-lg', scale: 'spacing' },
     slideGapXl: { attr: 'slide-gap-xl', css: '--_slide-gap-xl', scale: 'spacing' },
+    slidesToScroll: { attr: 'slides-to-scroll', css: '--_slides-to-scroll', type: 'number', default: 1 },
+    slidesToScrollXs: { attr: 'slides-to-scroll-xs', css: '--_slides-to-scroll-xs', type: 'number' },
+    slidesToScrollSm: { attr: 'slides-to-scroll-sm', css: '--_slides-to-scroll-sm', type: 'number' },
+    slidesToScrollMd: { attr: 'slides-to-scroll-md', css: '--_slides-to-scroll-md', type: 'number' },
+    slidesToScrollLg: { attr: 'slides-to-scroll-lg', css: '--_slides-to-scroll-lg', type: 'number' },
+    slidesToScrollXl: { attr: 'slides-to-scroll-xl', css: '--_slides-to-scroll-xl', type: 'number' },
     align: { css: '--_align', default: 'center' },
     loop: { type: 'boolean' },
     dragFree: { attr: 'drag-free', type: 'boolean' },
@@ -281,17 +291,33 @@ export class MtCarousel extends MtElement {
   next(): void {
     const slides = this.slides;
     if (!slides.length) return;
-    let i = this.#index + 1;
-    if (i >= slides.length) { if (!this.loop) return; i = 0; }
+    const step = this.#slidesToScrollCount();
+    let i = this.#index + step;
+    if (i >= slides.length) {
+      if (!this.loop) i = slides.length - 1;
+      else i %= slides.length;
+    }
+    if (i === this.#index) return;
     this.scrollToSlide(i);
   }
 
   prev(): void {
     const slides = this.slides;
     if (!slides.length) return;
-    let i = this.#index - 1;
-    if (i < 0) { if (!this.loop) return; i = slides.length - 1; }
+    const step = this.#slidesToScrollCount();
+    let i = this.#index - step;
+    if (i < 0) {
+      if (!this.loop) i = 0;
+      else i = ((i % slides.length) + slides.length) % slides.length;
+    }
+    if (i === this.#index) return;
     this.scrollToSlide(i);
+  }
+
+  /** Effective slides-to-scroll at the current breakpoint (resolved through the CSS cascade). */
+  #slidesToScrollCount(): number {
+    const v = parseInt(getComputedStyle(this).getPropertyValue('--_slides-to-scroll'), 10);
+    return Number.isFinite(v) && v > 0 ? v : 1;
   }
 
   scrollToSlide(index: number, opts: { smooth?: boolean } = {}): void {
@@ -352,8 +378,10 @@ export class MtCarousel extends MtElement {
     prevBtn.disabled = !this.loop && this.#index <= 0;
     nextBtn.disabled = !this.loop && this.#index >= slides.length - 1;
     this.root.querySelectorAll<HTMLButtonElement>('.indicator').forEach((el, i) => {
-      el.toggleAttribute('data-active', i === this.#index);
-      el.setAttribute('aria-selected', i === this.#index ? 'true' : 'false');
+      const active = i === this.#index;
+      el.toggleAttribute('data-active', active);
+      el.setAttribute('part', active ? 'indicator indicator-active' : 'indicator');
+      el.setAttribute('aria-selected', active ? 'true' : 'false');
     });
   }
 

@@ -1,0 +1,71 @@
+package users
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+// UserMenu ports ui.mantine.dev UserMenu.
+templ UserMenu() {
+	@mt.Group(mt.GroupProps{Justify: "center"}) {
+		@mt.Menu(mt.MenuProps{Width: "300", WithArrow: true, Transition: "pop", Target: userMenuTarget()}) {
+			@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+				@mt.MenuItem(mt.MenuItemProps{RightSection: icons.IconChevronRight(icons.Props{Size: 16, Stroke: 1.5})}) {
+					@mt.Group(mt.GroupProps{}) {
+						@mt.Avatar(mt.AvatarProps{
+							Radius: mt.XL,
+							Src:    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png",
+							Alt:    "Nancy Eggshacker",
+						})
+						<div>
+							@mt.Text(mt.TextProps{Fw: 500}) {
+								Nancy Eggshacker
+							}
+							@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+								neggshaker@mantine.dev
+							}
+						</div>
+					}
+				}
+				@mt.MenuDivider(mt.MenuDividerProps{})
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconHeart(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-red-6)"})}) {
+					Liked posts
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconStar(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-yellow-6)"})}) {
+					Saved posts
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconMessage(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-blue-6)"})}) {
+					Your comments
+				}
+				@mt.MenuLabel(mt.MenuLabelProps{}) {
+					Settings
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconSettings(icons.Props{Size: 16, Stroke: 1.5})}) {
+					Account settings
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconSwitchHorizontal(icons.Props{Size: 16, Stroke: 1.5})}) {
+					Change account
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconLogout(icons.Props{Size: 16, Stroke: 1.5})}) {
+					Logout
+				}
+				@mt.MenuDivider(mt.MenuDividerProps{})
+				@mt.MenuLabel(mt.MenuLabelProps{}) {
+					Danger zone
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconPlayerPause(icons.Props{Size: 16, Stroke: 1.5})}) {
+					Pause subscription
+				}
+				@mt.MenuItem(mt.MenuItemProps{Color: mt.Red, LeftSection: icons.IconTrash(icons.Props{Size: 16, Stroke: 1.5})}) {
+					Delete account
+				}
+			}
+		}
+	}
+}
+
+templ userMenuTarget() {
+	@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Default, AriaLabel: "User settings"}) {
+		@icons.IconDots(icons.Props{Size: 16, Stroke: 1.5})
+	}
+}

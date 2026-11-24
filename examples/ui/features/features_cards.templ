@@ -1,0 +1,102 @@
+package features
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var featuresCardsCSS = templ.NewOnceHandle()
+
+type featuresCardsItem struct {
+	Title       string
+	Description string
+	Icon        templ.Component
+}
+
+var featuresCardsData = []featuresCardsItem{
+	{
+		Title: "Extreme performance",
+		Description: "This dust is actually a powerful poison that will even make a pro wrestler sick, " +
+			"Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
+		Icon: icons.IconGauge(icons.Props{Size: 50, Stroke: 1.5, Color: "var(--mt-color-blue-6)"}),
+	},
+	{
+		Title: "Privacy focused",
+		Description: "People say it can run at the same speed as lightning striking, Its icy body " +
+			"is so cold, it will not melt even if it is immersed in magma",
+		Icon: icons.IconUser(icons.Props{Size: 50, Stroke: 1.5, Color: "var(--mt-color-blue-6)"}),
+	},
+	{
+		Title: "No third parties",
+		Description: "They're popular, but they're rare. Trainers who show them off recklessly may be " +
+			"targeted by thieves",
+		Icon: icons.IconCookie(icons.Props{Size: 50, Stroke: 1.5, Color: "var(--mt-color-blue-6)"}),
+	},
+}
+
+// FeaturesCards ports ui.mantine.dev FeaturesCards: a badge + centered title
+// and description, then a grid of bordered feature cards.
+templ FeaturesCards() {
+	@featuresCardsCSS.Once() {
+		<style>
+			.features-cards__title {
+				font-size: 34px;
+				font-weight: 500;
+			}
+			@media (max-width: 48em) {
+				.features-cards__title { font-size: 24px; }
+			}
+			.features-cards__description {
+				max-width: 600px;
+				margin: auto;
+			}
+			.features-cards__description::after {
+				content: '';
+				display: block;
+				background-color: var(--mt-color-blue-filled);
+				width: 45px;
+				height: 2px;
+				margin-top: var(--mt-spacing-sm);
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.features-cards__card {
+				border: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));
+			}
+			.features-cards__card-title::after {
+				content: '';
+				display: block;
+				background-color: var(--mt-color-blue-filled);
+				width: 45px;
+				height: 2px;
+				margin-top: var(--mt-spacing-sm);
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: mt.LG, Base: mt.Base{Py: mt.XL}}) {
+		@mt.Group(mt.GroupProps{Justify: "center"}) {
+			@mt.Badge(mt.BadgeProps{Variant: mt.Filled, Size: mt.LG}) {
+				Best company ever
+			}
+		}
+		@mt.Title(mt.TitleProps{Order: 2, Ta: "center", Base: mt.Base{Class: "features-cards__title", Mt: mt.SM}}) {
+			Integrate effortlessly with any technology stack
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Ta: "center", Base: mt.Base{Class: "features-cards__description", Mt: mt.MD}}) {
+			Every once in a while, you'll see a Golbat that's missing some fangs. This happens when hunger drives it to try biting a Steel-type Pokémon.
+		}
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsMd: 3, Spacing: mt.XL, Base: mt.Base{Mt: "50"}}) {
+			for _, item := range featuresCardsData {
+				@mt.Card(mt.CardProps{Shadow: mt.MD, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Class: "features-cards__card"}}) {
+					@item.Icon
+					@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Class: "features-cards__card-title", Mt: mt.MD}}) {
+						{ item.Title }
+					}
+					@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: mt.SM}}) {
+						{ item.Description }
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,95 @@
+package hero
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var heroTitleCSS = templ.NewOnceHandle()
+
+// HeroTitle ports ui.mantine.dev HeroTitle: centered gradient title,
+// description and two CTAs (one plain, one a GitHub link).
+templ HeroTitle() {
+	@heroTitleCSS.Once() {
+		<style>
+			.hero-title {
+				position: relative;
+				box-sizing: border-box;
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-8));
+			}
+			.hero-title__inner {
+				position: relative;
+				padding-top: 200px;
+				padding-bottom: 120px;
+			}
+			@media (max-width: 48em) {
+				.hero-title__inner { padding-bottom: 80px; padding-top: 80px; }
+			}
+			.hero-title__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-size: 62px;
+				font-weight: 500;
+				line-height: 1.1;
+				margin: 0;
+				padding: 0;
+				color: light-dark(var(--mt-black), var(--mt-white));
+			}
+			@media (max-width: 48em) {
+				.hero-title__title { font-size: 42px; line-height: 1.2; }
+			}
+			.hero-title__description {
+				margin-top: var(--mt-spacing-xl);
+				font-size: 24px;
+			}
+			@media (max-width: 48em) {
+				.hero-title__description { font-size: 18px; }
+			}
+			.hero-title__controls {
+				margin-top: calc(var(--mt-spacing-xl) * 2);
+			}
+			@media (max-width: 48em) {
+				.hero-title__controls { margin-top: var(--mt-spacing-xl); }
+			}
+			.hero-title__control {
+				height: 54px;
+				padding-left: 38px;
+				padding-right: 38px;
+			}
+			@media (max-width: 48em) {
+				.hero-title__control { height: 54px; padding-left: 18px; padding-right: 18px; flex: 1; }
+			}
+		</style>
+	}
+	<div class="hero-title">
+		@mt.Container(mt.ContainerProps{Size: "700px", Base: mt.Base{Class: "hero-title__inner"}}) {
+			<h1 class="hero-title__title">
+				A{ " " }
+				@mt.Text(mt.TextProps{Span: true, Variant: mt.Gradient, GradientFrom: mt.Blue, GradientTo: mt.Cyan, Inherit: true}) {
+					fully featured
+				}{ " " }
+				React components and hooks library
+			</h1>
+			@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Class: "hero-title__description"}}) {
+				Build fully functional accessible web applications with ease – Mantine includes more than 100 customizable components and hooks to cover you in any situation
+			}
+			@mt.Group(mt.GroupProps{Base: mt.Base{Class: "hero-title__controls"}}) {
+				@mt.Button(mt.ButtonProps{
+					Size: mt.XL, Variant: mt.Gradient, GradientFrom: mt.Blue, GradientTo: mt.Cyan,
+					Base: mt.Base{Class: "hero-title__control"},
+				}) {
+					Get started
+				}
+				@mt.Button(mt.ButtonProps{
+					Href: "https://github.com/mantinedev/mantine", Size: mt.XL, Variant: mt.Default,
+					Base: mt.Base{Class: "hero-title__control"}, LeftSection: heroTitleGithubIcon(),
+				}) {
+					GitHub
+				}
+			}
+		}
+	</div>
+}
+
+templ heroTitleGithubIcon() {
+	@icons.IconBrandGithub(icons.Props{Size: 20})
+}

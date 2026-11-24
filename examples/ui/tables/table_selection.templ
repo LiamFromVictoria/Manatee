@@ -1,0 +1,98 @@
+package tables
+
+import "github.com/you/manatee/mt"
+
+type tableSelectionUser struct {
+	ID, Avatar, Name, Job, Email string
+}
+
+var tableSelectionUsers = []tableSelectionUser{
+	{ID: "1", Avatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png", Name: "Robert Wolfkisser", Job: "Engineer", Email: "rob_wolf@gmail.com"},
+	{ID: "2", Avatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png", Name: "Jill Jailbreaker", Job: "Engineer", Email: "jj@breaker.com"},
+	{ID: "3", Avatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png", Name: "Henry Silkeater", Job: "Designer", Email: "henry@silkeater.io"},
+	{ID: "4", Avatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png", Name: "Bill Horsefighter", Job: "Designer", Email: "bhorsefighter@gmail.com"},
+	{ID: "5", Avatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-10.png", Name: "Jeremy Footviewer", Job: "Manager", Email: "jeremy@foot.dev"},
+}
+
+var tableSelectionCSS = templ.NewOnceHandle()
+
+// TableSelection ports ui.mantine.dev TableSelection: per-row checkboxes plus
+// a select-all checkbox with indeterminate state. React's `selection` array
+// in state is replaced by a delegated `change` listener scoped to the block
+// root: it toggles the row's highlighted background and keeps the
+// select-all checkbox's checked/indeterminate state in sync.
+templ TableSelection() {
+	@tableSelectionCSS.Once() {
+		<style>
+			.table-selection__row--selected {
+				background-color: var(--mt-color-blue-light);
+			}
+		</style>
+		<script>
+			document.addEventListener('change', (e) => {
+				const root = e.target.closest && e.target.closest('.table-selection');
+				if (!root) return;
+				const boxes = [...root.querySelectorAll('.table-selection__row-checkbox')];
+				const selectAll = root.querySelector('.table-selection__select-all');
+
+				if (e.target.matches('.table-selection__select-all')) {
+					const checked = e.target.checked;
+					boxes.forEach((cb) => {
+						cb.checked = checked;
+						cb.closest('tr').classList.toggle('table-selection__row--selected', checked);
+					});
+					e.target.indeterminate = false;
+					return;
+				}
+
+				if (e.target.matches('.table-selection__row-checkbox')) {
+					e.target.closest('tr').classList.toggle('table-selection__row--selected', e.target.checked);
+					const checkedCount = boxes.filter((cb) => cb.checked).length;
+					if (selectAll) {
+						selectAll.checked = checkedCount === boxes.length;
+						selectAll.indeterminate = checkedCount > 0 && checkedCount < boxes.length;
+					}
+				}
+			});
+		</script>
+	}
+	@mt.ScrollArea(mt.ScrollAreaProps{Base: mt.Base{Class: "table-selection"}}) {
+		@mt.Table(mt.TableProps{VerticalSpacing: mt.SM, Base: mt.Base{Miw: "800px"}}) {
+			<thead>
+				<tr>
+					<th style="width:40px">
+						@mt.Checkbox(mt.CheckboxProps{
+							Checked: true,
+							Base:    mt.Base{Class: "table-selection__select-all", Attrs: templ.Attributes{"aria-label": "Select all rows"}},
+						})
+					</th>
+					<th>User</th>
+					<th>Email</th>
+					<th>Job</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, u := range tableSelectionUsers {
+					<tr class={ templ.KV("table-selection__row--selected", u.ID == "1") }>
+						<td>
+							@mt.Checkbox(mt.CheckboxProps{
+								Checked: u.ID == "1",
+								Base:    mt.Base{Class: "table-selection__row-checkbox", Attrs: templ.Attributes{"data-row-id": u.ID, "aria-label": "Select row"}},
+							})
+						</td>
+						<td>
+							@mt.Group(mt.GroupProps{Gap: mt.SM}) {
+								@mt.Avatar(mt.AvatarProps{Size: "26px", Radius: "26px", Src: u.Avatar, Alt: ""})
+								@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+									{ u.Name }
+								}
+							}
+						</td>
+						<td>{ u.Email }</td>
+						<td>{ u.Job }</td>
+					</tr>
+				}
+			</tbody>
+		}
+	}
+}

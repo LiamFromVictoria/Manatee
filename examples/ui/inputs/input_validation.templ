@@ -1,0 +1,34 @@
+package inputs
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var inputValidationCSS = templ.NewOnceHandle()
+
+// InputValidation ports ui.mantine.dev InputValidation: an invalid-looking
+// TextInput with a red-tinted field and a warning icon.
+templ InputValidation() {
+	@inputValidationCSS.Once() {
+		<style>
+			.input-validation::part(input) {
+				background-color: var(--mt-color-red-light);
+			}
+			.input-validation__icon {
+				color: light-dark(var(--mt-color-red-6), var(--mt-color-red-7));
+			}
+		</style>
+	}
+	@mt.TextInput(mt.TextInputProps{
+		Label:        "Custom validation styles",
+		Error:        "Invalid email",
+		Value:        "hello!gmail.com",
+		RightSection: inputValidationIcon(),
+		Base:         mt.Base{Class: "input-validation"},
+	})
+}
+
+templ inputValidationIcon() {
+	@icons.IconAlertTriangle(icons.Props{Stroke: 1.5, Size: 18, Class: "input-validation__icon"})
+}

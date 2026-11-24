@@ -1,0 +1,48 @@
+package buttons
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var splitButtonCSS = templ.NewOnceHandle()
+
+templ SplitButton() {
+	@splitButtonCSS.Once() {
+		<style>
+			.split-button__button::part(root) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+			.split-button__control::part(root) {
+				width: 2.25rem;
+				height: 2.25rem;
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				border: 0;
+				border-left: 1px solid var(--mt-color-body);
+			}
+		</style>
+	}
+	@mt.Group(mt.GroupProps{Wrap: "nowrap", Gap: "0"}) {
+		@mt.Button(mt.ButtonProps{Base: mt.Base{Class: "split-button__button"}}) {
+			Send
+		}
+		@mt.Menu(mt.MenuProps{Position: "bottom-end", Transition: "pop", Target: splitButtonTarget()}) {
+			@mt.MenuDropdown(mt.MenuDropdownProps{}) {
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconCalendar(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-blue-5)"})}) {
+					Schedule for later
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconBookmark(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-blue-5)"})}) {
+					Save draft
+				}
+				@mt.MenuItem(mt.MenuItemProps{LeftSection: icons.IconTrash(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-blue-5)"})}) {
+					Delete
+				}
+			}
+		}
+	}
+}
+
+templ splitButtonTarget() {
+	@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Filled, Color: mt.Primary, Size: "36", AriaLabel: "More options", Base: mt.Base{Class: "split-button__control"}}) {
+		@icons.IconChevronDown(icons.Props{Size: 16, Stroke: 1.5})
+	}
+}

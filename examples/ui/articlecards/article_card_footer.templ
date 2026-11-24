@@ -1,0 +1,86 @@
+package articlecards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type articleCardFooterData struct {
+	Category, Image, AuthorName, AuthorAvatar, Link, Title, PostedTime, Description, Footer string
+}
+
+var articleCardFooterInfo = articleCardFooterData{
+	Category:     "Decorations",
+	Image:        "https://images.unsplash.com/photo-1483794344563-d27a8d18014e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=500",
+	AuthorName:   "Elsa Gardenowl",
+	AuthorAvatar: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png",
+	Link:         "https://mantine.dev",
+	Title:        "Top 50 underrated plants for house decoration",
+	PostedTime:   "posted 34 minutes ago",
+	Description:  "Discover the best-kept secrets of home decor with our curated list of 50 underrated plants that will transform your living space into a green oasis.",
+	Footer:       "733 people liked this",
+}
+
+var articleCardFooterCSS = templ.NewOnceHandle()
+
+// ArticleCardFooter ports ui.mantine.dev ArticleCardFooter: an image-top
+// card with author row and a bordered footer with like/bookmark/share icons.
+templ ArticleCardFooter() {
+	@articleCardFooterCSS.Once() {
+		<style>
+			.article-card-footer { background-color: var(--mt-color-body); }
+			.article-card-footer__title {
+				font-family: Outfit, var(--mt-font-family);
+				line-height: 1.35;
+				font-weight: 450;
+				margin-top: var(--mt-spacing-xs);
+				color: var(--mt-color-bright);
+			}
+			.article-card-footer__footer {
+				padding: var(--mt-spacing-xs) var(--mt-spacing-lg);
+				margin-top: var(--mt-spacing-md);
+				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{Padding: mt.LG, Radius: mt.MD, WithBorder: true, Base: mt.Base{Class: "article-card-footer"}}) {
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Mb: mt.LG}}) {
+			@mt.Image(mt.ImageProps{Src: articleCardFooterInfo.Image, Alt: articleCardFooterInfo.Title, Base: mt.Base{H: "180px"}})
+		}
+		@mt.Badge(mt.BadgeProps{Color: mt.Violet, Variant: mt.Outline}) {
+			{ articleCardFooterInfo.Category }
+		}
+		@mt.Text(mt.TextProps{Base: mt.Base{Class: "article-card-footer__title"}}) {
+			{ articleCardFooterInfo.Title }
+		}
+		@mt.Group(mt.GroupProps{Base: mt.Base{Mt: mt.LG}}) {
+			@mt.Avatar(mt.AvatarProps{Src: articleCardFooterInfo.AuthorAvatar, Alt: articleCardFooterInfo.AuthorName, Radius: mt.SM})
+			<div>
+				@mt.Text(mt.TextProps{C: mt.Bright, Fw: 500}) {
+					{ articleCardFooterInfo.AuthorName }
+				}
+				@mt.Text(mt.TextProps{Size: mt.XS}) {
+					{ articleCardFooterInfo.PostedTime }
+				}
+			</div>
+		}
+		@mt.CardSection(mt.CardSectionProps{Base: mt.Base{Class: "article-card-footer__footer"}}) {
+			@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+				@mt.Text(mt.TextProps{Size: mt.XS}) {
+					{ articleCardFooterInfo.Footer }
+				}
+				@mt.Group(mt.GroupProps{Gap: "0"}) {
+					@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Gray, AriaLabel: "Like"}) {
+						@icons.IconHeartFilled(icons.Props{Size: 20, Color: "var(--mt-color-red-6)"})
+					}
+					@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Gray, AriaLabel: "Bookmark"}) {
+						@icons.IconBookmarkFilled(icons.Props{Size: 20, Color: "var(--mt-color-yellow-7)"})
+					}
+					@mt.ActionIcon(mt.ActionIconProps{Variant: mt.Subtle, Color: mt.Gray, AriaLabel: "Share"}) {
+						@icons.IconShare2(icons.Props{Size: 20, Color: "var(--mt-color-cyan-6)"})
+					}
+				}
+			}
+		}
+	}
+}

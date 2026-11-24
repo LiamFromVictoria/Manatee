@@ -1,0 +1,54 @@
+package articlecards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var cardGradientCSS = templ.NewOnceHandle()
+
+// CardGradient ports ui.mantine.dev CardGradient: a bordered card with a
+// gradient accent bar down the left edge and a gradient ThemeIcon.
+templ CardGradient() {
+	@cardGradientCSS.Once() {
+		<style>
+			.card-gradient {
+				position: relative;
+				cursor: pointer;
+				overflow: hidden;
+				transition:
+					transform 150ms ease,
+					box-shadow 100ms ease;
+				padding: var(--mt-spacing-xl);
+				padding-left: calc(var(--mt-spacing-xl) * 1.5);
+			}
+			.card-gradient:hover {
+				box-shadow: var(--mt-shadow-sm);
+				transform: scale(1.01);
+			}
+			.card-gradient::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				width: 6px;
+				background-image: linear-gradient(0deg, var(--mt-color-pink-6), var(--mt-color-orange-6));
+			}
+		</style>
+	}
+	@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{Class: "card-gradient"}}) {
+		@mt.ThemeIcon(mt.ThemeIconProps{Size: mt.XL, Radius: mt.MD, Variant: mt.Gradient, GradientFrom: "pink", GradientTo: "orange", GradientDeg: 0}) {
+			@icons.IconColorSwatch(icons.Props{Size: 28, Stroke: 1.5})
+		}
+		@mt.Text(mt.TextProps{Size: mt.XL, Fw: 500, Base: mt.Base{Mt: mt.MD}}) {
+			Theming documentation
+		}
+		@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: mt.SM}}) {
+			Extend default theme with any amount of additional colors, replace shadows, radius, spacing,
+			fonts and many other properties to match your design requirements. Mantine theme is just an
+			object, you can subscribe to it in any part of application via context and use it to build
+			your own components.
+		}
+	}
+}

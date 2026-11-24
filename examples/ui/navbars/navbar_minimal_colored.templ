@@ -1,0 +1,74 @@
+package navbars
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var navbarMinimalColoredCSS = templ.NewOnceHandle()
+
+// NavbarMinimalColored ports ui.mantine.dev NavbarMinimalColored: the same
+// icon rail as NavbarMinimal, but on a filled blue background with an
+// inverted logo and white-on-blue active state.
+templ NavbarMinimalColored() {
+	@navbarMinimalColoredCSS.Once() {
+		<style>
+			.navbar-minimal-colored {
+				width: 80px;
+				height: 750px;
+				padding: var(--mt-spacing-md);
+				display: flex;
+				flex-direction: column;
+				background-color: var(--mt-color-blue-filled);
+			}
+			.navbar-minimal-colored__main { flex: 1; margin-top: 50px; }
+			.navbar-minimal-colored__link {
+				width: 50px;
+				height: 50px;
+				border-radius: var(--mt-radius-md);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--mt-white);
+				&:hover { background-color: var(--mt-color-blue-7); }
+				&[data-active] {
+					&, &:hover { box-shadow: var(--mt-shadow-sm); background-color: var(--mt-white); color: var(--mt-color-blue-6); }
+				}
+			}
+			.navbar-minimal-colored__logo svg circle:first-of-type { fill: var(--mt-white); }
+			.navbar-minimal-colored__logo svg path { fill: var(--mt-color-blue-filled); }
+			.navbar-minimal-colored__logo svg circle:last-of-type { fill: var(--mt-white); }
+			.navbar-minimal-colored__logo span:last-child { color: var(--mt-white) !important; }
+		</style>
+	}
+	@blocks.Behaviors()
+	<nav class="navbar-minimal-colored" data-active-group>
+		@mt.Center(mt.CenterProps{Base: mt.Base{Class: "navbar-minimal-colored__logo"}}) {
+			@blocks.Logo(30)
+		}
+		<div class="navbar-minimal-colored__main">
+			@mt.Stack(mt.StackProps{Justify: "center", Gap: "0"}) {
+				for i, l := range navbarMinimalLinks {
+					@mt.Tooltip(mt.TooltipProps{Label: l.Label, Position: "right"}) {
+						<button type="button" class="navbar-minimal-colored__link" data-active-item={ l.Label } data-active?={ i == 2 } aria-label={ l.Label }>
+							@l.Icon
+						</button>
+					}
+				}
+			}
+		</div>
+		@mt.Stack(mt.StackProps{Justify: "center", Gap: "0"}) {
+			@mt.Tooltip(mt.TooltipProps{Label: "Change account", Position: "right"}) {
+				<button type="button" class="navbar-minimal-colored__link" aria-label="Change account">
+					@icons.IconSwitchHorizontal(icons.Props{Size: 20, Stroke: 1.5})
+				</button>
+			}
+			@mt.Tooltip(mt.TooltipProps{Label: "Logout", Position: "right"}) {
+				<button type="button" class="navbar-minimal-colored__link" aria-label="Logout">
+					@icons.IconLogout(icons.Props{Size: 20, Stroke: 1.5})
+				</button>
+			}
+		}
+	</nav>
+}

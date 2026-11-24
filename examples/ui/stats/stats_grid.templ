@@ -1,0 +1,90 @@
+package stats
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type statsGridItem struct {
+	Title string
+	Icon  func(...icons.Props) templ.Component
+	Value string
+	Diff  int
+}
+
+var statsGridData = []statsGridItem{
+	{"Revenue", icons.IconReceipt2, "13,456", 34},
+	{"Profit", icons.IconCoin, "4,145", -13},
+	{"Coupons usage", icons.IconDiscount, "745", 18},
+	{"New customers", icons.IconUserPlus, "188", -30},
+}
+
+var statsGridCSS = templ.NewOnceHandle()
+
+func statsGridDiffColor(diff int) string {
+	if diff > 0 {
+		return mt.Teal
+	}
+	return mt.Red
+}
+
+// StatsGrid ports ui.mantine.dev StatsGrid: a responsive grid of cards, each
+// showing a metric with a trend icon and a diff compared to last month.
+templ StatsGrid() {
+	@statsGridCSS.Once() {
+		<style>
+			.stats-grid {
+				padding: calc(var(--mt-spacing-xl) * 1.5);
+			}
+			.stats-grid__value {
+				font-size: 24px;
+				font-weight: 700;
+				line-height: 1;
+			}
+			.stats-grid__diff {
+				line-height: 1;
+				display: flex;
+				align-items: center;
+			}
+			.stats-grid__icon {
+				color: light-dark(var(--mt-color-gray-4), var(--mt-color-dark-3));
+			}
+			.stats-grid__title {
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+		</style>
+	}
+	<div class="stats-grid">
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsXs: 2, ColsMd: 4}) {
+			for _, s := range statsGridData {
+				@mt.Paper(mt.PaperProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{P: mt.MD}}) {
+					@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+						@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Class: "stats-grid__title"}}) {
+							{ s.Title }
+						}
+						@s.Icon(icons.Props{Size: 22, Stroke: 1.5, Class: "stats-grid__icon"})
+					}
+					@mt.Group(mt.GroupProps{Align: "flex-end", Gap: mt.XS, Base: mt.Base{Mt: "25"}}) {
+						@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-grid__value"}}) {
+							{ s.Value }
+						}
+						@mt.Text(mt.TextProps{C: statsGridDiffColor(s.Diff), Size: mt.SM, Fw: 500, Base: mt.Base{Class: "stats-grid__diff"}}) {
+							<span>{ strconv.Itoa(s.Diff) + "%" }</span>
+							if s.Diff > 0 {
+								@icons.IconArrowUpRight(icons.Props{Size: 16, Stroke: 1.5})
+							} else {
+								@icons.IconArrowDownRight(icons.Props{Size: 16, Stroke: 1.5})
+							}
+						}
+					}
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed, Base: mt.Base{Mt: "7"}}) {
+						Compared to previous month
+					}
+				}
+			}
+		}
+	</div>
+}

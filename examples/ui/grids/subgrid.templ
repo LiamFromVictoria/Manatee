@@ -1,0 +1,31 @@
+package grids
+
+import "github.com/you/manatee/mt"
+
+// subgridHeight2/subgridHeight3 replicate BASE_HEIGHT / n - spacing * ((n-1) / n)
+// for a 360px tall base skeleton, keeping the stacked skeletons' total height
+// (including the gaps between them) equal to the tall outer skeletons.
+const (
+	subgridHeight2 = "calc((360px - var(--mt-spacing-md)) / 2)"
+	subgridHeight3 = "calc((360px - calc(var(--mt-spacing-md) * 2)) / 3)"
+)
+
+// Subgrid ports ui.mantine.dev Subgrid: two tall skeletons bracketing a
+// 2-stack and a 3-stack of shorter skeletons, all the same total height.
+templ Subgrid() {
+	@mt.Container(mt.ContainerProps{Base: mt.Base{My: mt.MD}}) {
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsXs: 4}) {
+			@mt.Skeleton(mt.SkeletonProps{Height: "360px", Radius: mt.MD, Animate: new(false)})
+			@mt.Stack(mt.StackProps{}) {
+				@mt.Skeleton(mt.SkeletonProps{Height: subgridHeight2, Radius: mt.MD, Animate: new(false)})
+				@mt.Skeleton(mt.SkeletonProps{Height: subgridHeight2, Radius: mt.MD, Animate: new(false)})
+			}
+			@mt.Stack(mt.StackProps{}) {
+				@mt.Skeleton(mt.SkeletonProps{Height: subgridHeight3, Radius: mt.MD, Animate: new(false)})
+				@mt.Skeleton(mt.SkeletonProps{Height: subgridHeight3, Radius: mt.MD, Animate: new(false)})
+				@mt.Skeleton(mt.SkeletonProps{Height: subgridHeight3, Radius: mt.MD, Animate: new(false)})
+			}
+			@mt.Skeleton(mt.SkeletonProps{Height: "360px", Radius: mt.MD, Animate: new(false)})
+		}
+	}
+}

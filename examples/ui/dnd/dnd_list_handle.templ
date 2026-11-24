@@ -1,0 +1,79 @@
+package dnd
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var dndListHandleData = []struct {
+	Position int
+	Mass     string
+	Symbol   string
+	Name     string
+}{
+	{6, "12.011", "C", "Carbon"},
+	{7, "14.007", "N", "Nitrogen"},
+	{39, "88.906", "Y", "Yttrium"},
+	{56, "137.33", "Ba", "Barium"},
+	{58, "140.12", "Ce", "Cerium"},
+}
+
+var dndListHandleCSS = templ.NewOnceHandle()
+
+// DndListHandle ports ui.mantine.dev DndListHandle: same list as DndList, but
+// dragging is restricted to a grip handle via Sortable's Handle selector.
+templ DndListHandle() {
+	@dndListHandleCSS.Once() {
+		<style>
+			.dnd-list-handle__item {
+				display: flex;
+				align-items: center;
+				border-radius: var(--mt-radius-md);
+				border: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
+				padding: var(--mt-spacing-sm) var(--mt-spacing-lg);
+				padding-left: calc(var(--mt-spacing-xl) - var(--mt-spacing-md));
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-5));
+				margin-bottom: var(--mt-spacing-sm);
+			}
+			.dnd-list-handle__item.mt-sortable-dragging,
+			.dnd-list-handle__item[data-sortable-lifted] {
+				box-shadow: var(--mt-shadow-sm);
+			}
+			.dnd-list-handle__symbol {
+				font-size: 30px;
+				font-weight: 700;
+				width: 60px;
+			}
+			.dnd-list-handle__handle {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				color: light-dark(var(--mt-color-gray-6), var(--mt-color-dark-1));
+				margin-right: var(--mt-spacing-lg);
+			}
+		</style>
+	}
+	@mt.Sortable(mt.SortableProps{Handle: ".dnd-list-handle__handle"}) {
+		for _, item := range dndListHandleData {
+			<div class="dnd-list-handle__item">
+				<div class="dnd-list-handle__handle">
+					@icons.IconGripVertical(icons.Props{Size: 18, Stroke: 1.5})
+				</div>
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "dnd-list-handle__symbol"}}) {
+					{ item.Symbol }
+				}
+				<div>
+					@mt.Text(mt.TextProps{}) {
+						{ item.Name }
+					}
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+						Position: { strconv.Itoa(item.Position) } • Mass: { item.Mass }
+					}
+				</div>
+			</div>
+		}
+	}
+}

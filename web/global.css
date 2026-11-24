@@ -40,24 +40,14 @@ mt-accordion-panel:not(:defined) {
   display: none;
 }
 
-/* Block-level containers keep their layout before upgrade to limit shift. */
-mt-container,
-mt-stack,
-mt-grid,
-mt-simple-grid,
-mt-card,
-mt-paper,
-mt-alert,
-mt-app-shell,
-mt-divider,
-mt-text-input,
-mt-textarea,
-mt-password-input,
-mt-number-input,
-mt-select,
-mt-table,
-mt-tabs,
-mt-accordion {
+/*
+ * Block-level containers keep their layout before upgrade to limit shift.
+ * Guarded with :not(:defined) so it never overrides an upgraded element's own
+ * :host display (document styles beat :host), e.g. Stack's flex or SimpleGrid's grid.
+ */
+:is(mt-container, mt-stack, mt-grid, mt-simple-grid, mt-card, mt-paper, mt-alert,
+  mt-app-shell, mt-divider, mt-text-input, mt-textarea, mt-password-input,
+  mt-number-input, mt-select, mt-table, mt-tabs, mt-accordion):not(:defined) {
   display: block;
 }
 

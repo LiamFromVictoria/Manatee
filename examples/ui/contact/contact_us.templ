@@ -1,0 +1,127 @@
+package contact
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type contactUsIcon struct {
+	Title, Description string
+	Icon                templ.Component
+}
+
+var contactUsIcons = []contactUsIcon{
+	{"Email", "hello@mantine.dev", icons.IconAt(icons.Props{Size: 24})},
+	{"Phone", "+49 (800) 335 35 35", icons.IconPhone(icons.Props{Size: 24})},
+	{"Address", "844 Morris Park avenue", icons.IconMapPin(icons.Props{Size: 24})},
+	{"Working hours", "8 a.m. – 11 p.m.", icons.IconSun(icons.Props{Size: 24})},
+}
+
+var contactUsSocial = []struct {
+	Icon  templ.Component
+	Label string
+}{
+	{icons.IconBrandTwitter(icons.Props{Size: 22, Stroke: 1.5}), "Twitter"},
+	{icons.IconBrandYoutube(icons.Props{Size: 22, Stroke: 1.5}), "Youtube"},
+	{icons.IconBrandInstagram(icons.Props{Size: 22, Stroke: 1.5}), "Instagram"},
+}
+
+var contactUsCSS = templ.NewOnceHandle()
+
+// ContactUs ports ui.mantine.dev ContactUs: a blue-gradient card with contact
+// details and social links beside a white form card.
+templ ContactUs() {
+	@contactUsCSS.Once() {
+		<style>
+			.contact-us {
+				min-height: 400px;
+				background-image: linear-gradient(-60deg, var(--mt-color-blue-4) 0%, var(--mt-color-blue-7) 100%);
+				border-radius: var(--mt-radius-md);
+				padding: calc(var(--mt-spacing-xl) * 2.5);
+				@media (max-width: 48em) {
+					padding: calc(var(--mt-spacing-xl) * 1.5);
+				}
+			}
+			.contact-us__title {
+				font-family: Outfit, var(--mt-font-family);
+				color: var(--mt-white);
+				font-weight: 500;
+				line-height: 1;
+			}
+			.contact-us__description {
+				color: var(--mt-color-blue-0);
+				max-width: 300px;
+				@media (max-width: 48em) {
+					max-width: 100%;
+				}
+			}
+			.contact-us__form {
+				background-color: var(--mt-white);
+				padding: var(--mt-spacing-xl);
+				border-radius: var(--mt-radius-md);
+				box-shadow: var(--mt-shadow-lg);
+			}
+			.contact-us__social { color: var(--mt-white); }
+			.contact-us__social:hover { color: var(--mt-color-blue-1); }
+			.contact-us__icon-row { display: flex; align-items: center; color: var(--mt-white); }
+			.contact-us__icon-row + .contact-us__icon-row { margin-top: var(--mt-spacing-md); }
+			.contact-us__icon-box { margin-right: var(--mt-spacing-md); }
+			.contact-us__icon-title { color: var(--mt-color-blue-0); }
+			.contact-us__icon-description { color: var(--mt-white); }
+			.contact-us__field::part(input) {
+				background-color: var(--mt-white);
+				border-color: var(--mt-color-gray-4);
+				color: var(--mt-black);
+			}
+			.contact-us__field::part(input)::placeholder { color: var(--mt-color-gray-5); }
+			.contact-us__field::part(label) { color: var(--mt-black); }
+			.contact-us__control { background-color: var(--mt-color-blue-6); }
+		</style>
+	}
+	<div class="contact-us">
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, Spacing: "50"}) {
+			<div>
+				@mt.Title(mt.TitleProps{Base: mt.Base{Class: "contact-us__title"}}) {
+					Contact us
+				}
+				@mt.Text(mt.TextProps{Base: mt.Base{Class: "contact-us__description", Mt: mt.SM, Mb: "30"}}) {
+					Leave your email and we will get back to you within 24 hours
+				}
+				@mt.Stack(mt.StackProps{}) {
+					for _, c := range contactUsIcons {
+						<div class="contact-us__icon-row">
+							<div class="contact-us__icon-box">
+								@c.Icon
+							</div>
+							<div>
+								@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Class: "contact-us__icon-title"}}) {
+									{ c.Title }
+								}
+								@mt.Text(mt.TextProps{Base: mt.Base{Class: "contact-us__icon-description"}}) {
+									{ c.Description }
+								}
+							</div>
+						</div>
+					}
+				}
+				@mt.Group(mt.GroupProps{Base: mt.Base{Mt: mt.XL}}) {
+					for _, s := range contactUsSocial {
+						@mt.ActionIcon(mt.ActionIconProps{Size: "28", Variant: "transparent", AriaLabel: s.Label, Base: mt.Base{Class: "contact-us__social"}}) {
+							@s.Icon
+						}
+					}
+				}
+			</div>
+			<div class="contact-us__form">
+				@mt.TextInput(mt.TextInputProps{Label: "Email", Placeholder: "your@email.com", Required: true, Radius: mt.MD, Base: mt.Base{Class: "contact-us__field"}})
+				@mt.TextInput(mt.TextInputProps{Label: "Name", Placeholder: "John Doe", Radius: mt.MD, Base: mt.Base{Class: "contact-us__field", Mt: mt.MD}})
+				@mt.Textarea(mt.TextareaProps{Required: true, Label: "Your message", Placeholder: "I want to order your goods", MinRows: 4, Radius: mt.MD, Base: mt.Base{Class: "contact-us__field", Mt: mt.MD}})
+				@mt.Group(mt.GroupProps{Justify: "flex-end", Base: mt.Base{Mt: mt.MD}}) {
+					@mt.Button(mt.ButtonProps{Radius: mt.MD, Base: mt.Base{Class: "contact-us__control"}}) {
+						Send message
+					}
+				}
+			</div>
+		}
+	</div>
+}

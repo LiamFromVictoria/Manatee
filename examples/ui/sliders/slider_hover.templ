@@ -1,0 +1,26 @@
+package sliders
+
+import "github.com/you/manatee/mt"
+
+var sliderHoverCSS = templ.NewOnceHandle()
+
+// SliderHover ports ui.mantine.dev SliderHover: a slider whose thumb is only
+// visible while the pointer hovers the track.
+templ SliderHover() {
+	@sliderHoverCSS.Once() {
+		<style>
+			.slider-hover::part(thumb) {
+				transition: opacity 150ms ease;
+				opacity: 0;
+			}
+			.slider-hover:hover::part(thumb) {
+				opacity: 1;
+			}
+		</style>
+	}
+	@mt.Slider(mt.SliderProps{
+		Value: new(40.0), Min: new(10.0), Max: new(90.0),
+		Label: new(false), ThumbLabel: "Hover slider",
+		Base: mt.Base{Class: "slider-hover"},
+	})
+}

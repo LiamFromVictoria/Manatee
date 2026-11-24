@@ -1,0 +1,57 @@
+package buttons
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var buttonMenuCSS = templ.NewOnceHandle()
+
+templ ButtonMenu() {
+	@buttonMenuCSS.Once() {
+		<style>
+			.button-menu__button::part(root) { padding-right: 0.75rem; }
+			.button-menu__dropdown::part(dropdown) { border-radius: var(--mt-radius-md); }
+		</style>
+	}
+	@mt.Menu(mt.MenuProps{Position: "top-end", Width: "220", Transition: "pop", Target: buttonMenuTarget()}) {
+		@mt.MenuDropdown(mt.MenuDropdownProps{Base: mt.Base{Class: "button-menu__dropdown"}}) {
+			@mt.MenuItem(mt.MenuItemProps{
+				LeftSection:  icons.IconPackage(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-blue-6)"}),
+				RightSection: buttonMenuShortcut("Ctrl + P"),
+			}) {
+				Project
+			}
+			@mt.MenuItem(mt.MenuItemProps{
+				LeftSection:  icons.IconSquareCheck(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-pink-6)"}),
+				RightSection: buttonMenuShortcut("Ctrl + T"),
+			}) {
+				Task
+			}
+			@mt.MenuItem(mt.MenuItemProps{
+				LeftSection:  icons.IconUsers(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-cyan-6)"}),
+				RightSection: buttonMenuShortcut("Ctrl + U"),
+			}) {
+				Team
+			}
+			@mt.MenuItem(mt.MenuItemProps{
+				LeftSection:  icons.IconCalendar(icons.Props{Size: 16, Stroke: 1.5, Color: "var(--mt-color-violet-6)"}),
+				RightSection: buttonMenuShortcut("Ctrl + E"),
+			}) {
+				Event
+			}
+		}
+	}
+}
+
+templ buttonMenuTarget() {
+	@mt.Button(mt.ButtonProps{RightSection: icons.IconChevronDown(icons.Props{Size: 18, Stroke: 1.5}), Radius: mt.MD, Base: mt.Base{Class: "button-menu__button"}}) {
+		Create new
+	}
+}
+
+templ buttonMenuShortcut(label string) {
+	@mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, C: mt.Dimmed}) {
+		{ label }
+	}
+}

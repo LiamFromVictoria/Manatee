@@ -1,0 +1,93 @@
+package toc
+
+import (
+	"fmt"
+
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var tableOfContentsFloatingCSS = templ.NewOnceHandle()
+
+// TableOfContentsFloating ports ui.mantine.dev TableOfContentsFloating: the
+// same link list, but with an animated dot indicator that tracks the active
+// link. The active index lives in the root's `--active-index` custom
+// property; a delegated click handler moves it and preventDefaults.
+templ TableOfContentsFloating() {
+	@tableOfContentsFloatingCSS.Once() {
+		<style>
+			.toc-floating {
+				--link-height: 38px;
+				--indicator-size: 10px;
+				--indicator-offset: calc((var(--link-height) - var(--indicator-size)) / 2);
+				--active-index: 2;
+				position: relative;
+			}
+			.toc-floating__links { position: relative; }
+			.toc-floating__link {
+				display: block;
+				text-decoration: none;
+				color: var(--mt-color-text);
+				line-height: var(--link-height);
+				font-size: var(--mt-font-size-sm);
+				height: var(--link-height);
+				border-top-right-radius: var(--mt-radius-sm);
+				border-bottom-right-radius: var(--mt-radius-sm);
+				border-left: 2px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-4));
+			}
+			.toc-floating__link:hover {
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6));
+			}
+			.toc-floating__link[data-active] {
+				font-weight: 500;
+				color: light-dark(var(--mt-color-blue-7), var(--mt-color-blue-4));
+			}
+			.toc-floating__indicator {
+				transition: transform 150ms ease;
+				border: 2px solid light-dark(var(--mt-color-blue-7), var(--mt-color-blue-4));
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-7));
+				height: var(--indicator-size);
+				width: var(--indicator-size);
+				border-radius: var(--indicator-size);
+				position: absolute;
+				left: calc(var(--indicator-size) / -2 + 1px);
+				transform: translateY(calc(var(--active-index) * var(--link-height) + var(--indicator-offset)));
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const link = e.composedPath().find((n) => n instanceof Element && n.matches('.toc-floating__link'));
+				if (!link) return;
+				const root = link.closest('.toc-floating');
+				if (!root) return;
+				e.preventDefault();
+				root.style.setProperty('--active-index', link.dataset.index);
+				for (const el of root.querySelectorAll('.toc-floating__link')) {
+					el.toggleAttribute('data-active', el === link);
+				}
+			});
+		</script>
+	}
+	<div class="toc-floating">
+		@mt.Group(mt.GroupProps{Base: mt.Base{Mb: mt.MD}}) {
+			@icons.IconListSearch(icons.Props{Size: 18, Stroke: 1.5})
+			@mt.Text(mt.TextProps{}) {
+				Table of contents
+			}
+		}
+		<div class="toc-floating__links">
+			<div class="toc-floating__indicator"></div>
+			for i, l := range tableOfContentsLinks {
+				<a
+					href={ templ.SafeURL(l.Link) }
+					class="toc-floating__link"
+					style={ fmt.Sprintf("padding-left:calc(%d * var(--mt-spacing-md))", l.Order) }
+					data-index={ fmt.Sprintf("%d", i) }
+					data-active?={ i == 2 }
+				>
+					{ l.Label }
+				</a>
+			}
+		</div>
+	</div>
+}

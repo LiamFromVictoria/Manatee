@@ -16,6 +16,7 @@ type TooltipProps struct {
 	CloseDelay int
 	Disabled   bool
 	Opened     bool // controlled mode
+	Radius     string // radius scale, default "sm"
 }
 
 // Tooltip renders the <mt-tooltip> host around its single child target.
@@ -25,6 +26,7 @@ templ Tooltip(p TooltipProps) {
 			"label", p.Label, "position", p.Position, "offset", p.Offset, "with-arrow", p.WithArrow,
 			"arrow-size", p.ArrowSize, "color", p.Color, "multiline", p.Multiline, "w", p.W,
 			"open-delay", p.OpenDelay, "close-delay", p.CloseDelay, "disabled", p.Disabled, "opened", p.Opened,
+			"radius", p.Radius,
 		)... }
 	>
 		@slot("label", p.LabelSlot)

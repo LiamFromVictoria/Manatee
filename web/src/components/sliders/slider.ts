@@ -9,6 +9,7 @@ import {
   type Mark,
   parseMarks,
   renderMarks,
+  richMarkContent,
   sliderStyles,
   trackSizeStyles,
 } from './shared';
@@ -172,7 +173,8 @@ export class MtSlider extends MtElement {
     } else {
       this.#marksData = Array.from(this.querySelectorAll(':scope > mt-slider-mark')).map((el) => ({
         value: Number(el.getAttribute('value') ?? '0'),
-        label: el.getAttribute('label') ?? (el.textContent?.trim() || undefined),
+        label: el.getAttribute('label') ?? undefined,
+        labelHtml: richMarkContent(el),
       }));
     }
     this.$<HTMLElement>('.marks').innerHTML = renderMarks(this.#marksData, this.min, this.max);

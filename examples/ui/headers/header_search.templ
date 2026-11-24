@@ -1,0 +1,94 @@
+package headers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var headerSearchLinks = []headerLink{
+	{"/about", "Features"},
+	{"/pricing", "Pricing"},
+	{"/learn", "Learn"},
+	{"/community", "Community"},
+}
+var headerSearchData = []mt.SelectItem{
+	{Value: "React", Label: "React"}, {Value: "Angular", Label: "Angular"}, {Value: "Vue", Label: "Vue"}, {Value: "Next.js", Label: "Next.js"},
+	{Value: "Riot.js", Label: "Riot.js"}, {Value: "Svelte", Label: "Svelte"}, {Value: "Blitz.js", Label: "Blitz.js"},
+}
+
+var headerSearchCSS = templ.NewOnceHandle()
+
+// HeaderSearch ports ui.mantine.dev HeaderSearch: a logo, inline links and a
+// search Autocomplete, collapsing to a burger drawer with the search box and
+// stacked links.
+templ HeaderSearch() {
+	@headerSearchCSS.Once() {
+		<style>
+			.header-search {
+				height: 56px;
+				margin-bottom: 120px;
+				background-color: var(--mt-color-body);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+				padding-left: var(--mt-spacing-md);
+				padding-right: var(--mt-spacing-md);
+			}
+			.header-search__inner {
+				height: 56px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.header-search__link {
+				display: block;
+				line-height: 1;
+				padding: 8px 12px;
+				border-radius: var(--mt-radius-sm);
+				text-decoration: none;
+				color: light-dark(var(--mt-color-gray-7), var(--mt-color-dark-0));
+				font-size: var(--mt-font-size-sm);
+				font-weight: 500;
+				@media (max-width: 48em) { border-radius: 0; padding: var(--mt-spacing-md); }
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.header-search__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }
+		</style>
+	}
+	<header class="header-search">
+		<div class="header-search__inner">
+			@mt.Group(mt.GroupProps{}) {
+				@mt.Burger(mt.BurgerProps{Size: mt.SM, Controls: "header-search-drawer", AriaLabel: "Toggle navigation", Base: mt.Base{HiddenFrom: mt.SM}})
+				@blocks.Logo(28)
+			}
+			@mt.Group(mt.GroupProps{}) {
+				@mt.Group(mt.GroupProps{Gap: "5", Base: mt.Base{Ml: "50", VisibleFrom: mt.SM}}) {
+					for _, l := range headerSearchLinks {
+						<a href="#" class="header-search__link">{ l.Label }</a>
+					}
+				}
+				@mt.Autocomplete(mt.AutocompleteProps{
+					Placeholder: "Search", Data: headerSearchData,
+					LeftSection: headerSearchIcon(),
+					Base:        mt.Base{VisibleFrom: mt.XS},
+				})
+			}
+		</div>
+	</header>
+	@mt.Drawer(mt.DrawerProps{Heading: "Navigation", Size: "100%", Base: mt.Base{ID: "header-search-drawer", HiddenFrom: mt.SM}}) {
+		<div class="header-search__drawer-scroll">
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			@mt.Autocomplete(mt.AutocompleteProps{
+				Placeholder: "Search", Data: headerSearchData,
+				LeftSection: headerSearchIcon(),
+				Base:        mt.Base{Mx: mt.MD, Mb: mt.SM},
+			})
+			for _, l := range headerSearchLinks {
+				<a href="#" class="header-search__link">{ l.Label }</a>
+			}
+		</div>
+	}
+}
+
+templ headerSearchIcon() {
+	@icons.IconSearch(icons.Props{Size: 16, Stroke: 1.5})
+}

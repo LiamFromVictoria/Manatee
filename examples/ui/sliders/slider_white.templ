@@ -1,0 +1,36 @@
+package sliders
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var sliderWhiteCSS = templ.NewOnceHandle()
+
+// SliderWhite ports ui.mantine.dev SliderWhite: a slider with a wide white
+// thumb holding a grip-handle icon.
+templ SliderWhite() {
+	@sliderWhiteCSS.Once() {
+		<style>
+			.slider-white::part(thumb) {
+				border: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-2));
+				width: 28px;
+				height: 22px;
+				color: var(--mt-color-gray-5);
+				background-color: var(--mt-white);
+				border-radius: var(--mt-radius-sm);
+			}
+		</style>
+	}
+	@mt.Slider(mt.SliderProps{
+		ThumbChildren: sliderWhiteThumb(),
+		Value:         new(40.0),
+		Label:         new(false),
+		ThumbLabel:    "Slider",
+		Base:          mt.Base{Class: "slider-white"},
+	})
+}
+
+templ sliderWhiteThumb() {
+	@icons.IconGripHorizontal(icons.Props{Size: 20, Stroke: 1.5})
+}

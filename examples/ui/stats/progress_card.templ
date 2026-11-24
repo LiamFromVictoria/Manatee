@@ -1,0 +1,20 @@
+package stats
+
+import "github.com/you/manatee/mt"
+
+// ProgressCard ports ui.mantine.dev ProgressCard: a bordered card with a
+// labelled progress bar showing a monthly goal.
+templ ProgressCard() {
+	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Padding: mt.XL, Base: mt.Base{Style: "background-color: var(--mt-color-body)"}}) {
+		@mt.Text(mt.TextProps{Size: mt.XS, Tt: "uppercase", Fw: 700, C: mt.Dimmed}) {
+			Monthly goal
+		}
+		@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500}) {
+			$5.431 / $10.000
+		}
+		@mt.Progress(mt.ProgressProps{
+			Value: 54.31, Size: mt.LG, Radius: "xl",
+			Base: mt.Base{Mt: mt.MD, Attrs: templ.Attributes{"aria-label": "Monthly goal progress"}},
+		})
+	}
+}

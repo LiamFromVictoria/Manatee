@@ -112,6 +112,22 @@ plus an `Error` shown from server-rendered state, or a few lines of script.
 - Remote images (images.unsplash.com, raw.githubusercontent.com, …) stay as URLs.
   Local `image.svg` / `bg.svg` files are copied next to the templ file, embedded with
   `//go:embed`, and rendered with `@templ.Raw(svg)`, or used as a `data:` URL for CSS backgrounds.
+  `mt.Image` accepts `data:image/…` URLs for embedded images. Other plain-string URL props
+  reject `data:` URLs, so pass those as `Base.Attrs: templ.Attributes{"src": templ.SafeURL(u)}`.
+
+## Gotchas
+
+- A component's own fill/background lives on its inner part, so override it with
+  `.x__btn::part(root) { background: … }`. A host class silently loses to the component's
+  private variables.
+- `attrs()` omits zero numbers, so an explicit `0` (e.g. Overlay `z-index: 0`) goes through
+  `Base.Attrs: templ.Attributes{"z-index": "0"}`.
+- templ parses a text line that starts with a Go keyword (`for …`, `if …`, `switch …`) as
+  a statement. Wrap such text in an expression: `{ "for any stack" }`.
+- templ treats `on*` attributes as JavaScript. Inline handlers need
+  `templ.JSUnsafeFuncCall("…")`; a delegated listener in a block script is usually better.
+- `:has(::part(…))` is not supported in Chromium, and an unsupported selector drops its
+  whole rule list. Mirror the state onto a host attribute with a small script instead.
 
 ## Fidelity
 

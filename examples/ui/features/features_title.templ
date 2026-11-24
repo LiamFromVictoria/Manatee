@@ -1,0 +1,94 @@
+package features
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var featuresTitleCSS = templ.NewOnceHandle()
+
+type featuresTitleItem struct {
+	Icon        templ.Component
+	Title       string
+	Description string
+}
+
+var featuresTitleData = []featuresTitleItem{
+	{
+		Icon:        icons.IconReceiptOff(icons.Props{Size: 26, Stroke: 1.5}),
+		Title:       "Free and open source",
+		Description: "All packages are published under MIT license, you can use Mantine in any project",
+	},
+	{
+		Icon:        icons.IconFileCode(icons.Props{Size: 26, Stroke: 1.5}),
+		Title:       "TypeScript based",
+		Description: "Build type safe applications, all components and hooks export types",
+	},
+	{
+		Icon:  icons.IconCircleDotted(icons.Props{Size: 26, Stroke: 1.5}),
+		Title: "No annoying focus ring",
+		Description: "With new :focus-visible selector focus ring will appear only when user navigates " +
+			"with keyboard",
+	},
+	{
+		Icon:  icons.IconFlame(icons.Props{Size: 26, Stroke: 1.5}),
+		Title: "Flexible",
+		Description: "Customize colors, spacing, shadows, fonts and many other settings with global " +
+			"theme object",
+	},
+}
+
+// FeaturesTitle ports ui.mantine.dev FeaturesTitle: a two-column layout with
+// title/description/CTA on the left and a 2x2 feature grid on the right.
+templ FeaturesTitle() {
+	@featuresTitleCSS.Once() {
+		<style>
+			.features-title {
+				padding: calc(var(--mt-spacing-xl) * 2) var(--mt-spacing-xl);
+			}
+			.features-title__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-size: 36px;
+				font-weight: 500;
+				line-height: 1.1;
+				margin-bottom: var(--mt-spacing-md);
+				color: light-dark(var(--mt-black), var(--mt-white));
+			}
+		</style>
+	}
+	<div class="features-title">
+		@mt.Grid(mt.GridProps{Gutter: "80"}) {
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanMd: 5}) {
+				@mt.Title(mt.TitleProps{Order: 2, Base: mt.Base{Class: "features-title__title"}}) {
+					A fully featured React components library for your next project
+				}
+				@mt.Text(mt.TextProps{C: mt.Dimmed}) {
+					Build fully functional accessible web applications faster than ever – Mantine includes more than 120 customizable components and hooks to cover you in any situation
+				}
+				@mt.Button(mt.ButtonProps{
+					Variant: mt.Gradient, GradientFrom: mt.Blue, GradientTo: mt.Cyan, GradientDeg: 133,
+					Size: mt.LG, Radius: mt.MD, Base: mt.Base{Mt: mt.XL},
+				}) {
+					Get started
+				}
+			}
+			@mt.GridCol(mt.GridColProps{Span: "12", SpanMd: 7}) {
+				@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsMd: 2, Spacing: "30"}) {
+					for _, item := range featuresTitleData {
+						<div>
+							@mt.ThemeIcon(mt.ThemeIconProps{Size: "44", Radius: mt.MD, Variant: mt.Gradient, GradientFrom: mt.Blue, GradientTo: mt.Cyan, GradientDeg: 133}) {
+								@item.Icon
+							}
+							@mt.Text(mt.TextProps{Size: mt.LG, Fw: 500, Base: mt.Base{Mt: mt.SM}}) {
+								{ item.Title }
+							}
+							@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM}) {
+								{ item.Description }
+							}
+						</div>
+					}
+				}
+			}
+		}
+	</div>
+}

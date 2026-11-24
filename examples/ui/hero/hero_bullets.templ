@@ -1,0 +1,97 @@
+package hero
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var heroBulletsCSS = templ.NewOnceHandle()
+
+// HeroBullets ports ui.mantine.dev HeroBullets: title + feature list + CTAs on
+// the left, an illustration on the right (hidden below md).
+templ HeroBullets() {
+	@heroBulletsCSS.Once() {
+		<style>
+			.hero-bullets__inner {
+				display: flex;
+				justify-content: space-between;
+				padding-top: calc(var(--mt-spacing-xl) * 4);
+				padding-bottom: calc(var(--mt-spacing-xl) * 4);
+			}
+			.hero-bullets__content {
+				max-width: 480px;
+				margin-right: calc(var(--mt-spacing-xl) * 3);
+			}
+			@media (max-width: 62em) {
+				.hero-bullets__content { max-width: 100%; margin-right: 0; }
+			}
+			.hero-bullets__title {
+				color: light-dark(var(--mt-black), var(--mt-white));
+				font-family: Outfit, var(--mt-font-family);
+				font-size: 44px;
+				line-height: 1.2;
+				font-weight: 500;
+			}
+			@media (max-width: 36em) {
+				.hero-bullets__title { font-size: 28px; }
+			}
+			@media (max-width: 36em) {
+				.hero-bullets__control { flex: 1; }
+			}
+			.hero-bullets__image {
+				width: 376px;
+				height: 356px;
+			}
+			.hero-bullets__image svg { width: 100%; height: 100%; display: block; }
+			@media (max-width: 62em) {
+				.hero-bullets__image { display: none; }
+			}
+			.hero-bullets__highlight {
+				position: relative;
+				background-color: var(--mt-color-blue-light);
+				border-radius: var(--mt-radius-sm);
+				padding: 4px 12px;
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: mt.MD}) {
+		<div class="hero-bullets__inner">
+			<div class="hero-bullets__content">
+				@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Class: "hero-bullets__title"}}) {
+					A <span class="hero-bullets__highlight">modern</span> React <br/> components library
+				}
+				@mt.Text(mt.TextProps{C: mt.Dimmed, Base: mt.Base{Mt: mt.MD}}) {
+					Build fully functional accessible web applications faster than ever – Mantine includes more than 120 customizable components and hooks to cover you in any situation
+				}
+				@mt.List(mt.ListProps{Spacing: mt.SM, Size: mt.SM, Icon: heroBulletsListIcon(), Base: mt.Base{Mt: "30"}}) {
+					@mt.ListItem(mt.ListItemProps{}) {
+						<b>TypeScript based</b> – build type safe applications, all components and hooks export types
+					}
+					@mt.ListItem(mt.ListItemProps{}) {
+						<b>Free and open source</b> – all packages have MIT license, you can use Mantine in any project
+					}
+					@mt.ListItem(mt.ListItemProps{}) {
+						<b>No annoying focus ring</b> – focus ring will appear only when user navigates with keyboard
+					}
+				}
+				@mt.Group(mt.GroupProps{Base: mt.Base{Mt: "30"}}) {
+					@mt.Button(mt.ButtonProps{Radius: mt.XL, Size: mt.MD, Base: mt.Base{Class: "hero-bullets__control"}}) {
+						Get started
+					}
+					@mt.Button(mt.ButtonProps{Variant: mt.Default, Radius: mt.XL, Size: mt.MD, Base: mt.Base{Class: "hero-bullets__control"}}) {
+						Source code
+					}
+				}
+			</div>
+			<div class="hero-bullets__image">
+				@templ.Raw(heroBulletsImageSVG)
+			</div>
+		</div>
+	}
+}
+
+templ heroBulletsListIcon() {
+	@mt.ThemeIcon(mt.ThemeIconProps{Size: "20", Radius: mt.XL}) {
+		@icons.IconCheck(icons.Props{Size: 12, Stroke: 1.5})
+	}
+}

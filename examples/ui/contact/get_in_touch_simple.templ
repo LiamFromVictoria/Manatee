@@ -1,0 +1,31 @@
+package contact
+
+import "github.com/you/manatee/mt"
+
+var getInTouchSimpleCSS = templ.NewOnceHandle()
+
+// GetInTouchSimple ports ui.mantine.dev GetInTouchSimple: a centered
+// "get in touch" form. `useForm` validation becomes native constraints.
+templ GetInTouchSimple() {
+	@getInTouchSimpleCSS.Once() {
+		<style>
+			.get-in-touch-simple__title { font-family: Outfit, var(--mt-font-family); }
+		</style>
+	}
+	<form>
+		@mt.Title(mt.TitleProps{Order: 2, Size: "h1", Ta: "center", Base: mt.Base{Class: "get-in-touch-simple__title"}}) {
+			Get in touch
+		}
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, Base: mt.Base{Mt: mt.XL}}) {
+			@mt.TextInput(mt.TextInputProps{Label: "Name", Placeholder: "Your name", Name: "name", Variant: "filled", Required: true, MinLength: 2})
+			@mt.TextInput(mt.TextInputProps{Label: "Email", Placeholder: "Your email", Name: "email", Variant: "filled", Required: true, Type: "email"})
+		}
+		@mt.TextInput(mt.TextInputProps{Label: "Subject", Placeholder: "Subject", Name: "subject", Variant: "filled", Required: true, Base: mt.Base{Mt: mt.MD}})
+		@mt.Textarea(mt.TextareaProps{Label: "Message", Placeholder: "Your message", Name: "message", Variant: "filled", MaxRows: 10, MinRows: 5, Autosize: true, Base: mt.Base{Mt: mt.MD}})
+		@mt.Group(mt.GroupProps{Justify: "center", Base: mt.Base{Mt: mt.XL}}) {
+			@mt.Button(mt.ButtonProps{Type: "submit", Size: mt.MD}) {
+				Send message
+			}
+		}
+	</form>
+}

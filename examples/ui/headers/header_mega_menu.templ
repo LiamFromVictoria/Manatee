@@ -1,0 +1,174 @@
+package headers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type headerMegaMenuItem struct {
+	Icon        templ.Component
+	Title       string
+	Description string
+}
+
+var headerMegaMenuData = []headerMegaMenuItem{
+	{icons.IconCode(icons.Props{Size: 22, Color: "var(--mt-color-blue-6)"}), "Open source", "This Pokémon's cry is very loud and distracting"},
+	{icons.IconCoin(icons.Props{Size: 22, Color: "var(--mt-color-blue-6)"}), "Free for everyone", "The fluid of Smeargle's tail secretions changes"},
+	{icons.IconBook(icons.Props{Size: 22, Color: "var(--mt-color-blue-6)"}), "Documentation", "Yanma is capable of seeing 360 degrees without"},
+	{icons.IconFingerprint(icons.Props{Size: 22, Color: "var(--mt-color-blue-6)"}), "Security", "The shell's rounded shape and the grooves on its."},
+	{icons.IconChartPie3(icons.Props{Size: 22, Color: "var(--mt-color-blue-6)"}), "Analytics", "This Pokémon uses its flying ability to quickly chase"},
+	{icons.IconNotification(icons.Props{Size: 22, Color: "var(--mt-color-blue-6)"}), "Notifications", "Combusken battles with the intensely hot flames it spews"},
+}
+
+var headerMegaMenuCSS = templ.NewOnceHandle()
+
+// HeaderMegaMenu ports ui.mantine.dev HeaderMegaMenu: a logo, inline nav with
+// a HoverCard-driven mega menu, auth buttons, and a burger-driven drawer with
+// the mega menu links behind a Collapse.
+templ HeaderMegaMenu() {
+	@headerMegaMenuCSS.Once() {
+		<style>
+			.header-mega-menu__header {
+				height: 60px;
+				padding-left: var(--mt-spacing-md);
+				padding-right: var(--mt-spacing-md);
+				border-bottom: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-4));
+				display: flex;
+				align-items: center;
+			}
+			.header-mega-menu__link {
+				display: flex;
+				align-items: center;
+				height: 100%;
+				padding-left: var(--mt-spacing-md);
+				padding-right: var(--mt-spacing-md);
+				text-decoration: none;
+				color: light-dark(var(--mt-black), var(--mt-white));
+				font-weight: 500;
+				font-size: var(--mt-font-size-sm);
+				@media (max-width: 48em) { height: 42px; width: 100%; }
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.header-mega-menu__drawer-link {
+				display: block;
+				text-decoration: none;
+				color: light-dark(var(--mt-black), var(--mt-white));
+				font-weight: 500;
+				font-size: var(--mt-font-size-sm);
+				padding: 11px var(--mt-spacing-md);
+				width: 100%;
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-6)); }
+			}
+			.header-mega-menu__sub-link {
+				width: 100%;
+				padding: var(--mt-spacing-xs) var(--mt-spacing-md);
+				border-radius: var(--mt-radius-md);
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7)); }
+			}
+			.header-mega-menu__dropdown-footer {
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));
+				margin: calc(var(--mt-spacing-md) * -1);
+				margin-top: var(--mt-spacing-sm);
+				padding: var(--mt-spacing-md) calc(var(--mt-spacing-md) * 2);
+				padding-bottom: var(--mt-spacing-xl);
+				border-top: 1px solid light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));
+			}
+			.header-mega-menu__drawer-scroll { height: calc(100vh - 80px); overflow-y: auto; margin-inline: calc(var(--mt-spacing-md) * -1); }
+		</style>
+	}
+	@mt.Box(mt.BoxProps{Base: mt.Base{Pb: "120"}}) {
+		<header class="header-mega-menu__header">
+			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{W: "100%"}}) {
+				@blocks.Logo(30)
+				@mt.Group(mt.GroupProps{Gap: "0", Base: mt.Base{H: "100%", VisibleFrom: mt.SM}}) {
+					<a href="#" class="header-mega-menu__link">Home</a>
+					@mt.HoverCard(mt.HoverCardProps{
+						Width: "600", Position: "bottom",
+						Target: headerMegaMenuTarget(),
+					}) {
+						@mt.HoverCardDropdown(mt.HoverCardDropdownProps{Radius: "md", Base: mt.Base{Style: "overflow:hidden"}}) {
+							@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Px: mt.MD}}) {
+								@mt.Text(mt.TextProps{Fw: 500}) { Features }
+								@mt.Anchor(mt.AnchorProps{Href: "#", Size: "xs"}) { View all }
+							}
+							@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+							@mt.SimpleGrid(mt.SimpleGridProps{Cols: 2, Spacing: "0"}) {
+								for _, item := range headerMegaMenuData {
+									@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "header-mega-menu__sub-link"}}) {
+										@mt.Group(mt.GroupProps{Wrap: "nowrap", Align: "flex-start"}) {
+											@mt.ThemeIcon(mt.ThemeIconProps{Size: "34", Variant: "default", Radius: "md"}) {
+												@item.Icon
+											}
+											<div>
+												@mt.Text(mt.TextProps{Size: "sm", Fw: 500}) { { item.Title } }
+												@mt.Text(mt.TextProps{Size: "xs", C: mt.Dimmed}) { { item.Description } }
+											</div>
+										}
+									}
+								}
+							}
+							<div class="header-mega-menu__dropdown-footer">
+								@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+									<div>
+										@mt.Text(mt.TextProps{Fw: 500, Size: "sm"}) { Get started }
+										@mt.Text(mt.TextProps{Size: "xs", C: mt.Dimmed}) { Their food sources have decreased, and their numbers }
+									</div>
+									@mt.Button(mt.ButtonProps{Variant: mt.Default}) { Get started }
+								}
+							</div>
+						}
+					}
+					<a href="#" class="header-mega-menu__link">Learn</a>
+					<a href="#" class="header-mega-menu__link">Academy</a>
+				}
+				@mt.Group(mt.GroupProps{Base: mt.Base{VisibleFrom: mt.SM}}) {
+					@mt.Button(mt.ButtonProps{Variant: mt.Default}) { Log in }
+					@mt.Button(mt.ButtonProps{}) { Sign up }
+				}
+				@mt.Burger(mt.BurgerProps{Controls: "header-mega-menu-drawer", AriaLabel: "Toggle navigation", Base: mt.Base{HiddenFrom: mt.SM}})
+			}
+		</header>
+	}
+	@mt.Drawer(mt.DrawerProps{Heading: "Navigation", Size: "100%", Base: mt.Base{ID: "header-mega-menu-drawer", HiddenFrom: mt.SM}}) {
+		<div class="header-mega-menu__drawer-scroll">
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			<a href="#" class="header-mega-menu__drawer-link">Home</a>
+			<button type="button" class="header-mega-menu__drawer-link" data-mt-toggle="header-mega-menu-drawer-features" style="display:flex;align-items:center;border:none;background:none;cursor:pointer;text-align:left">
+				<span style="margin-right:5px">Features</span>
+				@icons.IconChevronDown(icons.Props{Size: 16, Color: "var(--mt-color-blue-6)"})
+			</button>
+			@mt.Collapse(mt.CollapseProps{Base: mt.Base{ID: "header-mega-menu-drawer-features"}}) {
+				for _, item := range headerMegaMenuData {
+					@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "header-mega-menu__sub-link"}}) {
+						@mt.Group(mt.GroupProps{Wrap: "nowrap", Align: "flex-start"}) {
+							@mt.ThemeIcon(mt.ThemeIconProps{Size: "34", Variant: "default", Radius: "md"}) {
+								@item.Icon
+							}
+							<div>
+							@mt.Text(mt.TextProps{Size: "sm", Fw: 500}) { { item.Title } }
+							@mt.Text(mt.TextProps{Size: "xs", C: mt.Dimmed}) { { item.Description } }
+							</div>
+						}
+					}
+				}
+			}
+			<a href="#" class="header-mega-menu__drawer-link">Learn</a>
+			<a href="#" class="header-mega-menu__drawer-link">Academy</a>
+			@mt.Divider(mt.DividerProps{Base: mt.Base{My: mt.SM}})
+			@mt.Group(mt.GroupProps{Justify: "center", Grow: true, Base: mt.Base{Pb: mt.XL, Px: mt.MD}}) {
+				@mt.Button(mt.ButtonProps{Variant: mt.Default}) { Log in }
+				@mt.Button(mt.ButtonProps{}) { Sign up }
+			}
+		</div>
+	}
+}
+
+templ headerMegaMenuTarget() {
+	<a href="#" class="header-mega-menu__link">
+		@mt.Center(mt.CenterProps{Inline: true}) {
+			<span style="margin-right:5px">Features</span>
+			@icons.IconChevronDown(icons.Props{Size: 16, Color: "var(--mt-color-blue-6)"})
+		}
+	</a>
+}

@@ -1,0 +1,96 @@
+package inputs
+
+import (
+	_ "embed"
+	"encoding/base64"
+
+	"github.com/you/manatee/mt"
+)
+
+//go:embed icons/sea.png
+var imageCheckboxesSeaPNG []byte
+
+//go:embed icons/city.png
+var imageCheckboxesCityPNG []byte
+
+//go:embed icons/mountain.png
+var imageCheckboxesMountainPNG []byte
+
+//go:embed icons/winter.png
+var imageCheckboxesWinterPNG []byte
+
+func imageCheckboxesDataURL(b []byte) string {
+	return "data:image/png;base64," + base64.StdEncoding.EncodeToString(b)
+}
+
+type imageCheckboxesItem struct{ Title, Description, Image string }
+
+var imageCheckboxesItems = []imageCheckboxesItem{
+	{"Beach vacation", "Sun and sea", imageCheckboxesDataURL(imageCheckboxesSeaPNG)},
+	{"City trips", "Sightseeing", imageCheckboxesDataURL(imageCheckboxesCityPNG)},
+	{"Hiking vacation", "Mountains", imageCheckboxesDataURL(imageCheckboxesMountainPNG)},
+	{"Winter vacation", "Snow and ice", imageCheckboxesDataURL(imageCheckboxesWinterPNG)},
+}
+
+var imageCheckboxesCSS = templ.NewOnceHandle()
+
+// ImageCheckboxes ports ui.mantine.dev ImageCheckboxes: a grid of
+// button-as-card checkboxes with a thumbnail, title/description and a
+// checkbox that toggles on any click in the card.
+templ ImageCheckboxes() {
+	@imageCheckboxesCSS.Once() {
+		<style>
+			.image-checkboxes__button {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				transition: background-color 150ms ease, border-color 150ms ease;
+				border-radius: var(--mt-radius-sm);
+				padding: var(--mt-spacing-sm);
+				border: 1px solid light-dark(var(--mt-color-gray-3), var(--mt-color-dark-8));
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-8));
+				&[data-checked] {
+					border-color: var(--mt-color-blue-filled);
+					background-color: var(--mt-color-blue-light);
+				}
+			}
+			.image-checkboxes__body {
+				flex: 1;
+				margin-left: var(--mt-spacing-md);
+			}
+			.image-checkboxes__checkbox::part(input) {
+				cursor: pointer;
+			}
+		</style>
+		<script>
+			document.addEventListener('click', (e) => {
+				const path = e.composedPath();
+				const card = path.find((n) => n instanceof Element && n.classList.contains('image-checkboxes__button'));
+				if (!card) return;
+				const onCheckbox = path.some((n) => n instanceof Element && n.tagName === 'MT-CHECKBOX');
+				const cb = card.querySelector('mt-checkbox');
+				if (!cb) return;
+				if (!onCheckbox) cb.checked = !cb.checked;
+				card.toggleAttribute('data-checked', cb.checked);
+			});
+		</script>
+	}
+	@mt.SimpleGrid(mt.SimpleGridProps{Cols: 1, ColsSm: 2, ColsMd: 4}) {
+		for _, item := range imageCheckboxesItems {
+			@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "image-checkboxes__button"}}) {
+				@mt.Image(mt.ImageProps{Src: item.Image, Alt: item.Title, Base: mt.Base{W: "40px", H: "40px"}})
+				<div class="image-checkboxes__body">
+					@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS, Base: mt.Base{Mb: "5", Style: "line-height:1"}}) {
+						{ item.Description }
+					}
+					@mt.Text(mt.TextProps{Fw: 500, Size: mt.SM, Base: mt.Base{Style: "line-height:1"}}) {
+						{ item.Title }
+					}
+				</div>
+				@mt.Checkbox(mt.CheckboxProps{
+					Base: mt.Base{Class: "image-checkboxes__checkbox", Attrs: templ.Attributes{"aria-label": item.Title, "tabindex": "-1"}},
+				})
+			}
+		}
+	}
+}

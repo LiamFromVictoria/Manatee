@@ -1,0 +1,63 @@
+package footers
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type footerCenteredLink struct{ Link, Label string }
+
+var footerCenteredLinks = []footerCenteredLink{
+	{"#", "Contact"},
+	{"#", "Privacy"},
+	{"#", "Blog"},
+	{"#", "Store"},
+	{"#", "Careers"},
+}
+
+var footerCenteredCSS = templ.NewOnceHandle()
+
+templ FooterCentered() {
+	@footerCenteredCSS.Once() {
+		<style>
+			.footer-centered {
+				margin-top: 120px;
+				border-top: 1px solid light-dark(var(--mt-color-gray-2), var(--mt-color-dark-5));
+			}
+			.footer-centered__inner {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: var(--mt-spacing-md);
+				@media (max-width: 48em) { flex-direction: column; }
+			}
+			.footer-centered__links {
+				@media (max-width: 48em) { margin-top: var(--mt-spacing-lg); margin-bottom: var(--mt-spacing-sm); }
+			}
+		</style>
+	}
+	<div class="footer-centered">
+		<div class="footer-centered__inner">
+			@blocks.Logo(28)
+			@mt.Group(mt.GroupProps{Base: mt.Base{Class: "footer-centered__links"}}) {
+				for _, l := range footerCenteredLinks {
+					@mt.Anchor(mt.AnchorProps{Href: l.Link, C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Style: "line-height:1"}}) {
+						{ l.Label }
+					}
+				}
+			}
+			@mt.Group(mt.GroupProps{Gap: mt.XS, Justify: "flex-end", Wrap: "nowrap"}) {
+				@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, Variant: mt.Default, Radius: mt.XL, AriaLabel: "Twitter"}) {
+					@icons.IconBrandTwitter(icons.Props{Size: 18, Stroke: 1.5})
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, Variant: mt.Default, Radius: mt.XL, AriaLabel: "YouTube"}) {
+					@icons.IconBrandYoutube(icons.Props{Size: 18, Stroke: 1.5})
+				}
+				@mt.ActionIcon(mt.ActionIconProps{Size: mt.LG, Variant: mt.Default, Radius: mt.XL, AriaLabel: "Instagram"}) {
+					@icons.IconBrandInstagram(icons.Props{Size: 18, Stroke: 1.5})
+				}
+			}
+		</div>
+	</div>
+}

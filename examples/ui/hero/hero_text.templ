@@ -1,0 +1,128 @@
+package hero
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/mt"
+)
+
+var heroTextCSS = templ.NewOnceHandle()
+
+// heroTextDotsXs/heroTextDotsYs are the dot-grid coordinates used by the Dots
+// decoration (10x10 grid, 20px pitch, 5x5 squares).
+var heroTextDotsXs = [10]int{0, 60, 120, 20, 80, 140, 40, 100, 160, 180}
+var heroTextDotsYs = [10]int{0, 20, 40, 60, 80, 100, 120, 140, 160, 180}
+
+// HeroText ports ui.mantine.dev HeroText: centered title with a highlighted
+// span, description and two CTAs, decorated with four dot-grid corners.
+templ HeroText() {
+	@heroTextCSS.Once() {
+		<style>
+			.hero-text {
+				position: relative;
+				padding-top: 120px;
+				padding-bottom: 80px;
+			}
+			@media (max-width: 48em) {
+				.hero-text { padding-top: 80px; padding-bottom: 60px; }
+			}
+			.hero-text__inner {
+				position: relative;
+				z-index: 1;
+			}
+			.hero-text__dots {
+				position: absolute;
+				color: light-dark(var(--mt-color-gray-1), var(--mt-color-dark-5));
+			}
+			@media (max-width: 48em) {
+				.hero-text__dots { display: none; }
+			}
+			.hero-text__title {
+				text-align: center;
+				font-weight: 800;
+				font-size: 40px;
+				letter-spacing: -1px;
+				color: light-dark(var(--mt-black), var(--mt-white));
+				margin-bottom: var(--mt-spacing-xs);
+				font-family: Outfit, var(--mt-font-family);
+			}
+			@media (max-width: 36em) {
+				.hero-text__title { font-size: 28px; text-align: left; }
+			}
+			.hero-text__highlight {
+				color: light-dark(var(--mt-color-blue-6), var(--mt-color-blue-4));
+			}
+			.hero-text__description {
+				text-align: center;
+			}
+			@media (max-width: 36em) {
+				.hero-text__description { text-align: left; font-size: var(--mt-font-size-md); }
+			}
+			.hero-text__controls {
+				margin-top: var(--mt-spacing-lg);
+				display: flex;
+				justify-content: center;
+			}
+			@media (max-width: 36em) {
+				.hero-text__controls { flex-direction: column; }
+			}
+			.hero-text__control:not(:first-of-type) {
+				margin-left: var(--mt-spacing-md);
+			}
+			@media (max-width: 36em) {
+				.hero-text__control {
+					height: 42px;
+					font-size: var(--mt-font-size-md);
+				}
+				.hero-text__control:not(:first-of-type) { margin-top: var(--mt-spacing-md); margin-left: 0; }
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: "1400px", Base: mt.Base{Class: "hero-text"}}) {
+		@heroTextDots("left:0;top:0")
+		@heroTextDots("left:60px;top:0")
+		@heroTextDots("left:0;top:140px")
+		@heroTextDots("right:0;top:60px")
+		<div class="hero-text__inner">
+			@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Class: "hero-text__title"}}) {
+				Automated AI{ " " }
+				@mt.Text(mt.TextProps{Span: true, Inherit: true, Base: mt.Base{Class: "hero-text__highlight"}}) {
+					code reviews
+				}
+				{ " for any stack" }
+			}
+			@mt.Container(mt.ContainerProps{Size: "600px", Base: mt.Base{P: "0"}}) {
+				@mt.Text(mt.TextProps{Size: mt.LG, C: mt.Dimmed, Base: mt.Base{Class: "hero-text__description"}}) {
+					Build more reliable software with AI companion. AI is also trained to detect lazy developers who do nothing and just complain on Twitter.
+				}
+			}
+			<div class="hero-text__controls">
+				@mt.Button(mt.ButtonProps{Size: mt.LG, Variant: mt.Default, Color: mt.Gray, Base: mt.Base{Class: "hero-text__control"}}) {
+					Book a demo
+				}
+				@mt.Button(mt.ButtonProps{Size: mt.LG, Base: mt.Base{Class: "hero-text__control"}}) {
+					Purchase a license
+				}
+			</div>
+		</div>
+	}
+}
+
+templ heroTextDots(style string) {
+	<svg
+		class="hero-text__dots"
+		style={ style }
+		xmlns="http://www.w3.org/2000/svg"
+		fill="currentColor"
+		viewBox="0 0 185 185"
+		width="185"
+		height="185"
+		aria-hidden="true"
+	>
+		for _, y := range heroTextDotsYs {
+			for _, x := range heroTextDotsXs {
+				<rect width="5" height="5" x={ strconv.Itoa(x) } y={ strconv.Itoa(y) } rx="2.5"></rect>
+			}
+		}
+	</svg>
+}

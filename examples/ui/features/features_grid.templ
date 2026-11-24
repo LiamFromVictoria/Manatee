@@ -1,0 +1,105 @@
+package features
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var featuresGridCSS = templ.NewOnceHandle()
+
+type featuresGridItem struct {
+	Icon        templ.Component
+	Title       string
+	Description string
+}
+
+var featuresGridData = []featuresGridItem{
+	{
+		Icon:  icons.IconGauge(icons.Props{Size: 18, Stroke: 1.5}),
+		Title: "Extreme performance",
+		Description: "This dust is actually a powerful poison that will even make a pro wrestler sick, " +
+			"Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
+	},
+	{
+		Icon:  icons.IconUser(icons.Props{Size: 18, Stroke: 1.5}),
+		Title: "Privacy focused",
+		Description: "People say it can run at the same speed as lightning striking, Its icy body " +
+			"is so cold, it will not melt even if it is immersed in magma",
+	},
+	{
+		Icon:  icons.IconCookie(icons.Props{Size: 18, Stroke: 1.5}),
+		Title: "No third parties",
+		Description: "They're popular, but they're rare. Trainers who show them off recklessly may be " +
+			"targeted by thieves",
+	},
+	{
+		Icon:  icons.IconLock(icons.Props{Size: 18, Stroke: 1.5}),
+		Title: "Secure by default",
+		Description: "Although it still can't fly, its jumping power is outstanding, in Alola the " +
+			"mushrooms on Paras don't grow up quite right",
+	},
+	{
+		Icon:  icons.IconMessage2(icons.Props{Size: 18, Stroke: 1.5}),
+		Title: "24/7 Support",
+		Description: "Rapidash usually can be seen casually cantering in the fields and plains, " +
+			"Skitty is known to chase around after its own tail",
+	},
+}
+
+// FeaturesGrid ports ui.mantine.dev FeaturesGrid: centered title/description
+// over a responsive grid of monotone-icon features.
+templ FeaturesGrid() {
+	@featuresGridCSS.Once() {
+		<style>
+			.features-grid {
+				padding-top: calc(var(--mt-spacing-xl) * 4);
+				padding-bottom: calc(var(--mt-spacing-xl) * 4);
+			}
+			.features-grid__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+				margin-bottom: var(--mt-spacing-md);
+				text-align: center;
+			}
+			@media (max-width: 48em) {
+				.features-grid__title { font-size: 28px; text-align: left; }
+			}
+			.features-grid__description {
+				text-align: center;
+			}
+			@media (max-width: 48em) {
+				.features-grid__description { text-align: left; }
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Base: mt.Base{Class: "features-grid"}}) {
+		@mt.Title(mt.TitleProps{Order: 1, Base: mt.Base{Class: "features-grid__title"}}) {
+			Integrate effortlessly with any technology stack
+		}
+		@mt.Container(mt.ContainerProps{Size: "560px", Base: mt.Base{P: "0"}}) {
+			@mt.Text(mt.TextProps{Size: mt.SM, Base: mt.Base{Class: "features-grid__description"}}) {
+				Every once in a while, you'll see a Golbat that's missing some fangs. This happens when hunger drives it to try biting a Steel-type Pokémon.
+			}
+		}
+		@mt.SimpleGrid(mt.SimpleGridProps{
+			Cols: 1, ColsSm: 2, ColsMd: 3,
+			Spacing: mt.XL, SpacingMd: "50",
+			VerticalSpacing: mt.XL, VerticalSpacingMd: "50",
+			Base: mt.Base{Mt: "60"},
+		}) {
+			for _, item := range featuresGridData {
+				<div>
+					@mt.ThemeIcon(mt.ThemeIconProps{Variant: mt.Light, Size: "40", Radius: "40"}) {
+						@item.Icon
+					}
+					@mt.Text(mt.TextProps{Base: mt.Base{Mt: mt.SM, Mb: "7"}}) {
+						{ item.Title }
+					}
+					@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Style: "line-height:1.6"}}) {
+						{ item.Description }
+					}
+				</div>
+			}
+		}
+	}
+}

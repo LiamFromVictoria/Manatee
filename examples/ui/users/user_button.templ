@@ -1,0 +1,43 @@
+package users
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var userButtonCSS = templ.NewOnceHandle()
+
+// UserButton ports ui.mantine.dev UserButton: an unstyled button with an
+// avatar, name/email, and a trailing chevron. Exported for reuse by navbar
+// blocks (they embed it as the account switcher at the bottom of a sidebar).
+templ UserButton() {
+	@userButtonCSS.Once() {
+		<style>
+			.user-button {
+				display: block;
+				width: 100%;
+				padding: var(--mt-spacing-md);
+				color: light-dark(var(--mt-black), var(--mt-color-dark-0));
+				&:hover { background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-8)); }
+			}
+		</style>
+	}
+	@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "user-button"}}) {
+		@mt.Group(mt.GroupProps{}) {
+			@mt.Avatar(mt.AvatarProps{
+				Src:    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png",
+				Radius: mt.XL,
+				Alt:    "Harriette Spoonlicker",
+			})
+			<div style="flex:1">
+				@mt.Text(mt.TextProps{Size: mt.SM, Fw: 500}) {
+					Harriette Spoonlicker
+				}
+				@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.XS}) {
+					hspoonlicker@outlook.com
+				}
+			</div>
+			@icons.IconChevronRight(icons.Props{Size: 14, Stroke: 1.5})
+		}
+	}
+}
