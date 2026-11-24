@@ -175,13 +175,13 @@ templ NotificationsPage() {
 	}
 	@Demo("Toast via JS API", `window.manatee.notifications.show({ title: "Saved", message: "...", color: "teal" })`) {
 		@Row() {
-			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.show({title:'Saved',message:'Your changes have been saved.',color:'teal'})"}}}) {
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("window.manatee.notifications.show({title:'Saved',message:'Your changes have been saved.',color:'teal'})")}}}) {
 				Show toast
 			}
-			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.show({title:'Error',message:'Something went wrong.',color:'red',autoClose:false})"}}}) {
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("window.manatee.notifications.show({title:'Error',message:'Something went wrong.',color:'red',autoClose:false})")}}}) {
 				Show sticky error
 			}
-			@mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.clean()"}}}) {
+			@mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("window.manatee.notifications.clean()")}}}) {
 				Clear all
 			}
 		}

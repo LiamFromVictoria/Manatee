@@ -1380,7 +1380,7 @@ func NotificationsPage() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.show({title:'Saved',message:'Your changes have been saved.',color:'teal'})"}}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var72), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("window.manatee.notifications.show({title:'Saved',message:'Your changes have been saved.',color:'teal'})")}}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var72), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1402,7 +1402,7 @@ func NotificationsPage() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.show({title:'Error',message:'Something went wrong.',color:'red',autoClose:false})"}}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var73), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("window.manatee.notifications.show({title:'Error',message:'Something went wrong.',color:'red',autoClose:false})")}}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var73), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1424,7 +1424,7 @@ func NotificationsPage() templ.Component {
 					}
 					return nil
 				})
-				templ_7745c5c3_Err = mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"onclick": "window.manatee.notifications.clean()"}}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var74), templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("window.manatee.notifications.clean()")}}}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var74), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

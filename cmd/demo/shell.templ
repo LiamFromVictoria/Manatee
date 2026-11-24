@@ -39,7 +39,7 @@ templ Shell(all []Page, current *Page) {
 					<div class="docs-header">
 						@mt.Burger(mt.BurgerProps{Size: mt.SM, Base: mt.Base{Class: "docs-burger"}})
 						<a class="docs-brand" href="/">Manatee</a>
-						@mt.Button(mt.ButtonProps{Variant: mt.Default, Size: "compact-sm", Base: mt.Base{Attrs: templ.Attributes{"onclick": "manatee.toggleColorScheme()"}}}) {
+						@mt.Button(mt.ButtonProps{Variant: mt.Default, Size: "compact-sm", Base: mt.Base{Attrs: templ.Attributes{"onclick": templ.JSUnsafeFuncCall("manatee.toggleColorScheme()")}}}) {
 							Toggle color scheme
 						}
 					</div>
