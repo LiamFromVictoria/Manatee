@@ -1,0 +1,12 @@
+package mt
+
+// BoxProps mirrors Mantine's Box.
+type BoxProps struct {
+	Base
+}
+
+templ Box(p BoxProps) {
+	<mt-box { attrs(p.Base)... }>
+		{ children... }
+	</mt-box>
+}

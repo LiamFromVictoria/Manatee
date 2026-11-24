@@ -1,0 +1,240 @@
+package main
+
+import (
+	"strconv"
+
+	"github.com/you/manatee/mt"
+)
+
+templ ScrollAreaPage() {
+	@Demo("Vertical scrolling", `@mt.ScrollArea(mt.ScrollAreaProps{Base: mt.Base{H: "250"}}) { ... }`) {
+		@mt.ScrollArea(mt.ScrollAreaProps{Base: mt.Base{H: "250", Maw: "400"}}) {
+			for i := 1; i <= 40; i++ {
+				@mt.Text(mt.TextProps{}) {
+					Line { strconv.Itoa(i) } - scroll to see more content
+				}
+			}
+		}
+	}
+	@Demo("Horizontal scrolling", `@mt.ScrollArea(mt.ScrollAreaProps{Scrollbars: "x", Base: mt.Base{W: "400"}})`) {
+		@mt.ScrollArea(mt.ScrollAreaProps{Scrollbars: "x", Base: mt.Base{W: "400"}}) {
+			<div style="width:900px;display:flex;gap:8px;padding-bottom:8px;">
+				for i := 1; i <= 12; i++ {
+					@mt.Badge(mt.BadgeProps{Variant: mt.Light}) {
+						Item { strconv.Itoa(i) }
+					}
+				}
+			</div>
+		}
+	}
+	@Demo("Types: always / scroll / never", `@mt.ScrollArea(mt.ScrollAreaProps{Type: "always"})`) {
+		@Row() {
+			for _, t := range []string{"hover", "scroll", "always", "never"} {
+				@mt.ScrollArea(mt.ScrollAreaProps{Type: t, Base: mt.Base{H: "150", W: "180"}}) {
+					for i := 1; i <= 20; i++ {
+						@mt.Text(mt.TextProps{Base: mt.Base{P: mt.XS}}) {
+							{ t } { strconv.Itoa(i) }
+						}
+					}
+				}
+			}
+		}
+	}
+	@Demo("Autosize", `@mt.ScrollAreaAutosize(mt.ScrollAreaAutosizeProps{Base: mt.Base{Mah: "150"}})`) {
+		@mt.ScrollAreaAutosize(mt.ScrollAreaAutosizeProps{Base: mt.Base{Mah: "150", Maw: "320"}}) {
+			for i := 1; i <= 15; i++ {
+				@mt.Text(mt.TextProps{}) {
+					Autosized row { strconv.Itoa(i) }
+				}
+			}
+		}
+	}
+}
+
+templ CollapsePage() {
+	@Demo("Basic", `@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-toggle": "demo-collapse"}}}) { Toggle }
+@mt.Collapse(mt.CollapseProps{Base: mt.Base{ID: "demo-collapse"}}) { ... }`) {
+		@mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"data-mt-toggle": "demo-collapse", "aria-expanded": "false"}}}) {
+			Toggle content
+		}
+		@mt.Collapse(mt.CollapseProps{Base: mt.Base{ID: "demo-collapse", Mt: mt.SM}}) {
+			<p>This content animates its height from 0 to its natural height and back, including when the content itself changes size.</p>
+			<p>A second paragraph makes the collapse taller.</p>
+		}
+	}
+	@Demo("No opacity animation, slower transition", `@mt.Collapse(mt.CollapseProps{AnimateOpacity: new(false), TransitionDuration: 500})`) {
+		@mt.Button(mt.ButtonProps{Variant: mt.Default, Base: mt.Base{Attrs: templ.Attributes{"data-mt-toggle": "demo-collapse-2", "aria-expanded": "false"}}}) {
+			Toggle (slow, no fade)
+		}
+		@mt.Collapse(mt.CollapseProps{AnimateOpacity: new(false), TransitionDuration: 500, Base: mt.Base{ID: "demo-collapse-2", Mt: mt.SM}}) {
+			<p>This collapse animates over 500ms without fading its content.</p>
+		}
+	}
+}
+
+templ HoverCardPage() {
+	@Demo("Basic hover card", `@mt.HoverCard(mt.HoverCardProps{Target: ..., Shadow: "md"}) { @mt.HoverCardDropdown(...) { ... } }`) {
+		@mt.HoverCard(mt.HoverCardProps{Width: "280", Target: demoTarget("Hover to reveal the card")}) {
+			@mt.HoverCardDropdown(mt.HoverCardDropdownProps{}) {
+				@mt.Text(mt.TextProps{Size: mt.SM}) {
+					Hover card is revealed when the target is hovered; it stays open while the pointer is over the target or the dropdown.
+				}
+			}
+		}
+	}
+	@Demo("With arrow and delays", `@mt.HoverCard(mt.HoverCardProps{WithArrow: true, OpenDelay: 300, CloseDelay: 300})`) {
+		@mt.HoverCard(mt.HoverCardProps{Width: "260", WithArrow: true, OpenDelay: 300, CloseDelay: 300, Target: demoTarget("300ms open/close delay")}) {
+			@mt.HoverCardDropdown(mt.HoverCardDropdownProps{}) {
+				@mt.Text(mt.TextProps{Size: mt.SM}) {
+					Opens and closes with a 300ms delay.
+				}
+			}
+		}
+	}
+}
+
+templ SegmentedControlPage() {
+	@Demo("Usage", `@mt.SegmentedControl(mt.SegmentedControlProps{Data: []mt.SelectItem{{Value: "react", Label: "React"}}})`) {
+		@mt.SegmentedControl(mt.SegmentedControlProps{
+			Data: []mt.SelectItem{
+				{Value: "react", Label: "React"},
+				{Value: "ng", Label: "Angular"},
+				{Value: "vue", Label: "Vue"},
+				{Value: "svelte", Label: "Svelte"},
+			},
+		})
+	}
+	@Demo("Color, full width, sizes", `@mt.SegmentedControl(mt.SegmentedControlProps{Color: mt.Blue, FullWidth: true, Size: mt.LG})`) {
+		@mt.SegmentedControl(mt.SegmentedControlProps{
+			Color:     mt.Blue,
+			FullWidth: true,
+			Base:      mt.Base{Maw: "320", Mb: mt.SM},
+			Data:      []mt.SelectItem{{Value: "preview", Label: "Preview"}, {Value: "code", Label: "Code"}, {Value: "export", Label: "Export"}},
+		})
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.SegmentedControl(mt.SegmentedControlProps{
+					Size: s,
+					Data: []mt.SelectItem{{Value: "a", Label: s}, {Value: "b", Label: "B"}},
+				})
+			}
+		}
+	}
+	@Demo("Vertical orientation, disabled option, disabled control", `@mt.SegmentedControl(mt.SegmentedControlProps{Orientation: "vertical"})`) {
+		@Row() {
+			@mt.SegmentedControl(mt.SegmentedControlProps{
+				Orientation: "vertical",
+				Data:        []mt.SelectItem{{Value: "a", Label: "Option A"}, {Value: "b", Label: "Option B", Disabled: true}, {Value: "c", Label: "Option C"}},
+			})
+			@mt.SegmentedControl(mt.SegmentedControlProps{
+				Disabled: true,
+				Data:     []mt.SelectItem{{Value: "a", Label: "Disabled"}, {Value: "b", Label: "Control"}},
+			})
+		}
+	}
+}
+
+templ NativeSelectPage() {
+	@Demo("Usage", `@mt.NativeSelect(mt.NativeSelectProps{Label: "Framework", Data: []mt.SelectItem{{Value: "react", Label: "React"}}})`) {
+		@mt.NativeSelect(mt.NativeSelectProps{
+			Label: "Framework",
+			Data: []mt.SelectItem{
+				{Value: "react", Label: "React"},
+				{Value: "vue", Label: "Vue"},
+				{Value: "svelte", Label: "Svelte"},
+				{Value: "solid", Label: "Solid", Disabled: true},
+			},
+			Base: mt.Base{Maw: "320"},
+		})
+	}
+	@Demo("Groups, sizes", `@mt.NativeSelect(mt.NativeSelectProps{Groups: []mt.SelectGroup{...}})`) {
+		@mt.NativeSelect(mt.NativeSelectProps{
+			Label: "Fruit",
+			Groups: []mt.SelectGroup{
+				{Label: "Citrus", Items: []mt.SelectItem{{Value: "orange", Label: "Orange"}, {Value: "lemon", Label: "Lemon"}}},
+				{Label: "Berries", Items: []mt.SelectItem{{Value: "strawberry", Label: "Strawberry"}}},
+			},
+			Base: mt.Base{Maw: "320", Mb: mt.SM},
+		})
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.NativeSelect(mt.NativeSelectProps{
+					Size: s,
+					Data: []mt.SelectItem{{Value: s, Label: s}},
+					Base: mt.Base{W: "120"},
+				})
+			}
+		}
+	}
+	@Demo("Error, required, disabled", `@mt.NativeSelect(mt.NativeSelectProps{Required: true, Error: "Required"})`) {
+		@mt.NativeSelect(mt.NativeSelectProps{
+			Label:    "Required choice",
+			Required: true,
+			Error:    "Please pick one",
+			Data:     []mt.SelectItem{{Value: "a", Label: "Option A"}, {Value: "b", Label: "Option B"}},
+			Base:     mt.Base{Maw: "320", Mb: mt.SM},
+		})
+		@mt.NativeSelect(mt.NativeSelectProps{
+			Label:    "Disabled",
+			Disabled: true,
+			Value:    "a",
+			Data:     []mt.SelectItem{{Value: "a", Label: "Option A"}},
+			Base:     mt.Base{Maw: "320"},
+		})
+	}
+}
+
+templ AutocompletePage() {
+	@Demo("Usage", `@mt.Autocomplete(mt.AutocompleteProps{Label: "Your favorite library", Data: []mt.SelectItem{{Value: "React"}}})`) {
+		@mt.Autocomplete(mt.AutocompleteProps{
+			Label:       "Your favorite library",
+			Placeholder: "Pick value or enter anything",
+			Data: []mt.SelectItem{
+				{Value: "React"}, {Value: "Angular"}, {Value: "Vue"}, {Value: "Svelte"},
+			},
+			Base: mt.Base{Maw: "320"},
+		})
+	}
+	@Demo("Loading, clearable, limit", `@mt.Autocomplete(mt.AutocompleteProps{Loading: true, Clearable: true, Limit: 3})`) {
+		@mt.Autocomplete(mt.AutocompleteProps{
+			Label:     "Large dataset (limit 3)",
+			Clearable: true,
+			Limit:     3,
+			Data: []mt.SelectItem{
+				{Value: "Option 1"}, {Value: "Option 2"}, {Value: "Option 3"}, {Value: "Option 4"}, {Value: "Option 5"}, {Value: "Option 6"},
+			},
+			Base: mt.Base{Maw: "320", Mb: mt.SM},
+		})
+		@mt.Autocomplete(mt.AutocompleteProps{
+			Label:       "Loading",
+			Loading:     true,
+			Placeholder: "Searching...",
+			Data:        []mt.SelectItem{{Value: "React"}},
+			Base:        mt.Base{Maw: "320"},
+		})
+	}
+	@Demo("Groups, error, required, disabled", `@mt.Autocomplete(mt.AutocompleteProps{Groups: []mt.SelectGroup{...}})`) {
+		@mt.Autocomplete(mt.AutocompleteProps{
+			Label: "Your country",
+			Groups: []mt.SelectGroup{
+				{Label: "North America", Items: []mt.SelectItem{{Value: "United States"}, {Value: "Canada"}, {Value: "Mexico"}}},
+				{Label: "South America", Items: []mt.SelectItem{{Value: "Brazil"}, {Value: "Argentina"}}},
+			},
+			Base: mt.Base{Maw: "320", Mb: mt.SM},
+		})
+		@mt.Autocomplete(mt.AutocompleteProps{
+			Label:    "Required",
+			Required: true,
+			Error:    "This field is required",
+			Data:     []mt.SelectItem{{Value: "React"}},
+			Base:     mt.Base{Maw: "320", Mb: mt.SM},
+		})
+		@mt.Autocomplete(mt.AutocompleteProps{
+			Label:    "Disabled",
+			Disabled: true,
+			Value:    "React",
+			Data:     []mt.SelectItem{{Value: "React"}},
+			Base:     mt.Base{Maw: "320"},
+		})
+	}
+}

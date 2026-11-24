@@ -1,0 +1,37 @@
+package mt
+
+// SegmentedControlProps mirrors Mantine's SegmentedControl. Data becomes the
+// light-DOM <option value disabled> children the element reads its segments
+// from (label = text content).
+type SegmentedControlProps struct {
+	Base
+	Name                      string
+	Value                     string
+	Color                     string
+	Size                      string
+	Radius                    string
+	FullWidth                 bool
+	Orientation               string // horizontal (default) | vertical
+	Disabled                  bool
+	ReadOnly                  bool
+	Required                  bool
+	TransitionDuration        int // ms, default 200
+	TransitionTimingFunction  string
+	Data                      []SelectItem
+}
+
+templ SegmentedControl(p SegmentedControlProps) {
+	<mt-segmented-control
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "color", p.Color, "size", p.Size, "radius", p.Radius,
+			"full-width", p.FullWidth, "orientation", p.Orientation, "disabled", p.Disabled, "readonly", p.ReadOnly,
+			"required", p.Required, "transition-duration", p.TransitionDuration,
+			"transition-timing-function", p.TransitionTimingFunction,
+		)... }
+	>
+		for _, it := range p.Data {
+			<option value={ it.Value } disabled?={ it.Disabled }>{ it.Label }</option>
+		}
+		{ children... }
+	</mt-segmented-control>
+}

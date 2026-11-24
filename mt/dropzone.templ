@@ -1,0 +1,59 @@
+package mt
+
+// DropzoneProps mirrors Mantine's Dropzone (@mantine/dropzone).
+type DropzoneProps struct {
+	Base
+	Accept          string // comma-separated MIME types and/or .extensions
+	MaxSize         int    // bytes
+	MaxFiles        int
+	Multiple        *bool // default true
+	Disabled        bool
+	Loading         bool
+	ActivateOnClick *bool // default true
+	Name            string
+}
+
+templ Dropzone(p DropzoneProps) {
+	<mt-dropzone
+		{ attrs(p.Base,
+			"accept", p.Accept, "max-size", p.MaxSize, "max-files", p.MaxFiles,
+			"multiple", p.Multiple, "disabled", p.Disabled, "loading", p.Loading,
+			"activate-on-click", p.ActivateOnClick, "name", p.Name,
+		)... }
+	>
+		{ children... }
+	</mt-dropzone>
+}
+
+// DropzoneAcceptProps mirrors Mantine's Dropzone.Accept.
+type DropzoneAcceptProps struct {
+	Base
+}
+
+templ DropzoneAccept(p DropzoneAcceptProps) {
+	<mt-dropzone-accept { attrs(p.Base)... }>
+		{ children... }
+	</mt-dropzone-accept>
+}
+
+// DropzoneRejectProps mirrors Mantine's Dropzone.Reject.
+type DropzoneRejectProps struct {
+	Base
+}
+
+templ DropzoneReject(p DropzoneRejectProps) {
+	<mt-dropzone-reject { attrs(p.Base)... }>
+		{ children... }
+	</mt-dropzone-reject>
+}
+
+// DropzoneIdleProps mirrors Mantine's Dropzone.Idle.
+type DropzoneIdleProps struct {
+	Base
+}
+
+templ DropzoneIdle(p DropzoneIdleProps) {
+	<mt-dropzone-idle { attrs(p.Base)... }>
+		{ children... }
+	</mt-dropzone-idle>
+}

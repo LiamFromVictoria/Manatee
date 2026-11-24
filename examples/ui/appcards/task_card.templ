@@ -1,0 +1,53 @@
+package appcards
+
+import (
+	"github.com/you/manatee/examples/ui/blocks"
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+var taskCardAvatars = []string{
+	"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png",
+	"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-4.png",
+	"https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png",
+}
+
+// TaskCard ports ui.mantine.dev TaskCard: a release-notes card with a progress
+// bar and an avatar group / upload action footer.
+templ TaskCard() {
+	@mt.Card(mt.CardProps{WithBorder: true, Padding: mt.LG, Radius: mt.MD}) {
+		@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+			@blocks.Logo(32)
+			@mt.Badge(mt.BadgeProps{}) {
+				12 days left
+			}
+		}
+		@mt.Text(mt.TextProps{Size: "lg", Fw: 500, Base: mt.Base{Mt: mt.MD}}) {
+			5.3 minor release (September 2022)
+		}
+		@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed, Base: mt.Base{Mt: "5"}}) {
+			Form context management, Switch, Grid and Indicator components improvements, new hook and
+			10+ other changes
+		}
+		@mt.Text(mt.TextProps{C: mt.Dimmed, Size: mt.SM, Base: mt.Base{Mt: mt.MD}}) {
+			Tasks completed:
+			@mt.Text(mt.TextProps{Span: true, Fw: 500, C: mt.Bright}) {
+				23/36
+			}
+		}
+		@mt.Progress(mt.ProgressProps{Value: 63.89, Base: mt.Base{Mt: "5", Attrs: templ.Attributes{"aria-label": "Task completion"}}})
+		@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.MD}}) {
+			@mt.AvatarGroup(mt.AvatarGroupProps{Spacing: mt.SM}) {
+				@mt.Avatar(mt.AvatarProps{Src: taskCardAvatars[0], Radius: mt.XL, Alt: "Avatar 1"})
+				@mt.Avatar(mt.AvatarProps{Src: taskCardAvatars[1], Radius: mt.XL, Alt: "Avatar 2"})
+				@mt.Avatar(mt.AvatarProps{Src: taskCardAvatars[2], Radius: mt.XL, Alt: "Avatar 3"})
+				@mt.Avatar(mt.AvatarProps{Radius: mt.XL, Alt: "More users"}) {
+					+5
+				}
+			}
+			@mt.ActionIcon(mt.ActionIconProps{Variant: "default", Size: mt.LG, Radius: mt.MD, AriaLabel: "Upload"}) {
+				@icons.IconUpload(icons.Props{Size: 18})
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+package mt
+
+// CloseButtonProps mirrors Mantine's CloseButton.
+type CloseButtonProps struct {
+	Base
+	Variant   string // subtle (default) | transparent
+	Color     string // default gray
+	Size      string // xs..xl
+	Radius    string
+	Disabled  bool
+	AriaLabel string // default "Close"
+	Icon      templ.Component
+}
+
+templ CloseButton(p CloseButtonProps) {
+	<mt-close-button
+		{ attrs(p.Base,
+			"variant", p.Variant, "color", p.Color, "size", p.Size, "radius", p.Radius,
+			"disabled", p.Disabled, "aria-label", p.AriaLabel,
+		)... }
+	>
+		if p.Icon != nil {
+			@p.Icon
+		}
+	</mt-close-button>
+}

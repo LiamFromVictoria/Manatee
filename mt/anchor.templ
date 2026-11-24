@@ -1,0 +1,28 @@
+package mt
+
+// AnchorProps mirrors Mantine's Anchor.
+type AnchorProps struct {
+	Base
+	Href      string
+	Target    string
+	Rel       string
+	Underline string // hover (default) | always | never | not-hover
+	C         string // color: palette name/shade, "dimmed", "bright" or a CSS color
+	Size      string
+	Fw        int
+	Inherit   bool
+	Truncate  string // "end" (default when set) | "start"
+	LineClamp int
+}
+
+templ Anchor(p AnchorProps) {
+	<mt-anchor
+		{ attrs(p.Base,
+			"href", p.Href, "target", p.Target, "rel", p.Rel, "underline", p.Underline,
+			"c", p.C, "size", p.Size, "fw", p.Fw, "inherit", p.Inherit,
+			"truncate", p.Truncate, "line-clamp", p.LineClamp,
+		)... }
+	>
+		{ children... }
+	</mt-anchor>
+}

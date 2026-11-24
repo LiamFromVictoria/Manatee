@@ -1,0 +1,180 @@
+package main
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+templ CarouselPage() {
+	@Demo("Basic, with indicators and loop", `@mt.Carousel(mt.CarouselProps{WithIndicators: true, Loop: true, Height: "220"}) { @mt.CarouselSlide(...) { <img .../> } ... }`) {
+		<div style="max-width:28rem">
+			@mt.Carousel(mt.CarouselProps{WithIndicators: true, Loop: true, Height: "220"}) {
+				for _, src := range []string{
+					"https://images.unsplash.com/photo-1689553079282-45df1b35741b?w=800&q=60",
+					"https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800&q=60",
+					"https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=60",
+					"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=800&q=60",
+				} {
+					@mt.CarouselSlide(mt.CarouselSlideProps{}) {
+						<img src={ src } style="width:100%;height:220px;object-fit:cover;display:block"/>
+					}
+				}
+			}
+		</div>
+	}
+	@Demo("Multiple slides per view", `@mt.Carousel(mt.CarouselProps{SlideSize: "33.333333%", SlideGap: mt.MD, Align: "start", Loop: true})`) {
+		@mt.Carousel(mt.CarouselProps{SlideSize: "33.333333%", SlideGap: mt.MD, Align: "start", Loop: true}) {
+			for i := 1; i <= 6; i++ {
+				@mt.CarouselSlide(mt.CarouselSlideProps{}) {
+					<div style="height:120px;border-radius:var(--mt-radius-md);background:var(--mt-color-primary-light);display:flex;align-items:center;justify-content:center;font-weight:700">
+						{ "Slide " }
+					</div>
+				}
+			}
+		}
+	}
+	@Demo("Vertical orientation", `@mt.Carousel(mt.CarouselProps{Orientation: "vertical", Height: "220", WithIndicators: true})`) {
+		<div style="max-width:16rem">
+			@mt.Carousel(mt.CarouselProps{Orientation: "vertical", Height: "220", WithIndicators: true}) {
+				for i := 1; i <= 4; i++ {
+					@mt.CarouselSlide(mt.CarouselSlideProps{}) {
+						<div style="height:100%;border-radius:var(--mt-radius-md);background:var(--mt-color-primary-light);display:flex;align-items:center;justify-content:center;font-weight:700">
+							{ "Slide " }
+						</div>
+					}
+				}
+			}
+		</div>
+	}
+	@Demo("Attributes", `orientation, slide-size, slide-gap (+ -xs..-xl responsive variants), align="start|center|end", loop, drag-free, with-controls, with-indicators, controls-offset, control-size, height, radius, initial-slide`) {
+		<p>
+			Scroll-snap viewport: drag with a mouse/pen, swipe on touch, or focus the carousel and use
+			arrow keys. Emits <code>slide-change</code> with <code>{ "{ index }" }</code>; call
+			<code>.next()</code>, <code>.prev()</code> or <code>.scrollToSlide(i)</code> on the element.
+		</p>
+	}
+}
+
+templ DropzonePage() {
+	@Demo("Basic, with accept/reject/idle states", `@mt.Dropzone(mt.DropzoneProps{Accept: "image/png,image/jpeg,image/gif,image/webp", MaxSize: 5*1024*1024}) { @mt.DropzoneAccept(...) {...} @mt.DropzoneReject(...) {...} @mt.DropzoneIdle(...) {...} }`) {
+		<form action="/echo" method="post" style="max-width:28rem">
+			@mt.Dropzone(mt.DropzoneProps{
+				Base:    mt.Base{ID: "dz-basic"},
+				Accept:  "image/png,image/jpeg,image/gif,image/webp",
+				MaxSize: 5 * 1024 * 1024,
+				Name:    "files",
+			}) {
+				<div style="display:flex;align-items:center;justify-content:center;gap:var(--mt-spacing-xl);min-height:160px">
+					@mt.DropzoneAccept(mt.DropzoneAcceptProps{}) {
+						@icons.IconUpload(icons.Props{Size: 48, Color: "var(--mt-color-primary-filled)"})
+					}
+					@mt.DropzoneReject(mt.DropzoneRejectProps{}) {
+						@icons.IconX(icons.Props{Size: 48, Color: "var(--mt-color-red-6)"})
+					}
+					@mt.DropzoneIdle(mt.DropzoneIdleProps{}) {
+						@icons.IconPhoto(icons.Props{Size: 48, Color: "var(--mt-color-dimmed)"})
+					}
+					<div>
+						@mt.Text(mt.TextProps{Size: "xl"}) {
+							Drag images here or click to select files
+						}
+						@mt.Text(mt.TextProps{Size: "sm", C: mt.Dimmed, Base: mt.Base{Mt: "7"}}) {
+							Attach as many files as you like, each file should not exceed 5mb
+						}
+					</div>
+				</div>
+			}
+			@mt.Button(mt.ButtonProps{Type: "submit", Base: mt.Base{Mt: mt.MD}}) {
+				Submit
+			}
+		</form>
+	}
+	@Demo("Open from an external button", `@mt.Dropzone(mt.DropzoneProps{Base: mt.Base{ID: "dz-open"}, ActivateOnClick: new(false)}) {...} @mt.Button(...) { Base: mt.Base{Attrs: templ.Attributes{"data-mt-dropzone-open": "dz-open"}} }`) {
+		@mt.Dropzone(mt.DropzoneProps{
+			Base:            mt.Base{ID: "dz-open"},
+			ActivateOnClick: new(false),
+		}) {
+			<div style="display:flex;align-items:center;justify-content:center;min-height:100px;pointer-events:none">
+				@mt.Text(mt.TextProps{C: mt.Dimmed}) {
+					Clicking here does nothing; use the button below
+				}
+			</div>
+		}
+		@mt.Group(mt.GroupProps{Justify: "center", Base: mt.Base{Mt: mt.MD}}) {
+			@mt.Button(mt.ButtonProps{Base: mt.Base{Attrs: templ.Attributes{"data-mt-dropzone-open": "dz-open", "style": "pointer-events:all"}}}) {
+				Select files
+			}
+		}
+	}
+	@Demo("Loading state", `@mt.Dropzone(mt.DropzoneProps{Loading: true})`) {
+		@mt.Dropzone(mt.DropzoneProps{Loading: true}) {
+			<div style="min-height:100px"></div>
+		}
+	}
+	@Demo("Attributes", `accept (comma-separated MIME types and/or .extensions), max-size (bytes), max-files, multiple, disabled, loading, activate-on-click, name`) {
+		<p>
+			Host carries <code>data-accept</code>/<code>data-reject</code>/<code>data-idle</code> while a
+			drag hovers it, so the matching <code>mt-dropzone-accept</code>/<code>-reject</code>/<code>-idle</code>
+			child is the only one shown. Form-associated: accepted files submit as <code>FormData</code>
+			<code>File</code> entries under <code>name</code>. Events: <code>drop</code> <code>{ "{ files }" }</code>,
+			<code>reject</code> <code>{ "{ files, errors }" }</code>. Call <code>.open()</code> to open the
+			file browser programmatically, or use <code>data-mt-dropzone-open="&lt;id&gt;"</code> on any
+			element outside the dropzone.
+		</p>
+	}
+}
+
+templ SortablePage() {
+	@Demo("Reorderable list with drag handles", `@mt.Sortable(mt.SortableProps{}) { <ul>...<li data-value="..."><span data-sortable-handle>::</span>Label</li>...</ul> }`) {
+		<div style="max-width:20rem">
+			@mt.Sortable(mt.SortableProps{Items: "li"}) {
+				<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0.5rem">
+					for _, name := range []string{"Bob Folley", "Jane Smith", "Alice Johnson", "Tom Hardy"} {
+						<li data-value={ name } style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0.75rem;border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md);background:var(--mt-color-body)">
+							<span data-sortable-handle style="display:flex;color:var(--mt-color-dimmed)">
+								@icons.IconGripVertical(icons.Props{Size: 18})
+							</span>
+							{ name }
+						</li>
+					}
+				</ul>
+			}
+		</div>
+	}
+	@Demo("Sortable table rows", `@mt.Sortable(mt.SortableProps{Items: "tbody > tr", Handle: "[data-sortable-handle]"}) { <table>...</table> }`) {
+		@mt.Sortable(mt.SortableProps{Items: "tbody > tr", Handle: "[data-sortable-handle]"}) {
+			<table style="width:100%;border-collapse:collapse">
+				<thead>
+					<tr>
+						<th style="text-align:left;padding:0.5rem;border-bottom:1px solid var(--mt-color-border)"></th>
+						<th style="text-align:left;padding:0.5rem;border-bottom:1px solid var(--mt-color-border)">Name</th>
+						<th style="text-align:left;padding:0.5rem;border-bottom:1px solid var(--mt-color-border)">Position</th>
+					</tr>
+				</thead>
+				<tbody>
+					for _, row := range [][2]string{{"Alice Johnson", "Engineer"}, {"Bob Folley", "Designer"}, {"Carol King", "Manager"}} {
+						<tr data-value={ row[0] } style="border-bottom:1px solid var(--mt-color-border)">
+							<td style="padding:0.5rem;width:2rem">
+								<span data-sortable-handle style="display:flex;cursor:grab;color:var(--mt-color-dimmed)">
+									@icons.IconGripVertical(icons.Props{Size: 18})
+								</span>
+							</td>
+							<td style="padding:0.5rem">{ row[0] }</td>
+							<td style="padding:0.5rem">{ row[1] }</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+	}
+	@Demo("Attributes", `items (CSS selector relative to the host, default ":scope > *"), handle (CSS selector), orientation="vertical|horizontal", disabled, name`) {
+		<p>
+			Pointer drag (mouse/pen/touch) with a lifted look and smooth shift animations. Keyboard: focus
+			an item (or its handle), Space/Enter to lift, arrow keys to move, Space/Enter to drop, Escape
+			to cancel; an aria-live region announces each step. Emits <code>reorder</code>
+			<code>{ "{ from, to, order }" }</code> where <code>order</code> lists each item's
+			<code>data-value</code> (or index). With <code>name</code> set, it is form-associated and
+			submits the order as repeated values.
+		</p>
+	}
+}

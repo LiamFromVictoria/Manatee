@@ -1,0 +1,346 @@
+package main
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+templ BoxPage() {
+	@Demo("Usage", `@mt.Box(mt.BoxProps{Base: mt.Base{P: mt.MD, Style: "border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md)"}}) { ... }`) {
+		@mt.Box(mt.BoxProps{Base: mt.Base{P: mt.MD, Style: "border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md)"}}) {
+			Box renders a plain block container. Style it with class, style, or the shared
+			Mantine style props (m, p, w, maw, ...) on Base - it has no component-specific props.
+		}
+	}
+}
+
+templ AspectRatioPage() {
+	@Demo("16/9 image", `@mt.AspectRatio(mt.AspectRatioProps{Ratio: "16/9", Base: mt.Base{Maw: "320"}}) { @mt.Image(...) }`) {
+		@mt.AspectRatio(mt.AspectRatioProps{Ratio: "16/9", Base: mt.Base{Maw: "320"}}) {
+			@mt.Image(mt.ImageProps{Src: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=640&q=60", Alt: "Mountain lake", Fit: "cover"})
+		}
+	}
+	@Demo("1/1 and 4/3 with plain content", `@mt.AspectRatio(mt.AspectRatioProps{Ratio: "1"}) { <div>...</div> }`) {
+		@Row() {
+			@mt.AspectRatio(mt.AspectRatioProps{Ratio: "1", Base: mt.Base{W: "140"}}) {
+				<div style="width:100%;height:100%;background:var(--mt-color-blue-light);display:flex;align-items:center;justify-content:center">1 / 1</div>
+			}
+			@mt.AspectRatio(mt.AspectRatioProps{Ratio: "4/3", Base: mt.Base{W: "140"}}) {
+				<div style="width:100%;height:100%;background:var(--mt-color-grape-light);display:flex;align-items:center;justify-content:center">4 / 3</div>
+			}
+		}
+	}
+}
+
+templ AnchorPage() {
+	@Demo("Underline", `@mt.Anchor(mt.AnchorProps{Href: "#", Underline: "always"}) { Always underlined }`) {
+		@Row() {
+			@mt.Anchor(mt.AnchorProps{Href: "#"}) {
+				Hover (default)
+			}
+			@mt.Anchor(mt.AnchorProps{Href: "#", Underline: "always"}) {
+				Always
+			}
+			@mt.Anchor(mt.AnchorProps{Href: "#", Underline: "never"}) {
+				Never
+			}
+			@mt.Anchor(mt.AnchorProps{Href: "#", Underline: "not-hover"}) {
+				Not on hover
+			}
+		}
+	}
+	@Demo("Color, size, weight", `@mt.Anchor(mt.AnchorProps{Href: "#", C: mt.Teal, Fw: 700, Size: mt.LG}) { Teal link }`) {
+		@Row() {
+			@mt.Anchor(mt.AnchorProps{Href: "#", C: mt.Teal, Fw: 700, Size: mt.LG}) {
+				Teal, bold, large
+			}
+			@mt.Anchor(mt.AnchorProps{Href: "#", C: "red.5"}) {
+				Shade reference
+			}
+			@mt.Anchor(mt.AnchorProps{Href: "https://mantine.dev", Target: "_blank", Rel: "noreferrer noopener"}) {
+				External link
+			}
+		}
+	}
+	@Demo("Truncate", `@mt.Anchor(mt.AnchorProps{Href: "#", Truncate: "end", Base: mt.Base{Maw: "200"}}) { ... }`) {
+		@mt.Anchor(mt.AnchorProps{Href: "#", Truncate: "end", Base: mt.Base{Maw: "200", Style: "display:block"}}) {
+			This is a very long link label that gets truncated with an ellipsis
+		}
+	}
+}
+
+templ CodePage() {
+	@Demo("Inline", `@mt.Text(mt.TextProps{}) { Run @mt.Code(mt.CodeProps{}) { go run ./cmd/demo } to start the docs server. }`) {
+		@mt.Text(mt.TextProps{}) {
+			Run
+			@mt.Code(mt.CodeProps{}) {
+				go run ./cmd/demo
+			}
+			to start the docs server.
+		}
+	}
+	@Demo("Colored", `@mt.Code(mt.CodeProps{Color: mt.Blue}) { manatee.setColorScheme('dark') }`) {
+		@mt.Code(mt.CodeProps{Color: mt.Blue}) {
+			manatee.setColorScheme('dark')
+		}
+	}
+	@Demo("Block", `@mt.Code(mt.CodeProps{Block: true}) { multi-line snippet }`) {
+		@mt.Code(mt.CodeProps{Block: true}) {
+			GET /api/v1/users?limit=10&offset=0{ "\n" }Authorization: Bearer your-token-here{ "\n" }Accept: application/json
+		}
+	}
+}
+
+templ UnstyledButtonPage() {
+	@Demo("Custom-styled card button", `@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Style: "border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md);padding:1rem"}}) { ... }`) {
+		@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{W: "240", Style: "display:block;border:1px solid var(--mt-color-border);border-radius:var(--mt-radius-md);padding:1rem;text-align:start"}}) {
+			@mt.Text(mt.TextProps{Fw: 600}) {
+				Fully custom button
+			}
+			@mt.Text(mt.TextProps{Size: mt.SM, C: mt.Dimmed}) {
+				UnstyledButton has no visual style of its own; it only resets the
+				native button and inherits font/color so you style it from the outside.
+			}
+		}
+	}
+	@Demo("Link mode and disabled", `@mt.UnstyledButton(mt.UnstyledButtonProps{Href: "#"})`) {
+		@Row() {
+			@mt.UnstyledButton(mt.UnstyledButtonProps{Href: "#"}) {
+				Link mode
+			}
+			@mt.UnstyledButton(mt.UnstyledButtonProps{Disabled: true}) {
+				Disabled
+			}
+		}
+	}
+}
+
+templ VisuallyHiddenPage() {
+	@Demo("Icon-only button with an accessible name", `@mt.UnstyledButton(mt.UnstyledButtonProps{}) { @icons.IconHeart(...) @mt.VisuallyHidden(mt.VisuallyHiddenProps{}) { Like this post } }`) {
+		@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Style: "display:inline-flex;padding:0.5rem;border-radius:var(--mt-radius-default)"}}) {
+			@icons.IconHeart(icons.Props{Size: 20})
+			@mt.VisuallyHidden(mt.VisuallyHiddenProps{}) {
+				Like this post
+			}
+		}
+	}
+}
+
+templ closeButtonCopyDefault() {
+	@mt.Button(mt.ButtonProps{Variant: mt.Default, LeftSection: icons.IconCopy(icons.Props{Size: 16})}) {
+		Copy install command
+	}
+}
+
+templ closeButtonCopyCopied() {
+	@mt.Button(mt.ButtonProps{Color: mt.Teal, LeftSection: icons.IconCheck(icons.Props{Size: 16})}) {
+		Copied
+	}
+}
+
+templ CloseButtonPage() {
+	@Demo("Sizes", `@mt.CloseButton(mt.CloseButtonProps{Size: mt.LG})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.CloseButton(mt.CloseButtonProps{Size: s})
+			}
+		}
+	}
+	@Demo("Variant, color, disabled", `@mt.CloseButton(mt.CloseButtonProps{Variant: mt.Transparent, Color: mt.Red})`) {
+		@Row() {
+			@mt.CloseButton(mt.CloseButtonProps{})
+			@mt.CloseButton(mt.CloseButtonProps{Variant: mt.Transparent})
+			@mt.CloseButton(mt.CloseButtonProps{Color: mt.Red})
+			@mt.CloseButton(mt.CloseButtonProps{Disabled: true})
+		}
+	}
+	@Demo("Custom icon", `@mt.CloseButton(mt.CloseButtonProps{Icon: icons.IconTrash(...)})`) {
+		@mt.CloseButton(mt.CloseButtonProps{AriaLabel: "Delete", Icon: icons.IconTrash(icons.Props{Size: 16})})
+	}
+}
+
+templ CopyButtonPage() {
+	@Demo("Usage", `@mt.CopyButton(mt.CopyButtonProps{Value: "npm install manatee", Copied: copiedLabel()}) { @defaultLabel() }`) {
+		@mt.CopyButton(mt.CopyButtonProps{Value: "npm install manatee", Copied: closeButtonCopyCopied()}) {
+			@closeButtonCopyDefault()
+		}
+	}
+}
+
+templ ImagePage() {
+	@Demo("Object-fit and radius", `@mt.Image(mt.ImageProps{Src: "...", Fit: "contain", Radius: mt.MD})`) {
+		@Row() {
+			@mt.Image(mt.ImageProps{Src: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=300&q=60", Fit: "cover", Base: mt.Base{W: "160", H: "120"}})
+			@mt.Image(mt.ImageProps{Src: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=300&q=60", Fit: "contain", Radius: mt.MD, Base: mt.Base{W: "160", H: "120", Style: "background:var(--mt-color-gray-1)"}})
+		}
+	}
+	@Demo("Fallback on error", `@mt.Image(mt.ImageProps{Src: "https://broken.example/404.png", FallbackSrc: "https://placehold.co/200x120?text=Fallback"})`) {
+		@mt.Image(mt.ImageProps{Src: "https://broken.example/404.png", FallbackSrc: "https://placehold.co/200x120?text=Fallback", Base: mt.Base{W: "200"}})
+	}
+}
+
+templ ThemeIconPage() {
+	@Demo("Variants", `@mt.ThemeIcon(mt.ThemeIconProps{Variant: mt.Light}) { @icons.IconHeart(...) }`) {
+		@Row() {
+			for _, v := range []string{mt.Filled, mt.Light, mt.Outline, mt.Default, mt.White, mt.Transparent, mt.Gradient} {
+				@mt.ThemeIcon(mt.ThemeIconProps{Variant: v}) {
+					@icons.IconHeart(icons.Props{Size: 18})
+				}
+			}
+		}
+	}
+	@Demo("Colors and sizes", `@mt.ThemeIcon(mt.ThemeIconProps{Color: mt.Teal, Size: mt.XL})`) {
+		@Row() {
+			for _, s := range []string{mt.XS, mt.SM, mt.MD, mt.LG, mt.XL} {
+				@mt.ThemeIcon(mt.ThemeIconProps{Color: mt.Teal, Size: s}) {
+					@icons.IconCheck(icons.Props{Size: 18})
+				}
+			}
+		}
+	}
+	@Demo("Gradient and numeric size", `@mt.ThemeIcon(mt.ThemeIconProps{Variant: mt.Gradient, GradientFrom: mt.Violet, GradientTo: mt.Pink, Size: "80", Radius: mt.MD})`) {
+		@mt.ThemeIcon(mt.ThemeIconProps{Variant: mt.Gradient, GradientFrom: mt.Violet, GradientTo: mt.Pink, Size: "80", Radius: mt.MD}) {
+			@icons.IconBulb(icons.Props{Size: 32})
+		}
+	}
+}
+
+templ OverlayPage() {
+	@Demo("Over an image, centered content", `@mt.Box(mt.BoxProps{Base: mt.Base{Style: "position:relative"}}) { @mt.Image(...) @mt.Overlay(mt.OverlayProps{Center: true}) { @mt.Text(...) } }`) {
+		@mt.Box(mt.BoxProps{Base: mt.Base{W: "320", Style: "position:relative"}}) {
+			@mt.Image(mt.ImageProps{Src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=640&q=60", Fit: "cover", Base: mt.Base{H: "180"}})
+			@mt.Overlay(mt.OverlayProps{Center: true}) {
+				@mt.Text(mt.TextProps{C: "white", Fw: 700}) {
+					Overlay content
+				}
+			}
+		}
+	}
+	@Demo("Gradient and blur", `@mt.Overlay(mt.OverlayProps{Gradient: "linear-gradient(...)", Blur: 4})`) {
+		@mt.Box(mt.BoxProps{Base: mt.Base{W: "320", Style: "position:relative"}}) {
+			@mt.Image(mt.ImageProps{Src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=640&q=60", Fit: "cover", Base: mt.Base{H: "180"}})
+			@mt.Overlay(mt.OverlayProps{Gradient: "linear-gradient(145deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 60%)", Blur: 2})
+		}
+	}
+}
+
+templ SkeletonPage() {
+	@Demo("Shapes", `@mt.Skeleton(mt.SkeletonProps{Height: "40", Circle: true})`) {
+		@Row() {
+			@mt.Skeleton(mt.SkeletonProps{Height: "40", Circle: true, Base: mt.Base{W: "40"}})
+			@mt.Skeleton(mt.SkeletonProps{Height: "16", Base: mt.Base{W: "200"}})
+			@mt.Skeleton(mt.SkeletonProps{Height: "80", Radius: mt.MD, Base: mt.Base{W: "200"}})
+		}
+	}
+	@Demo("Stacked placeholders", `@mt.Skeleton(mt.SkeletonProps{Height: "12", Base: mt.Base{Mb: mt.SM, W: "70%"}})`) {
+		@mt.Skeleton(mt.SkeletonProps{Height: "40", Circle: true, Base: mt.Base{Mb: mt.SM, W: "40"}})
+		@mt.Skeleton(mt.SkeletonProps{Height: "12", Base: mt.Base{Mb: mt.SM}})
+		@mt.Skeleton(mt.SkeletonProps{Height: "12", Base: mt.Base{Mb: mt.SM, W: "70%"}})
+	}
+	@Demo("visible=false shows the real content", `@mt.Skeleton(mt.SkeletonProps{Visible: new(false)}) { @mt.Text(...) }`) {
+		@mt.Skeleton(mt.SkeletonProps{Visible: new(false)}) {
+			@mt.Text(mt.TextProps{}) {
+				This is the real content, revealed once loading finishes.
+			}
+		}
+	}
+}
+
+templ ListPage() {
+	@Demo("Unordered and ordered", `@mt.List(mt.ListProps{Type: "ordered"}) { @mt.ListItem(...) { First } ... }`) {
+		@Row() {
+			@mt.List(mt.ListProps{}) {
+				@mt.ListItem(mt.ListItemProps{}) {
+					Clone or download repository from GitHub
+				}
+				@mt.ListItem(mt.ListItemProps{}) {
+					Install dependencies with npm
+				}
+				@mt.ListItem(mt.ListItemProps{}) {
+					To start development server run npm start command
+				}
+			}
+			@mt.List(mt.ListProps{Type: "ordered"}) {
+				@mt.ListItem(mt.ListItemProps{}) {
+					Clone or download repository from GitHub
+				}
+				@mt.ListItem(mt.ListItemProps{}) {
+					Install dependencies with npm
+				}
+				@mt.ListItem(mt.ListItemProps{}) {
+					To start development server run npm start command
+				}
+			}
+		}
+	}
+	@Demo("Icon", `@mt.List(mt.ListProps{Icon: icons.IconCheck(...), Spacing: mt.XS}) { @mt.ListItem(...) { ... } }`) {
+		@mt.List(mt.ListProps{Spacing: mt.XS, Icon: icons.IconCheck(icons.Props{Size: 16, Color: "var(--mt-color-teal-6)"})}) {
+			@mt.ListItem(mt.ListItemProps{}) {
+				Checked item
+			}
+			@mt.ListItem(mt.ListItemProps{}) {
+				Another checked item
+			}
+			@mt.ListItem(mt.ListItemProps{Icon: icons.IconX(icons.Props{Size: 16, Color: "var(--mt-color-red-6)"})}) {
+				Item with its own icon override
+			}
+		}
+	}
+	@Demo("Nested", `@mt.ListItem(mt.ListItemProps{}) { Parent @mt.List(mt.ListProps{}) { @mt.ListItem(...) { Child } } }`) {
+		@mt.List(mt.ListProps{}) {
+			@mt.ListItem(mt.ListItemProps{}) {
+				When you use a list, the elements that come after cursor
+			}
+			@mt.ListItem(mt.ListItemProps{}) {
+				Nested list
+				@mt.List(mt.ListProps{Base: mt.Base{Mt: mt.XS}}) {
+					@mt.ListItem(mt.ListItemProps{}) {
+						First nested item
+					}
+					@mt.ListItem(mt.ListItemProps{}) {
+						Second nested item
+					}
+				}
+			}
+		}
+	}
+}
+
+templ TypographyPage() {
+	@Demo("Rich content", `@mt.Typography(mt.TypographyProps{}) { <h2>...</h2> <p>...</p> ... }`) {
+		@mt.Typography(mt.TypographyProps{}) {
+			<h2>Typography styles</h2>
+			<p>
+				mt.Typography styles arbitrary rich HTML content, like output from a
+				markdown renderer or a CMS field, matching Mantine's
+				<code>TypographyStylesProvider</code>.
+			</p>
+			<ul>
+				<li>Headings use the theme heading sizes</li>
+				<li>
+					Links are <a href="#">colored and underlined</a>
+				</li>
+				<li>Lists, including nested ones</li>
+			</ul>
+			<blockquote>Blockquotes get a left border and dimmed text.</blockquote>
+			<pre><code>npm install manatee{ "\n" }go run ./cmd/demo -dev{ "\n" }open http://localhost:8080</code></pre>
+			<p>Press <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy.</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Role</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Jane</td>
+						<td>Engineer</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr/>
+			<p>Last paragraph, after a horizontal rule.</p>
+		}
+	}
+}

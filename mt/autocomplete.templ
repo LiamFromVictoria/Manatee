@@ -1,0 +1,52 @@
+package mt
+
+// AutocompleteProps mirrors Mantine's Autocomplete. Data/Groups become the
+// light-DOM <option>/<optgroup> children the element reads its suggestions
+// from; unlike Select, the input value is free text.
+type AutocompleteProps struct {
+	Base
+	Name              string
+	Value             string
+	Label             string
+	Description       string
+	Error             string
+	Placeholder       string
+	Variant           string // default | filled | unstyled
+	Size              string
+	Radius            string
+	Required          bool
+	Disabled          bool
+	ReadOnly          bool
+	AutoFocus         bool
+	Clearable         bool
+	Loading           bool
+	Limit             int
+	MaxDropdownHeight string
+	Data              []SelectItem
+	Groups            []SelectGroup
+	LeftSection       templ.Component
+}
+
+templ Autocomplete(p AutocompleteProps) {
+	<mt-autocomplete
+		{ attrs(p.Base,
+			"name", p.Name, "value", p.Value, "label", p.Label, "description", p.Description, "error", p.Error,
+			"placeholder", p.Placeholder, "variant", p.Variant, "size", p.Size, "radius", p.Radius,
+			"required", p.Required, "disabled", p.Disabled, "readonly", p.ReadOnly, "autofocus", p.AutoFocus,
+			"clearable", p.Clearable, "loading", p.Loading, "limit", p.Limit, "max-dropdown-height", p.MaxDropdownHeight,
+		)... }
+	>
+		@slot("left-section", p.LeftSection)
+		for _, it := range p.Data {
+			<option value={ it.Value }>{ it.Label }</option>
+		}
+		for _, g := range p.Groups {
+			<optgroup label={ g.Label }>
+				for _, it := range g.Items {
+					<option value={ it.Value }>{ it.Label }</option>
+				}
+			</optgroup>
+		}
+		{ children... }
+	</mt-autocomplete>
+}

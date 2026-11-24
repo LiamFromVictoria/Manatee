@@ -1,0 +1,36 @@
+package mt
+
+// RingProgressProps mirrors Mantine's RingProgress.
+type RingProgressProps struct {
+	Base
+	Size      int // width/height in px (default 120)
+	Thickness int // ring thickness in px, clamped to size/4 (default 12)
+	RoundCaps bool
+	RootColor string // color of the unfilled portion (default gray)
+	Sections  []RingProgressSection
+	Label     templ.Component // centered content
+}
+
+// RingProgressSection is one arc, rendered as a light-DOM <mt-ring-progress-section>.
+type RingProgressSection struct {
+	Value   float64 // 0..100
+	Color   string
+	Tooltip string
+}
+
+templ RingProgress(p RingProgressProps) {
+	<mt-ring-progress
+		{ attrs(p.Base,
+			"size", p.Size, "thickness", p.Thickness, "round-caps", p.RoundCaps, "root-color", p.RootColor,
+		)... }
+	>
+		for _, s := range p.Sections {
+			@ringProgressSectionEl(s)
+		}
+		@slot("label", p.Label)
+	</mt-ring-progress>
+}
+
+templ ringProgressSectionEl(s RingProgressSection) {
+	<mt-ring-progress-section { attrs(Base{}, "value", s.Value, "color", s.Color, "tooltip", s.Tooltip)... }></mt-ring-progress-section>
+}

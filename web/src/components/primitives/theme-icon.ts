@@ -1,16 +1,25 @@
-import { css, define, html, MtElement, type Props } from '../../core';
+import { css, define, MtElement, type Props } from '../../core';
 
 const SIZE: Record<string, number> = { xs: 22, sm: 28, md: 34, lg: 44, xl: 60 };
 
 const styles = css`
   :host {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     vertical-align: middle;
+    flex: 0 0 auto;
     --_size: 2.125rem;
+    width: var(--_size);
+    height: var(--_size);
     --_radius: var(--mt-radius-default);
     --_bg: var(--mt-c-filled);
     --_color: var(--mt-white);
     --_bd: transparent;
+    color: var(--_color);
+    background: var(--_bg);
+    border: 1px solid var(--_bd);
+    border-radius: var(--_radius);
   }
 
   :host([variant='light']) { --_bg: var(--mt-c-light); --_color: var(--mt-c-light-color); }
@@ -20,18 +29,6 @@ const styles = css`
   :host([variant='transparent']) { --_bg: transparent; --_color: var(--mt-c-light-color); }
   :host([variant='gradient']) { --_bg: linear-gradient(calc(var(--_gdeg) * 1deg), var(--_gfrom), var(--_gto)); --_color: var(--mt-white); }
 
-  .root {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--_size);
-    height: var(--_size);
-    flex: 0 0 auto;
-    color: var(--_color);
-    background: var(--_bg);
-    border: 1px solid var(--_bd);
-    border-radius: var(--_radius);
-  }
   ::slotted(*) { width: 60%; height: 60%; }
 `;
 
@@ -54,10 +51,6 @@ export class MtThemeIcon extends MtElement {
   };
 
   declare size: string;
-
-  protected template(): string {
-    return html`<span class="root" part="root"><slot></slot></span>`;
-  }
 
   protected update(changed: Set<string>): void {
     if (!changed.has('size')) return;

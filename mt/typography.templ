@@ -1,0 +1,13 @@
+package mt
+
+// TypographyProps mirrors Mantine's TypographyStylesProvider.
+type TypographyProps struct {
+	Base
+	Size string // xs..xl, default sm
+}
+
+templ Typography(p TypographyProps) {
+	<mt-typography { attrs(p.Base, "size", p.Size)... }>
+		{ children... }
+	</mt-typography>
+}

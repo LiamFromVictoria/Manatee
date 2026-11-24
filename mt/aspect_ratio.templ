@@ -1,0 +1,13 @@
+package mt
+
+// AspectRatioProps mirrors Mantine's AspectRatio.
+type AspectRatioProps struct {
+	Base
+	Ratio string // number ("1.7777") or "w/h" string ("16/9")
+}
+
+templ AspectRatio(p AspectRatioProps) {
+	<mt-aspect-ratio { attrs(p.Base, "ratio", p.Ratio)... }>
+		{ children... }
+	</mt-aspect-ratio>
+}

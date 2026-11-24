@@ -1,0 +1,45 @@
+package mt
+
+// ScrollAreaProps mirrors Mantine's ScrollArea. Height/width come from the
+// Base style props (H, Mah, W, Maw).
+type ScrollAreaProps struct {
+	Base
+	Type             string // hover (default) | scroll | always | auto | never
+	ScrollbarSize    string // default 8 (px)
+	ScrollHideDelay  int    // ms, default 1000
+	OffsetScrollbars string // "" (false) | true | x | y
+	Scrollbars       string // x | y | xy (default)
+}
+
+templ ScrollArea(p ScrollAreaProps) {
+	<mt-scroll-area
+		{ attrs(p.Base,
+			"type", p.Type, "scrollbar-size", p.ScrollbarSize, "scroll-hide-delay", p.ScrollHideDelay,
+			"offset-scrollbars", p.OffsetScrollbars, "scrollbars", p.Scrollbars,
+		)... }
+	>
+		{ children... }
+	</mt-scroll-area>
+}
+
+// ScrollAreaAutosizeProps mirrors Mantine's ScrollArea.Autosize. The viewport
+// grows with its content up to Base.Mah before scrolling kicks in.
+type ScrollAreaAutosizeProps struct {
+	Base
+	Type             string
+	ScrollbarSize    string
+	ScrollHideDelay  int
+	OffsetScrollbars string
+	Scrollbars       string
+}
+
+templ ScrollAreaAutosize(p ScrollAreaAutosizeProps) {
+	<mt-scroll-area-autosize
+		{ attrs(p.Base,
+			"type", p.Type, "scrollbar-size", p.ScrollbarSize, "scroll-hide-delay", p.ScrollHideDelay,
+			"offset-scrollbars", p.OffsetScrollbars, "scrollbars", p.Scrollbars,
+		)... }
+	>
+		{ children... }
+	</mt-scroll-area-autosize>
+}

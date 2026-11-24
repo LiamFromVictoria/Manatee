@@ -1,0 +1,101 @@
+package appcards
+
+import "github.com/you/manatee/mt"
+
+type statsRingCardStat struct {
+	Value, Label string
+}
+
+var statsRingCardStats = []statsRingCardStat{
+	{"447", "Remaining"},
+	{"76", "In progress"},
+}
+
+var statsRingCardCSS = templ.NewOnceHandle()
+
+// StatsRingCard ports ui.mantine.dev StatsRingCard: a two-column card (stacked
+// below the xs breakpoint) pairing a task summary with a progress ring.
+templ StatsRingCard() {
+	@statsRingCardCSS.Once() {
+		<style>
+			.stats-ring-card__card {
+				background-color: var(--mt-color-body);
+			}
+			.stats-ring-card__label {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 700;
+				line-height: 1;
+			}
+			.stats-ring-card__lead {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 700;
+				font-size: 22px;
+				line-height: 1;
+			}
+			.stats-ring-card__inner {
+				display: flex;
+				@media (max-width: 36em) {
+					flex-direction: column;
+				}
+			}
+			.stats-ring-card__ring {
+				flex: 1;
+				display: flex;
+				justify-content: flex-end;
+				@media (max-width: 36em) {
+					justify-content: center;
+					margin-top: var(--mt-spacing-md);
+				}
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{WithBorder: true, Padding: mt.XL, Radius: mt.MD, Base: mt.Base{Class: "stats-ring-card__card"}}) {
+		<div class="stats-ring-card__inner">
+			<div>
+				@mt.Text(mt.TextProps{Size: mt.XL, Base: mt.Base{Class: "stats-ring-card__label"}}) {
+					Project tasks
+				}
+				<div>
+					@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-ring-card__lead", Mt: "30"}}) {
+						1887
+					}
+					@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+						Completed
+					}
+				</div>
+				@mt.Group(mt.GroupProps{Base: mt.Base{Mt: mt.LG}}) {
+					for _, s := range statsRingCardStats {
+						<div>
+							@mt.Text(mt.TextProps{Base: mt.Base{Class: "stats-ring-card__label"}}) {
+								{ s.Value }
+							}
+							@mt.Text(mt.TextProps{Size: mt.XS, C: mt.Dimmed}) {
+								{ s.Label }
+							}
+						</div>
+					}
+				}
+			</div>
+			<div class="stats-ring-card__ring">
+				@mt.RingProgress(mt.RingProgressProps{
+					RoundCaps: true,
+					Thickness: 6,
+					Size:      150,
+					Sections:  []mt.RingProgressSection{{Value: 80.84, Color: mt.Primary}},
+					Label:     statsRingCardRingLabel(),
+				})
+			</div>
+		</div>
+	}
+}
+
+templ statsRingCardRingLabel() {
+	<div>
+		@mt.Text(mt.TextProps{Ta: "center", Size: "lg", Base: mt.Base{Class: "stats-ring-card__label"}}) {
+			81%
+		}
+		@mt.Text(mt.TextProps{Ta: "center", Size: mt.XS, C: mt.Dimmed}) {
+			Completed
+		}
+	</div>
+}

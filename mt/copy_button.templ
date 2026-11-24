@@ -1,0 +1,16 @@
+package mt
+
+// CopyButtonProps mirrors Mantine's CopyButton.
+type CopyButtonProps struct {
+	Base
+	Value   string
+	Timeout int             // ms, default 1000
+	Copied  templ.Component // shown only while copied
+}
+
+templ CopyButton(p CopyButtonProps) {
+	<mt-copy-button { attrs(p.Base, "value", p.Value, "timeout", p.Timeout)... }>
+		{ children... }
+		@slot("copied", p.Copied)
+	</mt-copy-button>
+}

@@ -1,0 +1,47 @@
+package authentication
+
+import "github.com/you/manatee/mt"
+
+var authenticationTitleCSS = templ.NewOnceHandle()
+
+// AuthenticationTitle ports ui.mantine.dev AuthenticationTitle: a centered
+// login card with a title and "create account" anchor above it.
+templ AuthenticationTitle() {
+	@authenticationTitleCSS.Once() {
+		<style>
+			.authentication-title__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+			}
+			.authentication-title__subtitle {
+				color: var(--mt-color-dimmed);
+				font-size: var(--mt-font-size-sm);
+				text-align: center;
+				margin-top: 5px;
+			}
+		</style>
+	}
+	@mt.Container(mt.ContainerProps{Size: "420", Base: mt.Base{My: "40"}}) {
+		@mt.Title(mt.TitleProps{Ta: "center", Base: mt.Base{Class: "authentication-title__title"}}) {
+			Welcome back!
+		}
+		@mt.Text(mt.TextProps{Base: mt.Base{Class: "authentication-title__subtitle"}}) {
+			Do not have an account yet? @mt.Anchor(mt.AnchorProps{}) {
+				Create account
+			}
+		}
+		@mt.Paper(mt.PaperProps{WithBorder: true, Shadow: "sm", Radius: mt.MD, Base: mt.Base{P: "22", Mt: "30"}}) {
+			@mt.TextInput(mt.TextInputProps{Label: "Email", Placeholder: "you@mantine.dev", Required: true, Radius: mt.MD})
+			@mt.PasswordInput(mt.PasswordInputProps{Label: "Password", Placeholder: "Your password", Required: true, Radius: mt.MD, Base: mt.Base{Mt: mt.MD}})
+			@mt.Group(mt.GroupProps{Justify: "space-between", Base: mt.Base{Mt: mt.LG}}) {
+				@mt.Checkbox(mt.CheckboxProps{Label: "Remember me"})
+				@mt.Anchor(mt.AnchorProps{Size: mt.SM}) {
+					Forgot password?
+				}
+			}
+			@mt.Button(mt.ButtonProps{FullWidth: true, Radius: mt.MD, Base: mt.Base{Mt: mt.XL}}) {
+				Sign in
+			}
+		}
+	}
+}

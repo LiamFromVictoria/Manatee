@@ -1,0 +1,20 @@
+package mt
+
+// UnstyledButtonProps mirrors Mantine's UnstyledButton.
+type UnstyledButtonProps struct {
+	Base
+	Type     string // button (default) | submit | reset
+	Href     string
+	Target   string
+	Disabled bool
+}
+
+templ UnstyledButton(p UnstyledButtonProps) {
+	<mt-unstyled-button
+		{ attrs(p.Base,
+			"type", p.Type, "href", p.Href, "target", p.Target, "disabled", p.Disabled,
+		)... }
+	>
+		{ children... }
+	</mt-unstyled-button>
+}

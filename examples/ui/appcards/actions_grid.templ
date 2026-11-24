@@ -1,0 +1,75 @@
+package appcards
+
+import (
+	"github.com/you/manatee/icons"
+	"github.com/you/manatee/mt"
+)
+
+type actionsGridItem struct {
+	Title string
+	Icon  func(...icons.Props) templ.Component
+	Color string
+}
+
+var actionsGridItems = []actionsGridItem{
+	{"Credit cards", icons.IconCreditCard, "violet"},
+	{"Banks nearby", icons.IconBuildingBank, "indigo"},
+	{"Transfers", icons.IconRepeat, "blue"},
+	{"Refunds", icons.IconReceiptRefund, "green"},
+	{"Receipts", icons.IconReceipt, "teal"},
+	{"Taxes", icons.IconReceiptTax, "cyan"},
+	{"Reports", icons.IconReport, "pink"},
+	{"Payments", icons.IconCoin, "red"},
+	{"Cashback", icons.IconCashBanknote, "orange"},
+}
+
+var actionsGridCSS = templ.NewOnceHandle()
+
+// ActionsGrid ports ui.mantine.dev ActionsGrid: a card with a header row and a
+// 3-column grid of unstyled-button actions, each with a colored icon.
+templ ActionsGrid() {
+	@actionsGridCSS.Once() {
+		<style>
+			.actions-grid__card {
+				background-color: light-dark(var(--mt-color-gray-0), var(--mt-color-dark-7));
+			}
+			.actions-grid__title {
+				font-family: Outfit, var(--mt-font-family);
+				font-weight: 500;
+			}
+			.actions-grid__item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				border-radius: var(--mt-radius-md);
+				height: 90px;
+				background-color: light-dark(var(--mt-white), var(--mt-color-dark-6));
+				transition: box-shadow 150ms ease, transform 100ms ease;
+				&:hover {
+					box-shadow: var(--mt-shadow-sm);
+					transform: scale(1.02);
+				}
+			}
+		</style>
+	}
+	@mt.Card(mt.CardProps{WithBorder: true, Radius: mt.MD, Base: mt.Base{Class: "actions-grid__card"}}) {
+		@mt.Group(mt.GroupProps{Justify: "space-between"}) {
+			<p class="actions-grid__title">Services</p>
+			@mt.Anchor(mt.AnchorProps{C: "inherit", Size: mt.XS}) {
+				+ 21 other services
+			}
+		}
+		@mt.SimpleGrid(mt.SimpleGridProps{Cols: 3, Base: mt.Base{Mt: mt.MD}}) {
+			for _, item := range actionsGridItems {
+				@mt.UnstyledButton(mt.UnstyledButtonProps{Base: mt.Base{Class: "actions-grid__item"}}) {
+					@item.Icon(icons.Props{Size: 32, Stroke: 1.5, Color: "var(--mt-color-" + item.Color + "-6)"})
+					@mt.Text(mt.TextProps{Size: mt.XS, Base: mt.Base{Mt: "7"}}) {
+						{ item.Title }
+					}
+				}
+			}
+		}
+	}
+}

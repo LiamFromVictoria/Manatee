@@ -32,7 +32,7 @@ export class MtOverlay extends MtElement {
   static props: Props = {
     color: { default: '#000' },
     backgroundOpacity: { type: 'number', default: 0.6 },
-    blur: { type: 'number' },
+    backdropBlur: { attr: 'blur', type: 'number' },
     gradient: {},
     radius: { css: '--_radius', scale: 'radius' },
     zIndex: { css: '--_z', scale: 'raw', type: 'number', default: 200 },
@@ -42,7 +42,7 @@ export class MtOverlay extends MtElement {
 
   declare color: string | null;
   declare backgroundOpacity: number | null;
-  declare blur: number | null;
+  declare backdropBlur: number | null;
   declare gradient: string | null;
 
   protected template(): string {
@@ -58,8 +58,8 @@ export class MtOverlay extends MtElement {
       if (this.gradient) this.style.setProperty('--_gradient', this.gradient);
       else this.style.removeProperty('--_gradient');
     }
-    if (changed.has('blur')) {
-      if (this.blur) this.style.setProperty('--_filter', `blur(${this.blur / 16}rem)`);
+    if (changed.has('backdropBlur')) {
+      if (this.backdropBlur) this.style.setProperty('--_filter', `blur(${this.backdropBlur / 16}rem)`);
       else this.style.removeProperty('--_filter');
     }
   }
